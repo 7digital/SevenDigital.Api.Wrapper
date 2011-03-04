@@ -14,7 +14,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 	{
 		private readonly string _apiUrl = ConfigurationManager.AppSettings["Wrapper.BaseUrl"];
 		private readonly string _consumerKey = ConfigurationManager.AppSettings["Wrapper.ConsumerKey"];
-		private readonly IUrlResolver _urlResolver = MockRepository.GenerateMock<IUrlResolver>();
+		private IUrlResolver _urlResolver = MockRepository.GenerateMock<IUrlResolver>();
 
 		[Test]
 		public void Should_fire_resolve_with_correct_values()
@@ -41,6 +41,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		[Test]
 		public void Should_throw_api_exception_with_correct_error_if_error_xml_received()
 		{
+			_urlResolver = MockRepository.GenerateMock<IUrlResolver>();
 			_urlResolver.Stub(x => x.Resolve(null, "", null))
 				.IgnoreArguments()
 				.Return("<response status=\"error\" version=\"1.2\"><error code=\"1001\"><errorMessage>Missing parameter \"tags\".</errorMessage></error></response>");

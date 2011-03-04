@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Repository\StatusEndpointTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Http\EndpointResolverTests.cs" />
     <Compile Include="Utility\Http\HttpGetResolverTests.cs" />
     <Compile Include="Utility\Serialization\SerializationTests.cs" />
   </ItemGroup>
