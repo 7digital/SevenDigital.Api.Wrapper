@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace SevenDigital.Api.Wrapper.DTO
+namespace SevenDigital.Api.Wrapper.Schema
 {
 	[Serializable]
 	[XmlRoot("serviceStatus")]

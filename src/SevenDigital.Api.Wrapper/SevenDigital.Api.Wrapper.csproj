@@ -41,14 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Schema\Artist.cs" />
+    <Compile Include="Schema\Currency.cs" />
+    <Compile Include="Schema\Format.cs" />
+    <Compile Include="Schema\FormatList.cs" />
+    <Compile Include="Schema\Label.cs" />
+    <Compile Include="Schema\Licensor.cs" />
+    <Compile Include="Schema\Price.cs" />
+    <Compile Include="Schema\Release.cs" />
+    <Compile Include="Schema\ReleaseType.cs" />
+    <Compile Include="Schema\Track.cs" />
     <Compile Include="Repository\ApiException.cs" />
     <Compile Include="Repository\EndpointResolver.cs" />
     <Compile Include="Repository\IEndpointRepository.cs" />
     <Compile Include="Repository\IEndpointResolver.cs" />
     <Compile Include="Repository\StatusEndpoint.cs" />
     <Compile Include="Utility\Serialization\ISerializer.cs" />
-    <Compile Include="DTO\Status.cs" />
-    <Compile Include="DTO\Error.cs" />
+    <Compile Include="Schema\Status.cs" />
+    <Compile Include="Schema\Error.cs" />
     <Compile Include="Utility\Http\HttpGetResolver.cs" />
     <Compile Include="Utility\Http\IUrlResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.DTO;
+using SevenDigital.Api.Wrapper.Schema;
 using SevenDigital.Api.Wrapper.Repository;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
