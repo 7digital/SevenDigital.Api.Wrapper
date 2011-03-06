@@ -16,7 +16,7 @@ var artist = new FluentApi<Artist>()
 		
 or similar.
 
-Type knows about it's endpoint via the [ApiEndpoint] attribute, e.g
+Type knows about its endpoint via the [ApiEndpoint] attribute, e.g
 
 [ApiEndpoint("artist/details")]
 public class Artist{}
