@@ -30,6 +30,6 @@ namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 		public int TotalItems { get; set; }
 
 		[XmlElement("chartItem")]
-		public List<ChartItem> ChartItems { get; set; }
+		public List<ArtistChartItem> ChartItems { get; set; }
 	}
 }

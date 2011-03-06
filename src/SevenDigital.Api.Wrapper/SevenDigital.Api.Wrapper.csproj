@@ -54,7 +54,7 @@
     <Compile Include="Schema\ArtistEndpoint\ArtistSearchResult.cs" />
     <Compile Include="Schema\ArtistEndpoint\ArtistTopTracks.cs" />
     <Compile Include="Schema\Attributes\ApiEndpointAttribute.cs" />
-    <Compile Include="Schema\Chart\ChartItem.cs" />
+    <Compile Include="Schema\Chart\ArtistChartItem.cs" />
     <Compile Include="Schema\Chart\ChartItemChange.cs" />
     <Compile Include="Schema\Chart\ChartType.cs" />
     <Compile Include="Schema\Pricing\Currency.cs" />
@@ -72,6 +72,7 @@
     <Compile Include="Schema\ReleaseEndpoint\ReleaseSearch.cs" />
     <Compile Include="Schema\ReleaseEndpoint\ReleaseSearchResult.cs" />
     <Compile Include="Schema\ReleaseEndpoint\ReleaseType.cs" />
+    <Compile Include="Schema\TrackEndpoint\TrackChart.cs" />
     <Compile Include="Schema\TrackEndpoint\Track.cs" />
     <Compile Include="EndpointResolution\EndpointResolver.cs" />
     <Compile Include="EndpointResolution\IEndpointResolver.cs" />

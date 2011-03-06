@@ -2,21 +2,21 @@
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Schema.Chart;
-using SevenDigital.Api.Wrapper.Schema.ReleaseEndpoint;
+using SevenDigital.Api.Wrapper.Schema.TrackEndpoint;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
-namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointTests.ReleaseEndpoint
+namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointTests.TrackEndpoint
 {
 	[TestFixture]
 	[Category("Integration")]
-	public class ReleaseChartTests
+	public class TrackChartTests
 	{
 		[Test]
 		public void Can_hit_endpoint()
 		{
 			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
 
-			ReleaseChart release = new FluentApi<ReleaseChart>(httpGetResolver)
+			TrackChart release = new FluentApi<TrackChart>(httpGetResolver)
 				.WithParameter("fromDate", "20110101")
 				.WithParameter("toDate", "20110301")
 				.WithParameter("country", "GB")
@@ -26,7 +26,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointTests.ReleaseEndpoint
 			Assert.That(release.ChartItems.Count, Is.GreaterThan(0));
 			Assert.That(release.FromDate, Is.GreaterThan(new DateTime(2011, 01, 01)));
 			Assert.That(release.ToDate, Is.EqualTo(new DateTime(2011, 03, 01)));
-			Assert.That(release.Type, Is.EqualTo(ChartType.album));
+			Assert.That(release.Type, Is.EqualTo(ChartType.track));
+
 		}
 
 		[Test]
@@ -34,7 +35,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointTests.ReleaseEndpoint
 		{
 			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
 
-			ReleaseChart artistBrowse = new FluentApi<ReleaseChart>(httpGetResolver)
+			TrackChart artistBrowse = new FluentApi<TrackChart>(httpGetResolver)
 				.WithParameter("fromDate", "20090610")
 				.WithParameter("toDate", "20110101")
 				.WithParameter("page", "2")

@@ -4,12 +4,12 @@ using System.Xml.Serialization;
 using SevenDigital.Api.Wrapper.Schema.Attributes;
 using SevenDigital.Api.Wrapper.Schema.Chart;
 
-namespace SevenDigital.Api.Wrapper.Schema.ReleaseEndpoint
+namespace SevenDigital.Api.Wrapper.Schema.TrackEndpoint
 {
 	[Serializable]
-	[ApiEndpoint("release/chart")]
+	[ApiEndpoint("track/chart")]
 	[XmlRoot("chart")]
-	public class ReleaseChart
+	public class TrackChart
 	{
 		[XmlElement("page")]
 		public int Page { get; set; }
@@ -30,6 +30,6 @@ namespace SevenDigital.Api.Wrapper.Schema.ReleaseEndpoint
 		public DateTime ToDate { get; set; }
 
 		[XmlElement("chartItem")]
-		public List<ReleaseChartItem> ChartItems { get; set; }
+		public List<TrackChartItem> ChartItems { get; set; }
 	}
 }
