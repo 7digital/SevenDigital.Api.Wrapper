@@ -76,6 +76,7 @@
     <Compile Include="Schema\TrackEndpoint\Track.cs" />
     <Compile Include="EndpointResolution\EndpointResolver.cs" />
     <Compile Include="EndpointResolution\IEndpointResolver.cs" />
+    <Compile Include="Schema\TrackEndpoint\TrackExtensions.cs" />
     <Compile Include="Utility\Serialization\ISerializer.cs" />
     <Compile Include="Schema\Status.cs" />
     <Compile Include="Schema\Error.cs" />

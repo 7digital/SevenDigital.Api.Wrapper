@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Wrapper
 	{
 		private readonly EndPointState _endPointState = new EndPointState();
 		private readonly IEndpointResolver _endpointResolver;
-
+		
 		public FluentApi(IEndpointResolver endpointResolver)
 		{
 			_endpointResolver = endpointResolver;
@@ -31,7 +31,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public IFluentApi<T> WithParameter(string parameterName, string parameterValue)
 		{
-			_endPointState.Parameters.Add(parameterName, parameterValue);
+			_endPointState.Parameters.Set(parameterName, parameterValue);
 			return this;
 		}
 
