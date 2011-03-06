@@ -26,7 +26,7 @@ namespace SevenDigital.Api.Wrapper.Schema
 		public bool ExplicitContent { get; set; }
 
 		[XmlElement("isrc")]
-		public bool Isrc { get; set; }
+		public string Isrc { get; set; }
 
 		[XmlElement("release")]
 		public Release Release { get; set; }

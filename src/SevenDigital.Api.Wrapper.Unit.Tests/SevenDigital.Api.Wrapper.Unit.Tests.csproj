@@ -48,12 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EndpointTests\ArtistBrowseTests.cs" />
-    <Compile Include="EndpointTests\ArtistChartTests.cs" />
-    <Compile Include="EndpointTests\ArtistDetailsTests.cs" />
-    <Compile Include="EndpointTests\ArtistReleasesTests.cs" />
-    <Compile Include="EndpointTests\ArtistSearchTests.cs" />
-    <Compile Include="EndpointTests\ReleaseDetailsTests.cs" />
+    <Compile Include="EndpointTests\ArtistEndpoint\ArtistBrowseTests.cs" />
+    <Compile Include="EndpointTests\ArtistEndpoint\ArtistChartTests.cs" />
+    <Compile Include="EndpointTests\ArtistEndpoint\ArtistDetailsTests.cs" />
+    <Compile Include="EndpointTests\ArtistEndpoint\ArtistReleasesTests.cs" />
+    <Compile Include="EndpointTests\ArtistEndpoint\ArtistSearchTests.cs" />
+    <Compile Include="EndpointTests\ArtistEndpoint\ArtistTopTracksTests.cs" />
+    <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseByDateTests.cs" />
+    <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseChartTests.cs" />
+    <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseDetailsTests.cs" />
+    <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseRecommendTests.cs" />
+    <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseSearchTests.cs" />
     <Compile Include="EndpointTests\StatusTests.cs" />
     <Compile Include="FluentAPITests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +77,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="EndpointTests\AuthenticationEndpoint\" />
+    <Folder Include="EndpointTests\BasketEndpoint\" />
+    <Folder Include="EndpointTests\LockerEndpoint\" />
+    <Folder Include="EndpointTests\MediaEndpoint\" />
+    <Folder Include="EndpointTests\PurchasingEndpoint\" />
+    <Folder Include="EndpointTests\TrackEndpoint\" />
     <Folder Include="Repository\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

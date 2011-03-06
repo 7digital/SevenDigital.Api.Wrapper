@@ -5,6 +5,7 @@ using System.Net;
 using System.Xml;
 using NUnit.Framework;
 using Rhino.Mocks;
+using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Repository;
 using SevenDigital.Api.Wrapper.Utility.Http;
