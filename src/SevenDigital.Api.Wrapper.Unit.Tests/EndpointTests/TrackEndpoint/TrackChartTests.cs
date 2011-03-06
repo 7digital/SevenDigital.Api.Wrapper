@@ -47,22 +47,4 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointTests.TrackEndpoint
 			Assert.That(artistBrowse.PageSize, Is.EqualTo(20));
 		}
 	}
-
-	[TestFixture]
-	[Category("Integration")]
-	public class TrackDetailsTests
-	{
-		[Test]
-		public void Can_hit_endpoint()
-		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
-			Track track = new FluentApi<Track>(httpGetResolver)
-				.WithTrackId(12345)
-				.Resolve();
-
-			Assert.That(track, Is.Not.Null);
-			Assert.That(track.Title, Is.EqualTo("I Love You"));
-			Assert.That(track.Artist.Name, Is.EqualTo("The Dandy Warhols"));
-		}
-	}
 }

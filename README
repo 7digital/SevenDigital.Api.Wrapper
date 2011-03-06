@@ -1,0 +1,21 @@
+Current usage:
+
+artist/details endpoint
+Artist artist = new FluentApi<Artist>()
+						.WithParameter("artistId", "1")
+						.Resolve()
+
+Not all endpoints implemented yet, just Artist and some of Release.
+
+Would like to move to this eventually:
+
+var artist = new FluentApi<Artist>()
+					.With.ArtistId(1)
+					.For.Country("GB")
+					.Resolve()
+or similar.
+
+Type knows about it's endpoint via the [ApiEndpoint] attribute, e.g
+
+[ApiEndpoint("artist/details")]
+public class Artist{}
