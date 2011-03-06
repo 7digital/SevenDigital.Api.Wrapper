@@ -47,7 +47,12 @@
     <Compile Include="Repository\IFluentApi.cs" />
     <Compile Include="Repository\NameValueCollectionExtensions.cs" />
     <Compile Include="Schema\Artist.cs" />
+    <Compile Include="Schema\ArtistBrowse.cs" />
+    <Compile Include="Schema\ArtistChart.cs" />
+    <Compile Include="Schema\ArtistReleases.cs" />
     <Compile Include="Schema\Attributes\ApiEndpointAttribute.cs" />
+    <Compile Include="Schema\ChartItem.cs" />
+    <Compile Include="Schema\ChartType.cs" />
     <Compile Include="Schema\Currency.cs" />
     <Compile Include="Schema\Format.cs" />
     <Compile Include="Schema\FormatList.cs" />

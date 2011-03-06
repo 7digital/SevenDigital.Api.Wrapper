@@ -11,13 +11,13 @@ namespace SevenDigital.Api.Wrapper.Schema
 		public Currency Currency { get; set; }
 
 		[XmlElement("value")]
-		public int Value { get; set; }
+		public string Value { get; set; }
 
 		[XmlElement("formattedPrice")]
-		public int FormattedPrice { get; set; }
+		public string FormattedPrice { get; set; }
 
 		[XmlElement("rrp")]
-		public decimal Rrp { get; set; }
+		public string Rrp { get; set; }
 
 		[XmlElement("formattedRrp")]
 		public string FormattedRrp { get; set; }

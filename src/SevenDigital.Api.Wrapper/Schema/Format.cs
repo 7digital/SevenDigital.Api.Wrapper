@@ -14,7 +14,7 @@ namespace SevenDigital.Api.Wrapper.Schema
 		public string FileFormat { get; set; }
 
 		[XmlElement("bitRate")]
-		public int BitRate { get; set; }
+		public string BitRate { get; set; }
 		
 		[XmlElement("drmFree")]
 		public bool DrmFree { get; set; }

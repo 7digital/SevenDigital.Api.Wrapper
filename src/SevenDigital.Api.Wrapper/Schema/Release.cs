@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Xml.Serialization;
+using SevenDigital.Api.Wrapper.Schema.Attributes;
 
 namespace SevenDigital.Api.Wrapper.Schema
 {
 	[Serializable]
 	[XmlRoot("release")]
+	[ApiEndpoint("release/details")]
 	public class Release
 	{
 		[XmlAttribute("id")]
@@ -49,7 +51,7 @@ namespace SevenDigital.Api.Wrapper.Schema
 		[XmlElement("formats")]
 		public FormatList Formats {get;set;}
 
-		[XmlElement("Label")]
+		[XmlElement("label")]
 		public Label Label { get; set; }
 
 		[XmlElement("licensor")]

@@ -48,7 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EndpointTests\ArtistBrowseTests.cs" />
+    <Compile Include="EndpointTests\ArtistChartTests.cs" />
     <Compile Include="EndpointTests\ArtistDetailsTests.cs" />
+    <Compile Include="EndpointTests\ArtistReleasesTests.cs" />
+    <Compile Include="EndpointTests\ArtistSearchTests.cs" />
+    <Compile Include="EndpointTests\ReleaseDetailsTests.cs" />
     <Compile Include="EndpointTests\StatusTests.cs" />
     <Compile Include="FluentAPITests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
