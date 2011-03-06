@@ -41,7 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ApiXmlException.cs" />
+    <Compile Include="Repository\EndPointState.cs" />
+    <Compile Include="Repository\FluentApi.cs" />
+    <Compile Include="Repository\IFluentApi.cs" />
+    <Compile Include="Repository\NameValueCollectionExtensions.cs" />
     <Compile Include="Schema\Artist.cs" />
+    <Compile Include="Schema\Attributes\ApiEndpointAttribute.cs" />
     <Compile Include="Schema\Currency.cs" />
     <Compile Include="Schema\Format.cs" />
     <Compile Include="Schema\FormatList.cs" />
@@ -51,11 +57,8 @@
     <Compile Include="Schema\Release.cs" />
     <Compile Include="Schema\ReleaseType.cs" />
     <Compile Include="Schema\Track.cs" />
-    <Compile Include="Repository\ApiException.cs" />
     <Compile Include="Repository\EndpointResolver.cs" />
-    <Compile Include="Repository\IEndpointRepository.cs" />
     <Compile Include="Repository\IEndpointResolver.cs" />
-    <Compile Include="Repository\StatusEndpoint.cs" />
     <Compile Include="Utility\Serialization\ISerializer.cs" />
     <Compile Include="Schema\Status.cs" />
     <Compile Include="Schema\Error.cs" />

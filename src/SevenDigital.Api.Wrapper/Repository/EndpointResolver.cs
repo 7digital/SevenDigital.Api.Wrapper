@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Net;
 using System.Xml;
+using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Repository
@@ -20,10 +21,12 @@ namespace SevenDigital.Api.Wrapper.Repository
 
 		public XmlNode HitEndpoint(string endPoint, string methodName, NameValueCollection querystring)
 		{
-			string output = GetEndpointOutput(endPoint, methodName);
+			if(querystring == null)
+				throw new ArgumentException("querystring parameter cannot be null, please instantiate");
+
+			string output = GetEndpointOutput(endPoint, methodName, querystring.ToQueryString() );
 			XmlNode response = GetResponseNode(output);
 			AssertError(response);
-
 			return response.FirstChild;
 		}
 
@@ -31,7 +34,7 @@ namespace SevenDigital.Api.Wrapper.Repository
 		{
 			string statusAttribute = response.Attributes["status"].Value;
 			if (statusAttribute == "error")
-				throw new ApiException("An error has occured in the Api", response.FirstChild);
+				throw new ApiXmlException("An error has occured in the Api", response.FirstChild);
 		}
 
 		private static XmlNode GetResponseNode(string output)
@@ -41,9 +44,9 @@ namespace SevenDigital.Api.Wrapper.Repository
 			return xml.SelectSingleNode("/response");
 		}
 
-		private string GetEndpointOutput(string endPoint, string methodName)
+		private string GetEndpointOutput(string endPoint, string methodName, string querystring)
 		{
-			var endpointUri = new Uri(string.Format("{0}/{1}?oauth_consumer_key={2}", _apiUrl, endPoint, _consumerKey));
+			var endpointUri = new Uri(string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", _apiUrl, endPoint, _consumerKey, querystring).Trim('&'));
 			return _urlResolver.Resolve(endpointUri, methodName, new WebHeaderCollection());
 		}
 	}

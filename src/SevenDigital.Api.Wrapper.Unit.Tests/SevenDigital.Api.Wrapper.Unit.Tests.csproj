@@ -48,10 +48,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repository\StatusEndpointTests.cs" />
+    <Compile Include="EndpointTests\ArtistDetailsTests.cs" />
+    <Compile Include="EndpointTests\StatusTests.cs" />
+    <Compile Include="FluentAPITests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Http\EndpointResolverTests.cs" />
     <Compile Include="Utility\Http\HttpGetResolverTests.cs" />
+    <Compile Include="Utility\Http\NameValueExtensionsTests.cs" />
     <Compile Include="Utility\Serialization\SerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,7 +66,9 @@
       <Name>SevenDigital.Api.Wrapper</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Repository\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

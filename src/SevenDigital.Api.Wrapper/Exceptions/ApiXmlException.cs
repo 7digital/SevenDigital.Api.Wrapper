@@ -3,12 +3,12 @@ using System.Xml;
 using SevenDigital.Api.Wrapper.Schema;
 using SevenDigital.Api.Wrapper.Utility.Serialization;
 
-namespace SevenDigital.Api.Wrapper.Repository
+namespace SevenDigital.Api.Wrapper.Exceptions
 {
-	public class ApiException : Exception
+	public class ApiXmlException : Exception
 	{
 		public Error Error { get; set; }
-		public ApiException(string message, XmlNode errorXml) : base(message)
+		public ApiXmlException(string message, XmlNode errorXml) : base(message)
 		{
 			var xmlSerializer = new XmlSerializer<Error>();
 			Error = xmlSerializer.DeSerialize(errorXml);
