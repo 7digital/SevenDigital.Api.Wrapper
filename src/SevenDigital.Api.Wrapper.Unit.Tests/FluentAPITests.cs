@@ -4,7 +4,6 @@ using System.Xml;
 using NUnit.Framework;
 using Rhino.Mocks;
 using SevenDigital.Api.Wrapper.EndpointResolution;
-using SevenDigital.Api.Wrapper.Repository;
 using SevenDigital.Api.Wrapper.Schema;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests

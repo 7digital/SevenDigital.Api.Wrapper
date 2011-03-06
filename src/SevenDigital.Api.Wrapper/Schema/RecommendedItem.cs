@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using SevenDigital.Api.Wrapper.Schema.ReleaseEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Schema
 {

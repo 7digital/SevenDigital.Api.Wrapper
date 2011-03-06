@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Xml;
 using SevenDigital.Api.Wrapper.EndpointResolution;
-using SevenDigital.Api.Wrapper.Repository;
 using SevenDigital.Api.Wrapper.Schema.Attributes;
 using SevenDigital.Api.Wrapper.Utility.Serialization;
 

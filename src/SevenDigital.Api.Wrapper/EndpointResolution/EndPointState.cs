@@ -1,6 +1,6 @@
 ﻿using System.Collections.Specialized;
 
-namespace SevenDigital.Api.Wrapper.Repository
+namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
 	public class EndPointState
 	{

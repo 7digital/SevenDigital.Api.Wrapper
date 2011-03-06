@@ -1,7 +1,6 @@
 ﻿using System.Collections.Specialized;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
-using SevenDigital.Api.Wrapper.Repository;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 {
