@@ -43,7 +43,7 @@ namespace SevenDigital.Api.Wrapper.Schema
 		[XmlElement("totalItems")]
 		public int TotalItems { get; set; }
 
-		[XmlArray("artist")]
+		[XmlElement("artist")]
 		public List<Artist> Artists { get; set; }
 	}
 }

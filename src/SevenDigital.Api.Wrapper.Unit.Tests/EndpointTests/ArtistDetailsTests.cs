@@ -1,7 +1,11 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.Xml;
+using System.Xml.XPath;
+using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Repository;
 using SevenDigital.Api.Wrapper.Schema;
 using SevenDigital.Api.Wrapper.Utility.Http;
+using SevenDigital.Api.Wrapper.Utility.Serialization;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointTests
 {
