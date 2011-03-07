@@ -1,11 +1,10 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
-using SevenDigital.Api.Wrapper.Schema;
 using SevenDigital.Api.Wrapper.Schema.ArtistEndpoint;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
-namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointTests.ArtistEndpoint
+namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint
 {
 	[TestFixture]
 	[Category("Integration")]

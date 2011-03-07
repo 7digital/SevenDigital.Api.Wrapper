@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8B74D4BA-15E9-4278-AD2F-2709621873DE}</ProjectGuid>
+    <ProjectGuid>{7E73372C-F9A3-4078-8D01-E2BB79B15A84}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SevenDigital.Api.Wrapper.Unit.Tests</RootNamespace>
-    <AssemblyName>SevenDigital.Api.Wrapper.Unit.Tests</AssemblyName>
+    <RootNamespace>SevenDigital.Api.Wrapper.Integration.Tests</RootNamespace>
+    <AssemblyName>SevenDigital.Api.Wrapper.Integration.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,15 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="nunit.framework">
       <HintPath>..\..\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Rhino.Mocks">
-      <HintPath>..\..\lib\Rhino.Mocks.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,15 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FluentAPITests.cs" />
+    <Compile Include="EndpointTests\ArtistEndpoint\ArtistBrowseTests.cs" />
+    <Compile Include="EndpointTests\ArtistEndpoint\ArtistChartTests.cs" />
+    <Compile Include="EndpointTests\ArtistEndpoint\ArtistDetailsTests.cs" />
+    <Compile Include="EndpointTests\ArtistEndpoint\ArtistReleasesTests.cs" />
+    <Compile Include="EndpointTests\ArtistEndpoint\ArtistSearchTests.cs" />
+    <Compile Include="EndpointTests\ArtistEndpoint\ArtistTopTracksTests.cs" />
+    <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseByDateTests.cs" />
+    <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseChartTests.cs" />
+    <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseDetailsTests.cs" />
+    <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseRecommendTests.cs" />
+    <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseSearchTests.cs" />
+    <Compile Include="EndpointTests\StatusTests.cs" />
+    <Compile Include="EndpointTests\TrackEndpoint\TrackChartTests.cs" />
+    <Compile Include="EndpointTests\TrackEndpoint\TrackDetailsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\Http\EndpointResolverTests.cs" />
-    <Compile Include="Utility\Http\HttpGetResolverTests.cs" />
-    <Compile Include="Utility\Http\NameValueExtensionsTests.cs" />
-    <Compile Include="Utility\Serialization\SerializationTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Wrapper\SevenDigital.Api.Wrapper.csproj">
@@ -64,7 +65,16 @@
       <Name>SevenDigital.Api.Wrapper</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="EndpointTests\AuthenticationEndpoint\" />
+    <Folder Include="EndpointTests\BasketEndpoint\" />
+    <Folder Include="EndpointTests\LockerEndpoint\" />
+    <Folder Include="EndpointTests\MediaEndpoint\" />
+    <Folder Include="EndpointTests\PurchasingEndpoint\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

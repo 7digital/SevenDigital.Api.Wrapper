@@ -5,7 +5,7 @@ using SevenDigital.Api.Wrapper.Schema.Chart;
 using SevenDigital.Api.Wrapper.Schema.ReleaseEndpoint;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
-namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointTests.ReleaseEndpoint
+namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoint
 {
 	[TestFixture]
 	[Category("Integration")]

@@ -5,7 +5,7 @@ using SevenDigital.Api.Wrapper.Schema.Chart;
 using SevenDigital.Api.Wrapper.Schema.TrackEndpoint;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
-namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointTests.TrackEndpoint
+namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 {
 	[TestFixture]
 	[Category("Integration")]
