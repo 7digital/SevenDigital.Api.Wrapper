@@ -57,6 +57,7 @@
     <Compile Include="Schema\Chart\ArtistChartItem.cs" />
     <Compile Include="Schema\Chart\ChartItemChange.cs" />
     <Compile Include="Schema\Chart\ChartType.cs" />
+    <Compile Include="Schema\HasPaging.cs" />
     <Compile Include="Schema\Pricing\Currency.cs" />
     <Compile Include="Schema\Media\Format.cs" />
     <Compile Include="Schema\Media\FormatList.cs" />

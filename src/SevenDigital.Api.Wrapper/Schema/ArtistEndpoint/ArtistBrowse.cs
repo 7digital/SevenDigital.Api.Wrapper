@@ -8,17 +8,8 @@ namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 	[Serializable]
 	[ApiEndpoint("artist/browse")]
 	[XmlRoot("artists")]
-	public class ArtistBrowse
+	public class ArtistBrowse : HasPaging
 	{
-		[XmlElement("page")]
-		public int Page { get; set; }
-
-		[XmlElement("pageSize")]
-		public int PageSize { get; set; }
-
-		[XmlElement("totalItems")]
-		public int TotalItems { get; set; }
-
 		[XmlElement("artist")]
 		public List<Artist> Artists { get; set; }
 	}

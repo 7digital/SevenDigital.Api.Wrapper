@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Schema.Attributes;
+using SevenDigital.Api.Wrapper.Utility.Http;
 using SevenDigital.Api.Wrapper.Utility.Serialization;
 
 namespace SevenDigital.Api.Wrapper
@@ -12,6 +13,8 @@ namespace SevenDigital.Api.Wrapper
 		private readonly EndPointState _endPointState = new EndPointState();
 		private readonly IEndpointResolver _endpointResolver;
 		
+		public FluentApi() : this (new EndpointResolver(new HttpGetResolver())){} // TODO: Use IOC library for this
+
 		public FluentApi(IEndpointResolver endpointResolver)
 		{
 			_endpointResolver = endpointResolver;

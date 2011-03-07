@@ -9,17 +9,8 @@ namespace SevenDigital.Api.Wrapper.Schema.TrackEndpoint
 	[Serializable]
 	[ApiEndpoint("track/chart")]
 	[XmlRoot("chart")]
-	public class TrackChart
+	public class TrackChart : HasPaging
 	{
-		[XmlElement("page")]
-		public int Page { get; set; }
-
-		[XmlElement("pageSize")]
-		public int PageSize { get; set; }
-
-		[XmlElement("totalItems")]
-		public int TotalItems { get; set; }
-
 		[XmlElement("type")]
 		public ChartType Type { get; set; }
 

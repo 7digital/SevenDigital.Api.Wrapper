@@ -9,17 +9,8 @@ namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 	[Serializable]
 	[ApiEndpoint("artist/releases")]
 	[XmlRoot("releases")]
-	public class ArtistReleases
+	public class ArtistReleases : HasPaging
 	{
-		[XmlElement("page")]
-		public int Page { get; set; }
-
-		[XmlElement("pageSize")]
-		public int PageSize { get; set; }
-
-		[XmlElement("totalItems")]
-		public int TotalItems { get; set; }
-
 		[XmlElement("release")]
 		public List<Release> Releases { get; set; }
 	}

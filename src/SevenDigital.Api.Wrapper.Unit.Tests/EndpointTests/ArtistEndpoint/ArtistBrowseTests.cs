@@ -13,7 +13,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointTests.ArtistEndpoint
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver()); // TODO: Set up using castle?
+			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
 
 			ArtistBrowse artistBrowse = new FluentApi<ArtistBrowse>(httpGetResolver).WithParameter("letter", "radio").Resolve();
 
@@ -26,7 +26,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointTests.ArtistEndpoint
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver()); // TODO: Set up using castle?
+			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
 
 			ArtistBrowse artistBrowse = new FluentApi<ArtistBrowse>(httpGetResolver)
 				.WithParameter("letter", "radio")

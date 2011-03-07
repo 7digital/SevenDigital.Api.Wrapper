@@ -61,6 +61,7 @@
     <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseSearchTests.cs" />
     <Compile Include="EndpointTests\TrackEndpoint\TrackChartTests.cs" />
     <Compile Include="EndpointTests\StatusTests.cs" />
+    <Compile Include="EndpointTests\TrackEndpoint\TrackDetailsTests.cs" />
     <Compile Include="FluentAPITests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Http\EndpointResolverTests.cs" />

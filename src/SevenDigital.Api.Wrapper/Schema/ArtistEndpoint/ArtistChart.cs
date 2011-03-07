@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 	[Serializable]
 	[ApiEndpoint("artist/chart")]
 	[XmlRoot("chart")]
-	public class ArtistChart
+	public class ArtistChart : HasPaging
 	{
 		[XmlElement("type")]
 		public ChartType Type { get; set; }
@@ -19,15 +19,6 @@ namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 
 		[XmlElement("toDate")]
 		public DateTime ToDate { get; set; }
-
-		[XmlElement("page")]
-		public int Page { get; set; }
-
-		[XmlElement("pageSize")]
-		public int PageSize { get; set; }
-
-		[XmlElement("totalItems")]
-		public int TotalItems { get; set; }
 
 		[XmlElement("chartItem")]
 		public List<ArtistChartItem> ChartItems { get; set; }

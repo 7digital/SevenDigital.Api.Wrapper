@@ -7,17 +7,8 @@ namespace SevenDigital.Api.Wrapper.Schema.ReleaseEndpoint
 	[Serializable]
 	[ApiEndpoint("release/search")]
 	[XmlRoot("searchResults")]
-	public class ReleaseSearch
+	public class ReleaseSearch : HasPaging
 	{
-		[XmlElement("page")]
-		public int Page { get; set; }
-
-		[XmlElement("pageSize")]
-		public int PageSize { get; set; }
-
-		[XmlElement("totalItems")]
-		public int TotalItems { get; set; }
-
 		[XmlElement("searchResult")]
 		public ReleaseSearchResult Results { get; set; }
 	}

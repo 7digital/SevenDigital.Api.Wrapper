@@ -9,17 +9,8 @@ namespace SevenDigital.Api.Wrapper.Schema.ReleaseEndpoint
 	[Serializable]
 	[ApiEndpoint("release/chart")]
 	[XmlRoot("chart")]
-	public class ReleaseChart
+	public class ReleaseChart : HasPaging
 	{
-		[XmlElement("page")]
-		public int Page { get; set; }
-
-		[XmlElement("pageSize")]
-		public int PageSize { get; set; }
-
-		[XmlElement("totalItems")]
-		public int TotalItems { get; set; }
-
 		[XmlElement("type")]
 		public ChartType Type { get; set; }
 
