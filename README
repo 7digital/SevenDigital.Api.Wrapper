@@ -20,3 +20,5 @@ Type knows about its endpoint via the [ApiEndpoint] attribute, e.g
 
 [ApiEndpoint("artist/details")]
 public class Artist{}
+
+See example usage console app project for some more examples.
