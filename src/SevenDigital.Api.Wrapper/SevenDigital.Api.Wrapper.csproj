@@ -73,6 +73,7 @@
     <Compile Include="Schema\ReleaseEndpoint\ReleaseSearch.cs" />
     <Compile Include="Schema\ReleaseEndpoint\ReleaseSearchResult.cs" />
     <Compile Include="Schema\ReleaseEndpoint\ReleaseType.cs" />
+    <Compile Include="Schema\Tags.cs" />
     <Compile Include="Schema\TrackEndpoint\TrackChart.cs" />
     <Compile Include="Schema\TrackEndpoint\Track.cs" />
     <Compile Include="EndpointResolution\EndpointResolver.cs" />
