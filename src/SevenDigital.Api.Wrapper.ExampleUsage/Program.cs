@@ -7,9 +7,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 	class Program {
 		static void Main(string[] args) {
 			string s = args[0];
-
 			
-				
 				// -- artist/details
 				Artist artist = new FluentApi<Artist>()
 									.WithParameter("artistId", s) 
@@ -36,14 +34,12 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 				Console.WriteLine("Browse on \"{0}\" returns: {1}", searchValue, artistBrowse.Artists.FirstOrDefault().Name);
 				Console.WriteLine();
 
-			try
-			{
+			try {
 				// -- Deliberate error response
 				Console.WriteLine("Trying artist/details without artistId parameter...");
 				new FluentApi<Artist>().Resolve();
 
 			} catch(ApiXmlException ex) {
-
 				Console.WriteLine("{0} : {1}", ex.Error.Code, ex.Error.ErrorMessage);
 			}
 			Console.ReadKey();
