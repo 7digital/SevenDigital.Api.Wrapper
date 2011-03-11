@@ -10,12 +10,13 @@ namespace SevenDigital.Api.Wrapper.Utility.Http {
 			var webRequest = (HttpWebRequest)WebRequest.Create(endpoint.ToString());
 			webRequest.Method = method;
 			webRequest.Headers.Add(headers);
-			var webResponse = webRequest.GetResponse();
-			string output;
-			using (var sr = new StreamReader(webResponse.GetResponseStream())) {
-				output = sr.ReadToEnd();
+			using (var webResponse = webRequest.GetResponse()) {
+				string output;
+				using (var sr = new StreamReader(webResponse.GetResponseStream())) {
+					output = sr.ReadToEnd();
+				}
+				return output;
 			}
-			return output;
 		}
 	}
 
