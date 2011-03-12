@@ -25,7 +25,13 @@ namespace SevenDigital.Api.Wrapper
 
 			_endPointState.Uri = attribute.EndpointUri;
 		}
-		
+
+		public IFluentApi<T> WithEndpoint(string endpoint)
+		{
+			_endPointState.Uri = endpoint;
+			return this;
+		}
+
 		public IFluentApi<T> WithMethod(string methodName)
 		{
 			_endPointState.HttpMethod = methodName;
