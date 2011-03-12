@@ -54,6 +54,7 @@
     <Compile Include="Schema\ArtistEndpoint\ArtistSearchResult.cs" />
     <Compile Include="Schema\ArtistEndpoint\ArtistTopTracks.cs" />
     <Compile Include="Schema\Attributes\ApiEndpointAttribute.cs" />
+    <Compile Include="Schema\Basket\Basket.cs" />
     <Compile Include="Schema\Chart\ArtistChartItem.cs" />
     <Compile Include="Schema\Chart\ChartItemChange.cs" />
     <Compile Include="Schema\Chart\ChartType.cs" />

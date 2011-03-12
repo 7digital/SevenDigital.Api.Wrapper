@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EndpointTests\BasketEndpoint\BasketCreateTests.cs" />
     <Compile Include="EndpointTests\TagsEndpoint\ArtistByTagTopTests.cs" />
     <Compile Include="EndpointTests\ArtistEndpoint\ArtistBrowseTests.cs" />
     <Compile Include="EndpointTests\ArtistEndpoint\ArtistChartTests.cs" />
@@ -75,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EndpointTests\AuthenticationEndpoint\" />
-    <Folder Include="EndpointTests\BasketEndpoint\" />
     <Folder Include="EndpointTests\LockerEndpoint\" />
     <Folder Include="EndpointTests\MediaEndpoint\" />
     <Folder Include="EndpointTests\PurchasingEndpoint\" />
