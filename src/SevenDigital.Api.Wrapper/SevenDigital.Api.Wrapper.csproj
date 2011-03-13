@@ -59,6 +59,7 @@
     <Compile Include="Schema\Chart\ChartItemChange.cs" />
     <Compile Include="Schema\Chart\ChartType.cs" />
     <Compile Include="Schema\HasPaging.cs" />
+    <Compile Include="Schema\OAuth\OathRequestToken.cs" />
     <Compile Include="Schema\Pricing\Currency.cs" />
     <Compile Include="Schema\Media\Format.cs" />
     <Compile Include="Schema\Media\FormatList.cs" />
@@ -96,7 +97,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Serialization\XmlSerializer.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="EndpointResolution\Authorization\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

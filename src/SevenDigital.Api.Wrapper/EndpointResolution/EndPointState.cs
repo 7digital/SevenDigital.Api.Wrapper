@@ -12,12 +12,15 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		public NameValueCollection Headers { get; set; }
 
+		public bool UseHttps { get; set; }
+
 		public EndPointState()
 		{
 			Uri = string.Empty;
 			HttpMethod = "GET";
 			Parameters = new NameValueCollection();
 			Headers = new NameValueCollection();
+			UseHttps = false;
 		}
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Configuration;
 using System.Net;
 using System.Xml;
@@ -11,7 +10,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 	public class EndpointResolver : IEndpointResolver
 	{
 		private readonly IUrlResolver _urlResolver;
-		private readonly string _apiUrl = ConfigurationManager.AppSettings["Wrapper.BaseUrl"];
+		private string _apiUrl = ConfigurationManager.AppSettings["Wrapper.BaseUrl"];
 		private readonly string _consumerKey = ConfigurationManager.AppSettings["Wrapper.ConsumerKey"];
 
 		public EndpointResolver(IUrlResolver urlResolver)
@@ -19,12 +18,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			_urlResolver = urlResolver;
 		}
 
-		public XmlNode HitEndpoint(string endPoint, string methodName, NameValueCollection querystring)
+		public XmlNode HitEndpoint(EndPointState endPointState)
 		{
-			if(querystring == null)
-				throw new ArgumentException("querystring parameter cannot be null, please instantiate");
-
-			string output = GetEndpointOutput(endPoint, methodName, querystring.ToQueryString() );
+			string output = GetEndpointOutput(endPointState);
 			XmlNode response = GetResponseNode(output);
 			AssertError(response);
 			return response.FirstChild;
@@ -34,7 +30,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 		{
 			string statusAttribute = response.Attributes["status"].Value;
 			if (statusAttribute == "error")
-				throw new ApiXmlException("An error has occured in the Api", response.FirstChild);
+				throw new ApiXmlException("An error has occured in the Api, see Error property for details", response.FirstChild);
 		}
 
 		private static XmlNode GetResponseNode(string output)
@@ -44,10 +40,20 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			return xml.SelectSingleNode("/response");
 		}
 
-		private string GetEndpointOutput(string endPoint, string methodName, string querystring)
+		private string GetEndpointOutput(EndPointState endPointState)
 		{
-			var endpointUri = new Uri(string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", _apiUrl, endPoint, _consumerKey, querystring).Trim('&'));
-			return _urlResolver.Resolve(endpointUri, methodName, new WebHeaderCollection());
+			if (endPointState.UseHttps)
+				_apiUrl = _apiUrl.Replace("http://", "https://");
+
+			string uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", 
+														_apiUrl, 
+														endPointState.Uri, 
+														_consumerKey, 
+														endPointState.Parameters.ToQueryString());
+
+			var endpointUri = new Uri(uriString.Trim('&'));
+
+			return _urlResolver.Resolve(endpointUri, endPointState.HttpMethod, new WebHeaderCollection());
 		}
 	}
 }

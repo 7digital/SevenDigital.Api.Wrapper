@@ -1,8 +1,8 @@
-﻿
-using System.Collections.Specialized;
+﻿using System;
+using System.Linq.Expressions;
 using System.Xml;
+using FakeItEasy;
 using NUnit.Framework;
-using Rhino.Mocks;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Schema;
 
@@ -14,35 +14,44 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public void Should_fire_endpointresolver_with_correct_endpoint_on_resolve()
 		{
-			var endpointResolver = MockRepository.GenerateStub<IEndpointResolver>();
-			endpointResolver.Stub(x => x.HitEndpoint(null, null, null)).IgnoreArguments().Return(new XmlDocument());
+			var endpointResolver = A.Fake<IEndpointResolver>();
+			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointState>.Ignored)).Returns(new XmlDocument());
 
 			new FluentApi<Status>(endpointResolver).Resolve();
 
-			endpointResolver.AssertWasCalled(x => x.HitEndpoint(Arg<string>.Is.Equal("status"), Arg<string>.Is.Anything, Arg<NameValueCollection>.Is.Anything));
+			Expression<Func<XmlNode>> callWithEndpointStatus = 
+				() => endpointResolver.HitEndpoint(A<EndPointState>.That.Matches(x => x.Uri == "status"));
+
+			A.CallTo(callWithEndpointStatus).MustHaveHappened(Repeated.Exactly.Once);
 		}
 
 		[Test]
 		public void Should_fire_endpointresolver_with_correct_methodname_on_resolve()
 		{
-			var endpointResolver = MockRepository.GenerateStub<IEndpointResolver>();
-			endpointResolver.Stub(x => x.HitEndpoint(null, null, null)).IgnoreArguments().Return(new XmlDocument());
+			var endpointResolver = A.Fake<IEndpointResolver>();
+			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointState>.Ignored)).Returns(new XmlDocument());
 
 			new FluentApi<Status>(endpointResolver).WithMethod("POST").Resolve();
 
-			endpointResolver.AssertWasCalled(x => x.HitEndpoint(Arg<string>.Is.Anything, Arg<string>.Is.Equal("POST"), Arg<NameValueCollection>.Is.Anything));
+			Expression<Func<XmlNode>> callWithMethodPost = 
+				() => endpointResolver.HitEndpoint(A<EndPointState>.That.Matches(x => x.HttpMethod == "POST"));
+
+			A.CallTo(callWithMethodPost).MustHaveHappened(Repeated.Exactly.Once);
 		}
 
 		[Test]
 		public void Should_fire_endpointresolver_with_correct_parameters_on_resolve()
 		{
-			var endpointResolver = MockRepository.GenerateStub<IEndpointResolver>();
-			endpointResolver.Stub(x => x.HitEndpoint(null, null, null)).IgnoreArguments().Return(new XmlDocument());
-
+			var endpointResolver = A.Fake<IEndpointResolver>();
+			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointState>.Ignored)).Returns(new XmlDocument());
+			
 			new FluentApi<Status>(endpointResolver).WithParameter("artistId", "123").Resolve();
 
-			var expectedParameters = new NameValueCollection {{"artistId", "123"}};
-			endpointResolver.AssertWasCalled(x => x.HitEndpoint(Arg<string>.Is.Anything, Arg<string>.Is.Anything, Arg<NameValueCollection>.Is.Equal(expectedParameters)));
+			Expression<Func<XmlNode>> callWithArtistId123 = 
+				() => endpointResolver.HitEndpoint(A<EndPointState>.That.Matches(x => x.Parameters["artistId"] == "123"));
+
+			A.CallTo(callWithArtistId123).MustHaveHappened();
+
 		}
 	}
 }

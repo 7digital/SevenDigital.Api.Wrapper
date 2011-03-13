@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EndpointTests\BasketEndpoint\BasketCreateTests.cs" />
+    <Compile Include="EndpointTests\OAuth\OAuthRequestTokenTest.cs" />
     <Compile Include="EndpointTests\TagsEndpoint\ArtistByTagTopTests.cs" />
     <Compile Include="EndpointTests\ArtistEndpoint\ArtistBrowseTests.cs" />
     <Compile Include="EndpointTests\ArtistEndpoint\ArtistChartTests.cs" />

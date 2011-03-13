@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Xml;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Schema.Attributes;
@@ -19,7 +21,9 @@ namespace SevenDigital.Api.Wrapper
 		{
 			_endpointResolver = endpointResolver;
 
-			ApiEndpointAttribute attribute = typeof (T).GetCustomAttributes(true).OfType<ApiEndpointAttribute>().FirstOrDefault();
+			ApiEndpointAttribute attribute = typeof (T).GetCustomAttributes(true)
+												.OfType<ApiEndpointAttribute>()
+												.FirstOrDefault();
 			if (attribute == null)
 				throw new ArgumentException(string.Format("The Type {0} cannot be used in this way, it has no ApiEndpointAttribute", typeof(T)));
 
@@ -37,7 +41,7 @@ namespace SevenDigital.Api.Wrapper
 			_endPointState.HttpMethod = methodName;
 			return this;
 		}
-
+		
 		public IFluentApi<T> WithParameter(string parameterName, string parameterValue)
 		{
 			_endPointState.Parameters.Set(parameterName, parameterValue);
@@ -46,7 +50,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public T Resolve()
 		{
-			XmlNode output = _endpointResolver.HitEndpoint(_endPointState.Uri, _endPointState.HttpMethod, _endPointState.Parameters);
+			XmlNode output = _endpointResolver.HitEndpoint(_endPointState);
 			var xmlSerializer = new XmlSerializer<T>();
 			return xmlSerializer.DeSerialize(output); 
 		}
