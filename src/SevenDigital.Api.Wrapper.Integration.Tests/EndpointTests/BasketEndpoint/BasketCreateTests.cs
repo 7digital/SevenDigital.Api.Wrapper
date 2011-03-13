@@ -13,7 +13,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 		private const string EXPECTED_RELEASE_ID = "160553";
 		private string _basketId;
 		private const string EXPECTED_TRACK_ID = "1693930";
-
+		
 		[TestFixtureSetUp]
 		public void Can_create_basket()
 		{
@@ -37,7 +37,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 		}
 
 		[Test]
-		public void Can_add_release_to_that_that_basket()
+		public void Can_add_and_remove_release_to_that_that_basket()
 		{
 			Basket basket = new FluentApi<Basket>()
 				.WithEndpoint("basket/additem")
@@ -49,10 +49,20 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 			Assert.That(basket.Id, Is.EqualTo(_basketId));
 			Assert.That(basket.BasketItems.Items.Count, Is.GreaterThan(0));
 			Assert.That(basket.BasketItems.Items.FirstOrDefault().ReleaseId, Is.EqualTo(EXPECTED_RELEASE_ID));
+
+			int toRemove = basket.BasketItems.Items.FirstOrDefault().Id;
+			basket = new FluentApi<Basket>()
+				.WithEndpoint("basket/removeitem")
+				.WithParameter("basketid", _basketId)
+				.WithParameter("itemid", toRemove.ToString())
+				.Resolve();
+			Assert.That(basket, Is.Not.Null);
+			Assert.That(basket.Id, Is.EqualTo(_basketId));
+			Assert.That(basket.BasketItems.Items.Where(x=>x.Id == toRemove).Count(), Is.EqualTo(0));
 		}
 
 		[Test]
-		public void Can_add_track_to_that_that_basket()
+		public void Can_add_and_remove_track_to_that_that_basket()
 		{
 			Basket basket = new FluentApi<Basket>()
 				.WithEndpoint("basket/additem")
@@ -61,22 +71,19 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 				.WithParameter("trackId", EXPECTED_TRACK_ID)
 				.Resolve();
 
-			Assert.That(basket, Is.Not.Null);
-			Assert.That(basket.Id, Is.EqualTo(_basketId));
+			Assert.That(basket, Is.Not.Null);Assert.That(basket.Id, Is.EqualTo(_basketId));
 			Assert.That(basket.BasketItems.Items.Count, Is.GreaterThan(0));
 			Assert.That(basket.BasketItems.Items.FirstOrDefault().TrackId, Is.EqualTo(EXPECTED_TRACK_ID));
-		}
 
-		[Test, Ignore("Not implemented yet")]
-		public void Can_remove_release_from_that_that_basket()
-		{
-
-		}
-
-		[Test, Ignore("Not implemented yet")]
-		public void Can_remove_track_from_that_that_basket()
-		{
-
+			int toRemove = basket.BasketItems.Items.FirstOrDefault().Id;
+			basket = new FluentApi<Basket>()
+				.WithEndpoint("basket/removeitem")
+				.WithParameter("basketid", _basketId)
+				.WithParameter("itemid", toRemove.ToString())
+				.Resolve();
+			Assert.That(basket, Is.Not.Null);
+			Assert.That(basket.Id, Is.EqualTo(_basketId));
+			Assert.That(basket.BasketItems.Items.Where(x => x.Id == toRemove).Count(), Is.EqualTo(0));
 		}
 	}
 }
