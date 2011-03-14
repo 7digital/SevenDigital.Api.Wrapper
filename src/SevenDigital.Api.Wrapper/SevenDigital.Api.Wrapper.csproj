@@ -43,9 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EndpointResolution\Authorization\HashComputer.cs" />
+    <Compile Include="EndpointResolution\Authorization\IHashComputer.cs" />
     <Compile Include="EndpointResolution\Authorization\IStringGenerator.cs" />
     <Compile Include="EndpointResolution\Authorization\NonceGenerator.cs" />
-    <Compile Include="EndpointResolution\Authorization\OAuth.cs" />
+    <Compile Include="EndpointResolution\Authorization\OAuthBase.cs" />
+    <Compile Include="EndpointResolution\Authorization\OAuthConstants.cs" />
+    <Compile Include="EndpointResolution\Authorization\OAuthSignatureParameters.cs" />
     <Compile Include="EndpointResolution\Authorization\QueryParameter.cs" />
     <Compile Include="EndpointResolution\Authorization\QueryParameterComparer.cs" />
     <Compile Include="EndpointResolution\Authorization\SignatureTypes.cs" />

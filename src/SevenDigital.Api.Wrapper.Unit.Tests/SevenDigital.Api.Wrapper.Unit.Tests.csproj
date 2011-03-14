@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EndpointResolution\Authorization\HashComputerTests.cs" />
     <Compile Include="EndpointResolution\Authorization\OAuthTests.cs" />
     <Compile Include="FluentAPITests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
