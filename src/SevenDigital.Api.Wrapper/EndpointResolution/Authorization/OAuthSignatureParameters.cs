@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.Authorization
 {
-	public class OAuthSignatureParameters
+	internal class OAuthSignatureParameters
 	{
 		public Uri Url { get;  set; }
 		public string ConsumerKey { get;  set; }

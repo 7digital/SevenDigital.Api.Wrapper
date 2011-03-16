@@ -8,7 +8,7 @@ using System.Web;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.Authorization
 {
-	public class OAuthBase
+	internal class OAuthBase
 	{
 		private readonly IHashComputer _hashComputer;
 

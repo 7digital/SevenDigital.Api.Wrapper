@@ -1,6 +1,6 @@
 ﻿namespace SevenDigital.Api.Wrapper.EndpointResolution.Authorization
 {
-	public enum SignatureTypes
+	internal enum SignatureTypes
 	{
 		HMACSHA1,
 		PLAINTEXT,

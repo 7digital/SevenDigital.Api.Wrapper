@@ -2,7 +2,7 @@
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.Authorization
 {
-	public class TimeStampGenerator : IStringGenerator
+	internal class TimeStampGenerator : IStringGenerator
 	{
 		public string Generate()
 		{

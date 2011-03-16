@@ -1,6 +1,6 @@
 ﻿namespace SevenDigital.Api.Wrapper.EndpointResolution.Authorization
 {
-	public class OAuthConstants
+	internal class OAuthConstants
 	{
 		public const string O_AUTH_VERSION = "1.0";
 		public const string O_AUTH_PARAMETER_PREFIX = "oauth_";

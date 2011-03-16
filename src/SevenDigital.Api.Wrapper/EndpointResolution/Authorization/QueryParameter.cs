@@ -1,6 +1,6 @@
 ﻿namespace SevenDigital.Api.Wrapper.EndpointResolution.Authorization
 {
-	public class QueryParameter
+	internal class QueryParameter
 	{
 		public string Name { get; private set; }
 		public string Value { get; private set; }

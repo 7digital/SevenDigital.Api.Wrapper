@@ -1,6 +1,6 @@
 ﻿namespace SevenDigital.Api.Wrapper.EndpointResolution.Authorization
 {
-	public interface IStringGenerator
+	internal interface IStringGenerator
 	{
 		string Generate();
 	}

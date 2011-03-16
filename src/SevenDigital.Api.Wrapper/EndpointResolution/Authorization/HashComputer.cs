@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.Authorization
 {
-	public class HashComputer : IHashComputer
+	internal class HashComputer : IHashComputer
 	{
 		public string Compute(HashAlgorithm hashAlgorithm, string data)
 		{

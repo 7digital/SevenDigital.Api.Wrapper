@@ -2,7 +2,7 @@
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.Authorization
 {
-	public class NonceGenerator : IStringGenerator
+	internal class NonceGenerator : IStringGenerator
 	{
 		public string Generate()
 		{

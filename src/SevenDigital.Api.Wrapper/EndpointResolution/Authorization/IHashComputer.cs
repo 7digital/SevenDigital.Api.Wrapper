@@ -2,7 +2,7 @@
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.Authorization
 {
-	public interface IHashComputer
+	internal interface IHashComputer
 	{
 		string Compute(HashAlgorithm hashAlgorithm, string data);
 	}
