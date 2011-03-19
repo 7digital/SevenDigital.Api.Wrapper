@@ -10,7 +10,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.Authorization
 	[TestFixture]
 	public class OAuthTests
 	{
-		[Test]
+		[Test, Ignore]
 		public void Should_generate_signature()
 		{
 			var hashComputer = A.Fake<IHashComputer>();

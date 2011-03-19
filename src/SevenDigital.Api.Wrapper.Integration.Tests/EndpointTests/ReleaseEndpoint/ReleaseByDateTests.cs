@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Schema.ReleaseEndpoint;
 using SevenDigital.Api.Wrapper.Utility.Http;
@@ -15,8 +16,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
 
 			ReleaseByDate release = new FluentApi<ReleaseByDate>(httpGetResolver)
-				.WithParameter("fromDate", "20110101")
-				.WithParameter("toDate", "20110301")
+				.WithParameter("toDate", DateTime.Now.ToString("yyyyMMdd"))
 				.WithParameter("country", "GB")
 				.Resolve();
 
