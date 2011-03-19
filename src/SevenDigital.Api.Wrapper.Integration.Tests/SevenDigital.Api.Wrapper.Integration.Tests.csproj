@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dynamics\DynamicXmlParserTests.cs" />
     <Compile Include="EndpointTests\BasketEndpoint\BasketCreateTests.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthRequestTokenTest.cs" />
     <Compile Include="EndpointTests\TagsEndpoint\ArtistByTagTopTests.cs" />

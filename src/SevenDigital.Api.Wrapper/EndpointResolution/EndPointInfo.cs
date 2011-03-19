@@ -2,7 +2,7 @@
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
-	public class EndPointState
+	public class EndPointInfo
 	{
 		public string Uri { get; set; }
 
@@ -14,7 +14,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		public bool UseHttps { get; set; }
 
-		public EndPointState()
+		public EndPointInfo()
 		{
 			Uri = string.Empty;
 			HttpMethod = "GET";

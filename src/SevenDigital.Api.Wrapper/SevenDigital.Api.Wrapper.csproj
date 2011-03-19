@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dynamics\DynamicXmlParser.cs" />
     <Compile Include="EndpointResolution\Authorization\HashComputer.cs" />
     <Compile Include="EndpointResolution\Authorization\IHashComputer.cs" />
     <Compile Include="EndpointResolution\Authorization\IStringGenerator.cs" />
@@ -55,7 +56,7 @@
     <Compile Include="EndpointResolution\Authorization\SignatureTypes.cs" />
     <Compile Include="EndpointResolution\Authorization\TimeStampGenerator.cs" />
     <Compile Include="Exceptions\ApiXmlException.cs" />
-    <Compile Include="EndpointResolution\EndPointState.cs" />
+    <Compile Include="EndpointResolution\EndPointInfo.cs" />
     <Compile Include="FluentApi.cs" />
     <Compile Include="IFluentApi.cs" />
     <Compile Include="EndpointResolution\NameValueCollectionExtensions.cs" />

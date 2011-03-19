@@ -35,3 +35,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("SevenDigital.Api.Wrapper.Unit.Tests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo("SevenDigital.Api.Wrapper.Integration.Tests", AllInternalsVisible = true)]

@@ -27,7 +27,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			const string expectedMethod = "GET";
 			var expectedHeaders = new WebHeaderCollection();
 
-			var endPointState = new EndPointState() {Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders};
+			var endPointState = new EndPointInfo() {Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders};
 			var expected = new Uri(string.Format("{0}/test?oauth_consumer_key={1}", _apiUrl, _consumerKey));
 
 			endpointResolver.HitEndpoint(endPointState);
@@ -42,7 +42,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			Given_a_urlresolver_that_returns_valid_xml();
 
 			var endpointResolver = new EndpointResolver(_urlResolver);
-			XmlNode hitEndpoint = endpointResolver.HitEndpoint(new EndPointState());
+			XmlNode hitEndpoint = endpointResolver.HitEndpoint(new EndPointInfo());
 			Assert.That(hitEndpoint.HasChildNodes);
 			Assert.That(hitEndpoint.SelectSingleNode("//serverTime"), Is.Not.Null);
 		}
@@ -57,7 +57,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 				"<response status=\"error\" version=\"1.2\"><error code=\"1001\"><errorMessage>Missing parameter \"tags\".</errorMessage></error></response>");
 
 			var endpointResolver = new EndpointResolver(_urlResolver);
-			var apiException = Assert.Throws<ApiXmlException>(() => endpointResolver.HitEndpoint(new EndPointState()));
+			var apiException = Assert.Throws<ApiXmlException>(() => endpointResolver.HitEndpoint(new EndPointInfo()));
 			Assert.That(apiException.Message, Is.EqualTo("An error has occured in the Api, see Error property for details"));
 			Assert.That(apiException.Error.Code, Is.EqualTo(1001));
 			Assert.That(apiException.Error.ErrorMessage, Is.EqualTo("Missing parameter \"tags\"."));

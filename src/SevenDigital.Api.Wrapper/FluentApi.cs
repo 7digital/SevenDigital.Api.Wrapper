@@ -12,7 +12,7 @@ namespace SevenDigital.Api.Wrapper
 {
 	public class FluentApi<T> : IFluentApi<T> where T : class
 	{
-		private readonly EndPointState _endPointState = new EndPointState();
+		private readonly EndPointInfo _endPointInfo = new EndPointInfo();
 		private readonly IEndpointResolver _endpointResolver;
 		
 		public FluentApi() : this (new EndpointResolver(new HttpGetResolver())){} // TODO: Use IOC library for this
@@ -27,30 +27,30 @@ namespace SevenDigital.Api.Wrapper
 			if (attribute == null)
 				throw new ArgumentException(string.Format("The Type {0} cannot be used in this way, it has no ApiEndpointAttribute", typeof(T)));
 
-			_endPointState.Uri = attribute.EndpointUri;
+			_endPointInfo.Uri = attribute.EndpointUri;
 		}
 
 		public IFluentApi<T> WithEndpoint(string endpoint)
 		{
-			_endPointState.Uri = endpoint;
+			_endPointInfo.Uri = endpoint;
 			return this;
 		}
 
 		public IFluentApi<T> WithMethod(string methodName)
 		{
-			_endPointState.HttpMethod = methodName;
+			_endPointInfo.HttpMethod = methodName;
 			return this;
 		}
 		
 		public IFluentApi<T> WithParameter(string parameterName, string parameterValue)
 		{
-			_endPointState.Parameters.Set(parameterName, parameterValue);
+			_endPointInfo.Parameters.Set(parameterName, parameterValue);
 			return this;
 		}
 
 		public T Resolve()
 		{
-			XmlNode output = _endpointResolver.HitEndpoint(_endPointState);
+			XmlNode output = _endpointResolver.HitEndpoint(_endPointInfo);
 			var xmlSerializer = new XmlSerializer<T>();
 			return xmlSerializer.DeSerialize(output); 
 		}

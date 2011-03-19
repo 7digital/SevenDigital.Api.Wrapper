@@ -18,12 +18,17 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			_urlResolver = urlResolver;
 		}
 
-		public XmlNode HitEndpoint(EndPointState endPointState)
+		public XmlNode HitEndpoint(EndPointInfo endPointInfo)
 		{
-			string output = GetEndpointOutput(endPointState);
+			string output = GetEndpointOutput(endPointInfo);
 			XmlNode response = GetResponseNode(output);
 			AssertError(response);
 			return response.FirstChild;
+		}
+
+		public string GetRawXml(EndPointInfo endPointInfo)
+		{
+			return GetEndpointOutput(endPointInfo);
 		}
 
 		private static void AssertError(XmlNode response)
@@ -40,20 +45,20 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			return xml.SelectSingleNode("/response");
 		}
 
-		private string GetEndpointOutput(EndPointState endPointState)
+		private string GetEndpointOutput(EndPointInfo endPointInfo)
 		{
-			if (endPointState.UseHttps)
+			if (endPointInfo.UseHttps)
 				_apiUrl = _apiUrl.Replace("http://", "https://");
 
 			string uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", 
 														_apiUrl, 
-														endPointState.Uri, 
+														endPointInfo.Uri, 
 														_consumerKey, 
-														endPointState.Parameters.ToQueryString());
+														endPointInfo.Parameters.ToQueryString());
 
 			var endpointUri = new Uri(uriString.Trim('&'));
 
-			return _urlResolver.Resolve(endpointUri, endPointState.HttpMethod, new WebHeaderCollection());
+			return _urlResolver.Resolve(endpointUri, endPointInfo.HttpMethod, new WebHeaderCollection());
 		}
 	}
 }
