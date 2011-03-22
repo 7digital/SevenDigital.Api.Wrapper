@@ -7,7 +7,7 @@ namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 	[Serializable]
 	[ApiEndpoint("artist/details")]
 	[XmlRoot("artist")]
-	public class Artist
+	public class Artist : IIsArtist
 	{
 		[XmlAttribute("id")]
 		public int Id { get; set; }
@@ -27,4 +27,6 @@ namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 		[XmlElement("url")]
 		public string Url { get; set; }
 	}
+
+	public interface IIsArtist {}
 }

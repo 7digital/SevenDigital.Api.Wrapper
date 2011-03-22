@@ -2,7 +2,7 @@
 {
 	public static class TrackExtensions
 	{
-		public static FluentApi<Track> WithTrackId(this FluentApi<Track> api, int trackId)
+		public static IFluentApi<Track> WithTrackId(this IFluentApi<Track> api, int trackId)
 		{
 			api.WithParameter("trackId", trackId.ToString());
 			return api;

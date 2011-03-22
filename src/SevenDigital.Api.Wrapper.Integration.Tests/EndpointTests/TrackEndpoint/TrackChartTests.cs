@@ -1,26 +1,22 @@
 ﻿using System;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Schema.Chart;
 using SevenDigital.Api.Wrapper.Schema.TrackEndpoint;
-using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 {
 	[TestFixture]
-	[Category("Integration")]
 	public class TrackChartTests
 	{
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
 
-			TrackChart release = new FluentApi<TrackChart>(httpGetResolver)
+			TrackChart release = Api<TrackChart>.Get
 				.WithParameter("fromDate", "20110101")
 				.WithParameter("toDate", "20110301")
 				.WithParameter("country", "GB")
-				.Resolve();
+				.Please();
 
 			Assert.That(release, Is.Not.Null);
 			Assert.That(release.ChartItems.Count, Is.GreaterThan(0));
@@ -33,14 +29,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
-
-			TrackChart artistBrowse = new FluentApi<TrackChart>(httpGetResolver)
+			TrackChart artistBrowse = Api<TrackChart>.Get
 				.WithParameter("fromDate", "20090610")
 				.WithParameter("toDate", "20110101")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
-				.Resolve();
+				.Please();
 
 			Assert.That(artistBrowse, Is.Not.Null);
 			Assert.That(artistBrowse.Page, Is.EqualTo(2));

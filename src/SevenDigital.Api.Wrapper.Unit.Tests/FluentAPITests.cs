@@ -17,7 +17,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var endpointResolver = A.Fake<IEndpointResolver>();
 			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(new XmlDocument());
 
-			new FluentApi<Status>(endpointResolver).Resolve();
+			new FluentApi<Status>(endpointResolver).Please();
 
 			Expression<Func<XmlNode>> callWithEndpointStatus = 
 				() => endpointResolver.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.Uri == "status"));
@@ -31,7 +31,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var endpointResolver = A.Fake<IEndpointResolver>();
 			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(new XmlDocument());
 
-			new FluentApi<Status>(endpointResolver).WithMethod("POST").Resolve();
+			new FluentApi<Status>(endpointResolver).WithMethod("POST").Please();
 
 			Expression<Func<XmlNode>> callWithMethodPost = 
 				() => endpointResolver.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.HttpMethod == "POST"));
@@ -45,7 +45,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var endpointResolver = A.Fake<IEndpointResolver>();
 			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(new XmlDocument());
 			
-			new FluentApi<Status>(endpointResolver).WithParameter("artistId", "123").Resolve();
+			new FluentApi<Status>(endpointResolver).WithParameter("artistId", "123").Please();
 
 			Expression<Func<XmlNode>> callWithArtistId123 = 
 				() => endpointResolver.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.Parameters["artistId"] == "123"));

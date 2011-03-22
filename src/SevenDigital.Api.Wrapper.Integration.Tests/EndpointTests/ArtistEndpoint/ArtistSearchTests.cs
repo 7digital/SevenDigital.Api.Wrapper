@@ -1,38 +1,46 @@
 ﻿using NUnit.Framework;
-using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Schema.ArtistEndpoint;
-using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint
 {
 	[TestFixture]
-	[System.ComponentModel.Category("Integration")]
+	[Category("Integration")]
 	public class ArtistSearchTests
 	{
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
-
-			ArtistSearch artist = new FluentApi<ArtistSearch>(httpGetResolver)
+			ArtistSearch artist = new FluentApi<ArtistSearch>()
 				.WithParameter("q", "pink")
 				.WithParameter("country", "GB")
-				.Resolve();
+				.Please();
 
 			Assert.That(artist, Is.Not.Null);
 			Assert.That(artist.Results.Artists.Count, Is.GreaterThan(0));
 		}
 
 		[Test]
+		public void Can_hit_endpoint_with_fluent_interface()
+		{
+
+			ArtistSearch artistSearch = Api<ArtistSearch>
+				.Get
+				.WithQuery("pink")
+				.WithParameter("country", "GB")
+				.Please();
+
+			Assert.That(artistSearch, Is.Not.Null);
+			Assert.That(artistSearch.Results.Artists.Count, Is.GreaterThan(0));
+		}
+
+		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
-
-			ArtistSearch artistBrowse = new FluentApi<ArtistSearch>(httpGetResolver)
+			ArtistSearch artistBrowse = Api<ArtistSearch>.Get
 				.WithParameter("q", "pink")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
-				.Resolve();
+				.Please();
 
 			Assert.That(artistBrowse, Is.Not.Null);
 			Assert.That(artistBrowse.Page, Is.EqualTo(2));

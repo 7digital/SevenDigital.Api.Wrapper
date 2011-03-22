@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Xml;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Schema.Attributes;
@@ -15,7 +13,7 @@ namespace SevenDigital.Api.Wrapper
 		private readonly EndPointInfo _endPointInfo = new EndPointInfo();
 		private readonly IEndpointResolver _endpointResolver;
 		
-		public FluentApi() : this (new EndpointResolver(new HttpGetResolver())){} // TODO: Use IOC library for this
+		public FluentApi() : this (new EndpointResolver(new HttpGetResolver())){} 
 
 		public FluentApi(IEndpointResolver endpointResolver)
 		{
@@ -48,11 +46,13 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public T Resolve()
+		public T Please()
 		{
 			XmlNode output = _endpointResolver.HitEndpoint(_endPointInfo);
 			var xmlSerializer = new XmlSerializer<T>();
 			return xmlSerializer.DeSerialize(output); 
 		}
 	}
+
+	
 }

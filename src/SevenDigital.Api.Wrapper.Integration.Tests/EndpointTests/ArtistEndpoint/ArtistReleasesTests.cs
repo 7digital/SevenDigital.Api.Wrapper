@@ -13,12 +13,23 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
-
-			ArtistReleases artist = new FluentApi<ArtistReleases>(httpGetResolver)
+			ArtistReleases artist = new FluentApi<ArtistReleases>()
 				.WithParameter("artistId", "1")
 				.WithParameter("country", "GB")
-				.Resolve();
+				.Please();
+
+			Assert.That(artist, Is.Not.Null);
+			Assert.That(artist.Releases.Count, Is.GreaterThan(0));
+			Assert.That(artist.Releases.FirstOrDefault().Artist.Name, Is.EqualTo("Keane"));
+		}
+
+		[Test]
+		public void Can_hit_endpoint_with_fluent_interface()
+		{
+			var artist = (ArtistReleases) Api<ArtistReleases>
+				.Get
+				.WithArtistId(1)
+				.Please();
 
 			Assert.That(artist, Is.Not.Null);
 			Assert.That(artist.Releases.Count, Is.GreaterThan(0));
@@ -28,13 +39,11 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
-
-			ArtistReleases artistBrowse = new FluentApi<ArtistReleases>(httpGetResolver)
+			ArtistReleases artistBrowse = new FluentApi<ArtistReleases>()
 				.WithParameter("artistId", "1")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
-				.Resolve();
+				.Please();
 
 			Assert.That(artistBrowse, Is.Not.Null);
 			Assert.That(artistBrowse.Page, Is.EqualTo(2));

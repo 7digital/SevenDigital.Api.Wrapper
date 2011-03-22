@@ -1,7 +1,5 @@
 ﻿using NUnit.Framework;
-using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Schema.ReleaseEndpoint;
-using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoint
 {
@@ -12,12 +10,10 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
-
-			Release release = new FluentApi<Release>(httpGetResolver)
+			Release release = Api<Release>.Get
 				.WithParameter("releaseId", "155408")
 				.WithParameter("country", "GB")
-				.Resolve();
+				.Please();
 
 			Assert.That(release, Is.Not.Null);
 			Assert.That(release.Title, Is.EqualTo("Dreams"));

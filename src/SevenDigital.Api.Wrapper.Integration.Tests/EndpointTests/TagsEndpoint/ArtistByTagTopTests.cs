@@ -1,24 +1,20 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Schema;
 using SevenDigital.Api.Wrapper.Schema.Tags;
-using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 {
 	[TestFixture]
-	[Category("Integration")]
 	public class ArtistByTagTopTests
 	{
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
 
-			ArtistByTagTop tags = new FluentApi<ArtistByTagTop>(httpGetResolver)
+			ArtistByTagTop tags = Api<ArtistByTagTop>.Get
 				.WithParameter("tags", "rock,pop,2000s")
-				.Resolve();
+				.Please();
 
 			Assert.That(tags, Is.Not.Null);
 			Assert.That(tags.TaggedArtists.Count, Is.GreaterThan(0));
@@ -29,13 +25,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
 
-			ArtistByTagTop artistBrowse = new FluentApi<ArtistByTagTop>(httpGetResolver)
+			ArtistByTagTop artistBrowse = Api<ArtistByTagTop>.Get
 				.WithParameter("tags", "rock,pop,2000s")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
-				.Resolve();
+				.Please();
 
 			Assert.That(artistBrowse, Is.Not.Null);
 			Assert.That(artistBrowse.Page, Is.EqualTo(2));

@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 	[Serializable]
 	[ApiEndpoint("artist/toptracks")]
 	[XmlRoot("tracks")]
-	public class ArtistTopTracks : HasPaging
+	public class ArtistTopTracks : HasPaging, IIsArtist
 	{
 		[XmlElement("track")]
 		public List<Track> Tracks { get; set; }

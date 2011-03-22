@@ -1,9 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Schema.Chart;
 using SevenDigital.Api.Wrapper.Schema.ReleaseEndpoint;
-using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoint
 {
@@ -14,13 +12,11 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
-
-			ReleaseChart release = new FluentApi<ReleaseChart>(httpGetResolver)
+			ReleaseChart release = Api<ReleaseChart>.Get
 				.WithParameter("fromDate", "20110101")
 				.WithParameter("toDate", "20110301")
 				.WithParameter("country", "GB")
-				.Resolve();
+				.Please();
 
 			Assert.That(release, Is.Not.Null);
 			Assert.That(release.ChartItems.Count, Is.GreaterThan(0));
@@ -32,14 +28,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
-
-			ReleaseChart artistBrowse = new FluentApi<ReleaseChart>(httpGetResolver)
+			ReleaseChart artistBrowse = Api<ReleaseChart>.Get
 				.WithParameter("fromDate", "20090610")
 				.WithParameter("toDate", "20110101")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
-				.Resolve();
+				.Please();
 
 			Assert.That(artistBrowse, Is.Not.Null);
 			Assert.That(artistBrowse.Page, Is.EqualTo(2));

@@ -3,6 +3,6 @@
 	public interface IFluentApi<out T>
 	{
 		IFluentApi<T> WithParameter(string key, string value);
-		T Resolve();
+		T Please();
 	}
 }

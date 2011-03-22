@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Schema.Basket;
 
@@ -20,7 +17,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 			Basket basketCreate = new FluentApi<Basket>()
 				.WithEndpoint("basket/create")
 				.WithParameter("country", "GB")
-				.Resolve();
+				.Please();
+
 			Assert.That(basketCreate, Is.Not.Null);
 			Assert.That(basketCreate.Id, Is.Not.Empty);
 			_basketId = basketCreate.Id;
@@ -31,7 +29,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 		{
 			Basket basket = new FluentApi<Basket>()
 				.WithParameter("basketId", _basketId)
-				.Resolve();
+				.Please();
+
 			Assert.That(basket, Is.Not.Null);
 			Assert.That(basket.Id, Is.EqualTo(_basketId));
 		}
@@ -43,7 +42,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 				.WithEndpoint("basket/additem")
 				.WithParameter("basketId", _basketId)
 				.WithParameter("releaseId", EXPECTED_RELEASE_ID)
-				.Resolve();
+				.Please();
 
 			Assert.That(basket, Is.Not.Null);
 			Assert.That(basket.Id, Is.EqualTo(_basketId));
@@ -55,7 +54,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 				.WithEndpoint("basket/removeitem")
 				.WithParameter("basketid", _basketId)
 				.WithParameter("itemid", toRemove.ToString())
-				.Resolve();
+				.Please();
 			Assert.That(basket, Is.Not.Null);
 			Assert.That(basket.Id, Is.EqualTo(_basketId));
 			Assert.That(basket.BasketItems.Items.Where(x=>x.Id == toRemove).Count(), Is.EqualTo(0));
@@ -69,7 +68,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 				.WithParameter("basketId", _basketId)
 				.WithParameter("releaseId", EXPECTED_RELEASE_ID)
 				.WithParameter("trackId", EXPECTED_TRACK_ID)
-				.Resolve();
+				.Please();
 
 			Assert.That(basket, Is.Not.Null);Assert.That(basket.Id, Is.EqualTo(_basketId));
 			Assert.That(basket.BasketItems.Items.Count, Is.GreaterThan(0));
@@ -80,7 +79,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 				.WithEndpoint("basket/removeitem")
 				.WithParameter("basketid", _basketId)
 				.WithParameter("itemid", toRemove.ToString())
-				.Resolve();
+				.Please();
 			Assert.That(basket, Is.Not.Null);
 			Assert.That(basket.Id, Is.EqualTo(_basketId));
 			Assert.That(basket.BasketItems.Items.Where(x => x.Id == toRemove).Count(), Is.EqualTo(0));

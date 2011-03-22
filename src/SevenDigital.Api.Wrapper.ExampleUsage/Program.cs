@@ -7,29 +7,34 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 	class Program {
 		static void Main(string[] args) {
 			string s = args[0];
-			
+
 				// -- artist/details
-				Artist artist = new FluentApi<Artist>()
-									.WithParameter("artistId", s) 
-									.Resolve();
+				var artist = Api<Artist>
+									.Get
+									.WithParameter("artistId", s)
+									.Please();
 
 				Console.WriteLine("Artist \"{0}\" selected", artist.Name);
 				Console.WriteLine("Website url is {0}", artist.Url);
 				Console.WriteLine();
 
+
 				// -- artist/toptracks
-				ArtistTopTracks artistTopTracks = new FluentApi<ArtistTopTracks>()
-														.WithParameter("artistId", s)
-														.Resolve();
+				var artistTopTracks = Api<ArtistTopTracks>
+										.Get
+										.WithParameter("artistId", s)
+										.Please();
 
 				Console.WriteLine("Top Track: {0}", artistTopTracks.Tracks.FirstOrDefault().Title);
 				Console.WriteLine();
 
+
 				// -- artist/browse
 				const string searchValue = "Radioh";
-				ArtistBrowse artistBrowse = new FluentApi<ArtistBrowse>()
-														.WithParameter("letter", searchValue)
-														.Resolve();
+				var artistBrowse = Api<ArtistBrowse>
+										.Get
+										.WithParameter("letter", searchValue)
+										.Please();
 
 				Console.WriteLine("Browse on \"{0}\" returns: {1}", searchValue, artistBrowse.Artists.FirstOrDefault().Name);
 				Console.WriteLine();
@@ -37,7 +42,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 			try {
 				// -- Deliberate error response
 				Console.WriteLine("Trying artist/details without artistId parameter...");
-				new FluentApi<Artist>().Resolve();
+				Api<Artist>.Get.Please();
 
 			} catch(ApiXmlException ex) {
 				Console.WriteLine("{0} : {1}", ex.Error.Code, ex.Error.ErrorMessage);

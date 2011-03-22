@@ -1,24 +1,19 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Schema;
 using SevenDigital.Api.Wrapper.Schema.TrackEndpoint;
-using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 {
 	[TestFixture]
-	[Category("Integration")]
 	public class TrackSearchTests
 	{
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
-
-			TrackSearch release = new FluentApi<TrackSearch>(httpGetResolver)
+			TrackSearch release = Api<TrackSearch>.Get
 				.WithParameter("q", "Happy")
-				.Resolve();
+				.Please();
 
 			Assert.That(release, Is.Not.Null);
 			Assert.That(release.Results.Count, Is.GreaterThan(0));
@@ -28,13 +23,11 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver());
-
-			TrackChart artistBrowse = new FluentApi<TrackChart>(httpGetResolver)
+			TrackChart artistBrowse = Api<TrackChart>.Get
 				.WithParameter("q","Happy")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
-				.Resolve();
+				.Please();
 
 			Assert.That(artistBrowse, Is.Not.Null);
 			Assert.That(artistBrowse.Page, Is.EqualTo(2));

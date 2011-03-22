@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api.cs" />
     <Compile Include="Dynamics\DynamicXmlParser.cs" />
     <Compile Include="EndpointResolution\Authorization\HashComputer.cs" />
     <Compile Include="EndpointResolution\Authorization\IHashComputer.cs" />
@@ -60,9 +61,11 @@
     <Compile Include="FluentApi.cs" />
     <Compile Include="IFluentApi.cs" />
     <Compile Include="EndpointResolution\NameValueCollectionExtensions.cs" />
+    <Compile Include="Schema\ArtistEndpoint\ApiPeriod.cs" />
     <Compile Include="Schema\ArtistEndpoint\Artist.cs" />
     <Compile Include="Schema\ArtistEndpoint\ArtistBrowse.cs" />
     <Compile Include="Schema\ArtistEndpoint\ArtistChart.cs" />
+    <Compile Include="Schema\ArtistEndpoint\ArtistExtensions.cs" />
     <Compile Include="Schema\ArtistEndpoint\ArtistReleases.cs" />
     <Compile Include="Schema\ArtistEndpoint\ArtistSearch.cs" />
     <Compile Include="Schema\ArtistEndpoint\ArtistSearchResult.cs" />
@@ -73,6 +76,7 @@
     <Compile Include="Schema\Chart\ChartItemChange.cs" />
     <Compile Include="Schema\Chart\ChartType.cs" />
     <Compile Include="Schema\HasPaging.cs" />
+    <Compile Include="Schema\HasPagingExtensions.cs" />
     <Compile Include="Schema\OAuth\OathRequestToken.cs" />
     <Compile Include="Schema\Pricing\Currency.cs" />
     <Compile Include="Schema\Media\Format.cs" />
