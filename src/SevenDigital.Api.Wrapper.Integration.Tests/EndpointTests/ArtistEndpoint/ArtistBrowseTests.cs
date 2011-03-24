@@ -11,7 +11,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			ArtistBrowse artistBrowse = Api<ArtistBrowse>.Get.WithParameter("letter", "radio").Please();
+			ArtistBrowse artistBrowse = Api<ArtistBrowse>
+				.Get.WithParameter("letter", "radio").Please();
 
 			Assert.That(artistBrowse, Is.Not.Null);
 			Assert.That(artistBrowse.Page, Is.EqualTo(1));

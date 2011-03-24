@@ -9,8 +9,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 			string s = args[0];
 
 				// -- artist/details
-				var artist = Api<Artist>
-									.Get
+				var artist = Api<Artist>.Get
 									.WithParameter("artistId", s)
 									.Please();
 
@@ -33,7 +32,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 				const string searchValue = "Radioh";
 				var artistBrowse = Api<ArtistBrowse>
 										.Get
-										.WithParameter("letter", searchValue)
+										.WithLetter(searchValue)
 										.Please();
 
 				Console.WriteLine("Browse on \"{0}\" returns: {1}", searchValue, artistBrowse.Artists.FirstOrDefault().Name);
