@@ -12,7 +12,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver()); // TODO: Set up using castle?
+			var httpGetResolver = new EndpointResolver(new HttpGetResolver(), new AppSettingsCredentials());
 
 			Artist artist = new FluentApi<Artist>(httpGetResolver)
 				.WithParameter("artistid","1")

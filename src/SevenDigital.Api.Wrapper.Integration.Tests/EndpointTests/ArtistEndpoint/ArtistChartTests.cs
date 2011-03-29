@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
@@ -15,7 +16,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			var httpGetResolver = new EndpointResolver(new HttpGetResolver()); 
+			var httpGetResolver = new EndpointResolver(new HttpGetResolver(), new AppSettingsCredentials()); 
 
 			ArtistChart artist = new FluentApi<ArtistChart>(httpGetResolver)
 				.WithParameter("period", "week")

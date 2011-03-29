@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Xml;
+using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
@@ -11,16 +15,18 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 	{
 		private readonly IUrlResolver _urlResolver;
 		private string _apiUrl = ConfigurationManager.AppSettings["Wrapper.BaseUrl"];
-		private readonly string _consumerKey = ConfigurationManager.AppSettings["Wrapper.ConsumerKey"];
+	    private readonly OAuthCredentials _consumerCredentials;
 
-		public EndpointResolver(IUrlResolver urlResolver)
+	    public EndpointResolver(IUrlResolver urlResolver, OAuthCredentials consumerCredentials)
 		{
-			_urlResolver = urlResolver;
+		    _consumerCredentials = consumerCredentials;
+		    _urlResolver = urlResolver;
 		}
 
-		public XmlNode HitEndpoint(EndPointInfo endPointInfo)
+	    public XmlNode HitEndpoint(EndPointInfo endPointInfo)
 		{
 			string output = GetEndpointOutput(endPointInfo);
+	        Debug.WriteLine(output);
 			XmlNode response = GetResponseNode(output);
 			AssertError(response);
 			return response.FirstChild;
@@ -53,12 +59,52 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			string uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", 
 														_apiUrl, 
 														endPointInfo.Uri, 
-														_consumerKey, 
+														_consumerCredentials.ConsumerKey, 
 														endPointInfo.Parameters.ToQueryString());
 
-			var endpointUri = new Uri(uriString.Trim('&'));
-
-			return _urlResolver.Resolve(endpointUri, endPointInfo.HttpMethod, new WebHeaderCollection());
+		    return GetResponse(uriString, endPointInfo.UserToken, endPointInfo.UserSecret);
 		}
+
+        private string GetResponse(string urlWithParameters, string userToken, string userSecret)
+        {
+            string normalizedRequestParameters;
+            string normalizedUrl;
+
+            OAuthBase oAuthBase = new OAuthBase();
+            var timestamp = oAuthBase.GenerateTimeStamp();
+            var nonce = oAuthBase.GenerateNonce();
+            var signature = oAuthBase.GenerateSignature(new Uri(urlWithParameters), _consumerCredentials.ConsumerKey,
+                                                        _consumerCredentials.ConsumerSecret,
+                                                        userToken, userSecret, "GET", timestamp, nonce,
+                                                        out normalizedUrl,
+                                                        out normalizedRequestParameters,
+                                                        new Dictionary<string, string>());
+
+            var signedUrl = string.Format("{0}?{1}&oauth_signature={2}", normalizedUrl, normalizedRequestParameters,
+                                          signature);
+
+            var request = HttpWebRequest.Create(signedUrl);
+
+            var webResponse = request.GetResponse();
+            using (var responseStream = new StreamReader(webResponse.GetResponseStream()))
+            {
+                return responseStream.ReadToEnd();
+            }
+
+        }
 	}
+
+    public class OAuthCredentials
+    {
+        protected OAuthCredentials() { }
+
+        public OAuthCredentials(string consumerKey, string consumerSecret)
+        {
+            ConsumerKey = consumerKey;
+            ConsumerSecret = consumerSecret;
+        }
+
+        public string ConsumerKey { get; protected set; }
+        public string ConsumerSecret { get; protected set; }
+    }
 }
