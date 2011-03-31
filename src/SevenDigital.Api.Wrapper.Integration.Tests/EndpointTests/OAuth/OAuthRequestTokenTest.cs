@@ -16,7 +16,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 				Assert.That(oathRequestToken.Secret, Is.Not.Empty);
 				Assert.That(oathRequestToken.Token, Is.Not.Empty);
 			} catch(WebException ex) {
-				Console.WriteLine(new StreamReader(ex.Response.GetResponseStream()).ReadToEnd());
+				Assert.Fail(new StreamReader(ex.Response.GetResponseStream()).ReadToEnd());
 			}
 		}
 	}
