@@ -16,8 +16,7 @@ namespace SevenDigital.Api.Wrapper
 
         public FluentApi()
             : this(new EndpointResolver(new HttpGetResolver(), new UrlSigner(), new AppSettingsCredentials()))
-        {
-        }
+        {}
 
         public FluentApi(IEndpointResolver endpointResolver)
         {
@@ -29,7 +28,15 @@ namespace SevenDigital.Api.Wrapper
             if (attribute == null)
                 throw new ArgumentException(string.Format("The Type {0} cannot be used in this way, it has no ApiEndpointAttribute", typeof(T)));
 
-            _endPointInfo.Uri = attribute.EndpointUri;
+			_endPointInfo.Uri = attribute.EndpointUri;
+
+
+			OAuthSignedAttribute isSigned =  typeof(T).GetCustomAttributes(true)
+                                                .OfType<OAuthSignedAttribute>()
+                                                .FirstOrDefault();
+
+			if (isSigned != null)
+				_endPointInfo.IsSigned = true;
         }
 
         public IFluentApi<T> WithEndpoint(string endpoint)

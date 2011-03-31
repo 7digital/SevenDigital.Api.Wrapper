@@ -49,6 +49,7 @@
     <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />
     <Compile Include="EndpointResolution\OAuth\OAuthCredentials.cs" />
     <Compile Include="EndpointResolution\OAuth\OAuthBase.cs" />
+    <Compile Include="EndpointResolution\OAuth\OAuthSignedAttribute.cs" />
     <Compile Include="EndpointResolution\OAuth\UrlSigner.cs" />
     <Compile Include="Exceptions\ApiXmlException.cs" />
     <Compile Include="EndpointResolution\EndPointInfo.cs" />

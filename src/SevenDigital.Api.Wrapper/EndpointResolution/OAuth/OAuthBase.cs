@@ -53,9 +53,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
         /// </summary>
         protected class QueryParameterComparer : IComparer<QueryParameter>
         {
-
-
-            public int Compare(QueryParameter x, QueryParameter y)
+			public int Compare(QueryParameter x, QueryParameter y)
             {
                 if (x.Name == y.Name)
                 {

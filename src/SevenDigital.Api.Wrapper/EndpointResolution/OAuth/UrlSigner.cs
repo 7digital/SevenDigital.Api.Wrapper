@@ -19,10 +19,20 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 
 			string normalizedRequestParameters;
 			string normalizedUrl;
-			var signature = _oAuthBase.GenerateSignature(new Uri(urlWithParameters), consumerCredentials.ConsumerKey, consumerCredentials.ConsumerSecret, userToken, userSecret, 
-				"GET", timestamp, nonce, out normalizedUrl, out normalizedRequestParameters, new Dictionary<string, string>());
+			var signature = _oAuthBase.GenerateSignature(new Uri(urlWithParameters), 
+																consumerCredentials.ConsumerKey, 
+																consumerCredentials.ConsumerSecret, 
+																userToken, 
+																userSecret, 
+																"GET", 
+																timestamp, 
+																nonce, 
+																out normalizedUrl, 
+																out normalizedRequestParameters, 
+																new Dictionary<string, string>());
 
-			return new Uri(string.Format("{0}?{1}&oauth_signature={2}", normalizedUrl, normalizedRequestParameters, signature));
+			string escapeDataString = Uri.EscapeDataString(signature);
+			return new Uri(string.Format("{0}?{1}&oauth_signature={2}", normalizedUrl, normalizedRequestParameters, escapeDataString));
 		}
 	}
 }

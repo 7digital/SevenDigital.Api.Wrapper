@@ -19,6 +19,8 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 	    public string UserSecret { get; set; }
 
+		public bool IsSigned { get; set; }
+
 	    public EndPointInfo()
 		{
 			Uri = string.Empty;

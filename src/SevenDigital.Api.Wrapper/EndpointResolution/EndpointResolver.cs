@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.IO;
 using System.Net;
 using System.Xml;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
@@ -59,9 +57,12 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 				_apiUrl = _apiUrl.Replace("http://", "https://");
 
 			var uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", _apiUrl, endPointInfo.Uri, 
-				_consumerCredentials.ConsumerKey, endPointInfo.Parameters.ToQueryString());
+				_consumerCredentials.ConsumerKey, endPointInfo.Parameters.ToQueryString()).TrimEnd('&');
 
-			var signedUrl = _urlSigner.SignUrl(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _consumerCredentials);
+			var signedUrl = new Uri(uriString);
+
+			if(endPointInfo.IsSigned)
+				signedUrl = _urlSigner.SignUrl(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _consumerCredentials);
 
 			return _urlResolver.Resolve(signedUrl, endPointInfo.HttpMethod, new WebHeaderCollection());
 		}

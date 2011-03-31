@@ -43,8 +43,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 
 			_endpointResolver.HitEndpoint(endPointState);
 
-			A.CallTo(() => _urlResolver.Resolve(A<Uri>.That.Matches(x => x.PathAndQuery == expected.PathAndQuery), expectedMethod, A<WebHeaderCollection>.Ignored))
-				.MustHaveHappened();
+			A.CallTo(() => _urlResolver
+					.Resolve(A<Uri>.That.Matches(x => x.PathAndQuery == expected.PathAndQuery), expectedMethod, A<WebHeaderCollection>.Ignored))
+					.MustHaveHappened();
 		}
 
 		[Test]
