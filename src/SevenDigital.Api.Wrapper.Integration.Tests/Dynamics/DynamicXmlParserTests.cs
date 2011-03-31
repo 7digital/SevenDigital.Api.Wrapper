@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Dynamics;
 using SevenDigital.Api.Wrapper.EndpointResolution;
+using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.Dynamics
@@ -14,7 +15,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Dynamics
 	    [SetUp]
 	    public void SetUp()
 	    {
-	        _endpointResolver = new EndpointResolver(new HttpGetResolver(), new AppSettingsCredentials());
+	        _endpointResolver = new EndpointResolver(new HttpGetResolver(), new UrlSigner(), new AppSettingsCredentials());
 	    }
 
 	    [Test]

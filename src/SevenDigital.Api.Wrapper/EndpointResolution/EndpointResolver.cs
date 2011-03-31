@@ -14,13 +14,15 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 	public class EndpointResolver : IEndpointResolver
 	{
 		private readonly IUrlResolver _urlResolver;
+		private readonly IUrlSigner _urlSigner;
 		private string _apiUrl = ConfigurationManager.AppSettings["Wrapper.BaseUrl"];
 	    private readonly OAuthCredentials _consumerCredentials;
 
-	    public EndpointResolver(IUrlResolver urlResolver, OAuthCredentials consumerCredentials)
+	    public EndpointResolver(IUrlResolver urlResolver, IUrlSigner urlSigner, OAuthCredentials consumerCredentials)
 		{
-		    _consumerCredentials = consumerCredentials;
-		    _urlResolver = urlResolver;
+	    	_urlResolver = urlResolver;
+	    	_urlSigner = urlSigner;
+	    	_consumerCredentials = consumerCredentials;
 		}
 
 	    public XmlNode HitEndpoint(EndPointInfo endPointInfo)
@@ -56,55 +58,12 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			if (endPointInfo.UseHttps)
 				_apiUrl = _apiUrl.Replace("http://", "https://");
 
-			string uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", 
-														_apiUrl, 
-														endPointInfo.Uri, 
-														_consumerCredentials.ConsumerKey, 
-														endPointInfo.Parameters.ToQueryString());
+			var uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", _apiUrl, endPointInfo.Uri, 
+				_consumerCredentials.ConsumerKey, endPointInfo.Parameters.ToQueryString());
 
-		    return GetResponse(uriString, endPointInfo.UserToken, endPointInfo.UserSecret);
+			var signedUrl = _urlSigner.SignUrl(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _consumerCredentials);
+
+			return _urlResolver.Resolve(signedUrl, endPointInfo.HttpMethod, new WebHeaderCollection());
 		}
-
-        private string GetResponse(string urlWithParameters, string userToken, string userSecret)
-        {
-            string normalizedRequestParameters;
-            string normalizedUrl;
-
-            OAuthBase oAuthBase = new OAuthBase();
-            var timestamp = oAuthBase.GenerateTimeStamp();
-            var nonce = oAuthBase.GenerateNonce();
-            var signature = oAuthBase.GenerateSignature(new Uri(urlWithParameters), _consumerCredentials.ConsumerKey,
-                                                        _consumerCredentials.ConsumerSecret,
-                                                        userToken, userSecret, "GET", timestamp, nonce,
-                                                        out normalizedUrl,
-                                                        out normalizedRequestParameters,
-                                                        new Dictionary<string, string>());
-
-            var signedUrl = string.Format("{0}?{1}&oauth_signature={2}", normalizedUrl, normalizedRequestParameters,
-                                          signature);
-
-            var request = HttpWebRequest.Create(signedUrl);
-
-            var webResponse = request.GetResponse();
-            using (var responseStream = new StreamReader(webResponse.GetResponseStream()))
-            {
-                return responseStream.ReadToEnd();
-            }
-
-        }
 	}
-
-    public class OAuthCredentials
-    {
-        protected OAuthCredentials() { }
-
-        public OAuthCredentials(string consumerKey, string consumerSecret)
-        {
-            ConsumerKey = consumerKey;
-            ConsumerSecret = consumerSecret;
-        }
-
-        public string ConsumerKey { get; protected set; }
-        public string ConsumerSecret { get; protected set; }
-    }
 }

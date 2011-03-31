@@ -5,6 +5,7 @@ using System.Xml;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
+using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
@@ -15,13 +16,16 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 	{
 		private readonly string _apiUrl = ConfigurationManager.AppSettings["Wrapper.BaseUrl"];
 		private readonly string _consumerKey = ConfigurationManager.AppSettings["Wrapper.ConsumerKey"];
-		private IUrlResolver _urlResolver = A.Fake<IUrlResolver>();
+		private IUrlResolver _urlResolver;
 	    private EndpointResolver _endpointResolver;
+		private IUrlSigner _urlSigner;
 
-	    [SetUp]
+		[SetUp]
         public void Setup()
-        {
-            _endpointResolver = new EndpointResolver(_urlResolver, new OAuthCredentials(_consumerKey, ""));
+	    {
+	    	_urlResolver = A.Fake<IUrlResolver>();
+			_urlSigner = A.Fake<IUrlSigner>();
+			_endpointResolver = new EndpointResolver(_urlResolver, _urlSigner, new OAuthCredentials(_consumerKey, ""));
         }
 
 		[Test]
@@ -33,8 +37,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			const string expectedMethod = "GET";
 			var expectedHeaders = new WebHeaderCollection();
 
-			var endPointState = new EndPointInfo() {Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders};
+			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
 			var expected = new Uri(string.Format("{0}/test?oauth_consumer_key={1}", _apiUrl, _consumerKey));
+			A.CallTo(() => _urlSigner.SignUrl(A<string>.Ignored, A<string>.Ignored, A<string>.Ignored, A<OAuthCredentials>.Ignored)).Returns(expected);
 
 			_endpointResolver.HitEndpoint(endPointState);
 

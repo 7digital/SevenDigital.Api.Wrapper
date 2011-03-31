@@ -46,7 +46,10 @@
     <Compile Include="Api.cs" />
     <Compile Include="AppSettingsCredentials.cs" />
     <Compile Include="Dynamics\DynamicXmlParser.cs" />
+    <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />
+    <Compile Include="EndpointResolution\OAuth\OAuthCredentials.cs" />
     <Compile Include="EndpointResolution\OAuth\OAuthBase.cs" />
+    <Compile Include="EndpointResolution\OAuth\UrlSigner.cs" />
     <Compile Include="Exceptions\ApiXmlException.cs" />
     <Compile Include="EndpointResolution\EndPointInfo.cs" />
     <Compile Include="FluentApi.cs" />
@@ -99,6 +102,11 @@
     <Compile Include="Schema\TrackEndpoint\TrackPreview.cs" />
     <Compile Include="Schema\TrackEndpoint\TrackSearch.cs" />
     <Compile Include="Schema\TrackEndpoint\TrackSearchResult.cs" />
+    <Compile Include="Utility\Http\HttpPostResolver.cs" />
+    <Compile Include="Utility\Http\IWebClientFactory.cs" />
+    <Compile Include="Utility\Http\IWebClientWrapper.cs" />
+    <Compile Include="Utility\Http\WebClientFactory.cs" />
+    <Compile Include="Utility\Http\WebClientWrapper.cs" />
     <Compile Include="Utility\Serialization\ISerializer.cs" />
     <Compile Include="Schema\Status.cs" />
     <Compile Include="Schema\Error.cs" />
