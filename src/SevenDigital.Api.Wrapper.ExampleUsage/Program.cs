@@ -2,7 +2,6 @@
 using System.Linq;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Schema.ArtistEndpoint;
-using SevenDigital.Api.Wrapper.Schema.LockerEndpoint;
 
 namespace SevenDigital.Api.Wrapper.ExampleUsage {
 	class Program {
