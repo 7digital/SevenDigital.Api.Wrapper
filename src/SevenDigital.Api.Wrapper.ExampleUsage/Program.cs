@@ -39,15 +39,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 
             Console.WriteLine("Browse on \"{0}\" returns: {1}", searchValue, artistBrowse.Artists.FirstOrDefault().Name);
             Console.WriteLine();
-
-            // -- user/locker
-            var locker = Api<Locker>
-                .Get
-                .ForUser("token", "secret")
-                .Please();
-
-            Console.WriteLine("Locker returns {0}", locker);
-
+			
             try
             {
                 // -- Deliberate error response
