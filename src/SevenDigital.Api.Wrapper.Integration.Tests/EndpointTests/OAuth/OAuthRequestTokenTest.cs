@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Schema.OAuth;
