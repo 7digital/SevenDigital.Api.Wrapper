@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
@@ -14,7 +15,13 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		public bool UseHttps { get; set; }
 
-		public EndPointInfo()
+	    public string UserToken { get; set; }
+
+	    public string UserSecret { get; set; }
+
+		public bool IsSigned { get; set; }
+
+	    public EndPointInfo()
 		{
 			Uri = string.Empty;
 			HttpMethod = "GET";

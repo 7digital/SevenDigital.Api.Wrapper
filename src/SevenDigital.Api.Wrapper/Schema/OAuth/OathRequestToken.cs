@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Schema.Attributes;
 
 namespace SevenDigital.Api.Wrapper.Schema.OAuth
@@ -7,6 +8,7 @@ namespace SevenDigital.Api.Wrapper.Schema.OAuth
 	[Serializable]
 	[ApiEndpoint("oauth/requesttoken")]
 	[XmlRoot("oauth_request_token")]
+	[OAuthSigned]
 	public class OathRequestToken
 	{
 		[XmlElement("oauth_token")]

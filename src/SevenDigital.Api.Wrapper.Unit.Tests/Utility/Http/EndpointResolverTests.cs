@@ -5,6 +5,7 @@ using System.Xml;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
+using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
@@ -15,7 +16,17 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 	{
 		private readonly string _apiUrl = ConfigurationManager.AppSettings["Wrapper.BaseUrl"];
 		private readonly string _consumerKey = ConfigurationManager.AppSettings["Wrapper.ConsumerKey"];
-		private IUrlResolver _urlResolver = A.Fake<IUrlResolver>();
+		private IUrlResolver _urlResolver;
+	    private EndpointResolver _endpointResolver;
+		private IUrlSigner _urlSigner;
+
+		[SetUp]
+        public void Setup()
+	    {
+	    	_urlResolver = A.Fake<IUrlResolver>();
+			_urlSigner = A.Fake<IUrlSigner>();
+			_endpointResolver = new EndpointResolver(_urlResolver, _urlSigner, new OAuthCredentials(_consumerKey, ""));
+        }
 
 		[Test]
 		public void Should_fire_resolve_with_correct_values()
@@ -23,17 +34,18 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			A.CallTo(() => _urlResolver.Resolve(A<Uri>.Ignored, A<string>.Ignored, A<WebHeaderCollection>.Ignored))
 				.Returns("<response status=\"ok\" version=\"1.2\" ><serviceStatus><serverTime>2011-03-04T08:10:29Z</serverTime></serviceStatus></response>");
 
-			var endpointResolver = new EndpointResolver(_urlResolver);
 			const string expectedMethod = "GET";
 			var expectedHeaders = new WebHeaderCollection();
 
-			var endPointState = new EndPointInfo() {Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders};
+			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
 			var expected = new Uri(string.Format("{0}/test?oauth_consumer_key={1}", _apiUrl, _consumerKey));
+			A.CallTo(() => _urlSigner.SignUrl(A<string>.Ignored, A<string>.Ignored, A<string>.Ignored, A<OAuthCredentials>.Ignored)).Returns(expected);
 
-			endpointResolver.HitEndpoint(endPointState);
+			_endpointResolver.HitEndpoint(endPointState);
 
-			A.CallTo(() => _urlResolver.Resolve(A<Uri>.That.Matches(x => x.PathAndQuery == expected.PathAndQuery), expectedMethod, A<WebHeaderCollection>.Ignored))
-				.MustHaveHappened();
+			A.CallTo(() => _urlResolver
+					.Resolve(A<Uri>.That.Matches(x => x.PathAndQuery == expected.PathAndQuery), expectedMethod, A<WebHeaderCollection>.Ignored))
+					.MustHaveHappened();
 		}
 
 		[Test]
@@ -41,8 +53,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		{
 			Given_a_urlresolver_that_returns_valid_xml();
 
-			var endpointResolver = new EndpointResolver(_urlResolver);
-			XmlNode hitEndpoint = endpointResolver.HitEndpoint(new EndPointInfo());
+			XmlNode hitEndpoint = _endpointResolver.HitEndpoint(new EndPointInfo());
 			Assert.That(hitEndpoint.HasChildNodes);
 			Assert.That(hitEndpoint.SelectSingleNode("//serverTime"), Is.Not.Null);
 		}
@@ -50,14 +61,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		[Test]
 		public void Should_throw_api_exception_with_correct_error_if_error_xml_received()
 		{
-			_urlResolver = A.Fake<IUrlResolver>();
-
 			A.CallTo(() => _urlResolver.Resolve(A<Uri>.Ignored, A<string>.Ignored, A<WebHeaderCollection>.Ignored))
 				.Returns(
 				"<response status=\"error\" version=\"1.2\"><error code=\"1001\"><errorMessage>Missing parameter \"tags\".</errorMessage></error></response>");
 
-			var endpointResolver = new EndpointResolver(_urlResolver);
-			var apiException = Assert.Throws<ApiXmlException>(() => endpointResolver.HitEndpoint(new EndPointInfo()));
+            var apiException = Assert.Throws<ApiXmlException>(() => _endpointResolver.HitEndpoint(new EndPointInfo()));
 			Assert.That(apiException.Message, Is.EqualTo("An error has occured in the Api, see Error property for details"));
 			Assert.That(apiException.Error.Code, Is.EqualTo(1001));
 			Assert.That(apiException.Error.ErrorMessage, Is.EqualTo("Missing parameter \"tags\"."));

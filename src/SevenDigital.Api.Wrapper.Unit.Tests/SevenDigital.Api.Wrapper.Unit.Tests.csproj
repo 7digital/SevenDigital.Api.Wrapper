@@ -48,11 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EndpointResolution\Authorization\HashComputerTests.cs" />
-    <Compile Include="EndpointResolution\Authorization\NonceGeneratorTests.cs" />
-    <Compile Include="EndpointResolution\Authorization\OAuthTests.cs" />
-    <Compile Include="EndpointResolution\Authorization\QueryParameterComparerTests.cs" />
-    <Compile Include="EndpointResolution\Authorization\TimeStampGeneratorTests.cs" />
     <Compile Include="FluentAPITests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Http\EndpointResolverTests.cs" />
@@ -68,6 +63,9 @@
       <Project>{42B4EE01-CDC9-482D-BBB1-B6147A6EA00D}</Project>
       <Name>SevenDigital.Api.Wrapper</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EndpointResolution\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

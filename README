@@ -1,24 +1,19 @@
 Current usage:
 
 artist/details endpoint
-Artist artist = new FluentApi<Artist>()
-		.WithParameter("artistId", "1")
-		.Resolve()
+Artist artist = Api<Artist>.Get
+		.WithArtistId(1)
+		.Please()
 
 Not all endpoints implemented yet, just Artist and some of Release.
-
-Would like to move to this eventually:
-
-var artist = new FluentApi<Artist>()
-		.With.ArtistId(1)
-		.For.Country("GB")
-		.Resolve()
-		
-or similar.
 
 Type knows about its endpoint via the [ApiEndpoint] attribute, e.g
 
 [ApiEndpoint("artist/details")]
 public class Artist{}
+
+Also - you can apply the following to a type to specify if the endpoint requires oauth
+[OAuthSigned]
+public class OAuthRequestToken{}
 
 See example usage console app project for some more examples.

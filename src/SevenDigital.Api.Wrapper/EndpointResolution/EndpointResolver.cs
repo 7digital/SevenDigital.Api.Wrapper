@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Net;
 using System.Xml;
+using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
@@ -10,17 +12,21 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 	public class EndpointResolver : IEndpointResolver
 	{
 		private readonly IUrlResolver _urlResolver;
+		private readonly IUrlSigner _urlSigner;
 		private string _apiUrl = ConfigurationManager.AppSettings["Wrapper.BaseUrl"];
-		private readonly string _consumerKey = ConfigurationManager.AppSettings["Wrapper.ConsumerKey"];
+	    private readonly OAuthCredentials _consumerCredentials;
 
-		public EndpointResolver(IUrlResolver urlResolver)
+	    public EndpointResolver(IUrlResolver urlResolver, IUrlSigner urlSigner, OAuthCredentials consumerCredentials)
 		{
-			_urlResolver = urlResolver;
+	    	_urlResolver = urlResolver;
+	    	_urlSigner = urlSigner;
+	    	_consumerCredentials = consumerCredentials;
 		}
 
-		public XmlNode HitEndpoint(EndPointInfo endPointInfo)
+	    public XmlNode HitEndpoint(EndPointInfo endPointInfo)
 		{
 			string output = GetEndpointOutput(endPointInfo);
+	        Debug.WriteLine(output);
 			XmlNode response = GetResponseNode(output);
 			AssertError(response);
 			return response.FirstChild;
@@ -50,15 +56,15 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			if (endPointInfo.UseHttps)
 				_apiUrl = _apiUrl.Replace("http://", "https://");
 
-			string uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", 
-														_apiUrl, 
-														endPointInfo.Uri, 
-														_consumerKey, 
-														endPointInfo.Parameters.ToQueryString());
+			var uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", _apiUrl, endPointInfo.Uri, 
+				_consumerCredentials.ConsumerKey, endPointInfo.Parameters.ToQueryString()).TrimEnd('&');
 
-			var endpointUri = new Uri(uriString.Trim('&'));
+			var signedUrl = new Uri(uriString);
 
-			return _urlResolver.Resolve(endpointUri, endPointInfo.HttpMethod, new WebHeaderCollection());
+			if(endPointInfo.IsSigned)
+				signedUrl = _urlSigner.SignUrl(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _consumerCredentials);
+
+			return _urlResolver.Resolve(signedUrl, endPointInfo.HttpMethod, new WebHeaderCollection());
 		}
 	}
 }

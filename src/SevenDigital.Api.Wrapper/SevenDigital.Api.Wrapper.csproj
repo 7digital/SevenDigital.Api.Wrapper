@@ -44,18 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api.cs" />
+    <Compile Include="AppSettingsCredentials.cs" />
     <Compile Include="Dynamics\DynamicXmlParser.cs" />
-    <Compile Include="EndpointResolution\Authorization\HashComputer.cs" />
-    <Compile Include="EndpointResolution\Authorization\IHashComputer.cs" />
-    <Compile Include="EndpointResolution\Authorization\IStringGenerator.cs" />
-    <Compile Include="EndpointResolution\Authorization\NonceGenerator.cs" />
-    <Compile Include="EndpointResolution\Authorization\OAuthBase.cs" />
-    <Compile Include="EndpointResolution\Authorization\OAuthConstants.cs" />
-    <Compile Include="EndpointResolution\Authorization\OAuthSignatureParameters.cs" />
-    <Compile Include="EndpointResolution\Authorization\QueryParameter.cs" />
-    <Compile Include="EndpointResolution\Authorization\QueryParameterComparer.cs" />
-    <Compile Include="EndpointResolution\Authorization\SignatureTypes.cs" />
-    <Compile Include="EndpointResolution\Authorization\TimeStampGenerator.cs" />
+    <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />
+    <Compile Include="EndpointResolution\OAuth\OAuthCredentials.cs" />
+    <Compile Include="EndpointResolution\OAuth\OAuthBase.cs" />
+    <Compile Include="EndpointResolution\OAuth\OAuthSignedAttribute.cs" />
+    <Compile Include="EndpointResolution\OAuth\UrlSigner.cs" />
     <Compile Include="Exceptions\ApiXmlException.cs" />
     <Compile Include="EndpointResolution\EndPointInfo.cs" />
     <Compile Include="FluentApi.cs" />
@@ -77,6 +72,7 @@
     <Compile Include="Schema\Chart\ChartType.cs" />
     <Compile Include="Schema\HasPaging.cs" />
     <Compile Include="Schema\HasPagingExtensions.cs" />
+    <Compile Include="Schema\LockerEndpoint\Locker.cs" />
     <Compile Include="Schema\OAuth\OathRequestToken.cs" />
     <Compile Include="Schema\Pricing\Currency.cs" />
     <Compile Include="Schema\Media\Format.cs" />
@@ -107,6 +103,11 @@
     <Compile Include="Schema\TrackEndpoint\TrackPreview.cs" />
     <Compile Include="Schema\TrackEndpoint\TrackSearch.cs" />
     <Compile Include="Schema\TrackEndpoint\TrackSearchResult.cs" />
+    <Compile Include="Utility\Http\HttpPostResolver.cs" />
+    <Compile Include="Utility\Http\IWebClientFactory.cs" />
+    <Compile Include="Utility\Http\IWebClientWrapper.cs" />
+    <Compile Include="Utility\Http\WebClientFactory.cs" />
+    <Compile Include="Utility\Http\WebClientWrapper.cs" />
     <Compile Include="Utility\Serialization\ISerializer.cs" />
     <Compile Include="Schema\Status.cs" />
     <Compile Include="Schema\Error.cs" />

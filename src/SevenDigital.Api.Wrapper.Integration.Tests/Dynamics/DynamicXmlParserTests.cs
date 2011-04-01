@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Dynamics;
 using SevenDigital.Api.Wrapper.EndpointResolution;
+using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.Dynamics
@@ -9,7 +10,15 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Dynamics
 	[TestFixture]
 	public class DynamicXmlParserTests
 	{
-		[Test]
+	    private EndpointResolver _endpointResolver;
+
+	    [SetUp]
+	    public void SetUp()
+	    {
+	        _endpointResolver = new EndpointResolver(new HttpGetResolver(), new UrlSigner(), new AppSettingsCredentials());
+	    }
+
+	    [Test]
 		public void Can_deal_with_xml()
 		{
 			string xml = "<books><book id='1'><name>Book with 2 authors</name><authors><author id='1'>Billy</author></authors></book><book id='2'><name>The Bobbit</name></book></books>";
@@ -24,10 +33,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Dynamics
 		{
 			const string endpoint = "artist/details";
 
-			var endpointResolver = new EndpointResolver(new HttpGetResolver());
 			var endPointInfo = new EndPointInfo {Uri = endpoint, Parameters =  new NameValueCollection{{"artistId", "1"}}};
 
-			string xml = endpointResolver.GetRawXml(endPointInfo);
+			string xml = _endpointResolver.GetRawXml(endPointInfo);
 
 			dynamic dx = new DynamicXmlParser(xml);
 
@@ -45,10 +53,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Dynamics
 		{
 			const string endpoint = "artist/releases";
 
-			var endpointResolver = new EndpointResolver(new HttpGetResolver());
 			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters = new NameValueCollection { { "artistId", "1" } } };
 
-			string xml = endpointResolver.GetRawXml(endPointInfo);
+			string xml = _endpointResolver.GetRawXml(endPointInfo);
 
 			dynamic dx = new DynamicXmlParser(xml);
 

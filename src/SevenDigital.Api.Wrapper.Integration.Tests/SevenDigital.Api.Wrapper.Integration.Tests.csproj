@@ -35,6 +35,7 @@
       <HintPath>..\..\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Dynamics\DynamicXmlParserTests.cs" />
     <Compile Include="EndpointTests\BasketEndpoint\BasketCreateTests.cs" />
+    <Compile Include="EndpointTests\LockerEndpoint\LockerTests.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthRequestTokenTest.cs" />
     <Compile Include="EndpointTests\TagsEndpoint\ArtistByTagTopTests.cs" />
     <Compile Include="EndpointTests\ArtistEndpoint\ArtistBrowseTests.cs" />
@@ -77,8 +79,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="EndpointTests\AuthenticationEndpoint\" />
-    <Folder Include="EndpointTests\LockerEndpoint\" />
     <Folder Include="EndpointTests\MediaEndpoint\" />
     <Folder Include="EndpointTests\PurchasingEndpoint\" />
   </ItemGroup>
