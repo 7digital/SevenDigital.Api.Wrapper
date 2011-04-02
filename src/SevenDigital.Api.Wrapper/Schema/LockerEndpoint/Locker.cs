@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.Schema.LockerEndpoint
     [Serializable]
     [ApiEndpoint("user/locker")]
     [XmlRoot("locker")]
-    public class Locker: HasPaging
+	public class Locker: HasPaging
     {
         [XmlArray("lockerReleases")]
         [XmlArrayItem("lockerRelease")]
