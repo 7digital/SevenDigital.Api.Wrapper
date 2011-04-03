@@ -5,7 +5,9 @@ using System.Net;
 using System.Xml;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Exceptions;
+using SevenDigital.Api.Wrapper.Schema;
 using SevenDigital.Api.Wrapper.Utility.Http;
+using SevenDigital.Api.Wrapper.Utility.Serialization;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
@@ -39,7 +41,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		private static void AssertError(XmlNode response)
 		{
-			string statusAttribute = response.Attributes["status"].Value;
+			string statusAttribute = response.Attributes["status"] == null ? response.Name : response.Attributes["status"].Value;
 			if (statusAttribute == "error")
 				throw new ApiXmlException("An error has occured in the Api, see Error property for details", response.FirstChild);
 		}
@@ -47,7 +49,15 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 		private static XmlNode GetResponseNode(string output)
 		{
 			var xml = new XmlDocument();
-			xml.LoadXml(output);
+			try
+			{
+				xml.LoadXml(output);
+			} 
+			catch(XmlException)
+			{
+				string errorXml = string.Format("<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"error\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\" ><error code=\"9001\"><errorMessage>{0}</errorMessage></error></response>", output);
+				xml.LoadXml(errorXml);
+			}
 			return xml.SelectSingleNode("/response");
 		}
 

@@ -71,6 +71,7 @@
     <Compile Include="EndpointTests\TrackEndpoint\TrackDetailsTests.cs" />
     <Compile Include="EndpointTests\TrackEndpoint\TrackPreviewTests.cs" />
     <Compile Include="EndpointTests\TrackEndpoint\TrackSearchTests.cs" />
+    <Compile Include="Exceptions\ApiXmlExceptionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

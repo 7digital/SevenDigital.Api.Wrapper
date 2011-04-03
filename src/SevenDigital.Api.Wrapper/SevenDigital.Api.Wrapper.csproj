@@ -73,6 +73,7 @@
     <Compile Include="Schema\HasPaging.cs" />
     <Compile Include="Schema\HasPagingExtensions.cs" />
     <Compile Include="Schema\LockerEndpoint\Locker.cs" />
+    <Compile Include="Schema\LockerEndpoint\LockerExtensions.cs" />
     <Compile Include="Schema\OAuth\OAuthAccessToken.cs" />
     <Compile Include="Schema\OAuth\OauthRequestToken.cs" />
     <Compile Include="Schema\Pricing\Currency.cs" />

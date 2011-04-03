@@ -2,7 +2,6 @@ using System.Configuration;
 using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Schema.LockerEndpoint;
-using SevenDigital.Api.Wrapper.Schema;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoint
 {
@@ -21,18 +20,6 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 
             Assert.That(locker.LockerReleases.Count, Is.GreaterThan(0));
         }
-
-		[Test]
-		public void Should_get_a_users_locker_with_correct_access_credentials_with_paging()
-		{
-			var locker = (Locker)Api<Locker>.Get
-				.WithPageNumber(2)
-				.WithPageSize(2)
-				.ForUser(_token, _tokenSecret)
-				.Please();
-
-			Assert.That(locker.LockerReleases.Count, Is.GreaterThan(0));
-		}
 
 		[Test]
 		public void Should_get_specific_users_release()
