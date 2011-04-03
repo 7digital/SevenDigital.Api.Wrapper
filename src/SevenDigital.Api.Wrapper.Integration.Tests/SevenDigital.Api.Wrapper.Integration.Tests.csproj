@@ -47,6 +47,7 @@
     <Compile Include="Dynamics\DynamicXmlParserTests.cs" />
     <Compile Include="EndpointTests\BasketEndpoint\BasketCreateTests.cs" />
     <Compile Include="EndpointTests\LockerEndpoint\LockerTests.cs" />
+    <Compile Include="EndpointTests\OAuth\OAuthAccessTokenTest.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthRequestTokenTest.cs" />
     <Compile Include="EndpointTests\TagsEndpoint\ArtistByTagTopTests.cs" />
     <Compile Include="EndpointTests\ArtistEndpoint\ArtistBrowseTests.cs" />
@@ -83,7 +84,9 @@
     <Folder Include="EndpointTests\PurchasingEndpoint\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Schema.Attributes;
 using SevenDigital.Api.Wrapper.Schema.Media;
 using SevenDigital.Api.Wrapper.Schema.ReleaseEndpoint;
@@ -11,7 +12,8 @@ namespace SevenDigital.Api.Wrapper.Schema.LockerEndpoint
     [Serializable]
     [ApiEndpoint("user/locker")]
     [XmlRoot("locker")]
-	public class Locker: HasPaging
+	[OAuthSigned]
+	public class Locker : HasPaging
     {
         [XmlArray("lockerReleases")]
         [XmlArrayItem("lockerRelease")]
