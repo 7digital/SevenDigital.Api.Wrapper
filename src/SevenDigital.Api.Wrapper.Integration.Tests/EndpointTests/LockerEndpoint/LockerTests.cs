@@ -11,6 +11,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 		private readonly string _token = ConfigurationManager.AppSettings["Integration.Tests.AccessToken"];
     	private readonly string _tokenSecret = ConfigurationManager.AppSettings["Integration.Tests.AccessTokenSecret"];
 
+		[SetUp]
+		public void RunOnce() {
+			if(string.IsNullOrEmpty(_token) || string.IsNullOrEmpty(_tokenSecret))
+				Assert.Ignore("these tests need an access token and secret to run");
+		}
+
     	[Test]
         public void Should_get_a_users_locker_with_correct_access_credentials()
         {
