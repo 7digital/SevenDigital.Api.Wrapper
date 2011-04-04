@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Wrapper.Schema.OAuth
 	[ApiEndpoint("oauth/requesttoken")]
 	[XmlRoot("oauth_request_token")]
 	[OAuthSigned]
-	public class OathRequestToken
+	public class OAuthRequestToken
 	{
 		[XmlElement("oauth_token")]
 		public string Token { get; set; }

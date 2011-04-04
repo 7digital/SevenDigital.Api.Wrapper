@@ -11,9 +11,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 		[Test]
 		public void Should_not_throw_unauthorised_exception_if_correct_creds_passed() {
 			try {
-				OathRequestToken oathRequestToken = Api<OathRequestToken>.Get.Please();
-				Assert.That(oathRequestToken.Secret, Is.Not.Empty);
-				Assert.That(oathRequestToken.Token, Is.Not.Empty);
+				OAuthRequestToken oAuthRequestToken = Api<OAuthRequestToken>.Get.Please();
+				Assert.That(oAuthRequestToken.Secret, Is.Not.Empty);
+				Assert.That(oAuthRequestToken.Token, Is.Not.Empty);
 			} catch(WebException ex) {
 				Assert.Fail(new StreamReader(ex.Response.GetResponseStream()).ReadToEnd());
 			}

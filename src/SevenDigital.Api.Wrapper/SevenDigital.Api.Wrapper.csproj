@@ -73,7 +73,9 @@
     <Compile Include="Schema\HasPaging.cs" />
     <Compile Include="Schema\HasPagingExtensions.cs" />
     <Compile Include="Schema\LockerEndpoint\Locker.cs" />
-    <Compile Include="Schema\OAuth\OathRequestToken.cs" />
+    <Compile Include="Schema\LockerEndpoint\LockerExtensions.cs" />
+    <Compile Include="Schema\OAuth\OAuthAccessToken.cs" />
+    <Compile Include="Schema\OAuth\OauthRequestToken.cs" />
     <Compile Include="Schema\Pricing\Currency.cs" />
     <Compile Include="Schema\Media\Format.cs" />
     <Compile Include="Schema\Media\FormatList.cs" />
@@ -103,6 +105,12 @@
     <Compile Include="Schema\TrackEndpoint\TrackPreview.cs" />
     <Compile Include="Schema\TrackEndpoint\TrackSearch.cs" />
     <Compile Include="Schema\TrackEndpoint\TrackSearchResult.cs" />
+    <Compile Include="Schema\User\Purchase\BasePurchaseItem.cs" />
+    <Compile Include="Schema\User\Purchase\BasePurchaseItemExtensions.cs" />
+    <Compile Include="Schema\User\Purchase\UserPurchaseBasket.cs" />
+    <Compile Include="Schema\User\Purchase\UserPurchaseBasketExtensions.cs" />
+    <Compile Include="Schema\User\Purchase\UserPurchaseItem.cs" />
+    <Compile Include="Schema\User\Purchase\UserPurchaseRrpItem.cs" />
     <Compile Include="Utility\Http\HttpPostResolver.cs" />
     <Compile Include="Utility\Http\IWebClientFactory.cs" />
     <Compile Include="Utility\Http\IWebClientWrapper.cs" />

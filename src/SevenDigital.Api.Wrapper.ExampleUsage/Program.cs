@@ -2,6 +2,7 @@
 using System.Linq;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Schema.ArtistEndpoint;
+using SevenDigital.Api.Wrapper.Schema.LockerEndpoint;
 
 namespace SevenDigital.Api.Wrapper.ExampleUsage {
 	class Program {
@@ -44,12 +45,22 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
                 // -- Deliberate error response
                 Console.WriteLine("Trying artist/details without artistId parameter...");
                 Api<Artist>.Get.Please();
-
             }
             catch (ApiXmlException ex)
             {
                 Console.WriteLine("{0} : {1}", ex.Error.Code, ex.Error.ErrorMessage);
             }
+
+			try
+			{
+				// -- Deliberate unauthorized response
+				Console.WriteLine("Trying user/locker without any credentials...");
+				Api<Locker>.Get.Please();
+			}
+			catch (ApiXmlException ex)
+			{
+				Console.WriteLine("{0} : {1}", ex.Error.Code, ex.Error.ErrorMessage);
+			}
             Console.ReadKey();
         }
 	}
