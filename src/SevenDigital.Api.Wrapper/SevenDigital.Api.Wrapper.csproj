@@ -105,6 +105,10 @@
     <Compile Include="Schema\TrackEndpoint\TrackPreview.cs" />
     <Compile Include="Schema\TrackEndpoint\TrackSearch.cs" />
     <Compile Include="Schema\TrackEndpoint\TrackSearchResult.cs" />
+    <Compile Include="Schema\User\Purchase\BasePurchaseItem.cs" />
+    <Compile Include="Schema\User\Purchase\BasePurchaseItemExtensions.cs" />
+    <Compile Include="Schema\User\Purchase\UserPurchaseItem.cs" />
+    <Compile Include="Schema\User\Purchase\UserPurchaseRrpItem.cs" />
     <Compile Include="Utility\Http\HttpPostResolver.cs" />
     <Compile Include="Utility\Http\IWebClientFactory.cs" />
     <Compile Include="Utility\Http\IWebClientWrapper.cs" />
