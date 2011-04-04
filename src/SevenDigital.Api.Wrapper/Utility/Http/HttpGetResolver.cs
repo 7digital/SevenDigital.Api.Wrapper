@@ -6,7 +6,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http {
 	public class HttpGetResolver : IUrlResolver  {
 
 		public string Resolve(Uri endpoint, string method, WebHeaderCollection headers) {
-			var webRequest = (HttpWebRequest)WebRequest.Create(endpoint.ToString());
+			var webRequest = (HttpWebRequest)WebRequest.Create(endpoint.OriginalString);
 			webRequest.Method = method;
 			webRequest.Headers.Add(headers);
 			WebResponse webResponse;

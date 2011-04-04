@@ -29,7 +29,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 				webClientWrapper.Encoding = Encoding.UTF8;
 				webClientWrapper.Headers.Add(headers);
 
-				return webClientWrapper.UploadString(endpoint.AbsoluteUri, method, ParametersAsString);
+				return webClientWrapper.UploadString(endpoint.OriginalString, method, ParametersAsString);
 			}
 		}
 	}
