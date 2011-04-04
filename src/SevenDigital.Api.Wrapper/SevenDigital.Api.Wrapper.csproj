@@ -107,6 +107,8 @@
     <Compile Include="Schema\TrackEndpoint\TrackSearchResult.cs" />
     <Compile Include="Schema\User\Purchase\BasePurchaseItem.cs" />
     <Compile Include="Schema\User\Purchase\BasePurchaseItemExtensions.cs" />
+    <Compile Include="Schema\User\Purchase\UserPurchaseBasket.cs" />
+    <Compile Include="Schema\User\Purchase\UserPurchaseBasketExtensions.cs" />
     <Compile Include="Schema\User\Purchase\UserPurchaseItem.cs" />
     <Compile Include="Schema\User\Purchase\UserPurchaseRrpItem.cs" />
     <Compile Include="Utility\Http\HttpPostResolver.cs" />
