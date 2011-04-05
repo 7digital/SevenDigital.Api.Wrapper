@@ -111,6 +111,8 @@
     <Compile Include="Schema\User\Purchase\UserPurchaseBasketExtensions.cs" />
     <Compile Include="Schema\User\Purchase\UserPurchaseItem.cs" />
     <Compile Include="Schema\User\Purchase\UserPurchaseRrpItem.cs" />
+    <Compile Include="Schema\User\UserDeliverItem.cs" />
+    <Compile Include="Schema\User\UserDeliverItemExtensions.cs" />
     <Compile Include="Utility\Http\HttpPostResolver.cs" />
     <Compile Include="Utility\Http\IWebClientFactory.cs" />
     <Compile Include="Utility\Http\IWebClientWrapper.cs" />

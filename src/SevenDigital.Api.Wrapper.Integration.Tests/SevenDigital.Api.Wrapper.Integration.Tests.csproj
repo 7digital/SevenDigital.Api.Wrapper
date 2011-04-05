@@ -83,6 +83,7 @@
   <ItemGroup>
     <Folder Include="EndpointTests\MediaEndpoint\" />
     <Folder Include="EndpointTests\PurchasingEndpoint\" />
+    <Folder Include="EndpointTests\User\Purchase\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
