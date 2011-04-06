@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 
 namespace SevenDigital.Api.Wrapper
