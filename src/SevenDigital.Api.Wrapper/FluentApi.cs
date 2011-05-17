@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Xml;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
@@ -15,7 +16,7 @@ namespace SevenDigital.Api.Wrapper
         private readonly IEndpointResolver _endpointResolver;
 
         public FluentApi()
-            : this(new EndpointResolver(new HttpGetResolver(), new UrlSigner(), new AppSettingsCredentials()))
+            : this(new EndpointResolver(new HttpGetResolver(), new UrlSigner()))
         {}
 
         public FluentApi(IEndpointResolver endpointResolver)
@@ -39,7 +40,7 @@ namespace SevenDigital.Api.Wrapper
 				_endPointInfo.IsSigned = true;
         }
 
-        public IFluentApi<T> WithEndpoint(string endpoint)
+    	public IFluentApi<T> WithEndpoint(string endpoint)
         {
             _endPointInfo.Uri = endpoint;
             return this;

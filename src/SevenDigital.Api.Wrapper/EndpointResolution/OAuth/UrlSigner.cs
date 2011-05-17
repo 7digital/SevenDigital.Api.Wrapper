@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 {
@@ -12,15 +14,15 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 			_oAuthBase = new OAuthBase();
 		}
 
-		public Uri SignUrl(string urlWithParameters, string userToken, string userSecret, OAuthCredentials consumerCredentials)
+		public Uri SignUrl(string urlWithParameters, string userToken, string userSecret, IOAuthCredentials consumerCredentials)
 		{
 			var timestamp = _oAuthBase.GenerateTimeStamp();
 			var nonce = _oAuthBase.GenerateNonce();
 
 			string normalizedRequestParameters;
 			string normalizedUrl;
-			var signature = _oAuthBase.GenerateSignature(new Uri(urlWithParameters), 
-																consumerCredentials.ConsumerKey, 
+			var signature = _oAuthBase.GenerateSignature(new Uri(urlWithParameters),
+																consumerCredentials.ConsumerKey,
 																consumerCredentials.ConsumerSecret, 
 																userToken, 
 																userSecret, 
@@ -35,4 +37,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 			return new Uri(string.Format("{0}?{1}&oauth_signature={2}", normalizedUrl, normalizedRequestParameters, escapeDataString));
 		}
 	}
+
+	
 }

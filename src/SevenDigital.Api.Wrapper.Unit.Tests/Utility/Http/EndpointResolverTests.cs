@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 	    {
 	    	_urlResolver = A.Fake<IUrlResolver>();
 			_urlSigner = A.Fake<IUrlSigner>();
-			_endpointResolver = new EndpointResolver(_urlResolver, _urlSigner, new OAuthCredentials(_consumerKey, ""));
+			_endpointResolver = new EndpointResolver(_urlResolver, _urlSigner);
         }
 
 		[Test]
@@ -39,13 +39,15 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 
 			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
 			var expected = new Uri(string.Format("{0}/test?oauth_consumer_key={1}", _apiUrl, _consumerKey));
-			A.CallTo(() => _urlSigner.SignUrl(A<string>.Ignored, A<string>.Ignored, A<string>.Ignored, A<OAuthCredentials>.Ignored)).Returns(expected);
 
-			_endpointResolver.HitEndpoint(endPointState);
+			Assert.Fail();
+			//A.CallTo(() => _urlSigner.SignUrl(A<string>.Ignored, A<string>.Ignored, A<string>.Ignored, A<IOAuthCredentials>.Ignored)).Returns(expected);
 
-			A.CallTo(() => _urlResolver
-					.Resolve(A<Uri>.That.Matches(x => x.PathAndQuery == expected.PathAndQuery), expectedMethod, A<WebHeaderCollection>.Ignored))
-					.MustHaveHappened();
+			//_endpointResolver.HitEndpoint(endPointState);
+
+			//A.CallTo(() => _urlResolver
+			//        .Resolve(A<Uri>.That.Matches(x => x.PathAndQuery == expected.PathAndQuery), expectedMethod, A<WebHeaderCollection>.Ignored))
+			//        .MustHaveHappened();
 		}
 
 		[Test]

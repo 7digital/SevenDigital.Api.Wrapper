@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Configuration;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Xml;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Exceptions;
-using SevenDigital.Api.Wrapper.Schema;
 using SevenDigital.Api.Wrapper.Utility.Http;
-using SevenDigital.Api.Wrapper.Utility.Serialization;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
@@ -15,14 +15,14 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 	{
 		private readonly IUrlResolver _urlResolver;
 		private readonly IUrlSigner _urlSigner;
-		private string _apiUrl = ConfigurationManager.AppSettings["Wrapper.BaseUrl"];
-	    private readonly OAuthCredentials _consumerCredentials;
+		private string _apiUrl = "http://api.7digital.com/1.2";
+	    private readonly IOAuthCredentials _consumerCredentials;
 
-	    public EndpointResolver(IUrlResolver urlResolver, IUrlSigner urlSigner, OAuthCredentials consumerCredentials)
+	    public EndpointResolver(IUrlResolver urlResolver, IUrlSigner urlSigner)
 		{
 	    	_urlResolver = urlResolver;
 	    	_urlSigner = urlSigner;
-	    	_consumerCredentials = consumerCredentials;
+	    	_consumerCredentials = GetCreds();
 		}
 
 	    public XmlNode HitEndpoint(EndPointInfo endPointInfo)
@@ -75,6 +75,17 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 				signedUrl = _urlSigner.SignUrl(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _consumerCredentials);
 
 			return _urlResolver.Resolve(signedUrl, endPointInfo.HttpMethod, new WebHeaderCollection());
+		}
+
+		private static IOAuthCredentials GetCreds()
+		{
+			Assembly callingAssembly = Assembly.GetCallingAssembly();
+			IEnumerable<Type> enumerable = callingAssembly.GetTypes().Where(x => x.IsInstanceOfType(typeof(IOAuthCredentials)));
+			if (enumerable.Count() < 1)
+				throw new MissingOauthCredentialsException();
+
+			Type firstOrDefault = enumerable.FirstOrDefault();
+			return (IOAuthCredentials)Activator.CreateInstance(firstOrDefault);
 		}
 	}
 }

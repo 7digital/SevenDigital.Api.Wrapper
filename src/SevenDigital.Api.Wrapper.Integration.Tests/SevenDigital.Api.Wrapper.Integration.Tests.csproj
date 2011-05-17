@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SevenDigital.Api.Wrapper.Integration.Tests</RootNamespace>
     <AssemblyName>SevenDigital.Api.Wrapper.Integration.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,12 +40,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dynamics\DynamicXmlParserTests.cs" />
     <Compile Include="EndpointTests\BasketEndpoint\BasketCreateTests.cs" />
     <Compile Include="EndpointTests\LockerEndpoint\LockerTests.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthAccessTokenTest.cs" />
