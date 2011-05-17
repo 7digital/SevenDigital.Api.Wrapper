@@ -23,7 +23,6 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 		[Test]
 		public void Should_fail_correctly_if_non_xml_error_returned_eg_unauthorised()
 		{
-			
 				// -- Deliberate unauthorized response
 				Console.WriteLine("Trying user/locker without any credentials...");
 				var apiXmlException = Assert.Throws<ApiXmlException>(() => Api<Locker>.Get.Please());

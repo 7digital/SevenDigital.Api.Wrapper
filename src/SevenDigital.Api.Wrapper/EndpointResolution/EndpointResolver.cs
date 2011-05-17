@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Xml;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Exceptions;
@@ -16,13 +12,12 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 		private readonly IUrlResolver _urlResolver;
 		private readonly IUrlSigner _urlSigner;
 		private string _apiUrl = "http://api.7digital.com/1.2";
-	    private readonly IOAuthCredentials _consumerCredentials;
+		private readonly IOAuthCredentials _consumerCredentials = CredentialChecker.Instance().GetCredentials();
 
 	    public EndpointResolver(IUrlResolver urlResolver, IUrlSigner urlSigner)
 		{
 	    	_urlResolver = urlResolver;
 	    	_urlSigner = urlSigner;
-	    	_consumerCredentials = GetCreds();
 		}
 
 	    public XmlNode HitEndpoint(EndPointInfo endPointInfo)
@@ -74,27 +69,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 				signedUrl = _urlSigner.SignUrl(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _consumerCredentials);
 
 			return _urlResolver.Resolve(signedUrl, endPointInfo.HttpMethod, new WebHeaderCollection());
-		}
-
-		private static IOAuthCredentials GetCreds()
-		{
-			// NEEDS TO HAPPEN ONCE!!
-			var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-			var enumerable = new List<Type>();
-			foreach (var loadedAssembly in loadedAssemblies) {
-				enumerable.AddRange(GetValidTypes(loadedAssembly));
-			}
-			if (enumerable.Count() < 1)
-				throw new MissingOauthCredentialsException();
-
-			Type firstOrDefault = enumerable.FirstOrDefault();
-			return (IOAuthCredentials)Activator.CreateInstance(firstOrDefault);
-		}
-
-		private static IEnumerable<Type> GetValidTypes(Assembly assembly) {
-			Type type = typeof(IOAuthCredentials);
-			return assembly.GetTypes().Where(x => type.IsAssignableFrom(x) && x != type);
 		}
 	}
 }

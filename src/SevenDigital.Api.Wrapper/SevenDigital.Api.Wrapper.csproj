@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api.cs" />
+    <Compile Include="EndpointResolution\CredentialChecker.cs" />
     <Compile Include="Exceptions\MissingOauthCredentialsException.cs" />
     <Compile Include="IOAuthCredentials.cs" />
     <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />
