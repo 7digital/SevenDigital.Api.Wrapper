@@ -13,13 +13,13 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 
 			ReleaseSearch release = Api<ReleaseSearch>.Get
 				.WithParameter("q", "no surprises")
-				.WithParameter("type", ReleaseType.Video.ToString())
+				.WithParameter("type", ReleaseType.Single.ToString())
 				.WithParameter("country", "GB")
 				.Please();
 
 			Assert.That(release, Is.Not.Null);
 			Assert.That(release.Results.Releases.Count, Is.GreaterThan(0));
-			Assert.That(release.Results.Releases.FirstOrDefault().Type, Is.EqualTo(ReleaseType.Video));
+			Assert.That(release.Results.Releases.FirstOrDefault().Type, Is.EqualTo(ReleaseType.Single));
 		}
 
 		[Test]

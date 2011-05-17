@@ -62,7 +62,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests
 			var secondName = dx.releases.release[1].title.Value;
 
 			Assert.That(name, Is.EqualTo("Night Train"));
-			Assert.That(secondName, Is.EqualTo("Crystal Ball"));
+			Assert.That(secondName, Is.EqualTo("A Bad Dream"));
 		}
 	}
 }

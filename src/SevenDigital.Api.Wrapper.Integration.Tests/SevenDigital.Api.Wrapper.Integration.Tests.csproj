@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppSettingsCredentials.cs" />
     <Compile Include="EndpointTests\BasketEndpoint\BasketCreateTests.cs" />
     <Compile Include="EndpointTests\LockerEndpoint\LockerTests.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthAccessTokenTest.cs" />

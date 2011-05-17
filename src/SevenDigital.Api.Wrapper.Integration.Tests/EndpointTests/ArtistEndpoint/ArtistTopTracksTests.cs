@@ -34,22 +34,6 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		}
 
 		[Test]
-		public void Can_hit_endpoint_with_paging()
-		{
-			ArtistTopTracks artist = new FluentApi<ArtistTopTracks>()
-				.WithParameter("artistId", "1")
-				.WithParameter("page", "2")
-				.WithParameter("pageSize", "10")
-				.Please();
-
-			Assert.That(artist, Is.Not.Null);
-			Assert.That(artist.Page, Is.EqualTo(2));
-			Assert.That(artist.PageSize, Is.EqualTo(10));
-		}
-
-
-
-		[Test]
 		public void Can_handle_pagingerror_with_paging()
 		{
 			try

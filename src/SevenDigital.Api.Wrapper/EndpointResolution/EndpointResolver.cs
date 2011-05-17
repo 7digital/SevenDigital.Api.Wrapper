@@ -28,7 +28,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 	    public XmlNode HitEndpoint(EndPointInfo endPointInfo)
 		{
 			string output = GetEndpointOutput(endPointInfo);
-	        Debug.WriteLine(output);
 			XmlNode response = GetResponseNode(output);
 			AssertError(response);
 			return response.FirstChild;
@@ -79,13 +78,23 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		private static IOAuthCredentials GetCreds()
 		{
-			Assembly callingAssembly = Assembly.GetCallingAssembly();
-			IEnumerable<Type> enumerable = callingAssembly.GetTypes().Where(x => x.IsInstanceOfType(typeof(IOAuthCredentials)));
+			// NEEDS TO HAPPEN ONCE!!
+			var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+			var enumerable = new List<Type>();
+			foreach (var loadedAssembly in loadedAssemblies) {
+				enumerable.AddRange(GetValidTypes(loadedAssembly));
+			}
 			if (enumerable.Count() < 1)
 				throw new MissingOauthCredentialsException();
 
 			Type firstOrDefault = enumerable.FirstOrDefault();
 			return (IOAuthCredentials)Activator.CreateInstance(firstOrDefault);
+		}
+
+		private static IEnumerable<Type> GetValidTypes(Assembly assembly) {
+			Type type = typeof(IOAuthCredentials);
+			return assembly.GetTypes().Where(x => type.IsAssignableFrom(x) && x != type);
 		}
 	}
 }
