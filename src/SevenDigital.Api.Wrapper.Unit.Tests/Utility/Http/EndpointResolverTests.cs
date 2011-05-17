@@ -15,6 +15,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 	public class EndpointResolverTests
 	{
 		private const string API_URL = "http://api.7digital.com/1.2";
+		private readonly string _consumerKey = new AppSettingsCredentials().ConsumerKey;
 		private IUrlResolver _urlResolver;
 	    private EndpointResolver _endpointResolver;
 		private IUrlSigner _urlSigner;
@@ -37,7 +38,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			var expectedHeaders = new WebHeaderCollection();
 
 			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
-			var expected = new Uri(string.Format("{0}/test?oauth_consumer_key=test", API_URL));
+			var expected = new Uri(string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey));
 
 			A.CallTo(() => _urlSigner.SignUrl(A<string>.Ignored, A<string>.Ignored, A<string>.Ignored, null)).Returns(expected);
 

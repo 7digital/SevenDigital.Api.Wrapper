@@ -39,7 +39,6 @@
       <HintPath>..\..\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,9 +54,6 @@
     <Compile Include="Utility\Http\HttpGetResolverTests.cs" />
     <Compile Include="Utility\Http\NameValueExtensionsTests.cs" />
     <Compile Include="Utility\Serialization\SerializationTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Wrapper\SevenDigital.Api.Wrapper.csproj">

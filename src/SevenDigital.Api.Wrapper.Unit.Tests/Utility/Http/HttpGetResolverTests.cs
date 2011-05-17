@@ -13,8 +13,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		[Category("Integration")]
 		public void Can_resolve_uri()
 		{
-			string apiUrl = ConfigurationManager.AppSettings["Wrapper.BaseUrl"];
-			string consumerKey = ConfigurationManager.AppSettings["Wrapper.ConsumerKey"];
+			string apiUrl = "http://api.7digital.com/1.2";
+			string consumerKey = new AppSettingsCredentials().ConsumerKey;
 			string resolve = new HttpGetResolver().Resolve(new Uri(string.Format("{0}/status?oauth_consumer_key={1}", apiUrl, consumerKey)), "GET",
 			                                               new WebHeaderCollection());
 			Assert.That(resolve, Is.Not.Empty);
