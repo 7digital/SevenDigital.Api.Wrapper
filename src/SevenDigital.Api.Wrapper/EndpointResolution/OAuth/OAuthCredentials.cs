@@ -1,6 +1,6 @@
 ﻿namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 {
-	public class OAuthCredentials
+	public class OAuthCredentials : IOAuthCredentials
 	{
 		protected OAuthCredentials() { }
 

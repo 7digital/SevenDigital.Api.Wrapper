@@ -2,7 +2,7 @@
 {
 	public interface IOAuthCredentials
 	{
-		string ConsumerKey { get; set; }
-		string ConsumerSecret { get; set; }
+		string ConsumerKey { get; }
+		string ConsumerSecret { get; }
 	}
 }
