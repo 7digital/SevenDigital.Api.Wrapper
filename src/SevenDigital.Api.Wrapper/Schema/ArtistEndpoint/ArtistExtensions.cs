@@ -29,6 +29,11 @@ namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 			return api;
 		}
 
+		public static IFluentApi<ArtistChart> WithPeriod(this IFluentApi<ArtistChart> api, string period) {
+			api.WithParameter("period", period.ToLower());
+			return api;
+		}
+
 		public static IFluentApi<ArtistChart> WithToDate(this IFluentApi<ArtistChart> api, DateTime toDate)
 		{
 			api.WithParameter("toDate", toDate.ToString("yyyyMMdd"));
