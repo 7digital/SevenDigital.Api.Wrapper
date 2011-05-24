@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Wrapper.Schema.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint

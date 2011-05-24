@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.Schema;
+using SevenDigital.Api.Schema;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 {

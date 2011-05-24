@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.Schema.Tags;
+using SevenDigital.Api.Schema.Tags;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 {

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
+using SevenDigital.Api.Schema.ArtistEndpoint;
+using SevenDigital.Api.Schema.Chart;
 using SevenDigital.Api.Wrapper.Schema.ArtistEndpoint;
-using SevenDigital.Api.Wrapper.Schema.Chart;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint
 {

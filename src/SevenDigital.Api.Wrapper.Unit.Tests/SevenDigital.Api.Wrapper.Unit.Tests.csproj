@@ -56,6 +56,10 @@
     <Compile Include="Utility\Serialization\SerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">
+      <Project>{513C4B04-994E-4149-BFD6-A6910E0F95B8}</Project>
+      <Name>SevenDigital.Api.Schema</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SevenDigital.Api.Wrapper\SevenDigital.Api.Wrapper.csproj">
       <Project>{42B4EE01-CDC9-482D-BBB1-B6147A6EA00D}</Project>
       <Name>SevenDigital.Api.Wrapper</Name>

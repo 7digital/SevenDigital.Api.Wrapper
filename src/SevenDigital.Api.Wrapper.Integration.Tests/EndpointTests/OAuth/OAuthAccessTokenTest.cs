@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.Schema.OAuth;
+using SevenDigital.Api.Schema.OAuth;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 {

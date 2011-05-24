@@ -1,4 +1,6 @@
-﻿namespace SevenDigital.Api.Wrapper.Schema
+﻿using SevenDigital.Api.Schema;
+
+namespace SevenDigital.Api.Wrapper.Schema
 {
 	public static class HasPagingExtensions
 	{

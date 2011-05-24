@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.Schema;
-using SevenDigital.Api.Wrapper.Schema.TrackEndpoint;
+using SevenDigital.Api.Schema;
+using SevenDigital.Api.Schema.TrackEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 {

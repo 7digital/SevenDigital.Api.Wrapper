@@ -1,4 +1,6 @@
-﻿namespace SevenDigital.Api.Wrapper.Schema.LockerEndpoint
+﻿using SevenDigital.Api.Schema.LockerEndpoint;
+
+namespace SevenDigital.Api.Wrapper.Schema.LockerEndpoint
 {
 	public static class LockerExtensions
 	{

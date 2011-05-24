@@ -1,4 +1,6 @@
-﻿namespace SevenDigital.Api.Wrapper.Schema.User.Purchase
+﻿using SevenDigital.Api.Schema.User.Purchase;
+
+namespace SevenDigital.Api.Wrapper.Schema.User.Purchase
 {
 	public static class BasePurchaseItemExtensions
 	{

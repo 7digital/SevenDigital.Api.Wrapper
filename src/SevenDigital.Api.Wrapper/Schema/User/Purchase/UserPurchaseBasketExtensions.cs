@@ -1,4 +1,5 @@
 ﻿using System;
+using SevenDigital.Api.Schema.User.Purchase;
 
 namespace SevenDigital.Api.Wrapper.Schema.User.Purchase
 {

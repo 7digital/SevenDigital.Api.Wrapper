@@ -1,4 +1,6 @@
-﻿namespace SevenDigital.Api.Wrapper.Schema.User
+﻿using SevenDigital.Api.Schema.User;
+
+namespace SevenDigital.Api.Wrapper.Schema.User
 {
 	public static class UserDeliverItemExtensions
 	{

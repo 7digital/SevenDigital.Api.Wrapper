@@ -4,13 +4,13 @@ namespace SevenDigital.Api.Wrapper.Schema.Basket
 {
 	public static class BasketExtensions
 	{
-		public static IFluentApi<Basket> Create(this IFluentApi<Basket> api)
+		public static IFluentApi<Api.Schema.Basket.Basket> Create(this IFluentApi<Api.Schema.Basket.Basket> api)
 		{
 			api.WithEndpoint("basket/create");
 			return api;
 		}
-		
-		public static IFluentApi<Basket> AddItem(this IFluentApi<Basket> api, Guid basketId, int releaseId)
+
+		public static IFluentApi<Api.Schema.Basket.Basket> AddItem(this IFluentApi<Api.Schema.Basket.Basket> api, Guid basketId, int releaseId)
 		{
 			api.WithEndpoint("basket/additem");
 			api.WithParameter("basketId", basketId.ToString());
@@ -18,7 +18,7 @@ namespace SevenDigital.Api.Wrapper.Schema.Basket
 			return api;
 		}
 
-		public static IFluentApi<Basket> AddItem(this IFluentApi<Basket> api, Guid basketId, int releaseId, int trackId)
+		public static IFluentApi<Api.Schema.Basket.Basket> AddItem(this IFluentApi<Api.Schema.Basket.Basket> api, Guid basketId, int releaseId, int trackId)
 		{
 			api.WithEndpoint("basket/additem");
 			api.WithParameter("basketId", basketId.ToString());
@@ -27,7 +27,7 @@ namespace SevenDigital.Api.Wrapper.Schema.Basket
 			return api;
 		}
 
-		public static IFluentApi<Basket> RemoveItem(this IFluentApi<Basket> api, Guid basketId, int itemId)
+		public static IFluentApi<Api.Schema.Basket.Basket> RemoveItem(this IFluentApi<Api.Schema.Basket.Basket> api, Guid basketId, int itemId)
 		{
 			api.WithEndpoint("basket/removeitem");
 			api.WithParameter("basketId", basketId.ToString());

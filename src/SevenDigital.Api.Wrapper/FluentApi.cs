@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Xml;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
-using SevenDigital.Api.Wrapper.Schema.Attributes;
+using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Wrapper.Utility.Http;
 using SevenDigital.Api.Wrapper.Utility.Serialization;
 

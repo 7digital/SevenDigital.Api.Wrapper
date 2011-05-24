@@ -4,7 +4,7 @@ using System.Xml;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
-using SevenDigital.Api.Wrapper.Schema;
+using SevenDigital.Api.Schema;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests
 {

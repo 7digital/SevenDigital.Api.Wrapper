@@ -1,4 +1,6 @@
-﻿namespace SevenDigital.Api.Wrapper.Schema.TrackEndpoint
+﻿using SevenDigital.Api.Schema.TrackEndpoint;
+
+namespace SevenDigital.Api.Wrapper.Schema.TrackEndpoint
 {
 	public static class TrackExtensions
 	{

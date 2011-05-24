@@ -46,75 +46,21 @@
     <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />
     <Compile Include="EndpointResolution\OAuth\OAuthCredentials.cs" />
     <Compile Include="EndpointResolution\OAuth\OAuthBase.cs" />
-    <Compile Include="EndpointResolution\OAuth\OAuthSignedAttribute.cs" />
     <Compile Include="EndpointResolution\OAuth\UrlSigner.cs" />
     <Compile Include="Exceptions\ApiXmlException.cs" />
     <Compile Include="EndpointResolution\EndPointInfo.cs" />
     <Compile Include="FluentApi.cs" />
     <Compile Include="IFluentApi.cs" />
     <Compile Include="EndpointResolution\NameValueCollectionExtensions.cs" />
-    <Compile Include="Schema\ArtistEndpoint\ApiPeriod.cs" />
-    <Compile Include="Schema\ArtistEndpoint\Artist.cs" />
-    <Compile Include="Schema\ArtistEndpoint\ArtistBrowse.cs" />
-    <Compile Include="Schema\ArtistEndpoint\ArtistChart.cs" />
-    <Compile Include="Schema\ArtistEndpoint\ArtistExtensions.cs" />
-    <Compile Include="Schema\ArtistEndpoint\ArtistReleases.cs" />
-    <Compile Include="Schema\ArtistEndpoint\ArtistSearch.cs" />
-    <Compile Include="Schema\ArtistEndpoint\ArtistSearchResult.cs" />
-    <Compile Include="Schema\ArtistEndpoint\ArtistTopTracks.cs" />
-    <Compile Include="Schema\Attributes\ApiEndpointAttribute.cs" />
-    <Compile Include="Schema\Basket\Basket.cs" />
-    <Compile Include="Schema\Basket\BasketExtensions.cs" />
-    <Compile Include="Schema\Basket\BasketItem.cs" />
-    <Compile Include="Schema\Basket\BasketItemList.cs" />
-    <Compile Include="Schema\Chart\ArtistChartItem.cs" />
-    <Compile Include="Schema\Chart\ChartItemChange.cs" />
-    <Compile Include="Schema\Chart\ChartType.cs" />
-    <Compile Include="Schema\HasPaging.cs" />
-    <Compile Include="Schema\HasPagingExtensions.cs" />
-    <Compile Include="Schema\LockerEndpoint\DownloadUrl.cs" />
-    <Compile Include="Schema\LockerEndpoint\Locker.cs" />
-    <Compile Include="Schema\LockerEndpoint\LockerExtensions.cs" />
-    <Compile Include="Schema\LockerEndpoint\LockerRelease.cs" />
-    <Compile Include="Schema\LockerEndpoint\LockerTrack.cs" />
-    <Compile Include="Schema\OAuth\OAuthAccessToken.cs" />
-    <Compile Include="Schema\OAuth\OauthRequestToken.cs" />
-    <Compile Include="Schema\Pricing\Currency.cs" />
-    <Compile Include="Schema\Media\Format.cs" />
-    <Compile Include="Schema\Media\FormatList.cs" />
-    <Compile Include="Schema\ItemType.cs" />
-    <Compile Include="Schema\Label.cs" />
-    <Compile Include="Schema\Licensor.cs" />
-    <Compile Include="Schema\Pricing\Price.cs" />
-    <Compile Include="Schema\RecommendedItem.cs" />
-    <Compile Include="Schema\ReleaseEndpoint\Release.cs" />
-    <Compile Include="Schema\ReleaseEndpoint\ReleaseByDate.cs" />
-    <Compile Include="Schema\ReleaseEndpoint\ReleaseChart.cs" />
-    <Compile Include="Schema\ReleaseEndpoint\ReleaseRecommend.cs" />
-    <Compile Include="Schema\ReleaseEndpoint\ReleaseSearch.cs" />
-    <Compile Include="Schema\ReleaseEndpoint\ReleaseSearchResult.cs" />
-    <Compile Include="Schema\ReleaseEndpoint\ReleaseType.cs" />
-    <Compile Include="Schema\Tags\ArtistByTagTop.cs" />
-    <Compile Include="Schema\Tags\ArtistTags.cs" />
-    <Compile Include="Schema\Tags\ReleaseTags.cs" />
-    <Compile Include="Schema\Tags\Tag.cs" />
-    <Compile Include="Schema\Tags\TaggedArtists.cs" />
-    <Compile Include="Schema\Tags\Tags.cs" />
-    <Compile Include="Schema\TrackEndpoint\TrackChart.cs" />
-    <Compile Include="Schema\TrackEndpoint\Track.cs" />
     <Compile Include="EndpointResolution\EndpointResolver.cs" />
     <Compile Include="EndpointResolution\IEndpointResolver.cs" />
+    <Compile Include="Schema\ArtistEndpoint\ArtistExtensions.cs" />
+    <Compile Include="Schema\Basket\BasketExtensions.cs" />
+    <Compile Include="Schema\HasPagingExtensions.cs" />
+    <Compile Include="Schema\LockerEndpoint\LockerExtensions.cs" />
     <Compile Include="Schema\TrackEndpoint\TrackExtensions.cs" />
-    <Compile Include="Schema\TrackEndpoint\TrackPreview.cs" />
-    <Compile Include="Schema\TrackEndpoint\TrackSearch.cs" />
-    <Compile Include="Schema\TrackEndpoint\TrackSearchResult.cs" />
-    <Compile Include="Schema\User\Purchase\BasePurchaseItem.cs" />
     <Compile Include="Schema\User\Purchase\BasePurchaseItemExtensions.cs" />
-    <Compile Include="Schema\User\Purchase\UserPurchaseBasket.cs" />
     <Compile Include="Schema\User\Purchase\UserPurchaseBasketExtensions.cs" />
-    <Compile Include="Schema\User\Purchase\UserPurchaseItem.cs" />
-    <Compile Include="Schema\User\Purchase\UserPurchaseRrpItem.cs" />
-    <Compile Include="Schema\User\UserDeliverItem.cs" />
     <Compile Include="Schema\User\UserDeliverItemExtensions.cs" />
     <Compile Include="Utility\Http\HttpPostResolver.cs" />
     <Compile Include="Utility\Http\IWebClientFactory.cs" />
@@ -122,14 +68,17 @@
     <Compile Include="Utility\Http\WebClientFactory.cs" />
     <Compile Include="Utility\Http\WebClientWrapper.cs" />
     <Compile Include="Utility\Serialization\ISerializer.cs" />
-    <Compile Include="Schema\Status.cs" />
-    <Compile Include="Schema\Error.cs" />
     <Compile Include="Utility\Http\HttpGetResolver.cs" />
     <Compile Include="Utility\Http\IUrlResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Serialization\XmlSerializer.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">
+      <Project>{513C4B04-994E-4149-BFD6-A6910E0F95B8}</Project>
+      <Name>SevenDigital.Api.Schema</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
