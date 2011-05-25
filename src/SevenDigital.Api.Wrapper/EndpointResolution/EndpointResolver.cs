@@ -11,13 +11,14 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 	{
 		private readonly IUrlResolver _urlResolver;
 		private readonly IUrlSigner _urlSigner;
+		private readonly IOAuthCredentials _oAuthCredentials;
 		private string _apiUrl = "http://api.7digital.com/1.2";
-		private readonly IOAuthCredentials _consumerCredentials = CredentialChecker.Instance().GetCredentials();
 
-	    public EndpointResolver(IUrlResolver urlResolver, IUrlSigner urlSigner)
+	    public EndpointResolver(IUrlResolver urlResolver, IUrlSigner urlSigner, IOAuthCredentials oAuthCredentials)
 		{
 	    	_urlResolver = urlResolver;
 	    	_urlSigner = urlSigner;
+	    	_oAuthCredentials = oAuthCredentials;
 		}
 
 	    public XmlNode HitEndpoint(EndPointInfo endPointInfo)
@@ -60,13 +61,15 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			if (endPointInfo.UseHttps)
 				_apiUrl = _apiUrl.Replace("http://", "https://");
 
-			var uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", _apiUrl, endPointInfo.Uri, 
-				_consumerCredentials.ConsumerKey, endPointInfo.Parameters.ToQueryString()).TrimEnd('&');
+			var uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", 
+				_apiUrl, endPointInfo.Uri,
+				_oAuthCredentials.ConsumerKey, 
+				endPointInfo.Parameters.ToQueryString()).TrimEnd('&');
 
 			var signedUrl = new Uri(uriString);
-
+ 
 			if(endPointInfo.IsSigned)
-				signedUrl = _urlSigner.SignUrl(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _consumerCredentials);
+				signedUrl = _urlSigner.SignUrl(uriString, endPointInfo.UserToken, endPointInfo.UserSecret,_oAuthCredentials);
 
 			return _urlResolver.Resolve(signedUrl, endPointInfo.HttpMethod, new WebHeaderCollection());
 		}

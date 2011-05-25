@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 	    {
 	    	_urlResolver = A.Fake<IUrlResolver>();
 			_urlSigner = A.Fake<IUrlSigner>();
-			_endpointResolver = new EndpointResolver(_urlResolver, _urlSigner);
+			_endpointResolver = new EndpointResolver(_urlResolver, _urlSigner, CredentialChecker.Instance.Credentials);
         }
 
 		[Test]

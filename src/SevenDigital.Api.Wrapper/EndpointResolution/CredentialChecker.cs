@@ -13,20 +13,27 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 		
 		private CredentialChecker() {}
 
-		public static CredentialChecker Instance() {
-			
-			if(_instance == null)
-				_instance =  new CredentialChecker();
+		public static CredentialChecker Instance {
+			get
+			{
 
-			return _instance;
+				if (_instance == null)
+					_instance = new CredentialChecker();
+
+				return _instance;
+			}
 		}
 
-		public IOAuthCredentials GetCredentials() {
-			if(_credentials == null)
-				_credentials = CheckIfAssembliesContainOAuthClass();
+		public IOAuthCredentials Credentials {
+			get
+			{
+				if (_credentials == null)
+					_credentials = CheckIfAssembliesContainOAuthClass();
 
-			return _credentials;
+				return _credentials;
+			}
 		}
+
 
 		private static IOAuthCredentials CheckIfAssembliesContainOAuthClass() {
 			var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();

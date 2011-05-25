@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 
 		[SetUp]
 		public void SetUp() {
-			_endpointResolver = new EndpointResolver(new HttpGetResolver(), new UrlSigner());
+			_endpointResolver = new EndpointResolver(new HttpGetResolver(), new UrlSigner(), CredentialChecker.Instance.Credentials);
 		}
 
 		[Test]
