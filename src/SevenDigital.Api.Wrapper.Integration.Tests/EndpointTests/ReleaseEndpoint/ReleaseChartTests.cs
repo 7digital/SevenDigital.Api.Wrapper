@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Chart;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
+using SevenDigital.Api.Wrapper.Schema.ReleaseEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoint
 {
@@ -38,6 +40,23 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 			Assert.That(artistBrowse, Is.Not.Null);
 			Assert.That(artistBrowse.Page, Is.EqualTo(2));
 			Assert.That(artistBrowse.PageSize, Is.EqualTo(20));
+		}
+
+		[Test]
+		public void Can_hit_fluent_endpoint() 
+		{
+			var release = Api<ReleaseChart>
+							.Get
+							.WithToDate(new DateTime(2011, 01, 31))
+							.WithPeriod(ChartPeriod.Week)
+							.Please();
+
+			Assert.That(release, Is.Not.Null);
+			Assert.That(release.ChartItems.Count, Is.EqualTo(10));
+			Assert.That(release.Type, Is.EqualTo(ChartType.album));
+			Assert.That(release.FromDate, Is.EqualTo(new DateTime(2011, 01, 25)));
+			Assert.That(release.ToDate, Is.EqualTo(new DateTime(2011, 01, 31)));
+			Assert.That(release.ChartItems.FirstOrDefault().Release, Is.Not.Null);
 		}
 	}
 }

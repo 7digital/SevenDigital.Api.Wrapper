@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="OAuth\OAuthSignedAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ArtistEndpoint\ApiPeriod.cs" />
+    <Compile Include="Chart\ChartPeriod.cs" />
     <Compile Include="ArtistEndpoint\Artist.cs" />
     <Compile Include="ArtistEndpoint\ArtistBrowse.cs" />
     <Compile Include="ArtistEndpoint\ArtistChart.cs" />

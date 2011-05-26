@@ -1,5 +1,6 @@
 ﻿using System;
 using SevenDigital.Api.Schema.ArtistEndpoint;
+using SevenDigital.Api.Schema.Chart;
 
 namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 {
@@ -23,7 +24,7 @@ namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 
 	public static class ArtistChartExtensions
 	{
-		public static IFluentApi<ArtistChart> WithPeriod(this IFluentApi<ArtistChart> api, ApiPeriod period)
+		public static IFluentApi<ArtistChart> WithPeriod(this IFluentApi<ArtistChart> api, ChartPeriod period)
 		{
 			api.WithParameter("period", period.ToString().ToLower());
 			return api;

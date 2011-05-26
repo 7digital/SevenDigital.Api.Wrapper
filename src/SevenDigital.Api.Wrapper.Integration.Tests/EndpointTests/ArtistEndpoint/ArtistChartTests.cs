@@ -16,7 +16,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 			var artist = Api<ArtistChart>
 							.Get
 							.WithToDate(new DateTime(2011, 01, 31))
-							.WithPeriod(ApiPeriod.Week)
+							.WithPeriod(ChartPeriod.Week)
 							.Please();
 
 			Assert.That(artist, Is.Not.Null);
