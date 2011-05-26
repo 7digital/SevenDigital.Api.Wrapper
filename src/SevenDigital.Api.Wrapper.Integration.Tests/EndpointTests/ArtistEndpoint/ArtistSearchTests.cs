@@ -21,6 +21,19 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		}
 
 		[Test]
+		public void Can_do_similar_to_browse()
+		{
+			var artist = Api<ArtistSearch>
+							.Get
+							.WithQuery("radiohe")
+							.WithParameter("sort","popularity+desc")
+							.Please();
+
+			Assert.That(artist, Is.Not.Null);
+			Assert.That(artist.Results.Artists.Count, Is.GreaterThan(0));
+		}
+
+		[Test]
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
 
