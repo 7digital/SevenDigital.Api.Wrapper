@@ -3,6 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Schema.Chart;
+using SevenDigital.Api.Wrapper.Schema;
 using SevenDigital.Api.Wrapper.Schema.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint
@@ -17,6 +18,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 							.Get
 							.WithToDate(new DateTime(2011, 01, 31))
 							.WithPeriod(ChartPeriod.Week)
+                            .WithPageSize(20)
 							.Please();
 
 			Assert.That(artist, Is.Not.Null);

@@ -6,7 +6,7 @@ namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 {
 	public static class ArtistExtensions
 	{
-		public static IFluentApi<IIsArtist> WithArtistId(this IFluentApi<IIsArtist> api, int artistId)
+		public static IFluentApi<T> WithArtistId<T>(this IFluentApi<T> api, int artistId) where T : IIsArtist
 		{
 			api.WithParameter("artistId", artistId.ToString());
 			return api;
@@ -18,26 +18,6 @@ namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 		public static IFluentApi<ArtistBrowse> WithLetter(this IFluentApi<ArtistBrowse> api, string letter)
 		{
 			api.WithParameter("letter", letter);
-			return api;
-		}
-	}
-
-	public static class ArtistChartExtensions
-	{
-		public static IFluentApi<ArtistChart> WithPeriod(this IFluentApi<ArtistChart> api, ChartPeriod period)
-		{
-			api.WithParameter("period", period.ToString().ToLower());
-			return api;
-		}
-
-		public static IFluentApi<ArtistChart> WithPeriod(this IFluentApi<ArtistChart> api, string period) {
-			api.WithParameter("period", period.ToLower());
-			return api;
-		}
-
-		public static IFluentApi<ArtistChart> WithToDate(this IFluentApi<ArtistChart> api, DateTime toDate)
-		{
-			api.WithParameter("toDate", toDate.ToString("yyyyMMdd"));
 			return api;
 		}
 	}

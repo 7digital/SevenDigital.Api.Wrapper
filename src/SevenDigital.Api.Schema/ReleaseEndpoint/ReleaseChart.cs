@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 	[Serializable]
 	[ApiEndpoint("release/chart")]
 	[XmlRoot("chart")]
-	public class ReleaseChart : HasPaging
+    public class ReleaseChart : HasPaging, IChart<ReleaseChartItem>
 	{
 		[XmlElement("type")]
 		public ChartType Type { get; set; }
