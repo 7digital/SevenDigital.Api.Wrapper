@@ -4,7 +4,6 @@ using NUnit.Framework;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Schema.Chart;
 using SevenDigital.Api.Wrapper.Schema;
-using SevenDigital.Api.Wrapper.Schema.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint
 {
@@ -22,7 +21,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 							.Please();
 
 			Assert.That(artist, Is.Not.Null);
-			Assert.That(artist.ChartItems.Count, Is.EqualTo(10));
+			Assert.That(artist.ChartItems.Count, Is.EqualTo(20));
 			Assert.That(artist.Type, Is.EqualTo(ChartType.artist));
 			Assert.That(artist.FromDate, Is.EqualTo(new DateTime(2011, 01, 25)));
 			Assert.That(artist.ToDate, Is.EqualTo(new DateTime(2011, 01, 31)));
