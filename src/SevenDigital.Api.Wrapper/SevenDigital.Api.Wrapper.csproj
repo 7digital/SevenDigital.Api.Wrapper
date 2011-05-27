@@ -57,7 +57,6 @@
     <Compile Include="Schema\ArtistEndpoint\ArtistExtensions.cs" />
     <Compile Include="Schema\Basket\BasketExtensions.cs" />
     <Compile Include="Schema\ChartExtensions.cs" />
-    <Compile Include="Schema\ReleaseEndpoint\ReleaseExtensions.cs" />
     <Compile Include="Schema\HasPagingExtensions.cs" />
     <Compile Include="Schema\LockerEndpoint\LockerExtensions.cs" />
     <Compile Include="Schema\TrackEndpoint\TrackExtensions.cs" />
