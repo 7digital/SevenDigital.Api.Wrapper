@@ -49,7 +49,7 @@ namespace SevenDigital.Api.Wrapper {
 		}
 
 		public IFluentApi<T> WithParameter(string parameterName, string parameterValue) {
-			_endPointInfo.Parameters.Set(parameterName, parameterValue);
+			_endPointInfo.Parameters[parameterName] =  parameterValue;
 			return this;
 		}
 
@@ -60,8 +60,8 @@ namespace SevenDigital.Api.Wrapper {
 		}
 
 		public T Please() {
-			XmlNode output = _endpointResolver.HitEndpoint(_endPointInfo);
-			var xmlSerializer = new XmlSerializer<T>();
+			var output = _endpointResolver.HitEndpoint(_endPointInfo);
+			var xmlSerializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>());
 			return xmlSerializer.DeSerialize(output);
 		}
 	}

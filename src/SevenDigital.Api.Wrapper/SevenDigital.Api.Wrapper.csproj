@@ -51,7 +51,7 @@
     <Compile Include="EndpointResolution\EndPointInfo.cs" />
     <Compile Include="FluentApi.cs" />
     <Compile Include="IFluentApi.cs" />
-    <Compile Include="EndpointResolution\NameValueCollectionExtensions.cs" />
+    <Compile Include="EndpointResolution\DictionaryExtensions.cs" />
     <Compile Include="EndpointResolution\EndpointResolver.cs" />
     <Compile Include="EndpointResolution\IEndpointResolver.cs" />
     <Compile Include="Schema\ArtistEndpoint\ArtistExtensions.cs" />
@@ -68,10 +68,13 @@
     <Compile Include="Utility\Http\IWebClientWrapper.cs" />
     <Compile Include="Utility\Http\WebClientFactory.cs" />
     <Compile Include="Utility\Http\WebClientWrapper.cs" />
+    <Compile Include="Utility\Serialization\ApiXmlDeSerializer.cs" />
     <Compile Include="Utility\Serialization\ISerializer.cs" />
+    <Compile Include="Utility\Serialization\IDeSerializer.cs" />
     <Compile Include="Utility\Http\HttpGetResolver.cs" />
     <Compile Include="Utility\Http\IUrlResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Serialization\ApiResourceDeSerializer.cs" />
     <Compile Include="Utility\Serialization\XmlSerializer.cs" />
   </ItemGroup>
   <ItemGroup>

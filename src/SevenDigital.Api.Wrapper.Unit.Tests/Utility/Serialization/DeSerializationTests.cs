@@ -4,11 +4,12 @@ using System.Xml;
 using System.Xml.Serialization;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Utility.Serialization;
+using FakeItEasy;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 {
 	[TestFixture]
-	public class SerializationTests
+	public class DeSerializationTests
 	{
 		[Test]
 		public void Can_serialize_object()
@@ -23,13 +24,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 		[Test]
 		public void Can_deserialize_object()
 		{
-			const string xml = "<?xml version=\"1.0\"?><testObject xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" id=\"1\"><name>A big test object</name><listOfThings><string>one</string><string>two</string><string>three</string></listOfThings><listOfInnerObjects><InnerObject id=\"1\"><Name>Trevor</Name></InnerObject><InnerObject id=\"2\"><Name>Bill</Name></InnerObject></listOfInnerObjects></testObject>";
-			var xmlSerializer = new XmlSerializer<TestObject>();
-			var xmlDocument = new XmlDocument();
-			xmlDocument.LoadXml(xml);
-			Assert.DoesNotThrow(() => xmlSerializer.DeSerialize(xmlDocument));
+            const string xml = "<?xml version=\"1.0\"?><response xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><testObject id=\"1\"> <name>A big test object</name><listOfThings><string>one</string><string>two</string><string>three</string></listOfThings><listOfInnerObjects><InnerObject id=\"1\"><Name>Trevor</Name></InnerObject><InnerObject id=\"2\"><Name>Bill</Name></InnerObject></listOfInnerObjects></testObject></response>";
+		    var xmlSerializer = new ApiXmlDeSerializer<TestObject>(new ApiResourceDeSerializer<TestObject>());
 
-			TestObject testObject = xmlSerializer.DeSerialize(xmlDocument);
+            Assert.DoesNotThrow(() => xmlSerializer.DeSerialize(xml));
+
+            TestObject testObject = xmlSerializer.DeSerialize(xml);
 
 			Assert.That(testObject.Id, Is.EqualTo(GetTestObject().Id));
 		}

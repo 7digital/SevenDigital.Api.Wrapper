@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Text;
 
 namespace SevenDigital.Api.Wrapper.Utility.Http

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Net;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
@@ -9,9 +11,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		public string HttpMethod { get; set; }
 
-		public NameValueCollection Parameters { get; set; }
+        public Dictionary<string,string> Parameters { get; set; }
 
-		public NameValueCollection Headers { get; set; }
+		public Dictionary<string,string> Headers { get; set; }
 
 		public bool UseHttps { get; set; }
 
@@ -25,8 +27,8 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 		{
 			Uri = string.Empty;
 			HttpMethod = "GET";
-			Parameters = new NameValueCollection();
-			Headers = new NameValueCollection();
+            Parameters = new Dictionary<string,string>();
+            Headers = new Dictionary<string,string>();
 			UseHttps = false;
 		}
 	}

@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 
@@ -10,8 +11,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		[Test]
 		public void Should_return_correct_nvc_as_querystring()
 		{
-			var nameValueCollection = new NameValueCollection(){{"artistId", "1234"},{"country", "GB"}};
-			string querystring = nameValueCollection.ToQueryString();
+			var expected =  new Dictionary<string,string>(){{"artistId", "1234"},{"country", "GB"}};
+            string querystring = expected.ToQueryString();
 			Assert.That(querystring, Is.EqualTo("artistId=1234&country=GB"));
 		}
 	}

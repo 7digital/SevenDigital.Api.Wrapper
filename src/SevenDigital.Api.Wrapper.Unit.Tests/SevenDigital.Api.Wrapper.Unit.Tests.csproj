@@ -53,7 +53,8 @@
     <Compile Include="Utility\Http\EndpointResolverTests.cs" />
     <Compile Include="Utility\Http\HttpGetResolverTests.cs" />
     <Compile Include="Utility\Http\NameValueExtensionsTests.cs" />
-    <Compile Include="Utility\Serialization\SerializationTests.cs" />
+    <Compile Include="Utility\Serialization\ApiDeSerializationTests.cs" />
+    <Compile Include="Utility\Serialization\DeSerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">

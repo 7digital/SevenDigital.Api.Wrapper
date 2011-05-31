@@ -2,7 +2,6 @@ using System;
 using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Text;
-using System.Web;
 
 /*
  * Do not refactor this class too much.
@@ -334,7 +333,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
             switch (signatureType)
             {
                 case SignatureTypes.PLAINTEXT:
-                    return HttpUtility.UrlEncode(string.Format("{0}&{1}", consumerSecret, tokenSecret));
+                    return Uri.EscapeDataString(string.Format("{0}&{1}", consumerSecret, tokenSecret));
                 case SignatureTypes.HMACSHA1:
                     string signatureBase = GenerateSignatureBase(url, consumerKey, token, tokenSecret, httpMethod, postParameters, timeStamp, nonce, HMACSHA1SignatureType, out normalizedUrl, out normalizedRequestParameters, oAuthVersion);
 

@@ -10,7 +10,6 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 		[Test]
 		public void Can_hit_endpoint()
 		{
-
 			Status status = Api<Status>.Get.Please();
 
 			Assert.That(status, Is.Not.Null);

@@ -4,6 +4,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
 	public interface IEndpointResolver
 	{
-		XmlNode HitEndpoint(EndPointInfo endPointInfo);
+		string HitEndpoint(EndPointInfo endPointInfo);
 	}
 }

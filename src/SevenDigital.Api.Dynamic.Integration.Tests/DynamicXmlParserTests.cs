@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
@@ -27,7 +28,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 		public void Can_get_an_artist() {
 			const string endpoint = "artist/details";
 
-			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters = new NameValueCollection { { "artistId", "1" } } };
+			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters = new Dictionary<string,string> { { "artistId", "1" } } };
 
 			string xml = _endpointResolver.GetRawXml(endPointInfo);
 
@@ -46,7 +47,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 		public void Can_get_an_artists_releases() {
 			const string endpoint = "artist/releases";
 
-			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters = new NameValueCollection { { "artistId", "1" } } };
+			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters =  new Dictionary<string,string> { { "artistId", "1" } } };
 
 			string xml = _endpointResolver.GetRawXml(endPointInfo);
 
