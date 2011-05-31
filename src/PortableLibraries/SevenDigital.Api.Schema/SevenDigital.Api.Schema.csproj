@@ -213,7 +213,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="..\Microsoft.Portable.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
       <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" />
