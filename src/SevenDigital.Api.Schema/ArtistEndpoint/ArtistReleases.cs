@@ -6,7 +6,6 @@ using SevenDigital.Api.Schema.ReleaseEndpoint;
 
 namespace SevenDigital.Api.Schema.ArtistEndpoint
 {
-	[Serializable]
 	[ApiEndpoint("artist/releases")]
 	[XmlRoot("releases")]
 	public class ArtistReleases : HasPaging, IIsArtist

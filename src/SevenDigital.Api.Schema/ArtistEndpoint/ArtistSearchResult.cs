@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.ArtistEndpoint
 {
-	[Serializable]
 	[XmlRoot("searchResult")]
 	public class ArtistSearchResult
 	{

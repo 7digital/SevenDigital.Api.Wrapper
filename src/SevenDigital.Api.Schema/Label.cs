@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema
 {
-	[Serializable]
+	
 	[XmlRoot("label")]
 	public class Label
 	{

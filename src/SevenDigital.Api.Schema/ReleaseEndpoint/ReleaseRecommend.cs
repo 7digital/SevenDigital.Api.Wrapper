@@ -5,7 +5,7 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.ReleaseEndpoint
 {
-	[Serializable]
+	
 	[ApiEndpoint("release/recommend")]
 	[XmlRoot("recommendations")]
 	public class ReleaseRecommend : HasPaging

@@ -4,7 +4,7 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.TrackEndpoint
 {
-	[Serializable]
+	
 	[ApiEndpoint("track/preview")]
 	[XmlRoot("url")]
 	public class TrackPreview

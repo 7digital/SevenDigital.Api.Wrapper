@@ -5,7 +5,6 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.ArtistEndpoint
 {
-	[Serializable]
 	[ApiEndpoint("artist/browse")]
 	[XmlRoot("artists")]
 	public class ArtistBrowse : HasPaging

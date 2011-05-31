@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.Tags
 {
-	[Serializable]
+	
 	[XmlRoot("tag")]
 	public class Tag
 	{

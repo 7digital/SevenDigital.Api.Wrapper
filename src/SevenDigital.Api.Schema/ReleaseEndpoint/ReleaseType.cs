@@ -2,7 +2,7 @@
 
 namespace SevenDigital.Api.Schema.ReleaseEndpoint
 {
-	[Serializable]
+	
 	public enum ReleaseType
 	{
 		Single,

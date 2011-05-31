@@ -7,7 +7,7 @@ using SevenDigital.Api.Schema.Pricing;
 
 namespace SevenDigital.Api.Schema.ReleaseEndpoint
 {
-	[Serializable]
+	
 	[XmlRoot("release")]
 	[ApiEndpoint("release/details")]
 	public class Release

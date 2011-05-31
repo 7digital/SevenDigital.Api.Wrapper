@@ -5,7 +5,7 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.Tags
 {
-	[Serializable]
+	
 	[ApiEndpoint("release/tags")]
 	[XmlRoot("tags")]
 	public class ReleaseTags : HasPaging

@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.ReleaseEndpoint
 {
-	[Serializable]
+	
 	[XmlRoot("searchResult")]
 	public class ReleaseSearchResult
 	{

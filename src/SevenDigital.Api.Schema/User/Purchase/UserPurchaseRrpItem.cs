@@ -5,7 +5,7 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.User.Purchase
 {
-	[Serializable]
+	
 	[OAuthSigned]
 	[ApiEndpoint("user/purchase/rrpitem")]
 	[XmlRoot("purchase")]

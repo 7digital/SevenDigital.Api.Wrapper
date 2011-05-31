@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.Media
 {
-	[Serializable]
+	
 	[XmlRoot("format")]
 	public class Format
 	{

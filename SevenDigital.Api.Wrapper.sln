@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dynamic", "Dynamic", "{2BDF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Schema", "src\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj", "{513C4B04-994E-4149-BFD6-A6910E0F95B8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PortableLibraries", "PortableLibraries", "{E2A24F12-4647-4A45-843D-5A984C7ABC2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Schema", "src\PortableLibraries\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj", "{37337CEA-A68A-4536-96D6-80EDBF27C27E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,13 +113,24 @@ Global
 		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Release|x86.ActiveCfg = Release|Any CPU
+		{37337CEA-A68A-4536-96D6-80EDBF27C27E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37337CEA-A68A-4536-96D6-80EDBF27C27E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37337CEA-A68A-4536-96D6-80EDBF27C27E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{37337CEA-A68A-4536-96D6-80EDBF27C27E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{37337CEA-A68A-4536-96D6-80EDBF27C27E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{37337CEA-A68A-4536-96D6-80EDBF27C27E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37337CEA-A68A-4536-96D6-80EDBF27C27E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37337CEA-A68A-4536-96D6-80EDBF27C27E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{37337CEA-A68A-4536-96D6-80EDBF27C27E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{37337CEA-A68A-4536-96D6-80EDBF27C27E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{D50F88A7-7478-4828-980B-776190152706} = {2BDF1171-1DD2-44D0-AB6F-74623487E1B1}
 		{5254EEA7-30DC-4322-A4C4-62BC3D6CF8D7} = {2BDF1171-1DD2-44D0-AB6F-74623487E1B1}
 		{2769A09B-5F43-452D-A174-56B4BB2F77C8} = {2BDF1171-1DD2-44D0-AB6F-74623487E1B1}
-		{D50F88A7-7478-4828-980B-776190152706} = {2BDF1171-1DD2-44D0-AB6F-74623487E1B1}
+		{37337CEA-A68A-4536-96D6-80EDBF27C27E} = {E2A24F12-4647-4A45-843D-5A984C7ABC2F}
 	EndGlobalSection
 EndGlobal

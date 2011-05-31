@@ -5,7 +5,7 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.OAuth
 {
-	[Serializable]
+	
 	[ApiEndpoint("oauth/requesttoken")]
 	[XmlRoot("oauth_request_token")]
 	[OAuthSigned]

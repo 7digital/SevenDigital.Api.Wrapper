@@ -4,7 +4,6 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.ArtistEndpoint
 {
-	[Serializable]
 	[ApiEndpoint("artist/details")]
 	[XmlRoot("artist")]
 	public class Artist : IIsArtist

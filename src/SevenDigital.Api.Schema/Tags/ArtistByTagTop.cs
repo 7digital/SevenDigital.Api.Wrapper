@@ -5,7 +5,7 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.Tags
 {
-	[Serializable]
+	
 	[ApiEndpoint("artist/bytag/top")]
 	[XmlRoot("taggedResults")]
 	public class ArtistByTagTop : HasPaging
@@ -17,7 +17,7 @@ namespace SevenDigital.Api.Schema.Tags
 		public List<TaggedArtists> TaggedArtists { get; set; }
 	}
 
-	[Serializable]
+	
 	[ApiEndpoint("release/bytag/new")]
 	[XmlRoot("taggedResults")]
 	public class ReleaseByTagNew : HasPaging
@@ -29,7 +29,7 @@ namespace SevenDigital.Api.Schema.Tags
 		public List<TaggedReleases> TaggedReleases { get; set; }
 	}
 
-	[Serializable]
+	
 	[ApiEndpoint("release/bytag/top")]
 	[XmlRoot("taggedResults")]
 	public class ReleaseByTagTop : HasPaging

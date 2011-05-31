@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.Media
 {
-	[Serializable]
+	
 	[XmlRoot("formatList")]
 	public class FormatList
 	{

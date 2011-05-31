@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema
 {
-	[Serializable]
+	
 	[XmlRoot("licensor")]
 	public class Licensor
 	{

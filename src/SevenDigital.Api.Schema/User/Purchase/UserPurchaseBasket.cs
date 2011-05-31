@@ -7,7 +7,7 @@ using SevenDigital.Api.Schema.LockerEndpoint;
 
 namespace SevenDigital.Api.Schema.User.Purchase
 {
-	[Serializable]
+	
 	[OAuthSigned]
 	[ApiEndpoint("user/purchase/basket")]
 	[XmlRoot("purchase")]

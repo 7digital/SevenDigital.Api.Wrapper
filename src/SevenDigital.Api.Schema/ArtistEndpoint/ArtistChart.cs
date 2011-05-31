@@ -6,7 +6,6 @@ using SevenDigital.Api.Schema.Chart;
 
 namespace SevenDigital.Api.Schema.ArtistEndpoint
 {
-	[Serializable]
 	[ApiEndpoint("artist/chart")]
 	[XmlRoot("chart")]
     public class ArtistChart : HasPaging, IChart<ArtistChartItem>

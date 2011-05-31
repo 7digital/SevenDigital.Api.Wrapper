@@ -6,7 +6,7 @@ using SevenDigital.Api.Schema.TrackEndpoint;
 
 namespace SevenDigital.Api.Schema.Chart
 {
-	[Serializable]
+	
 	[XmlRoot("chartItem")]
 	public class ArtistChartItem
 	{
@@ -20,7 +20,7 @@ namespace SevenDigital.Api.Schema.Chart
 		public Artist Artist { get; set; }
 	}
 
-	[Serializable]
+	
 	[XmlRoot("chartItem")]
 	public class ReleaseChartItem
 	{
@@ -34,7 +34,7 @@ namespace SevenDigital.Api.Schema.Chart
 		public Release Release { get; set; }
 	}
 
-	[Serializable]
+	
 	[XmlRoot("chartItem")]
 	public class TrackChartItem
 	{
