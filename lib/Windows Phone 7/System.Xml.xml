@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
 <doc>
   <assembly>
     <name>System.Xml</name>
@@ -280,7 +283,7 @@
     <member name="M:System.Xml.XmlConvert.ToDateTimeOffset(System.String)">
       <summary>Converts the supplied <see cref="T:System.String" /> to a <see cref="T:System.DateTimeOffset" /> equivalent.</summary>
       <returns>The <see cref="T:System.DateTimeOffset" /> equivalent of the supplied string.</returns>
-      <param name="s">The string to convert.Note:The string must conform to a subset of the W3C Recommendation for the XML dateTime type. For more information see XML Schema Part 2: Datatypes.</param>
+      <param name="s">The string to convert.Note   The string must conform to a subset of the W3C Recommendation for the XML dateTime type. For more information see XML Schema Part 2: Datatypes.</param>
       <exception cref="T:System.ArgumentNullException">
         <paramref name="s" /> is null. </exception>
       <exception cref="T:System.ArgumentOutOfRangeException">The argument passed to this method is outside the range of allowable values. For information about allowable values, see <see cref="T:System.DateTimeOffset" />.</exception>
@@ -978,7 +981,7 @@
       <returns>An <see cref="T:System.Xml.XmlReader" /> object to read XML data.</returns>
       <param name="input">The stream containing the XML data. The <see cref="T:System.Xml.XmlReader" /> scans the first bytes of the stream looking for a byte order mark or other sign of encoding. When encoding is determined, the encoding is used to continue reading the stream, and processing continues parsing the input as a stream of (Unicode) characters.</param>
       <param name="settings">The <see cref="T:System.Xml.XmlReaderSettings" /> object used to configure the new <see cref="T:System.Xml.XmlReader" /> instance. This value can be null.</param>
-      <param name="baseUri">The base URI for the entity or document being read. This value can be null.Security Note:The base URI is used to resolve the relative URI of the XML document. Do not use a base URI from an untrusted source.</param>
+      <param name="baseUri">The base URI for the entity or document being read. This value can be null.Security Note   The base URI is used to resolve the relative URI of the XML document. Do not use a base URI from an untrusted source.</param>
       <exception cref="T:System.NullReferenceException">The <paramref name="input" /> value is null.</exception>
     </member>
     <member name="M:System.Xml.XmlReader.Create(System.IO.Stream,System.Xml.XmlReaderSettings,System.Xml.XmlParserContext)">
@@ -1007,7 +1010,7 @@
       <returns>An <see cref="T:System.Xml.XmlReader" /> object to read XML data.</returns>
       <param name="input">The <see cref="T:System.IO.TextReader" /> from which to read the XML data. Because a <see cref="T:System.IO.TextReader" /> returns a stream of Unicode characters, the encoding specified in the XML declaration is not used by the <see cref="T:System.Xml.XmlReader" /> to decode the data stream.</param>
       <param name="settings">The <see cref="T:System.Xml.XmlReaderSettings" /> object used to configure the new <see cref="T:System.Xml.XmlReader" /> instance. This value can be null.</param>
-      <param name="baseUri">The base URI for the entity or document being read. This value can be null.Security Note:The base URI is used to resolve the relative URI of the XML document. Do not use a base URI from an untrusted source.</param>
+      <param name="baseUri">The base URI for the entity or document being read. This value can be null.Security Note   The base URI is used to resolve the relative URI of the XML document. Do not use a base URI from an untrusted source.</param>
       <exception cref="T:System.NullReferenceException">The <paramref name="input" /> value is null.</exception>
     </member>
     <member name="M:System.Xml.XmlReader.Create(System.IO.TextReader,System.Xml.XmlReaderSettings,System.Xml.XmlParserContext)">
@@ -1229,7 +1232,7 @@
     <member name="M:System.Xml.XmlReader.ReadContentAs(System.Type,System.Xml.IXmlNamespaceResolver)">
       <summary>Reads the content as an object of the type specified.</summary>
       <returns>The concatenated text content or attribute value converted to the requested type.</returns>
-      <param name="returnType">The type of the value to be returned.Note:With the release of the .NET Framework 3.5, the value of the <paramref name="returnType" /> parameter can now be the <see cref="T:System.DateTimeOffset" /> type.</param>
+      <param name="returnType">The type of the value to be returned.Note   With the release of the .NET Framework 3.5, the value of the <paramref name="returnType" /> parameter can now be the <see cref="T:System.DateTimeOffset" /> type.</param>
       <param name="namespaceResolver">An <see cref="T:System.Xml.IXmlNamespaceResolver" /> object that is used to resolve any namespace prefixes related to type conversion. For example, this can be used when converting an <see cref="T:System.Xml.XmlQualifiedName" /> object to an xs:string.This value can be null.</param>
       <exception cref="T:System.FormatException">The content is not in the correct format for the target type.</exception>
       <exception cref="T:System.InvalidCastException">The attempted cast is not valid.</exception>
@@ -1318,7 +1321,7 @@
     <member name="M:System.Xml.XmlReader.ReadElementContentAs(System.Type,System.Xml.IXmlNamespaceResolver)">
       <summary>Reads the element content as the requested type.</summary>
       <returns>The element content converted to the requested typed object.</returns>
-      <param name="returnType">The type of the value to be returned.Note:With the release of the .NET Framework 3.5, the value of the <paramref name="returnType" /> parameter can now be the <see cref="T:System.DateTimeOffset" /> type.</param>
+      <param name="returnType">The type of the value to be returned.Note   With the release of the .NET Framework 3.5, the value of the <paramref name="returnType" /> parameter can now be the <see cref="T:System.DateTimeOffset" /> type.</param>
       <param name="namespaceResolver">An <see cref="T:System.Xml.IXmlNamespaceResolver" /> object that is used to resolve any namespace prefixes related to type conversion.</param>
       <exception cref="T:System.InvalidOperationException">The <see cref="T:System.Xml.XmlReader" /> is not positioned on an element.</exception>
       <exception cref="T:System.Xml.XmlException">The current element contains child elements.-or-The element content cannot be converted to the requested type.</exception>
@@ -1328,7 +1331,7 @@
     <member name="M:System.Xml.XmlReader.ReadElementContentAs(System.Type,System.Xml.IXmlNamespaceResolver,System.String,System.String)">
       <summary>Checks that the specified local name and namespace URI matches that of the current element, then reads the element content as the requested type.</summary>
       <returns>The element content converted to the requested typed object.</returns>
-      <param name="returnType">The type of the value to be returned.Note:With the release of the .NET Framework 3.5, the value of the <paramref name="returnType" /> parameter can now be the <see cref="T:System.DateTimeOffset" /> type.</param>
+      <param name="returnType">The type of the value to be returned.Note   With the release of the .NET Framework 3.5, the value of the <paramref name="returnType" /> parameter can now be the <see cref="T:System.DateTimeOffset" /> type.</param>
       <param name="namespaceResolver">An <see cref="T:System.Xml.IXmlNamespaceResolver" /> object that is used to resolve any namespace prefixes related to type conversion.</param>
       <param name="localName">The local name of the element.</param>
       <param name="namespaceURI">The namespace URI of the element.</param>
@@ -2143,7 +2146,7 @@
     </member>
     <member name="M:System.Xml.XmlWriter.WriteValue(System.Object)">
       <summary>Writes the object value.</summary>
-      <param name="value">The object value to write. Note:With the release of the .NET Framework 3.5, this method accepts <see cref="T:System.DateTimeOffset" /> as a parameter.</param>
+      <param name="value">The object value to write. Note   With the release of the .NET Framework 3.5, this method accepts <see cref="T:System.DateTimeOffset" /> as a parameter.</param>
       <exception cref="T:System.ArgumentException">An invalid value was specified.</exception>
       <exception cref="T:System.ArgumentNullException">The <paramref name="value" /> is null.</exception>
       <exception cref="T:System.InvalidOperationException">The writer is closed or in error state.</exception>
@@ -2240,9 +2243,12 @@
       <summary>Maps a URI to an object that contains the actual resource.</summary>
       <returns>A System.IO.Stream object. If the stream is not found, an exception is thrown.</returns>
       <param name="absoluteUri">The URI returned from <see cref="M:System.Xml.XmlResolver.ResolveUri(System.Uri,System.String)" />.</param>
-      <param name="role">The current version of the .NET Framework does not use this parameter when resolving URIs. This is provided for future extensibility purposes. For example, this can be mapped to the xlink:role and used as an implementation specific argument in other scenarios.</param>
+      <param name="role">The current version of the .NET Framework for Silverlight does not use this parameter when resolving URIs. This is provided for future extensibility purposes. For example, this can be mapped to the xlink:role and used as an implementation specific argument in other scenarios.</param>
       <param name="ofObjectToReturn">The type of object to return. The current version only returns System.IO.Stream objects. </param>
     </member>
+    <member name="M:System.Xml.XmlReader.Dispose"></member>
+    <member name="M:System.Xml.XmlReaderSettings.#ctor(System.Xml.XmlResolver)"></member>
+    <member name="M:System.Xml.XmlWriter.Dispose"></member>
     <member name="T:System.Xml.Schema.XmlSchema">
       <summary>This class is provided for interface compatibility. It is not intended to be used from your Silverlight code.</summary>
     </member>

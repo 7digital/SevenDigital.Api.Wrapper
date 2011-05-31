@@ -3,14 +3,20 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{37337CEA-A68A-4536-96D6-80EDBF27C27E}</ProjectGuid>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AC274EC8-B9F2-40E8-9F5B-1F3299F895C3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SevenDigital.Api.Schema</RootNamespace>
-    <AssemblyName>SevenDigital.Api.Schema</AssemblyName>
+    <RootNamespace>SevenDigital.Api.Wrapper</RootNamespace>
+    <AssemblyName>SevenDigital.Api.Wrapper</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile2</TargetFrameworkProfile>
-    <FileAlignment>512</FileAlignment>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -205,31 +211,43 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System">
-      <HintPath>..\..\..\lib\portable\System.dll</HintPath>
+      <HintPath>..\..\..\lib\Windows Phone 7\System.dll</HintPath>
     </Reference>
-    <Reference Include="System.Core">
-      <HintPath>..\..\..\lib\portable\System.Core.dll</HintPath>
+    <Reference Include="System.Device">
+      <HintPath>..\..\..\lib\Windows Phone 7\System.Device.dll</HintPath>
     </Reference>
     <Reference Include="System.Net">
-      <HintPath>..\..\..\lib\portable\System.Net.dll</HintPath>
+      <HintPath>..\..\..\lib\Windows Phone 7\System.New.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Observable">
+      <HintPath>..\..\..\lib\Windows Phone 7\System.Observable.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
-      <HintPath>..\..\..\lib\portable\System.Runtime.Serialization.dll</HintPath>
+      <HintPath>..\..\..\lib\Windows Phone 7\System.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="System.ServiceModel">
-      <HintPath>..\..\..\lib\portable\System.ServiceModel.dll</HintPath>
+    <Reference Include="System.Servicemodel">
+      <HintPath>..\..\..\lib\Windows Phone 7\System.Servicemodel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Servicemodel.Web">
+      <HintPath>..\..\..\lib\Windows Phone 7\System.Servicemodel.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows">
+      <HintPath>..\..\..\lib\Windows Phone 7\System.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml">
-      <HintPath>..\..\..\lib\portable\System.Xml.dll</HintPath>
+      <HintPath>..\..\..\lib\Windows Phone 7\System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>..\..\..\lib\Windows Phone 7\System.Xml.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Serialization">
-      <HintPath>..\..\..\lib\portable\System.Xml.Serialization.dll</HintPath>
+      <HintPath>..\..\..\lib\Windows Phone 7\System.Xml.Serialization.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" />
+      <UserProperties ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
 <doc>
   <assembly>
     <name>System.ServiceModel</name>
@@ -213,7 +216,7 @@
       <param name="innerException">The <see cref="T:System.Exception" /> that caused the current exception to be thrown. </param>
     </member>
     <member name="T:System.ServiceModel.BasicHttpBinding">
-      <summary>Represents a binding that a Silverlight version 4 Release Candidate client can use to configure endpoints that can communicate with ASMX-based Web services and other services that conform to the WS-I Basic Profile 1.1.</summary>
+      <summary>Represents a binding that a Silverlight version 4 client can use to configure endpoints that can communicate with ASMX-based Web services and other services that conform to the WS-I Basic Profile 1.1.</summary>
     </member>
     <member name="M:System.ServiceModel.BasicHttpBinding.#ctor">
       <summary>Initializes a new instance of the <see cref="T:System.ServiceModel.BasicHttpBinding" /> class.</summary>
@@ -449,7 +452,7 @@
       <exception cref="T:System.InvalidOperationException">The callback contract is null, but the service endpoint requires one that is not null (Nothing).</exception>
     </member>
     <member name="T:System.ServiceModel.ClientBase`1">
-      <summary>Provides the base implementation used to create Silverlight version 4 Release Candidate client objects (proxies) that can call services.</summary>
+      <summary>Provides the base implementation used to create Silverlight version 4 client objects (proxies) that can call services.</summary>
       <typeparam name="TChannel">The channel used to connect to the service that identifies the type of service contract encapsulated by this proxy.</typeparam>
     </member>
     <member name="M:System.ServiceModel.ClientBase`1.#ctor">
@@ -505,7 +508,7 @@
       <returns>A channel of type <paramref name="TChannel" /> that identifies the type of service contract encapsulated by this client object (proxy).</returns>
     </member>
     <member name="P:System.ServiceModel.ClientBase`1.Endpoint">
-      <summary>Gets the target endpoint for the service to which the Silverlight version 4 Release Candidate client can connect.</summary>
+      <summary>Gets the target endpoint for the service to which the Silverlight version 4 client can connect.</summary>
       <returns>The target <see cref="T:System.ServiceModel.Description.ServiceEndpoint" /> object.</returns>
     </member>
     <member name="M:System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1">
@@ -515,7 +518,7 @@
     </member>
     <member name="P:System.ServiceModel.ClientBase`1.InnerChannel">
       <summary>Gets the underlying <see cref="T:System.ServiceModel.IClientChannel" /> implementation.</summary>
-      <returns>The client channel for the Silverlight version 4 Release Candidate client object.</returns>
+      <returns>The client channel for the Silverlight version 4 client object.</returns>
     </member>
     <member name="M:System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)">
       <summary>Provides support for implementing the event-based asynchronous pattern. 
@@ -809,7 +812,7 @@ The <see cref="T:System.Object" /> output by the method invoked.
       <returns>The value of the <see cref="T:System.ServiceModel.CommunicationState" /> of the object.</returns>
     </member>
     <member name="P:System.ServiceModel.ClientBase`1.ChannelBase`1.System#ServiceModel#IContextChannel#AllowOutputBatching">
-      <summary>Gets or sets a value that instructs Silverlight version 4 Release Candidate to store a set of messages before giving the messages to the transport.</summary>
+      <summary>Gets or sets a value that instructs Silverlight version 4 to store a set of messages before giving the messages to the transport.</summary>
       <returns>true if the batching of outgoing messages is allowed; otherwise, false.</returns>
     </member>
     <member name="P:System.ServiceModel.ClientBase`1.ChannelBase`1.System#ServiceModel#IContextChannel#InputSession">
@@ -913,7 +916,7 @@ The <see cref="T:System.Object" /> output by the method invoked.
       <summary>Indicates that the communication object has encountered an error or fault from which it cannot recover and from which it is no longer usable. </summary>
     </member>
     <member name="T:System.ServiceModel.DataContractFormatAttribute">
-      <summary>Instructs the Silverlight version 4 Release Candidate infrastructure to use the <see cref="T:System.Runtime.Serialization.DataContractSerializer" />.</summary>
+      <summary>Instructs the Silverlight version 4 infrastructure to use the <see cref="T:System.Runtime.Serialization.DataContractSerializer" />.</summary>
     </member>
     <member name="M:System.ServiceModel.DataContractFormatAttribute.#ctor">
       <summary>Initializes a new instance of the <see cref="T:System.ServiceModel.DataContractFormatAttribute" /> class. </summary>
@@ -1448,7 +1451,7 @@ The <see cref="T:System.Object" /> output by the method invoked.
       <summary>Defines the interface for the context control of a channel.</summary>
     </member>
     <member name="P:System.ServiceModel.IContextChannel.AllowOutputBatching">
-      <summary>Gets or sets a value that instructs Silverlight version 4 Release Candidate to store a set of messages before giving the messages to the transport.</summary>
+      <summary>Gets or sets a value that instructs Silverlight version 4 to store a set of messages before giving the messages to the transport.</summary>
       <returns>true if the batching of outgoing messages is allowed; otherwise, false.</returns>
     </member>
     <member name="P:System.ServiceModel.IContextChannel.InputSession">
@@ -2157,7 +2160,7 @@ Returns <see cref="T:System.Boolean" />.
       <exception cref="T:System.ArgumentOutOfRangeException">The value is less than zero or too large.</exception>
     </member>
     <member name="T:System.ServiceModel.Channels.BindingContext">
-      <summary>Provides information about the addresses, bindings, binding elements and binding parameters required to build the channel factories on a Silverlight version 4 Release Candidate client.</summary>
+      <summary>Provides information about the addresses, bindings, binding elements and binding parameters required to build the channel factories on a Silverlight version 4 client.</summary>
     </member>
     <member name="M:System.ServiceModel.Channels.BindingContext.#ctor(System.ServiceModel.Channels.CustomBinding,System.ServiceModel.Channels.BindingParameterCollection)">
       <summary>Initializes a new instance of the <see cref="T:System.ServiceModel.Channels.BindingContext" /> class for a specified binding and collection of binding parameters.</summary>
@@ -4721,7 +4724,7 @@ Returns <see cref="T:System.Boolean" />.
       <param name="clientOperation">The run-time object that exposes customization properties for the operation described by <paramref name="operationDescription" />.</param>
     </member>
     <member name="M:System.ServiceModel.Description.IOperationBehavior.ApplyDispatchBehavior(System.ServiceModel.Description.OperationDescription,System.ServiceModel.Dispatcher.DispatchOperation)">
-      <summary>This method is not used with Silverlight 4 RC applications.</summary>
+      <summary>This method is not used with Silverlight 4 applications.</summary>
       <param name="operationDescription">The operation being examined. Use for examination only. If the operation description is modified, the results are undefined.</param>
       <param name="dispatchOperation">The run-time object that exposes customization properties for the operation described by <paramref name="operationDescription" />.</param>
     </member>

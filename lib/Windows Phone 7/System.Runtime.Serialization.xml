@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
 <doc>
   <assembly>
     <name>System.Runtime.Serialization</name>
@@ -600,7 +603,7 @@
       <exception cref="T:System.InvalidOperationException">An entry with key = <paramref name="key" /> already exists.</exception>
     </member>
     <member name="T:System.Xml.XmlDictionary">
-      <summary>Implements a dictionary used to optimize Silverlight version 4 Release Candidate's XML reader/writer implementations.</summary>
+      <summary>Implements a dictionary used to optimize Silverlight version 4's XML reader/writer implementations.</summary>
     </member>
     <member name="M:System.Xml.XmlDictionary.#ctor">
       <summary>Creates an empty <see cref="T:System.Xml.XmlDictionary" />.</summary>
@@ -1547,7 +1550,7 @@
       <returns>The string value for this dictionary entry.</returns>
     </member>
     <member name="T:System.Xml.XmlDictionaryWriter">
-      <summary>An abstract class that Silverlight version 4 Release Candidate derives from to do serialization and deserialization.</summary>
+      <summary>An abstract class that Silverlight version 4 derives from to do serialization and deserialization.</summary>
     </member>
     <member name="M:System.Xml.XmlDictionaryWriter.#ctor">
       <summary>Creates an instance of this class. Invoked only by its derived classes because this class is abstract.</summary>

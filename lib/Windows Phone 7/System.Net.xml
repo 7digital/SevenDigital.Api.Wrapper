@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
 <doc>
   <assembly>
     <name>System.Net</name>
@@ -613,6 +616,7 @@
       <summary>Gets or sets the value of the Accept HTTP header.</summary>
       <returns>The value of the Accept HTTP header. The default value is null.</returns>
     </member>
+    <member name="P:System.Net.HttpWebRequest.AllowAutoRedirect"></member>
     <member name="P:System.Net.HttpWebRequest.AllowReadStreamBuffering">
       <summary>Gets or sets a value that indicates whether to buffer the data read from the Internet resource.</summary>
       <returns>true to enable buffering of the data received from the Internet resource; false to disable buffering. The default is true.</returns>
@@ -712,6 +716,7 @@
       <summary>Gets a value that indicates whether the <see cref="P:System.Net.HttpWebRequest.CookieContainer" /> property is supported by the <see cref="T:System.Net.HttpWebRequest" /> instance.</summary>
       <returns>true if the <see cref="P:System.Net.HttpWebRequest.CookieContainer" /> property is supported by the <see cref="T:System.Net.HttpWebRequest" /> instance; otherwise, false.</returns>
     </member>
+    <member name="P:System.Net.HttpWebRequest.UserAgent"></member>
     <member name="T:System.Net.HttpWebResponse">
       <summary>Provides an HTTP-specific implementation of the <see cref="T:System.Net.WebResponse" /> class.</summary>
     </member>
@@ -1626,7 +1631,9 @@
       <summary>Gets or sets authentication information for the request.</summary>
       <returns>An <see cref="T:System.Net.ICredentials" /> that contains the authentication credentials associated with the request. The default is null.</returns>
     </member>
-    <member name="M:System.Net.HttpWebRequest.Finalize"></member>
+    <member name="M:System.Net.HttpWebRequest.Finalize">
+      <summary>Releases the resources held by the current <see cref="T:System.Net.HttpWebRequest" /> instance.</summary>
+    </member>
     <member name="M:System.Net.HttpWebResponse.Close">
       <summary>Closes the response stream.</summary>
     </member>
@@ -1653,7 +1660,11 @@
     <member name="M:System.Net.HttpWebResponse.System#IDisposable#Dispose">
       <summary>Releases all resources used by the <see cref="T:System.Net.HttpWebResponse" />.</summary>
     </member>
-    <member name="M:System.Net.WebHeaderCollection.ToString"></member>
+    <member name="M:System.Net.WebHeaderCollection.ToString">
+      <summary>Returns a <see cref="T:System.String" /> that represents the current <see cref="T:System.Net.WebHeaderCollection" />.</summary>
+      <returns>A <see cref="T:System.String" /> that represents the current <see cref="T:System.Net.WebHeaderCollection" />.</returns>
+    </member>
+    <member name="M:System.Net.WebResponse.Dispose"></member>
     <member name="T:System.Net.NetworkInformation.NetworkAddressChangedEventHandler">
       <summary>References one or more methods to be called when the address of a network interface changes.</summary>
       <param name="sender">The source of the event. </param>
@@ -1692,87 +1703,6 @@
     </member>
     <member name="F:System.Net.Sockets.AddressFamily.InterNetworkV6">
       <summary>An address for IP version 6.</summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Unix">
-      <summary>Unix local to host address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.ImpLink">
-      <summary>ARPANET IMP address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Pup">
-      <summary>Address for PUP protocols. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Chaos">
-      <summary>Address for MIT CHAOS protocols. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.NS">
-      <summary>Address for Xerox NS protocols. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Ipx">
-      <summary>IPX or SPX address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Iso">
-      <summary>Address for ISO protocols. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Osi">
-      <summary>Address for OSI protocols. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Ecma">
-      <summary>European Computer Manufacturers Association (ECMA) address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.DataKit">
-      <summary>Address for Datakit protocols. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Ccitt">
-      <summary>Addresses for CCITT protocols, such as X.25. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Sna">
-      <summary>IBM SNA address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.DecNet">
-      <summary>DECnet address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.DataLink">
-      <summary>Direct data-link interface address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Lat">
-      <summary>LAT address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.HyperChannel">
-      <summary>NSC Hyperchannel address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.AppleTalk">
-      <summary>AppleTalk address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.NetBios">
-      <summary>NetBios address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.VoiceView">
-      <summary>VoiceView address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.FireFox">
-      <summary>FireFox address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Banyan">
-      <summary>Banyan address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Atm">
-      <summary>Native ATM services address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Cluster">
-      <summary>Address for Microsoft cluster products. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Ieee12844">
-      <summary>IEEE 1284.4 workgroup address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Irda">
-      <summary>IrDA address. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.NetworkDesigners">
-      <summary>Address for Network Designers OSI gateway-enabled protocols. </summary>
-    </member>
-    <member name="F:System.Net.Sockets.AddressFamily.Max">
-      <summary>MAX address. </summary>
     </member>
     <member name="T:System.Net.Sockets.ProtocolType">
       <summary>Specifies the protocol that the <see cref="T:System.Net.Sockets.Socket" /> class supports.</summary>
