@@ -205,13 +205,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Serialization" />
+    <Reference Include="System" >
+		<HintPath>..\..\lib\portable\System.dll</HintPath>
+	</Reference>
+    <Reference Include="System.Core" >
+		<HintPath>..\..\lib\portable\System.dll</HintPath>
+	</Reference>
+    <Reference Include="System.Net" >
+		<HintPath>..\..\lib\portable\System.Net.dll</HintPath>
+	</Reference>
+    <Reference Include="System.Runtime.Serialization" >
+		<HintPath>..\..\lib\portable\System.Runtime.Serialization.dll</HintPath>
+	</Reference>
+    <Reference Include="System.ServiceModel" >
+		<HintPath>..\..\lib\portable\System.ServiceModel.dll</HintPath>
+	</Reference>
+    <Reference Include="System.Xml" >
+		<HintPath>..\..\lib\portable\System.Xml.dll</HintPath>
+	</Reference>
+    <Reference Include="System.Xml.Serialization" >
+		<HintPath>..\..\lib\portable\System.Xml.Serialization.dll</HintPath>
+	</Reference>
   </ItemGroup>
   <Import Project="..\Microsoft.Portable.CSharp.targets" />
   <ProjectExtensions>
