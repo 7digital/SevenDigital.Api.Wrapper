@@ -9,17 +9,14 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
     {
         public string Resolve(Uri endpoint, string method, Dictionary<string,string> headers)
         {
-            var webRequest = (HttpWebRequest)WebRequest.Create(endpoint.OriginalString);
-            webRequest.Method = method;
-            webRequest.ContentType = "text/xml";
-            webRequest.Headers = new WebHeaderCollection();    
-            
-            
-            IAsyncResult r = (IAsyncResult)webRequest.BeginGetRequestStream(null, null);
+           throw new NotSupportedException("Need to use async in windows mobile");
+        }
 
-            Stream postStream = webRequest.EndGetRequestStream(r);
-
-            return new StreamReader(postStream).ReadToEnd();
+        public void ResolveAsync(Uri endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
+        {
+            var client = new WebClient();
+            client.DownloadStringCompleted += (s, e) => payload.BeginInvoke(e.Result, null, null);
+            client.DownloadStringAsync(endpoint);
         }
     }
 }

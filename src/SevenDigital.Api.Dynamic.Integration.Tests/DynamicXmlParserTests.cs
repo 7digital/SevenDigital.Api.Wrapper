@@ -30,7 +30,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 
 			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters = new Dictionary<string,string> { { "artistId", "1" } } };
 
-			string xml = _endpointResolver.GetRawXml(endPointInfo);
+			string xml = _endpointResolver.HitEndpoint(endPointInfo);
 
 			dynamic dx = new DynamicXmlParser(xml);
 
@@ -49,7 +49,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 
 			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters =  new Dictionary<string,string> { { "artistId", "1" } } };
 
-			string xml = _endpointResolver.GetRawXml(endPointInfo);
+			string xml = _endpointResolver.HitEndpoint(endPointInfo);
 
 			dynamic dx = new DynamicXmlParser(xml);
 

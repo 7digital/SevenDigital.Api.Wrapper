@@ -24,32 +24,34 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 	    public string HitEndpoint(EndPointInfo endPointInfo)
 		{
-			string output = GetEndpointOutput(endPointInfo);
-	        return output;
+	        Uri signedUrl = GetSignedUrl(endPointInfo);
+
+	        return _urlResolver.Resolve(signedUrl, endPointInfo.HttpMethod, new Dictionary<string,string>());
 		}
 
-		public string GetRawXml(EndPointInfo endPointInfo)
-		{
-			return GetEndpointOutput(endPointInfo);
-		}
+        public void HitEndpointAsync(EndPointInfo endPointInfo,Action<string> payload)
+        {
+            Uri signedUrl = GetSignedUrl(endPointInfo);
 
+            var result = _urlResolver.Resolve(signedUrl, endPointInfo.HttpMethod, new Dictionary<string, string>());
 
-		private string GetEndpointOutput(EndPointInfo endPointInfo)
-		{
-			if (endPointInfo.UseHttps)
-				_apiUrl = _apiUrl.Replace("http://", "https://");
+            payload.BeginInvoke(result, null, null);
+        }
+	    private Uri GetSignedUrl(EndPointInfo endPointInfo)
+	    {
+	        if (endPointInfo.UseHttps)
+	            _apiUrl = _apiUrl.Replace("http://", "https://");
 
-			var uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", 
-				_apiUrl, endPointInfo.Uri,
-				_oAuthCredentials.ConsumerKey, 
-				endPointInfo.Parameters.ToQueryString()).TrimEnd('&');
+	        var uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}", 
+	                                      _apiUrl, endPointInfo.Uri,
+	                                      _oAuthCredentials.ConsumerKey, 
+	                                      endPointInfo.Parameters.ToQueryString()).TrimEnd('&');
 
-			var signedUrl = new Uri(uriString);
+	        var signedUrl = new Uri(uriString);
  
-			if(endPointInfo.IsSigned)
-				signedUrl = _urlSigner.SignUrl(uriString, endPointInfo.UserToken, endPointInfo.UserSecret,_oAuthCredentials);
-
-			return _urlResolver.Resolve(signedUrl, endPointInfo.HttpMethod, new Dictionary<string,string>());
-		}
+	        if(endPointInfo.IsSigned)
+	            signedUrl = _urlSigner.SignUrl(uriString, endPointInfo.UserToken, endPointInfo.UserSecret,_oAuthCredentials);
+	        return signedUrl;
+	    }
 	}
 }

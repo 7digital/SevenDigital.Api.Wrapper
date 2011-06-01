@@ -34,5 +34,10 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
             }
             return output;
         }
+
+        public void ResolveAsync(Uri endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

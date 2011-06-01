@@ -37,5 +37,11 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
                 return webClientWrapper.UploadString(endpoint.OriginalString, method, ParametersAsString);
             }
         }
+
+
+        public void ResolveAsync(Uri endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

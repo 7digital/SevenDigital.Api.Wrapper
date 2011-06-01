@@ -28,7 +28,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
         {
             Artist artist = null;
 
-            AutoResetEvent reset = new AutoResetEvent(false);
+            var reset = new AutoResetEvent(false);
 
                Api<Artist>
                 .Get
