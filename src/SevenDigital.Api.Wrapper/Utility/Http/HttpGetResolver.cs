@@ -37,7 +37,9 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 
         public void ResolveAsync(Uri endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
         {
-            throw new NotImplementedException();
+            var client = new WebClient();
+            client.DownloadDataCompleted += (s, e) => payload(System.Text.Encoding.UTF8.GetString(e.Result));
+            client.DownloadDataAsync(endpoint);
         }
     }
 }

@@ -58,11 +58,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
         }
 
-        [Test, Ignore("need to figure out how to get fake it easy to fake an action invoke")]
+        [Test]
         public void should_put_payload_in_action_result()
         {
-            var endpointResolver = A.Fake<IEndpointResolver>();
-            A.CallTo(() => endpointResolver.HitEndpointAsync(A<EndPointInfo>.Ignored,A<Action<string>>.Ignored));
+            var endpointResolver = new FakeEndpointResolver {StubPayload = VALID_STATUS_XML};
             var reset = new AutoResetEvent(false);
 
             new FluentApi<Status>(endpointResolver)
@@ -73,8 +72,25 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
                     reset.Set();
                 });
 
-            reset.WaitOne();
+            reset.WaitOne(1000 * 60);
             Assert.True(true);
         }
+
+        public class FakeEndpointResolver :  IEndpointResolver
+        {
+            public string HitEndpoint(EndPointInfo endPointInfo)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> payload)
+            {
+                payload(StubPayload);
+            }
+
+            public string StubPayload { get; set; }
+        }
     }
+
+    
 }

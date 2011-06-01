@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Net;
 using System.Threading;
 using System.Xml;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
-using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
@@ -17,6 +14,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
     public class EndpointResolverTests
     {
         private const string API_URL = "http://api.7digital.com/1.2";
+        private const string SERVICE_STATUS = "<response status=\"ok\" version=\"1.2\" ><serviceStatus><serverTime>2011-03-04T08:10:29Z</serverTime></serviceStatus></response>";
         private readonly string _consumerKey = new AppSettingsCredentials().ConsumerKey;
         private IUrlResolver _urlResolver;
         private EndpointResolver _endpointResolver;
@@ -34,7 +32,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
         public void Should_fire_resolve_with_correct_values()
         {
             A.CallTo(() => _urlResolver.Resolve(A<Uri>.Ignored, A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
-                .Returns("<response status=\"ok\" version=\"1.2\" ><serviceStatus><serverTime>2011-03-04T08:10:29Z</serverTime></serviceStatus></response>");
+                .Returns(SERVICE_STATUS);
 
             const string expectedMethod = "GET";
             var expectedHeaders = new Dictionary<string, string>();
@@ -67,18 +65,20 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
         [Test]
         public void Should_return_xmlnode_if_valid_xml_received_using_async()
         {
-            Given_a_urlresolver_that_returns_valid_xml();
+            var resolver = new FakeUrlResolver { StubPayload = SERVICE_STATUS };
+            var endpointResolver = new EndpointResolver(resolver, _urlSigner, CredentialChecker.Instance.Credentials);
+
             var reset = new AutoResetEvent(false);
 
             string response = string.Empty;
-            _endpointResolver.HitEndpointAsync(new EndPointInfo(),
+            endpointResolver.HitEndpointAsync(new EndPointInfo(),
              s =>
              {
                  response = s;
                  reset.Set();
              });
 
-            reset.WaitOne();
+            reset.WaitOne(1000 * 60);
             var payload = new XmlDocument();
             payload.LoadXml(response);
 
@@ -89,7 +89,22 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
         private void Given_a_urlresolver_that_returns_valid_xml()
         {
             A.CallTo(() => _urlResolver.Resolve(A<Uri>.Ignored, A<string>.Ignored, A<Dictionary<string, string>>.Ignored)).Returns(
-                "<response status=\"ok\" version=\"1.2\" ><serviceStatus><serverTime>2011-03-04T08:10:29Z</serverTime></serviceStatus></response>");
+                SERVICE_STATUS);
         }
+    }
+
+    public class FakeUrlResolver : IUrlResolver
+    {
+        public string Resolve(Uri endpoint, string method, Dictionary<string, string> headers)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ResolveAsync(Uri endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
+        {
+            payload(StubPayload);
+        }
+
+        public string StubPayload { get; set; }
     }
 }

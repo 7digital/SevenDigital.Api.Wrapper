@@ -75,14 +75,18 @@ namespace SevenDigital.Api.Wrapper
 
         public void PleaseAsync(Action<T> callback)
         {
-            _endpointResolver.HitEndpointAsync(_endPointInfo, 
-                output =>
-                {
-                    var xmlSerializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>());
-                    T entity = xmlSerializer.DeSerialize(output);
+            _endpointResolver.HitEndpointAsync(_endPointInfo,PleaseAsyncEnd(callback));
+        }
 
-                    callback(entity);
-                });
+        internal static Action<string> PleaseAsyncEnd(Action<T> callback)
+        {
+            return output =>
+                       {
+                           var xmlSerializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>());
+                           T entity = xmlSerializer.DeSerialize(output);
+
+                           callback(entity);
+                       };
         }
     }
 }

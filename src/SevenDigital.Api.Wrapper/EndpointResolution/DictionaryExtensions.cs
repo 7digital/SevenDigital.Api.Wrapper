@@ -15,10 +15,5 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
             }
             return sb.ToString().TrimEnd('&');
 		}
-
-        public static void Set(this Dictionary<string,string> collection,string key,string value)
-        {
-            //TODO: write tests
-        }
 	}
 }

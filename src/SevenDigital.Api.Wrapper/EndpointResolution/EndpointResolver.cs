@@ -32,9 +32,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
         public void HitEndpointAsync(EndPointInfo endPointInfo,Action<string> payload)
         {
             Uri signedUrl = GetSignedUrl(endPointInfo);
-
-            _urlResolver.ResolveAsync(signedUrl, endPointInfo.HttpMethod, new Dictionary<string, string>(), 
-                result => payload(result));
+            _urlResolver.ResolveAsync(signedUrl, endPointInfo.HttpMethod, new Dictionary<string, string>(), payload);
         }
 	    private Uri GetSignedUrl(EndPointInfo endPointInfo)
 	    {

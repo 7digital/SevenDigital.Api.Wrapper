@@ -39,7 +39,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
                                      reset.Set();
                                  });
 
-            reset.WaitOne();
+
+            reset.WaitOne(1000 * 60);
             Assert.That(artist, Is.Not.Null);
             Assert.That(artist.Name, Is.EqualTo("Keane"));
             Assert.That(artist.SortName, Is.EqualTo("Keane"));
