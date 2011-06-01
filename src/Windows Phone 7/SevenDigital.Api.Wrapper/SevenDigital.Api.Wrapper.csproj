@@ -96,9 +96,6 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\OAuthBase.cs">
       <Link>EndpointResolution\OAuth\OAuthBase.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\OAuthCredentials.cs">
-      <Link>EndpointResolution\OAuth\OAuthCredentials.cs</Link>
-    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\UrlSigner.cs">
       <Link>EndpointResolution\OAuth\UrlSigner.cs</Link>
     </Compile>
@@ -181,7 +178,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
+      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
