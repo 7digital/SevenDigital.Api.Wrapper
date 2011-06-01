@@ -3,20 +3,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1D2777B8-FE77-40C3-9396-E4CCD7950F47}</ProjectGuid>
+    <ProjectGuid>{C7DC45F1-CF85-4548-995E-DD06FA7031F6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SevenDigital.Api.Wrapper</RootNamespace>
     <AssemblyName>SevenDigital.Api.Wrapper</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
-    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-    <SilverlightApplication>false</SilverlightApplication>
-    <ValidateXaml>true</ValidateXaml>
-    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <TargetFrameworkProfile>Profile2</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,38 +31,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
-      <HintPath>..\..\..\lib\Windows Phone 7\System.dll</HintPath>
+      <HintPath>..\..\..\lib\portable\System.dll</HintPath>
     </Reference>
-    <Reference Include="System.Device">
-      <HintPath>..\..\..\lib\Windows Phone 7\System.Device.dll</HintPath>
+    <Reference Include="System.Core">
+      <HintPath>..\..\..\lib\portable\System.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Windows Phone 7\System.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Observable">
-      <HintPath>..\..\..\lib\Windows Phone 7\System.Observable.dll</HintPath>
+    <Reference Include="System.Net">
+      <HintPath>..\..\..\lib\portable\System.Net.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
-      <HintPath>..\..\..\lib\Windows Phone 7\System.Serialization.dll</HintPath>
+      <HintPath>..\..\..\lib\portable\System.Runtime.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="System.Servicemodel">
-      <HintPath>..\..\..\lib\Windows Phone 7\System.Servicemodel.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Servicemodel.Web">
-      <HintPath>..\..\..\lib\Windows Phone 7\System.Servicemodel.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows">
-      <HintPath>..\..\..\lib\Windows Phone 7\System.Windows.dll</HintPath>
+    <Reference Include="System.ServiceModel">
+      <HintPath>..\..\..\lib\portable\System.ServiceModel.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml">
-      <HintPath>..\..\..\lib\Windows Phone 7\System.Xml.dll</HintPath>
+      <HintPath>..\..\..\lib\portable\System.Xml.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq">
-      <HintPath>..\..\..\lib\Windows Phone 7\System.Xml.Linq.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Serialization">
-      <HintPath>..\..\..\lib\Windows Phone 7\System.Xml.Serialization.dll</HintPath>
+      <HintPath>..\..\..\lib\portable\System.Xml.Serialization.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -78,9 +60,6 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\CredentialChecker.cs">
       <Link>EndpointResolution\CredentialChecker.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\DictionaryExtensions.cs">
-      <Link>EndpointResolution\DictionaryExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\EndPointInfo.cs">
       <Link>EndpointResolution\EndPointInfo.cs</Link>
     </Compile>
@@ -89,6 +68,9 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\IEndpointResolver.cs">
       <Link>EndpointResolution\IEndpointResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\NameValueCollectionExtensions.cs">
+      <Link>EndpointResolution\NameValueCollectionExtensions.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\IUrlSigner.cs">
       <Link>EndpointResolution\OAuth\IUrlSigner.cs</Link>
@@ -144,6 +126,9 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\User\UserDeliverItemExtensions.cs">
       <Link>Schema\User\UserDeliverItemExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\HttpGetResolver.cs">
+      <Link>Utility\Http\HttpGetResolver.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\HttpPostResolver.cs">
       <Link>Utility\Http\HttpPostResolver.cs</Link>
     </Compile>
@@ -159,14 +144,8 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\WebClientFactory.cs">
       <Link>Utility\Http\WebClientFactory.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\ApiResourceDeSerializer.cs">
-      <Link>Utility\Serialization\ApiResourceDeSerializer.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\ApiXmlDeSerializer.cs">
-      <Link>Utility\Serialization\ApiXmlDeSerializer.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\IDeSerializer.cs">
-      <Link>Utility\Serialization\IDeSerializer.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\WebClientWrapper.cs">
+      <Link>Utility\Http\WebClientWrapper.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\ISerializer.cs">
       <Link>Utility\Serialization\ISerializer.cs</Link>
@@ -175,19 +154,17 @@
       <Link>Utility\Serialization\XmlSerializer.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\Http\HttpGetResolver.cs" />
-    <Compile Include="Utility\Http\WebClientWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">
-      <Project>{AC274EC8-B9F2-40E8-9F5B-1F3299F895C3}</Project>
-      <Name>SevenDigital.Api.Schema %28Windows Phone 7\SevenDigital.Api.Schema%29</Name>
+      <Project>{37337CEA-A68A-4536-96D6-80EDBF27C27E}</Project>
+      <Name>SevenDigital.Api.Schema %28PortableLibraries\SevenDigital.Api.Schema%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
+      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
