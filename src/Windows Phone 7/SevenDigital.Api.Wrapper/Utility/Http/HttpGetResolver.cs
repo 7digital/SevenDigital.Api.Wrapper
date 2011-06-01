@@ -15,7 +15,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
         public void ResolveAsync(Uri endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
         {
             var client = new WebClient();
-            client.DownloadStringCompleted += (s, e) => payload.BeginInvoke(e.Result, null, null);
+            client.DownloadStringCompleted += (s, e) => payload(e.Result);
             client.DownloadStringAsync(endpoint);
         }
     }

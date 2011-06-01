@@ -81,7 +81,7 @@ namespace SevenDigital.Api.Wrapper
                     var xmlSerializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>());
                     T entity = xmlSerializer.DeSerialize(output);
 
-                    callback.BeginInvoke(entity, null, null);
+                    callback(entity);
                 });
         }
     }
