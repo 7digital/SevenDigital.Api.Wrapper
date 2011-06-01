@@ -6,7 +6,6 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FB977DE8-EE2A-478A-A029-4BDFF16E75DA}</ProjectGuid>
-    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SevenDigital.Api.Schema</RootNamespace>
@@ -206,22 +205,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System">
+		<HintPath>..\..\..\lib\Monodroid\System.dll</HintPath>
+	</Reference>
+    <Reference Include="System.Core">
+		<HintPath>..\..\..\lib\Monodroid\System.Core.dll</HintPath>
+	</Reference>
+    <Reference Include="System.Xml">
+		<HintPath>..\..\..\lib\Monodroid\System.Xml.dll</HintPath>
+	</Reference>
+    <Reference Include="System.Xml.Linq">
+		<HintPath>..\..\..\lib\Monodroid\System.Xml.Linq.dll</HintPath>
+	</Reference>
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
       <UserProperties ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
