@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010 Express for Windows Phone
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Schema", "src\Windows Phone 7\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj", "{AC274EC8-B9F2-40E8-9F5B-1F3299F895C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Schema", "src\WP7\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj", "{AC274EC8-B9F2-40E8-9F5B-1F3299F895C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Wrapper", "src\Windows Phone 7\SevenDigital.Api.Wrapper\SevenDigital.Api.Wrapper.csproj", "{1D2777B8-FE77-40C3-9396-E4CCD7950F47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Wrapper", "src\WP7\SevenDigital.Api.Wrapper\SevenDigital.Api.Wrapper.csproj", "{1D2777B8-FE77-40C3-9396-E4CCD7950F47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
