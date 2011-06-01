@@ -64,5 +64,13 @@ namespace SevenDigital.Api.Wrapper {
 			var xmlSerializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>());
 			return xmlSerializer.DeSerialize(output);
 		}
+
+	    public void PleaseAsync(Action<T> callback)
+	    {
+            var output = _endpointResolver.HitEndpoint(_endPointInfo);
+            var xmlSerializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>());
+            T entity = xmlSerializer.DeSerialize(output);
+            callback(entity);
+	    }
 	}
 }

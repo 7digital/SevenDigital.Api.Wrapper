@@ -75,9 +75,6 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Api.cs">
       <Link>Api.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\CredentialChecker.cs">
-      <Link>EndpointResolution\CredentialChecker.cs</Link>
-    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\DictionaryExtensions.cs">
       <Link>EndpointResolution\DictionaryExtensions.cs</Link>
     </Compile>
@@ -165,6 +162,7 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\IDeSerializer.cs">
       <Link>Utility\Serialization\IDeSerializer.cs</Link>
     </Compile>
+    <Compile Include="EndpointResolution\CredentialChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Http\HttpGetResolver.cs" />
     <Compile Include="Utility\Http\WebClientWrapper.cs" />
