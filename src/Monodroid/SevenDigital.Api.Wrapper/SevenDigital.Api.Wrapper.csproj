@@ -34,6 +34,9 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Api.cs">
       <Link>Api.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\AppDomainAssemblyResolver.cs">
+      <Link>EndpointResolution\AppDomainAssemblyResolver.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\CredentialChecker.cs">
       <Link>EndpointResolution\CredentialChecker.cs</Link>
     </Compile>
@@ -54,9 +57,6 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\OAuthBase.cs">
       <Link>EndpointResolution\OAuth\OAuthBase.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\OAuthCredentials.cs">
-      <Link>EndpointResolution\OAuth\OAuthCredentials.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\UrlSigner.cs">
       <Link>EndpointResolution\OAuth\UrlSigner.cs</Link>
@@ -143,17 +143,17 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System">
-		<HintPath>..\..\..\lib\Monodroid\System.dll</HintPath>
-	</Reference>
+      <HintPath>..\..\..\lib\Monodroid\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core">
-		<HintPath>..\..\..\lib\Monodroid\System.Core.dll</HintPath>
-	</Reference>
+      <HintPath>..\..\..\lib\Monodroid\System.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml">
-		<HintPath>..\..\..\lib\Monodroid\System.Xml.dll</HintPath>
-	</Reference>
+      <HintPath>..\..\..\lib\Monodroid\System.Xml.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq">
-		<HintPath>..\..\..\lib\Monodroid\System.Xml.Linq.dll</HintPath>
-	</Reference>
+      <HintPath>..\..\..\lib\Monodroid\System.Xml.Linq.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">
@@ -164,7 +164,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -36,9 +36,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 
 		private static IOAuthCredentials CheckIfAssembliesContainOAuthClass() {
-            var assemblies = typeof(AppDomain)
-                .GetMethod("GetAssemblies")
-                .Invoke(AppDomain.CurrentDomain, null) as Assembly[];
+           var assemblies = new AppDomainAssemblyResolver().GetAssemblies();
 
 
 			var enumerable = new List<Type>();
@@ -52,7 +50,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			return (IOAuthCredentials)Activator.CreateInstance(firstOrDefault);
 		}
 
-		private static IEnumerable<Type> GetValidTypes(Assembly assembly) {
+	    private static IEnumerable<Type> GetValidTypes(Assembly assembly) {
 			Type type = typeof(IOAuthCredentials);
 			return assembly.GetTypes().Where(x => type.IsAssignableFrom(x) && x != type);
 		}
