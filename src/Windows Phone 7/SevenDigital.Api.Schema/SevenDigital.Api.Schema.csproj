@@ -36,176 +36,176 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ArtistEndpoint\Artist.cs">
-      <Link>__\ArtistEndpoint\Artist.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ArtistEndpoint\Artist.cs">
+      <Link>ArtistEndpoint\Artist.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ArtistEndpoint\ArtistBrowse.cs">
-      <Link>__\ArtistEndpoint\ArtistBrowse.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ArtistEndpoint\ArtistBrowse.cs">
+      <Link>ArtistEndpoint\ArtistBrowse.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ArtistEndpoint\ArtistChart.cs">
-      <Link>__\ArtistEndpoint\ArtistChart.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ArtistEndpoint\ArtistChart.cs">
+      <Link>ArtistEndpoint\ArtistChart.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ArtistEndpoint\ArtistReleases.cs">
-      <Link>__\ArtistEndpoint\ArtistReleases.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ArtistEndpoint\ArtistReleases.cs">
+      <Link>ArtistEndpoint\ArtistReleases.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ArtistEndpoint\ArtistSearch.cs">
-      <Link>__\ArtistEndpoint\ArtistSearch.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ArtistEndpoint\ArtistSearch.cs">
+      <Link>ArtistEndpoint\ArtistSearch.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ArtistEndpoint\ArtistSearchResult.cs">
-      <Link>__\ArtistEndpoint\ArtistSearchResult.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ArtistEndpoint\ArtistSearchResult.cs">
+      <Link>ArtistEndpoint\ArtistSearchResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ArtistEndpoint\ArtistTopTracks.cs">
-      <Link>__\ArtistEndpoint\ArtistTopTracks.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ArtistEndpoint\ArtistTopTracks.cs">
+      <Link>ArtistEndpoint\ArtistTopTracks.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Attributes\ApiEndpointAttribute.cs">
-      <Link>__\Attributes\ApiEndpointAttribute.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Attributes\ApiEndpointAttribute.cs">
+      <Link>Attributes\ApiEndpointAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Basket\Basket.cs">
-      <Link>__\Basket\Basket.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Basket\Basket.cs">
+      <Link>Basket\Basket.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Basket\BasketItem.cs">
-      <Link>__\Basket\BasketItem.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Basket\BasketItem.cs">
+      <Link>Basket\BasketItem.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Basket\BasketItemList.cs">
-      <Link>__\Basket\BasketItemList.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Basket\BasketItemList.cs">
+      <Link>Basket\BasketItemList.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Chart\ArtistChartItem.cs">
-      <Link>__\Chart\ArtistChartItem.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\ArtistChartItem.cs">
+      <Link>Chart\ArtistChartItem.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Chart\ChartItemChange.cs">
-      <Link>__\Chart\ChartItemChange.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\ChartItemChange.cs">
+      <Link>Chart\ChartItemChange.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Chart\ChartPeriod.cs">
-      <Link>__\Chart\ChartPeriod.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\ChartPeriod.cs">
+      <Link>Chart\ChartPeriod.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Chart\ChartType.cs">
-      <Link>__\Chart\ChartType.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\ChartType.cs">
+      <Link>Chart\ChartType.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Chart\IChart.cs">
-      <Link>__\Chart\IChart.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\IChart.cs">
+      <Link>Chart\IChart.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Error.cs">
-      <Link>__\Error.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Error.cs">
+      <Link>Error.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\HasPaging.cs">
-      <Link>__\HasPaging.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\HasPaging.cs">
+      <Link>HasPaging.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ItemType.cs">
-      <Link>__\ItemType.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ItemType.cs">
+      <Link>ItemType.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Label.cs">
-      <Link>__\Label.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Label.cs">
+      <Link>Label.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Licensor.cs">
-      <Link>__\Licensor.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Licensor.cs">
+      <Link>Licensor.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\LockerEndpoint\DownloadUrl.cs">
-      <Link>__\LockerEndpoint\DownloadUrl.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\LockerEndpoint\DownloadUrl.cs">
+      <Link>LockerEndpoint\DownloadUrl.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\LockerEndpoint\Locker.cs">
-      <Link>__\LockerEndpoint\Locker.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\LockerEndpoint\Locker.cs">
+      <Link>LockerEndpoint\Locker.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\LockerEndpoint\LockerRelease.cs">
-      <Link>__\LockerEndpoint\LockerRelease.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\LockerEndpoint\LockerRelease.cs">
+      <Link>LockerEndpoint\LockerRelease.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\LockerEndpoint\LockerTrack.cs">
-      <Link>__\LockerEndpoint\LockerTrack.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\LockerEndpoint\LockerTrack.cs">
+      <Link>LockerEndpoint\LockerTrack.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Media\Format.cs">
-      <Link>__\Media\Format.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Media\Format.cs">
+      <Link>Media\Format.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Media\FormatList.cs">
-      <Link>__\Media\FormatList.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Media\FormatList.cs">
+      <Link>Media\FormatList.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\OAuth\OAuthAccessToken.cs">
-      <Link>__\OAuth\OAuthAccessToken.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\OAuth\OAuthAccessToken.cs">
+      <Link>OAuth\OAuthAccessToken.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\OAuth\OAuthRequestToken.cs">
-      <Link>__\OAuth\OAuthRequestToken.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\OAuth\OAuthRequestToken.cs">
+      <Link>OAuth\OAuthRequestToken.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\OAuth\OAuthSignedAttribute.cs">
-      <Link>__\OAuth\OAuthSignedAttribute.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\OAuth\OAuthSignedAttribute.cs">
+      <Link>OAuth\OAuthSignedAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Pricing\Currency.cs">
-      <Link>__\Pricing\Currency.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Pricing\Currency.cs">
+      <Link>Pricing\Currency.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Pricing\Price.cs">
-      <Link>__\Pricing\Price.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Pricing\Price.cs">
+      <Link>Pricing\Price.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\RecommendedItem.cs">
-      <Link>__\RecommendedItem.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\RecommendedItem.cs">
+      <Link>RecommendedItem.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ReleaseEndpoint\Release.cs">
-      <Link>__\ReleaseEndpoint\Release.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\Release.cs">
+      <Link>ReleaseEndpoint\Release.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ReleaseEndpoint\ReleaseByDate.cs">
-      <Link>__\ReleaseEndpoint\ReleaseByDate.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\ReleaseByDate.cs">
+      <Link>ReleaseEndpoint\ReleaseByDate.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ReleaseEndpoint\ReleaseChart.cs">
-      <Link>__\ReleaseEndpoint\ReleaseChart.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\ReleaseChart.cs">
+      <Link>ReleaseEndpoint\ReleaseChart.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ReleaseEndpoint\ReleaseRecommend.cs">
-      <Link>__\ReleaseEndpoint\ReleaseRecommend.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\ReleaseRecommend.cs">
+      <Link>ReleaseEndpoint\ReleaseRecommend.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ReleaseEndpoint\ReleaseSearch.cs">
-      <Link>__\ReleaseEndpoint\ReleaseSearch.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\ReleaseSearch.cs">
+      <Link>ReleaseEndpoint\ReleaseSearch.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ReleaseEndpoint\ReleaseSearchResult.cs">
-      <Link>__\ReleaseEndpoint\ReleaseSearchResult.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\ReleaseSearchResult.cs">
+      <Link>ReleaseEndpoint\ReleaseSearchResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\ReleaseEndpoint\ReleaseType.cs">
-      <Link>__\ReleaseEndpoint\ReleaseType.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\ReleaseType.cs">
+      <Link>ReleaseEndpoint\ReleaseType.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Status.cs">
-      <Link>__\Status.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Status.cs">
+      <Link>Status.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Tags\ArtistByTagTop.cs">
-      <Link>__\Tags\ArtistByTagTop.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Tags\ArtistByTagTop.cs">
+      <Link>Tags\ArtistByTagTop.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Tags\ArtistTags.cs">
-      <Link>__\Tags\ArtistTags.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Tags\ArtistTags.cs">
+      <Link>Tags\ArtistTags.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Tags\ReleaseTags.cs">
-      <Link>__\Tags\ReleaseTags.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Tags\ReleaseTags.cs">
+      <Link>Tags\ReleaseTags.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Tags\Tag.cs">
-      <Link>__\Tags\Tag.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Tags\Tag.cs">
+      <Link>Tags\Tag.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Tags\TaggedArtists.cs">
-      <Link>__\Tags\TaggedArtists.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Tags\TaggedArtists.cs">
+      <Link>Tags\TaggedArtists.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\Tags\Tags.cs">
-      <Link>__\Tags\Tags.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Tags\Tags.cs">
+      <Link>Tags\Tags.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\TrackEndpoint\Track.cs">
-      <Link>__\TrackEndpoint\Track.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\Track.cs">
+      <Link>TrackEndpoint\Track.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\TrackEndpoint\TrackChart.cs">
-      <Link>__\TrackEndpoint\TrackChart.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackChart.cs">
+      <Link>TrackEndpoint\TrackChart.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\TrackEndpoint\TrackPreview.cs">
-      <Link>__\TrackEndpoint\TrackPreview.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackPreview.cs">
+      <Link>TrackEndpoint\TrackPreview.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\TrackEndpoint\TrackSearch.cs">
-      <Link>__\TrackEndpoint\TrackSearch.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackSearch.cs">
+      <Link>TrackEndpoint\TrackSearch.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\TrackEndpoint\TrackSearchResult.cs">
-      <Link>__\TrackEndpoint\TrackSearchResult.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackSearchResult.cs">
+      <Link>TrackEndpoint\TrackSearchResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\User\Purchase\BasePurchaseItem.cs">
-      <Link>__\User\Purchase\BasePurchaseItem.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Purchase\BasePurchaseItem.cs">
+      <Link>User\Purchase\BasePurchaseItem.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\User\Purchase\UserPurchaseBasket.cs">
-      <Link>__\User\Purchase\UserPurchaseBasket.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Purchase\UserPurchaseBasket.cs">
+      <Link>User\Purchase\UserPurchaseBasket.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\User\Purchase\UserPurchaseItem.cs">
-      <Link>__\User\Purchase\UserPurchaseItem.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Purchase\UserPurchaseItem.cs">
+      <Link>User\Purchase\UserPurchaseItem.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\User\Purchase\UserPurchaseRrpItem.cs">
-      <Link>__\User\Purchase\UserPurchaseRrpItem.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Purchase\UserPurchaseRrpItem.cs">
+      <Link>User\Purchase\UserPurchaseRrpItem.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\__\User\UserDeliverItem.cs">
-      <Link>__\User\UserDeliverItem.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\UserDeliverItem.cs">
+      <Link>User\UserDeliverItem.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -244,6 +244,7 @@
       <HintPath>..\..\..\lib\Windows Phone 7\System.Xml.Serialization.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
