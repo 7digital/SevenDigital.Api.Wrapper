@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
         {
             var webRequest = (HttpWebRequest)WebRequest.Create(endpoint.OriginalString);
             webRequest.Method = method;
-            
+            webRequest.ContentType = "text/xml";
             webRequest.Headers = new WebHeaderCollection();    
             
             

@@ -36,10 +36,13 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 
 		private static IOAuthCredentials CheckIfAssembliesContainOAuthClass() {
-			var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = typeof(AppDomain)
+                .GetMethod("GetAssemblies")
+                .Invoke(AppDomain.CurrentDomain, null) as Assembly[];
+
 
 			var enumerable = new List<Type>();
-			foreach (var loadedAssembly in loadedAssemblies) {
+			foreach (var loadedAssembly in assemblies) {
 				enumerable.AddRange(GetValidTypes(loadedAssembly));
 			}
 			if (enumerable.Count() < 1)

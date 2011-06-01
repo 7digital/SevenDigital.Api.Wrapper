@@ -110,7 +110,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
                 throw new ArgumentNullException("data");
             }
 
-            byte[] dataBuffer = System.Text.Encoding.ASCII.GetBytes(data);
+            byte[] dataBuffer = System.Text.Encoding.UTF8.GetBytes(data);
             byte[] hashBytes = hashAlgorithm.ComputeHash(dataBuffer);
 
             return Convert.ToBase64String(hashBytes);
@@ -338,7 +338,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
                     string signatureBase = GenerateSignatureBase(url, consumerKey, token, tokenSecret, httpMethod, postParameters, timeStamp, nonce, HMACSHA1SignatureType, out normalizedUrl, out normalizedRequestParameters, oAuthVersion);
 
                     HMACSHA1 hmacsha1 = new HMACSHA1();
-                    hmacsha1.Key = Encoding.ASCII.GetBytes(string.Format("{0}&{1}", UrlEncode(consumerSecret), string.IsNullOrEmpty(tokenSecret) ? "" : UrlEncode(tokenSecret)));
+                    hmacsha1.Key = Encoding.UTF8.GetBytes(string.Format("{0}&{1}", UrlEncode(consumerSecret), string.IsNullOrEmpty(tokenSecret) ? "" : UrlEncode(tokenSecret)));
 
                     return GenerateSignatureUsingHash(signatureBase, hmacsha1);
                 case SignatureTypes.RSASHA1:
