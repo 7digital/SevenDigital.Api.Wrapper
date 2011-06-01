@@ -25,6 +25,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Schema", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Wrapper", "src\Windows Phone 7\SevenDigital.Api.Wrapper\SevenDigital.Api.Wrapper.csproj", "{1D2777B8-FE77-40C3-9396-E4CCD7950F47}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Monodroid", "Monodroid", "{03A6472A-C83B-4EC9-BDC8-177EE667E52A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Schema", "src\Monodroid\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj", "{FB977DE8-EE2A-478A-A029-4BDFF16E75DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Wrapper", "src\Monodroid\SevenDigital.Api.Wrapper\SevenDigital.Api.Wrapper.csproj", "{5D2CA3D0-2220-46BF-B841-56FAA7EA3325}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +141,26 @@ Global
 		{1D2777B8-FE77-40C3-9396-E4CCD7950F47}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{1D2777B8-FE77-40C3-9396-E4CCD7950F47}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1D2777B8-FE77-40C3-9396-E4CCD7950F47}.Release|x86.ActiveCfg = Release|Any CPU
+		{FB977DE8-EE2A-478A-A029-4BDFF16E75DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB977DE8-EE2A-478A-A029-4BDFF16E75DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB977DE8-EE2A-478A-A029-4BDFF16E75DA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FB977DE8-EE2A-478A-A029-4BDFF16E75DA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FB977DE8-EE2A-478A-A029-4BDFF16E75DA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FB977DE8-EE2A-478A-A029-4BDFF16E75DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB977DE8-EE2A-478A-A029-4BDFF16E75DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB977DE8-EE2A-478A-A029-4BDFF16E75DA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FB977DE8-EE2A-478A-A029-4BDFF16E75DA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FB977DE8-EE2A-478A-A029-4BDFF16E75DA}.Release|x86.ActiveCfg = Release|Any CPU
+		{5D2CA3D0-2220-46BF-B841-56FAA7EA3325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D2CA3D0-2220-46BF-B841-56FAA7EA3325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D2CA3D0-2220-46BF-B841-56FAA7EA3325}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5D2CA3D0-2220-46BF-B841-56FAA7EA3325}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5D2CA3D0-2220-46BF-B841-56FAA7EA3325}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5D2CA3D0-2220-46BF-B841-56FAA7EA3325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D2CA3D0-2220-46BF-B841-56FAA7EA3325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D2CA3D0-2220-46BF-B841-56FAA7EA3325}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5D2CA3D0-2220-46BF-B841-56FAA7EA3325}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5D2CA3D0-2220-46BF-B841-56FAA7EA3325}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,5 +171,7 @@ Global
 		{2769A09B-5F43-452D-A174-56B4BB2F77C8} = {2BDF1171-1DD2-44D0-AB6F-74623487E1B1}
 		{AC274EC8-B9F2-40E8-9F5B-1F3299F895C3} = {92ECD99C-159D-448C-97EA-DD63BC8289D3}
 		{1D2777B8-FE77-40C3-9396-E4CCD7950F47} = {92ECD99C-159D-448C-97EA-DD63BC8289D3}
+		{FB977DE8-EE2A-478A-A029-4BDFF16E75DA} = {03A6472A-C83B-4EC9-BDC8-177EE667E52A}
+		{5D2CA3D0-2220-46BF-B841-56FAA7EA3325} = {03A6472A-C83B-4EC9-BDC8-177EE667E52A}
 	EndGlobalSection
 EndGlobal

@@ -1,9 +1,9 @@
-﻿using System.Xml.XPath;
+﻿//using System.Xml.XPath;
 
 namespace SevenDigital.Api.Wrapper.Utility.Serialization
 {
-	public interface ISerializer<T>
-	{
-        IXPathNavigable Serialize(T serializableObject);
-	}
+	//public interface ISerializer<T>
+	//{
+	//    IXPathNavigable Serialize(T serializableObject);
+	//}
 }

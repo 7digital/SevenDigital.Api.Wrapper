@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C7DC45F1-CF85-4548-995E-DD06FA7031F6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SevenDigital.Api.Wrapper</RootNamespace>
+    <AssemblyName>SevenDigital.Api.Wrapper</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile2</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <HintPath>..\..\..\lib\portable\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>..\..\..\lib\portable\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net">
+      <HintPath>..\..\..\lib\portable\System.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>..\..\..\lib\portable\System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <HintPath>..\..\..\lib\portable\System.ServiceModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>..\..\..\lib\portable\System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Serialization">
+      <HintPath>..\..\..\lib\portable\System.Xml.Serialization.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Api.cs">
+      <Link>Api.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\CredentialChecker.cs">
+      <Link>EndpointResolution\CredentialChecker.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\EndPointInfo.cs">
+      <Link>EndpointResolution\EndPointInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\EndpointResolver.cs">
+      <Link>EndpointResolution\EndpointResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\IEndpointResolver.cs">
+      <Link>EndpointResolution\IEndpointResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\NameValueCollectionExtensions.cs">
+      <Link>EndpointResolution\NameValueCollectionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\IUrlSigner.cs">
+      <Link>EndpointResolution\OAuth\IUrlSigner.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\OAuthBase.cs">
+      <Link>EndpointResolution\OAuth\OAuthBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\OAuthCredentials.cs">
+      <Link>EndpointResolution\OAuth\OAuthCredentials.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\UrlSigner.cs">
+      <Link>EndpointResolution\OAuth\UrlSigner.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Exceptions\ApiXmlException.cs">
+      <Link>Exceptions\ApiXmlException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Exceptions\MissingOauthCredentialsException.cs">
+      <Link>Exceptions\MissingOauthCredentialsException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\FluentApi.cs">
+      <Link>FluentApi.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\IFluentApi.cs">
+      <Link>IFluentApi.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\IOAuthCredentials.cs">
+      <Link>IOAuthCredentials.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\ArtistEndpoint\ArtistExtensions.cs">
+      <Link>Schema\ArtistEndpoint\ArtistExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\Basket\BasketExtensions.cs">
+      <Link>Schema\Basket\BasketExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\ChartExtensions.cs">
+      <Link>Schema\ChartExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\HasPagingExtensions.cs">
+      <Link>Schema\HasPagingExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\LockerEndpoint\LockerExtensions.cs">
+      <Link>Schema\LockerEndpoint\LockerExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\TrackEndpoint\TrackExtensions.cs">
+      <Link>Schema\TrackEndpoint\TrackExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\User\Purchase\BasePurchaseItemExtensions.cs">
+      <Link>Schema\User\Purchase\BasePurchaseItemExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\User\Purchase\UserPurchaseBasketExtensions.cs">
+      <Link>Schema\User\Purchase\UserPurchaseBasketExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\User\UserDeliverItemExtensions.cs">
+      <Link>Schema\User\UserDeliverItemExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\HttpGetResolver.cs">
+      <Link>Utility\Http\HttpGetResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\HttpPostResolver.cs">
+      <Link>Utility\Http\HttpPostResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\IUrlResolver.cs">
+      <Link>Utility\Http\IUrlResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\IWebClientFactory.cs">
+      <Link>Utility\Http\IWebClientFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\IWebClientWrapper.cs">
+      <Link>Utility\Http\IWebClientWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\WebClientFactory.cs">
+      <Link>Utility\Http\WebClientFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\WebClientWrapper.cs">
+      <Link>Utility\Http\WebClientWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\ISerializer.cs">
+      <Link>Utility\Serialization\ISerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\XmlSerializer.cs">
+      <Link>Utility\Serialization\XmlSerializer.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">
+      <Project>{37337CEA-A68A-4536-96D6-80EDBF27C27E}</Project>
+      <Name>SevenDigital.Api.Schema %28PortableLibraries\SevenDigital.Api.Schema%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
