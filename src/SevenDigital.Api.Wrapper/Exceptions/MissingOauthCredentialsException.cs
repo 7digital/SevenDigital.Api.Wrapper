@@ -2,10 +2,10 @@
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
-	public class MissingOauthCredentialsException : Exception
+	public class MissingDependencyException : Exception
 	{
-		public MissingOauthCredentialsException()
-			: base("You need an implementation of IOAuthCredentials with a ConsumerKey and ConsumerSecret")
+		public MissingDependencyException(string message)
+			: base(message)
 		{ }
 	}
 }

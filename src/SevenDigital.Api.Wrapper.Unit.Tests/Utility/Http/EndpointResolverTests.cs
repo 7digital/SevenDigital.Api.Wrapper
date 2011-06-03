@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
         {
             _urlResolver = A.Fake<IUrlResolver>();
             _urlSigner = A.Fake<IUrlSigner>();
-            _endpointResolver = new EndpointResolver(_urlResolver, _urlSigner, CredentialChecker.Instance.Credentials);
+			_endpointResolver = new EndpointResolver(_urlResolver, _urlSigner, DependencyChecker<IOAuthCredentials>.Instance.Dependency, DependencyChecker<IApiUri>.Instance.Dependency);
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
         public void Should_return_xmlnode_if_valid_xml_received_using_async()
         {
             var resolver = new FakeUrlResolver { StubPayload = SERVICE_STATUS };
-            var endpointResolver = new EndpointResolver(resolver, _urlSigner, CredentialChecker.Instance.Credentials);
+			var endpointResolver = new EndpointResolver(resolver, _urlSigner, DependencyChecker<IOAuthCredentials>.Instance.Dependency, DependencyChecker<IApiUri>.Instance.Dependency);
 
             var reset = new AutoResetEvent(false);
 
@@ -85,6 +85,31 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
             Assert.That(payload.HasChildNodes);
             Assert.That(payload.SelectSingleNode("//serverTime"), Is.Not.Null);
         }
+
+		[Test]
+		public void Should_use_api_uri_provided_by_IApiUri_interface()
+		{
+			const string expectedApiUri = "http://api.7dizzle";
+
+			Given_a_urlresolver_that_returns_valid_xml();
+
+			IApiUri apiUri = A.Fake<IApiUri>();
+
+			A.CallTo(() => apiUri.Uri).Returns(expectedApiUri);
+
+			var endpointResolver = new EndpointResolver(_urlResolver, _urlSigner, DependencyChecker<IOAuthCredentials>.Instance.Dependency, apiUri);
+
+			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = "GET", Headers = new Dictionary<string, string>() };
+
+			endpointResolver.HitEndpoint(endPointState);
+
+			A.CallTo(() => apiUri.Uri).MustHaveHappened(Repeated.Exactly.Once);
+
+			A.CallTo(() => _urlResolver.Resolve(
+				A<Uri>.That.Matches(x => x.ToString().Contains(expectedApiUri)),
+				A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
+				.MustHaveHappened(Repeated.Exactly.Once);
+		}
 
         private void Given_a_urlresolver_that_returns_valid_xml()
         {

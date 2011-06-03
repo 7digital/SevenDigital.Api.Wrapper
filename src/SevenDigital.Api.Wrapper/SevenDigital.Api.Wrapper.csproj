@@ -41,8 +41,9 @@
   <ItemGroup>
     <Compile Include="Api.cs" />
     <Compile Include="EndpointResolution\AppDomainAssemblyResolver.cs" />
-    <Compile Include="EndpointResolution\CredentialChecker.cs" />
+    <Compile Include="EndpointResolution\DependencyChecker.cs" />
     <Compile Include="Exceptions\MissingOauthCredentialsException.cs" />
+    <Compile Include="IApiUri.cs" />
     <Compile Include="IOAuthCredentials.cs" />
     <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />
     <Compile Include="EndpointResolution\OAuth\OAuthBase.cs" />

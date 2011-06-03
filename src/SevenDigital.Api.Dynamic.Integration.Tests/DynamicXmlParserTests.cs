@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using NUnit.Framework;
+using SevenDigital.Api.Wrapper;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Utility.Http;
@@ -12,7 +13,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 
 		[SetUp]
 		public void SetUp() {
-			_endpointResolver = new EndpointResolver(new HttpGetResolver(), new UrlSigner(), CredentialChecker.Instance.Credentials);
+			_endpointResolver = new EndpointResolver(new HttpGetResolver(), new UrlSigner(), DependencyChecker<IOAuthCredentials>.Instance.Dependency, DependencyChecker<IApiUri>.Instance.Dependency);
 		}
 
 		[Test]
