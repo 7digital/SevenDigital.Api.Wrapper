@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Xml.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper;
 using SevenDigital.Api.Wrapper.EndpointResolution;
@@ -17,15 +17,6 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 		}
 
 		[Test]
-		public void Can_deal_with_xml() {
-			string xml = "<books><book id='1'><name>Book with 2 authors</name><authors><author id='1'>Billy</author></authors></book><book id='2'><name>The Bobbit</name></book></books>";
-
-			dynamic dx = new DynamicXmlParser(xml);
-			var condition = dx.book[1].name[0].Value;
-			Assert.That(condition, Is.EqualTo("The Bobbit"));
-		}
-
-		[Test]
 		public void Can_get_an_artist() {
 			const string endpoint = "artist/details";
 
@@ -33,11 +24,11 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 
 			string xml = _endpointResolver.HitEndpoint(endPointInfo);
 
-			dynamic dx = new DynamicXmlParser(xml);
+			dynamic dx = new DynamicXmlParser(XDocument.Parse(xml));
 
-			var name = dx.artist[0].name.Value;
-			var sortName = dx.artist[0].sortName.Value;
-			var url = dx.artist[0].url.Value;
+			var name = dx.artist[0].name.value;
+			var sortName = dx.artist[0].sortName.value;
+			var url = dx.artist[0].url.value;
 
 			Assert.That(name, Is.EqualTo("Keane"));
 			Assert.That(sortName, Is.EqualTo("Keane"));
@@ -52,10 +43,10 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 
 			string xml = _endpointResolver.HitEndpoint(endPointInfo);
 
-			dynamic dx = new DynamicXmlParser(xml);
+			dynamic dx = new DynamicXmlParser(XDocument.Parse(xml));
 
-			var name = dx.releases.release[0].title.Value;
-			var secondName = dx.releases.release[1].title.Value;
+			var name = dx.releases.release[0].title.value;
+			var secondName = dx.releases.release[1].title.value;
 
 			Assert.That(name, Is.EqualTo("Perfect Symmetry"));
 			Assert.That(secondName, Is.EqualTo("Night Train"));

@@ -10,9 +10,8 @@ namespace SevenDigital.Api.Dynamic
 	{
 		private readonly List<XElement> _elements;
 
-		public DynamicXmlParser(string text)
+		public DynamicXmlParser(XDocument doc)
 		{
-			var doc = XDocument.Parse(text);
 			_elements = new List<XElement> { doc.Root };
 		}
 
@@ -31,10 +30,10 @@ namespace SevenDigital.Api.Dynamic
 			result = null;
 			switch (binder.Name)
 			{
-				case "Value":
+				case "value":
 					result = _elements[0].Value;
 					break;
-				case "Count":
+				case "count":
 					result = _elements.Count;
 					break;
 				default:
