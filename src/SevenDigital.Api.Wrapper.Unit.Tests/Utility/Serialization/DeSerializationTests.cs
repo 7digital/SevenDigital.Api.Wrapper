@@ -1,26 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml;
 using System.Xml.Serialization;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Utility.Serialization;
-using FakeItEasy;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 {
 	[TestFixture]
 	public class DeSerializationTests
 	{
-		//[Test]
-		//public void Can_serialize_object()
-		//{
-		//    var testObject = GetTestObject();
-		//    var xmlSerializer = new XmlSerializer<TestObject>();
-		//    Assert.DoesNotThrow(() =>xmlSerializer.Serialize(testObject));
-		//    var xPathNavigable = xmlSerializer.Serialize(testObject) as XmlDocument;
-		//    Assert.That(xPathNavigable, Is.Not.Null);
-		//}
-
 		[Test]
 		public void Can_deserialize_object()
 		{
