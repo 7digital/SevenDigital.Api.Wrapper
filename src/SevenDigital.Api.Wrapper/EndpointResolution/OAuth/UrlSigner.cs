@@ -40,6 +40,12 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
         public IDictionary<string, string> SignPostRequest(string url, string userToken, string userSecret, 
             IOAuthCredentials consumerCredentials, Dictionary<string, string> postParameters)
         {
+            if (string.IsNullOrEmpty(consumerCredentials.ConsumerKey))
+                throw new ArgumentException("ConsumerKey can not be null or empty");
+
+            if (string.IsNullOrEmpty(consumerCredentials.ConsumerSecret))
+                throw new ArgumentException("ConsumerSecret can not be null or empty");
+
             var timestamp = _oAuthBase.GenerateTimeStamp();
             var nonce = _oAuthBase.GenerateNonce();
 
