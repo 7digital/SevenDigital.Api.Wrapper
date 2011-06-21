@@ -36,7 +36,36 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 			string escapeDataString = Uri.EscapeDataString(signature);
 			return new Uri(string.Format("{0}?{1}&oauth_signature={2}", normalizedUrl, normalizedRequestParameters, escapeDataString));
 		}
-	}
 
-	
+        public IDictionary<string, string> SignPostRequest(string url, string userToken, string userSecret, 
+            IOAuthCredentials consumerCredentials, Dictionary<string, string> postParameters)
+        {
+            var timestamp = _oAuthBase.GenerateTimeStamp();
+            var nonce = _oAuthBase.GenerateNonce();
+
+            string normalizedRequestParameters;
+            string normalizedUrl;
+            
+            var signature = _oAuthBase.GenerateSignature(new Uri(url), consumerCredentials.ConsumerKey, 
+                consumerCredentials.ConsumerSecret, userToken, userSecret, "POST", timestamp, nonce, 
+                out normalizedUrl, out normalizedRequestParameters, postParameters);
+
+            var parameters = new Dictionary<string, string>(postParameters)
+			{
+				{ OAuthBase.OAuthVersionKey, OAuthBase.OAuthVersion },
+				{ OAuthBase.OAuthNonceKey, nonce },
+			 	{ OAuthBase.OAuthTimestampKey, timestamp },
+				{ OAuthBase.OAuthSignatureMethodKey, OAuthBase.HMACSHA1SignatureType },
+				{ OAuthBase.OAuthConsumerKeyKey, consumerCredentials.ConsumerKey },
+				{ OAuthBase.OAuthSignatureKey, signature }
+			};
+
+            if (!string.IsNullOrEmpty(userToken))
+            {
+                parameters.Add(OAuthBase.OAuthTokenKey, userToken);
+            }
+
+            return parameters;
+        }
+	}
 }
