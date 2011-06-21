@@ -48,8 +48,8 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 			var name = dx.releases.release[0].title.value;
 			var secondName = dx.releases.release[1].title.value;
 
-			Assert.That(name, Is.EqualTo("Perfect Symmetry"));
-			Assert.That(secondName, Is.EqualTo("Night Train"));
+            Assert.That(name, Is.EqualTo("Night Train"));
+            Assert.That(secondName, Is.EqualTo("A Bad Dream"));
 		}
 	}
 }
