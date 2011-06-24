@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 {
@@ -63,7 +61,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 			 	{ OAuthBase.OAuthTimestampKey, timestamp },
 				{ OAuthBase.OAuthSignatureMethodKey, OAuthBase.HMACSHA1SignatureType },
 				{ OAuthBase.OAuthConsumerKeyKey, consumerCredentials.ConsumerKey },
-				{ OAuthBase.OAuthSignatureKey, signature }
+				{ OAuthBase.OAuthSignatureKey, OAuthBase.UrlEncode(signature) }
 			};
 
             if (!string.IsNullOrEmpty(userToken))
