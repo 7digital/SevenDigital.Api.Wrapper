@@ -6,36 +6,48 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 	public class UrlSigner : IUrlSigner
 	{
 		private readonly OAuthBase _oAuthBase;
-
+		
 		public UrlSigner()
 		{
 			_oAuthBase = new OAuthBase();
 		}
 
-		public Uri SignUrl(string urlWithParameters, string userToken, string userSecret, IOAuthCredentials consumerCredentials)
+		/// <summary>
+		/// If you need to sign a url and get it as a string, use this method instead of 
+		/// using SignUrl() returning a Uri.  If you use SignUrl(), as soon as you turn 
+		/// the Uri into a string, it unescapes the oauth signature and if it contains '+' characters
+		/// it will fail.
+		/// </summary>
+		public string SignUrlAsString(string urlWithParameters, string userToken, string userSecret, IOAuthCredentials consumerCredentials)
 		{
-			var timestamp = _oAuthBase.GenerateTimeStamp();
+			
+			var timeStamp = _oAuthBase.GenerateTimeStamp();
 			var nonce = _oAuthBase.GenerateNonce();
 
 			string normalizedRequestParameters;
 			string normalizedUrl;
 			var signature = _oAuthBase.GenerateSignature(new Uri(urlWithParameters),
 																consumerCredentials.ConsumerKey,
-																consumerCredentials.ConsumerSecret, 
-																userToken, 
-																userSecret, 
-																"GET", 
-																timestamp, 
-																nonce, 
-																out normalizedUrl, 
-																out normalizedRequestParameters, 
+																consumerCredentials.ConsumerSecret,
+																userToken,
+																userSecret,
+																"GET",
+																timeStamp,
+																nonce,
+																out normalizedUrl,
+																out normalizedRequestParameters,
 																new Dictionary<string, string>());
 
 			string escapeDataString = Uri.EscapeDataString(signature);
-			return new Uri(string.Format("{0}?{1}&oauth_signature={2}", normalizedUrl, normalizedRequestParameters, escapeDataString));
+			return string.Format("{0}?{1}&oauth_signature={2}", normalizedUrl, normalizedRequestParameters, escapeDataString);
 		}
 
-        public IDictionary<string, string> SignPostRequest(string url, string userToken, string userSecret, 
+		public Uri SignUrl(string urlWithParameters, string userToken, string userSecret, IOAuthCredentials consumerCredentials)
+		{
+			return new Uri(SignUrlAsString(urlWithParameters, userToken, userSecret, consumerCredentials));
+		}
+
+		public IDictionary<string, string> SignPostRequest(string url, string userToken, string userSecret, 
             IOAuthCredentials consumerCredentials, Dictionary<string, string> postParameters)
         {
             if (string.IsNullOrEmpty(consumerCredentials.ConsumerKey))
@@ -72,4 +84,5 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
             return parameters;
         }
 	}
+
 }
