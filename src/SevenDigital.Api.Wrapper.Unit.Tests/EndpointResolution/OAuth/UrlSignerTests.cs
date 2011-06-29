@@ -11,8 +11,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.OAuth
 	{
 		private string _consumerKey = "key";
 		private string _consumerSecret = "secret";
-		private string userToken;
-		private string userSecret;
 
 		[Test]
 		public void SignUrlAsString_escapes_those_stupid_plus_signs_and_other_evils_in_signature()
