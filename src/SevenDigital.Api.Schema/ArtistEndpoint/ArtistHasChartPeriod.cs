@@ -8,7 +8,7 @@ namespace SevenDigital.Api.Schema.ArtistEndpoint
 {
 	[ApiEndpoint("artist/chart")]
 	[XmlRoot("chart")]
-    public class ArtistChart : HasPaging, IChart<ArtistChartItem>
+    public class ArtistHasChartPeriod : HasPaging, IHasChartPeriod<ArtistChartItem>
 	{
 		[XmlElement("type")]
 		public ChartType Type { get; set; }

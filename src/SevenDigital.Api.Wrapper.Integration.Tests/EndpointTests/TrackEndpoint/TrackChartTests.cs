@@ -14,7 +14,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		public void Can_hit_endpoint()
 		{
 
-			TrackChart release = Api<TrackChart>.Get
+			TrackHasChartPeriod release = Api<TrackHasChartPeriod>.Get
 				.WithParameter("fromDate", "20110101")
 				.WithParameter("toDate", "20110301")
 				.WithParameter("country", "GB")
@@ -31,7 +31,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			TrackChart artistBrowse = Api<TrackChart>.Get
+			TrackHasChartPeriod artistBrowse = Api<TrackHasChartPeriod>.Get
 				.WithParameter("fromDate", "20090610")
 				.WithParameter("toDate", "20110101")
 				.WithParameter("page", "2")
@@ -45,7 +45,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 
 		[Test]
 		public void Can_hit_fluent_endpoint() {
-			var release = Api<TrackChart>
+			var release = Api<TrackHasChartPeriod>
 							.Get
 							.WithToDate(new DateTime(2011, 01, 31))
 							.WithPeriod(ChartPeriod.Week)

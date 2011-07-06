@@ -37,8 +37,8 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\ArtistEndpoint\ArtistBrowse.cs">
       <Link>ArtistEndpoint\ArtistBrowse.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\ArtistEndpoint\ArtistChart.cs">
-      <Link>ArtistEndpoint\ArtistChart.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ArtistEndpoint\ArtistHasChartPeriod.cs">
+      <Link>ArtistEndpoint\ArtistHasChartPeriod.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ArtistEndpoint\ArtistReleases.cs">
       <Link>ArtistEndpoint\ArtistReleases.cs</Link>
@@ -76,8 +76,8 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\Chart\ChartType.cs">
       <Link>Chart\ChartType.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\IChart.cs">
-      <Link>Chart\IChart.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\HasChartPeriod.cs">
+      <Link>Chart\HasChartPeriod.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Error.cs">
       <Link>Error.cs</Link>
@@ -145,8 +145,8 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\ReleaseByDate.cs">
       <Link>ReleaseEndpoint\ReleaseByDate.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\ReleaseChart.cs">
-      <Link>ReleaseEndpoint\ReleaseChart.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\ReleaseHasChartPeriod.cs">
+      <Link>ReleaseEndpoint\ReleaseHasChartPeriod.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\ReleaseRecommend.cs">
       <Link>ReleaseEndpoint\ReleaseRecommend.cs</Link>
@@ -184,8 +184,8 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\Track.cs">
       <Link>TrackEndpoint\Track.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackChart.cs">
-      <Link>TrackEndpoint\TrackChart.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackHasChartPeriod.cs">
+      <Link>TrackEndpoint\TrackHasChartPeriod.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackPreview.cs">
       <Link>TrackEndpoint\TrackPreview.cs</Link>
@@ -230,7 +230,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
