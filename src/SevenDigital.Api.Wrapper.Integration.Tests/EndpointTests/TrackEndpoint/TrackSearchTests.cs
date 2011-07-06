@@ -23,7 +23,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			TrackChart artistBrowse = Api<TrackChart>.Get
+			TrackSearch artistBrowse = Api<TrackSearch>.Get
 				.WithParameter("q","Happy")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
