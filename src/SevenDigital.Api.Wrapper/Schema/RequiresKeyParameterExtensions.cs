@@ -4,9 +4,9 @@ namespace SevenDigital.Api.Wrapper.Schema
 {
 	public static class RequiresKeyParameterExtensions
 	{
-		public static IFluentApi<T> WithName<T>(this IFluentApi<T> api, string listName) where T : RequiresKeyParameter
+		public static IFluentApi<T> WithKey<T>(this IFluentApi<T> api, string keyValue) where T : RequiresKeyParameter
 		{
-			api.WithParameter("key", listName);
+			api.WithParameter("key", keyValue);
 			return api;
 		}
 	}
