@@ -60,6 +60,7 @@
     <Compile Include="Schema\ChartExtensions.cs" />
     <Compile Include="Schema\HasPagingExtensions.cs" />
     <Compile Include="Schema\LockerEndpoint\LockerExtensions.cs" />
+    <Compile Include="Schema\RequiresKeyParameterExtensions.cs" />
     <Compile Include="Schema\TrackEndpoint\TrackExtensions.cs" />
     <Compile Include="Schema\User\Purchase\BasePurchaseItemExtensions.cs" />
     <Compile Include="Schema\User\Purchase\UserPurchaseBasketExtensions.cs" />

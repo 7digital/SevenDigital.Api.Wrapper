@@ -1,6 +1,4 @@
-﻿using System;
-using SevenDigital.Api.Schema.ArtistEndpoint;
-using SevenDigital.Api.Schema.Chart;
+﻿using SevenDigital.Api.Schema.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Schema.ArtistEndpoint
 {

@@ -94,6 +94,9 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\LockerEndpoint\LockerExtensions.cs">
       <Link>Schema\LockerEndpoint\LockerExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\RequiresKeyParameterExtensions.cs">
+      <Link>Schema\RequiresKeyParameterExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\TrackEndpoint\TrackExtensions.cs">
       <Link>Schema\TrackEndpoint\TrackExtensions.cs</Link>
     </Compile>
