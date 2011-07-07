@@ -13,11 +13,11 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_fluent_endpoint()
 		{
-			var artist = Api<ArtistHasChartPeriod>
+			var artist = Api<ArtistChart>
 							.Get
 							.WithToDate(new DateTime(2011, 01, 31))
 							.WithPeriod(ChartPeriod.Week)
-                            .WithPageSize(20)
+							.WithPageSize(20)
 							.Please();
 
 			Assert.That(artist, Is.Not.Null);

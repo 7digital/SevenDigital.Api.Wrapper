@@ -6,10 +6,10 @@ using SevenDigital.Api.Schema.Chart;
 
 namespace SevenDigital.Api.Schema.ReleaseEndpoint
 {
-	
+
 	[ApiEndpoint("release/chart")]
 	[XmlRoot("chart")]
-    public class ReleaseHasChartPeriod : HasPaging, IHasChartPeriod<ReleaseChartItem>
+	public class ReleaseChart : HasPaging, IHasChartPeriod<ReleaseChartItem>
 	{
 		[XmlElement("type")]
 		public ChartType Type { get; set; }

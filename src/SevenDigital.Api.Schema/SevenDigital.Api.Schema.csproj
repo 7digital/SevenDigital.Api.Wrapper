@@ -46,7 +46,7 @@
     <Compile Include="Chart\ChartPeriod.cs" />
     <Compile Include="ArtistEndpoint\Artist.cs" />
     <Compile Include="ArtistEndpoint\ArtistBrowse.cs" />
-    <Compile Include="ArtistEndpoint\ArtistHasChartPeriod.cs" />
+    <Compile Include="ArtistEndpoint\ArtistChart.cs" />
     <Compile Include="ArtistEndpoint\ArtistReleases.cs" />
     <Compile Include="ArtistEndpoint\ArtistSearch.cs" />
     <Compile Include="ArtistEndpoint\ArtistSearchResult.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="RecommendedItem.cs" />
     <Compile Include="ReleaseEndpoint\Release.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseByDate.cs" />
-    <Compile Include="ReleaseEndpoint\ReleaseHasChartPeriod.cs" />
+    <Compile Include="ReleaseEndpoint\ReleaseChart.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseRecommend.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseSearch.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseSearchResult.cs" />
@@ -89,7 +89,7 @@
     <Compile Include="Tags\TaggedArtists.cs" />
     <Compile Include="Tags\Tags.cs" />
     <Compile Include="TrackEndpoint\Track.cs" />
-    <Compile Include="TrackEndpoint\TrackHasChartPeriod.cs" />
+    <Compile Include="TrackEndpoint\TrackChart.cs" />
     <Compile Include="TrackEndpoint\TrackPreview.cs" />
     <Compile Include="TrackEndpoint\TrackSearch.cs" />
     <Compile Include="TrackEndpoint\TrackSearchResult.cs" />
