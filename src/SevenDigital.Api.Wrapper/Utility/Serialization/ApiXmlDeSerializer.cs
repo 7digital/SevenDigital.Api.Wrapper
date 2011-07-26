@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 using SevenDigital.Api.Wrapper.Exceptions;
 
 namespace SevenDigital.Api.Wrapper.Utility.Serialization
@@ -41,7 +39,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 
         private static XElement GetResponseAsXml(string output)
         {
-            var xml = new XDocument();
+            XDocument xml;
             try
             {
                 xml = XDocument.Parse(output);
