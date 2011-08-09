@@ -17,7 +17,7 @@ namespace SevenDigital.Api.Schema.Chart
 		public ChartItemChange Change { get; set; }
 
 		[XmlElement("artist")]
-		public Artist Artist { get; set; }
+		public ArtistIdParameter ArtistIdParameter { get; set; }
 	}
 
 	

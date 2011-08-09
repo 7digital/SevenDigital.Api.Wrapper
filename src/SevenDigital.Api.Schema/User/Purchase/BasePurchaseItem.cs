@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using SevenDigital.Api.Schema.LockerEndpoint;
+using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 
 namespace SevenDigital.Api.Schema.User.Purchase
 {
-	public abstract class BasePurchaseItem
+	public abstract class BasePurchaseItem : HasReleaseIdParameter, HasPriceParameter, HasTrackIdParameter, HasBasketIdParameter
 	{
 		[XmlElement("purchaseDate")]
 		public DateTime PurchaseDate { get; set; }

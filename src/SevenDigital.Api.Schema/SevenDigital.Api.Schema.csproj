@@ -37,8 +37,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chart\IIsChart.cs" />
-    <Compile Include="FilterDefinitions\RequiresKeyParameter.cs" />
+    <Compile Include="Chart\IChart.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasArtistIdParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasBasketIdParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasChartParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasKeyParameter.cs" />
+    <Compile Include="ParameterDefinitions\Post\HasBasketParameters.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasLetterParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasPriceParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasReleaseIdParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasSearchParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasTrackIdParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasUserDeliverItemParameter.cs" />
     <Compile Include="Merchandising\MerchandisingList.cs" />
     <Compile Include="Merchandising\MerchandisingItem.cs" />
     <Compile Include="OAuth\OAuthSignedAttribute.cs" />

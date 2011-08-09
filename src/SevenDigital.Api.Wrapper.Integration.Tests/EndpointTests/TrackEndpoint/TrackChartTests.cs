@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Chart;
 using SevenDigital.Api.Schema.TrackEndpoint;
-using SevenDigital.Api.Wrapper.Extensions;
+using SevenDigital.Api.Wrapper.Extensions.Get;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 {

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Attributes;
+using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 
 namespace SevenDigital.Api.Schema.ArtistEndpoint
 {
 	[ApiEndpoint("artist/details")]
 	[XmlRoot("artist")]
-	public class Artist : IIsArtist
+	public class ArtistIdParameter : HasArtistIdParameter
 	{
 		[XmlAttribute("id")]
 		public int Id { get; set; }
@@ -25,9 +26,5 @@ namespace SevenDigital.Api.Schema.ArtistEndpoint
 
 		[XmlElement("url")]
 		public string Url { get; set; }
-	}
-
-	public interface IIsArtist
-	{
 	}
 }

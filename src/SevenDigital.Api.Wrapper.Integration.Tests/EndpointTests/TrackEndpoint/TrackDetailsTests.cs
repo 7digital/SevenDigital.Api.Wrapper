@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using SevenDigital.Api.Schema.TrackEndpoint;
-using SevenDigital.Api.Wrapper.Extensions;
+using SevenDigital.Api.Wrapper.Extensions.Get;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 {
@@ -11,12 +11,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		public void Can_hit_endpoint()
 		{
 			Track track = Api<Track>.Get
-				.WithTrackId(12345)
+				.ForTrackId(12345)
 				.Please();
 
 			Assert.That(track, Is.Not.Null);
 			Assert.That(track.Title, Is.EqualTo("I Love You"));
-			Assert.That(track.Artist.Name, Is.EqualTo("The Dandy Warhols"));
+			Assert.That(track.ArtistIdParameter.Name, Is.EqualTo("The Dandy Warhols"));
 		}
 	}
 }

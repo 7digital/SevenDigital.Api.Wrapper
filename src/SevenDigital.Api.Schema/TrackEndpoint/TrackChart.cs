@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Schema.TrackEndpoint
 	
 	[ApiEndpoint("track/chart")]
 	[XmlRoot("chart")]
-    public class TrackChart : HasPaging, IIsChart<TrackChartItem>
+    public class TrackChart : HasPaging, IChart<TrackChartItem>
 	{
 		[XmlElement("type")]
 		public ChartType Type { get; set; }

@@ -67,35 +67,41 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Exceptions\MissingOauthCredentialsException.cs">
       <Link>Exceptions\MissingOauthCredentialsException.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\ArtistExtensions.cs">
-      <Link>Extensions\ArtistExtensions.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasArtistIdParameterExtensions.cs">
+      <Link>Extensions\Get\HasArtistIdParameterExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\BasePurchaseItemExtensions.cs">
-      <Link>Extensions\BasePurchaseItemExtensions.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasBasketIdParameterExtensions.cs">
+      <Link>Extensions\Get\HasBasketIdParameterExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\BasketExtensions.cs">
-      <Link>Extensions\BasketExtensions.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasChartParameterExtensions.cs">
+      <Link>Extensions\Get\HasChartParameterExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\ChartExtensions.cs">
-      <Link>Extensions\ChartExtensions.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasKeyParameterExtensions.cs">
+      <Link>Extensions\Get\HasKeyParameterExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasPagingExtensions.cs">
-      <Link>Extensions\HasPagingExtensions.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasLetterParameterExtensions.cs">
+      <Link>Extensions\Get\HasLetterParameterExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\LockerExtensions.cs">
-      <Link>Extensions\LockerExtensions.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasPagingExtensions.cs">
+      <Link>Extensions\Get\HasPagingExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\RequiresKeyParameterExtensions.cs">
-      <Link>Extensions\RequiresKeyParameterExtensions.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasPriceParameterExtensions.cs">
+      <Link>Extensions\Get\HasPriceParameterExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\TrackExtensions.cs">
-      <Link>Extensions\TrackExtensions.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasReleaseIdParameterExtensions.cs">
+      <Link>Extensions\Get\HasReleaseIdParameterExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\UserDeliverItemExtensions.cs">
-      <Link>Extensions\UserDeliverItemExtensions.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasSearchParameterExtensions.cs">
+      <Link>Extensions\Get\HasSearchParameterExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\UserPurchaseBasketExtensions.cs">
-      <Link>Extensions\UserPurchaseBasketExtensions.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasTrackIdParameterExtensions.cs">
+      <Link>Extensions\Get\HasTrackIdParameterExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasUserDeliverItemParameterExtensions.cs">
+      <Link>Extensions\Get\HasUserDeliverItemParameterExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Post\HasBasketParametersExtensions.cs">
+      <Link>Extensions\Post\HasBasketParametersExtensions.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\FluentApi.cs">
       <Link>FluentApi.cs</Link>
@@ -170,7 +176,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
+      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

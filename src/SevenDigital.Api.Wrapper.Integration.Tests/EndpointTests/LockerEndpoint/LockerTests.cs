@@ -2,7 +2,7 @@ using System.Configuration;
 using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.LockerEndpoint;
-using SevenDigital.Api.Wrapper.Extensions;
+using SevenDigital.Api.Wrapper.Extensions.Get;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoint
 {

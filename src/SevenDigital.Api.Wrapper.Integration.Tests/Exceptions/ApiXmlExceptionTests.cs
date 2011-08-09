@@ -14,7 +14,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 		{
 			// -- Deliberate error response
 			Console.WriteLine("Trying artist/details without artistId parameter...");
-			var apiXmlException = Assert.Throws<ApiXmlException>(() => Api<Artist>.Get.Please());
+			var apiXmlException = Assert.Throws<ApiXmlException>(() => Api<ArtistIdParameter>.Get.Please());
 
 			Assert.That(apiXmlException.Error.Code, Is.EqualTo(1001));
 			Assert.That(apiXmlException.Error.ErrorMessage, Is.EqualTo("Missing parameter artistId."));

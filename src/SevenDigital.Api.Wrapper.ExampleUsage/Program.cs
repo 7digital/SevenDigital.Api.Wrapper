@@ -3,7 +3,7 @@ using System.Linq;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Schema.LockerEndpoint;
-using SevenDigital.Api.Wrapper.Extensions;
+using SevenDigital.Api.Wrapper.Extensions.Get;
 
 namespace SevenDigital.Api.Wrapper.ExampleUsage {
 	class Program {
@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 			string s = args[0];
 
 			// -- artist/details
-			var artist = Api<Artist>.Get
+			var artist = Api<ArtistIdParameter>.Get
 				.WithParameter("artistId", s)
 				.Please();
 
@@ -21,7 +21,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 
 
 			// -- artist/toptracks
-			var artistTopTracks = Api<ArtistTopTracks>
+			var artistTopTracks = Api<ArtistIdParameterTopTracks>
 				.Get
 				.WithParameter("artistId", s)
 				.Please();
@@ -43,7 +43,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 			try {
 				// -- Deliberate error response
 				Console.WriteLine("Trying artist/details without artistId parameter...");
-				Api<Artist>.Get.Please();
+				Api<ArtistIdParameter>.Get.Please();
 			} catch (ApiXmlException ex) {
 				Console.WriteLine("{0} : {1}", ex.Error.Code, ex.Error.ErrorMessage);
 			}

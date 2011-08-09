@@ -34,7 +34,7 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 		public bool ExplicitContent { get; set; }
 
 		[XmlElement("artist")]
-		public Artist Artist { get; set; }
+		public ArtistIdParameter ArtistIdParameter { get; set; }
 
 		[XmlElement("url")]
 		public string Url { get; set; }

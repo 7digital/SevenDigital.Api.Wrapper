@@ -2,15 +2,17 @@
 using System.Xml.Serialization;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Schema.Attributes;
+using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 using SevenDigital.Api.Schema.Pricing;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
+using SevenDigital.Api.Schema.User.Purchase;
 
 namespace SevenDigital.Api.Schema.TrackEndpoint
 {
 	
 	[XmlRoot("track")]
 	[ApiEndpoint("track/details")]
-	public class Track
+	public class Track : HasTrackIdParameter
 	{
 		[XmlAttribute("id")]
 		public int Id { get; set; }
@@ -22,7 +24,7 @@ namespace SevenDigital.Api.Schema.TrackEndpoint
 		public string Version { get; set; }
 
 		[XmlElement("artist")]
-		public Artist Artist { get; set; }
+		public ArtistIdParameter ArtistIdParameter { get; set; }
 
 		[XmlElement("trackNumber")]
 		public int TrackNumber { get; set; }

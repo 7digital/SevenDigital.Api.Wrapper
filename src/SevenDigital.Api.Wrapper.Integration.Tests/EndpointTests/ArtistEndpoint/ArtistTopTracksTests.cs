@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Schema.ArtistEndpoint;
-using SevenDigital.Api.Wrapper.Extensions;
+using SevenDigital.Api.Wrapper.Extensions.Get;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint
 {
@@ -12,19 +12,19 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			ArtistTopTracks artist = new FluentApi<ArtistTopTracks>()
+			ArtistIdParameterTopTracks artistIdParameter = new FluentApi<ArtistIdParameterTopTracks>()
 				.WithParameter("artistId", "1")
 				.WithParameter("country", "GB")
 				.Please();
 
-			Assert.That(artist, Is.Not.Null);
-			Assert.That(artist.Tracks.Count, Is.GreaterThan(0));
+			Assert.That(artistIdParameter, Is.Not.Null);
+			Assert.That(artistIdParameter.Tracks.Count, Is.GreaterThan(0));
 		}
 
 		[Test]
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
-			var artist = (ArtistTopTracks)Api<ArtistTopTracks>
+			var artist = (ArtistIdParameterTopTracks)Api<ArtistIdParameterTopTracks>
 								.Get
 								.WithArtistId(1)
 								.WithParameter("country", "GB")
@@ -39,7 +39,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		{
 			try
 			{
-				new FluentApi<ArtistTopTracks>()
+				new FluentApi<ArtistIdParameterTopTracks>()
 					.WithParameter("artistId", "1")
 					.WithParameter("page", "2")
 					.WithParameter("pageSize", "10")

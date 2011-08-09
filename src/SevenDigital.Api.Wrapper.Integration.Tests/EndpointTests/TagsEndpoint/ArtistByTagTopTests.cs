@@ -19,7 +19,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 			Assert.That(tags, Is.Not.Null);
 			Assert.That(tags.TaggedArtists.Count, Is.GreaterThan(0));
 			Assert.That(tags.Type, Is.EqualTo(ItemType.artist));
-			Assert.That(tags.TaggedArtists.FirstOrDefault().Artist.Name, Is.Not.Empty);
+			Assert.That(tags.TaggedArtists.FirstOrDefault().ArtistIdParameter.Name, Is.Not.Empty);
 		}
 
 		[Test]

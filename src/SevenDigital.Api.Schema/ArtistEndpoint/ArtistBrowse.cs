@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Attributes;
+using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 
 namespace SevenDigital.Api.Schema.ArtistEndpoint
 {
 	[ApiEndpoint("artist/browse")]
 	[XmlRoot("artists")]
-	public class ArtistBrowse : HasPaging, IIsBrowseable
+	public class ArtistBrowse : HasPaging, HasLetterParameter
 	{
 		[XmlElement("artist")]
-		public List<Artist> Artists { get; set; }
-	}
-
-	public interface IIsBrowseable
-	{
+		public List<ArtistIdParameter> Artists { get; set; }
 	}
 }

@@ -76,14 +76,11 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\Chart\ChartType.cs">
       <Link>Chart\ChartType.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\IIsChart.cs">
-      <Link>Chart\IIsChart.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\IChart.cs">
+      <Link>Chart\IChart.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Error.cs">
       <Link>Error.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\FilterDefinitions\RequiresKeyParameter.cs">
-      <Link>FilterDefinitions\RequiresKeyParameter.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\HasPaging.cs">
       <Link>HasPaging.cs</Link>
@@ -129,6 +126,39 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\OAuth\OAuthSignedAttribute.cs">
       <Link>OAuth\OAuthSignedAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasArtistIdParameter.cs">
+      <Link>ParameterDefinitions\Get\HasArtistIdParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasBasketIdParameter.cs">
+      <Link>ParameterDefinitions\Get\HasBasketIdParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasChartParameter.cs">
+      <Link>ParameterDefinitions\Get\HasChartParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasKeyParameter.cs">
+      <Link>ParameterDefinitions\Get\HasKeyParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasLetterParameter.cs">
+      <Link>ParameterDefinitions\Get\HasLetterParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasPriceParameter.cs">
+      <Link>ParameterDefinitions\Get\HasPriceParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasReleaseIdParameter.cs">
+      <Link>ParameterDefinitions\Get\HasReleaseIdParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasSearchParameter.cs">
+      <Link>ParameterDefinitions\Get\HasSearchParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasTrackIdParameter.cs">
+      <Link>ParameterDefinitions\Get\HasTrackIdParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasUserDeliverItemParameter.cs">
+      <Link>ParameterDefinitions\Get\HasUserDeliverItemParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Post\HasBasketParameters.cs">
+      <Link>ParameterDefinitions\Post\HasBasketParameters.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Pricing\Currency.cs">
       <Link>Pricing\Currency.cs</Link>
@@ -230,7 +260,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
