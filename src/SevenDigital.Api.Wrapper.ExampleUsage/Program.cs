@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 			string s = args[0];
 
 			// -- artist/details
-			var artist = Api<ArtistIdParameter>.Get
+			var artist = Api<Artist>.Get
 				.WithParameter("artistId", s)
 				.Please();
 
@@ -21,7 +21,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 
 
 			// -- artist/toptracks
-			var artistTopTracks = Api<ArtistIdParameterTopTracks>
+			var artistTopTracks = Api<ArtistTopTracks>
 				.Get
 				.WithParameter("artistId", s)
 				.Please();
@@ -43,7 +43,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 			try {
 				// -- Deliberate error response
 				Console.WriteLine("Trying artist/details without artistId parameter...");
-				Api<ArtistIdParameter>.Get.Please();
+				Api<Artist>.Get.Please();
 			} catch (ApiXmlException ex) {
 				Console.WriteLine("{0} : {1}", ex.Error.Code, ex.Error.ErrorMessage);
 			}

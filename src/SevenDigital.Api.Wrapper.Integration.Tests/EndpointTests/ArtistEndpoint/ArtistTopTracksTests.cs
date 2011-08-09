@@ -12,19 +12,19 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			ArtistIdParameterTopTracks artistIdParameter = new FluentApi<ArtistIdParameterTopTracks>()
+			ArtistTopTracks artist = new FluentApi<ArtistTopTracks>()
 				.WithParameter("artistId", "1")
 				.WithParameter("country", "GB")
 				.Please();
 
-			Assert.That(artistIdParameter, Is.Not.Null);
-			Assert.That(artistIdParameter.Tracks.Count, Is.GreaterThan(0));
+			Assert.That(artist, Is.Not.Null);
+			Assert.That(artist.Tracks.Count, Is.GreaterThan(0));
 		}
 
 		[Test]
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
-			var artist = (ArtistIdParameterTopTracks)Api<ArtistIdParameterTopTracks>
+			var artist = (ArtistTopTracks)Api<ArtistTopTracks>
 								.Get
 								.WithArtistId(1)
 								.WithParameter("country", "GB")
@@ -39,7 +39,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		{
 			try
 			{
-				new FluentApi<ArtistIdParameterTopTracks>()
+				new FluentApi<ArtistTopTracks>()
 					.WithParameter("artistId", "1")
 					.WithParameter("page", "2")
 					.WithParameter("pageSize", "10")

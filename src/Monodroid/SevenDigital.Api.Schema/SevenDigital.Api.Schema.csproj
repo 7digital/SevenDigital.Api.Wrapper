@@ -79,6 +79,12 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\Chart\IChart.cs">
       <Link>Chart\IChart.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\ReleaseChartItem.cs">
+      <Link>Chart\ReleaseChartItem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\TrackChartItem.cs">
+      <Link>Chart\TrackChartItem.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Error.cs">
       <Link>Error.cs</Link>
     </Compile>

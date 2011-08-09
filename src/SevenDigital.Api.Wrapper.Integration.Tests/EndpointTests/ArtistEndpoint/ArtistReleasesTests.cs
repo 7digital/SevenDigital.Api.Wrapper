@@ -12,20 +12,20 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
-			var artist = (ArtistIdParameterReleases)Api<ArtistIdParameterReleases>
+			var artist = (ArtistReleases)Api<ArtistReleases>
 				.Get
 				.WithArtistId(1)
 				.Please();
 
 			Assert.That(artist, Is.Not.Null);
 			Assert.That(artist.Releases.Count, Is.GreaterThan(0));
-			Assert.That(artist.Releases.FirstOrDefault().ArtistIdParameter.Name, Is.EqualTo("Keane"));
+			Assert.That(artist.Releases.FirstOrDefault().Artist.Name, Is.EqualTo("Keane"));
 		}
 
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			var artistBrowse = (ArtistIdParameterReleases)Api<ArtistIdParameterReleases>
+			var artistBrowse = (ArtistReleases)Api<ArtistReleases>
 				.Get
 				.WithPageNumber(2)
 				.WithPageSize(20)

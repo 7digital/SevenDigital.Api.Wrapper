@@ -7,7 +7,7 @@ namespace SevenDigital.Api.Schema.ArtistEndpoint
 {
 	[ApiEndpoint("artist/details")]
 	[XmlRoot("artist")]
-	public class ArtistIdParameter : HasArtistIdParameter
+	public class Artist : HasArtistIdParameter
 	{
 		[XmlAttribute("id")]
 		public int Id { get; set; }

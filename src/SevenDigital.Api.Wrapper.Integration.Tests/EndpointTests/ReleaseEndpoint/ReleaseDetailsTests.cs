@@ -17,7 +17,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 
 			Assert.That(release, Is.Not.Null);
 			Assert.That(release.Title, Is.EqualTo("Dreams"));
-			Assert.That(release.ArtistIdParameter.Name, Is.EqualTo("The Whitest Boy Alive"));
+			Assert.That(release.Artist.Name, Is.EqualTo("The Whitest Boy Alive"));
 		}
 	}
 }

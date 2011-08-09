@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 			Assert.That(artist.Type, Is.EqualTo(ChartType.artist));
 			Assert.That(artist.FromDate, Is.EqualTo(new DateTime(2011, 01, 25)));
 			Assert.That(artist.ToDate, Is.EqualTo(new DateTime(2011, 01, 31)));
-			Assert.That(artist.ChartItems.FirstOrDefault().ArtistIdParameter, Is.Not.Null);
+			Assert.That(artist.ChartItems.FirstOrDefault().Artist, Is.Not.Null);
 		}
 	}
 }

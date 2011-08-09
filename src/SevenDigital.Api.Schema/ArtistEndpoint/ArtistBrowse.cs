@@ -10,6 +10,6 @@ namespace SevenDigital.Api.Schema.ArtistEndpoint
 	public class ArtistBrowse : HasPaging, HasLetterParameter
 	{
 		[XmlElement("artist")]
-		public List<ArtistIdParameter> Artists { get; set; }
+		public List<Artist> Artists { get; set; }
 	}
 }

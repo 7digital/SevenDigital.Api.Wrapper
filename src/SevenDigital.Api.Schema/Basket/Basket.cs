@@ -7,7 +7,7 @@ namespace SevenDigital.Api.Schema.Basket
 {
 	[ApiEndpoint("basket")]
 	[XmlRoot("basket")]
-	public class BasketParameters : HasBasketParameters
+	public class Basket : HasBasketParameters
 	{
 		[XmlAttribute("id")]
 		public string Id { get; set; }

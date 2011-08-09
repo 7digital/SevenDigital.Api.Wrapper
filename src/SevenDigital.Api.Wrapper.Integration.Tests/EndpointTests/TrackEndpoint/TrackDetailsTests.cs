@@ -16,7 +16,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 
 			Assert.That(track, Is.Not.Null);
 			Assert.That(track.Title, Is.EqualTo("I Love You"));
-			Assert.That(track.ArtistIdParameter.Name, Is.EqualTo("The Dandy Warhols"));
+			Assert.That(track.Artist.Name, Is.EqualTo("The Dandy Warhols"));
 		}
 	}
 }

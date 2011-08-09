@@ -1,6 +1,5 @@
 ﻿using System.Xml.Serialization;
 using System.Collections.Generic;
-using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 

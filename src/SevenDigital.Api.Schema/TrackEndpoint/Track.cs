@@ -24,7 +24,7 @@ namespace SevenDigital.Api.Schema.TrackEndpoint
 		public string Version { get; set; }
 
 		[XmlElement("artist")]
-		public ArtistIdParameter ArtistIdParameter { get; set; }
+		public Artist Artist { get; set; }
 
 		[XmlElement("trackNumber")]
 		public int TrackNumber { get; set; }

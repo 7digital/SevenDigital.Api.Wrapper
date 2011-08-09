@@ -8,7 +8,7 @@ namespace SevenDigital.Api.Schema.Tags
 	public class TaggedArtists
 	{
 		[XmlElement("artist")]
-		public ArtistIdParameter ArtistIdParameter { get; set; }
+		public Artist Artist { get; set; }
 	}
 
 	[XmlRoot("taggedItem")]

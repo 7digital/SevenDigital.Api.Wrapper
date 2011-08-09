@@ -12,7 +12,7 @@ namespace SevenDigital.Api.Schema.User
 	[OAuthSigned]
 	[ApiEndpoint("user/deliveritem")]
 	[XmlRoot("purchase")]
-	public class UserDeliverItemParameter : HasReleaseIdParameter, HasTrackIdParameter, HasUserDeliverItemParameter
+	public class UserDeliverItem : HasReleaseIdParameter, HasTrackIdParameter, HasUserDeliverItemParameter
 	{
 		[XmlElement("purchaseDate")]
 		public DateTime PurchaseDate { get; set; }
