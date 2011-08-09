@@ -6,9 +6,13 @@ namespace SevenDigital.Api.Schema.ArtistEndpoint
 {
 	[ApiEndpoint("artist/search")]
 	[XmlRoot("searchResults")]
-	public class ArtistSearch : HasPaging
+	public class ArtistSearch : HasPaging, IIsSearchable
 	{
 		[XmlElement("searchResult")]
 		public ArtistSearchResult Results { get; set; }
+	}
+
+	public interface IIsSearchable
+	{
 	}
 }

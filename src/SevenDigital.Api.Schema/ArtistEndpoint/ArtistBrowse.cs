@@ -7,9 +7,13 @@ namespace SevenDigital.Api.Schema.ArtistEndpoint
 {
 	[ApiEndpoint("artist/browse")]
 	[XmlRoot("artists")]
-	public class ArtistBrowse : HasPaging
+	public class ArtistBrowse : HasPaging, IIsBrowseable
 	{
 		[XmlElement("artist")]
 		public List<Artist> Artists { get; set; }
+	}
+
+	public interface IIsBrowseable
+	{
 	}
 }

@@ -37,7 +37,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chart\HasChartPeriod.cs" />
+    <Compile Include="Chart\IIsChart.cs" />
     <Compile Include="FilterDefinitions\RequiresKeyParameter.cs" />
     <Compile Include="Merchandising\MerchandisingList.cs" />
     <Compile Include="Merchandising\MerchandisingItem.cs" />

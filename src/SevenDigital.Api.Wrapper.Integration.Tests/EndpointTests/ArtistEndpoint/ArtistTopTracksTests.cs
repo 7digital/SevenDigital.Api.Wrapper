@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Schema.ArtistEndpoint;
-using SevenDigital.Api.Wrapper.Schema.ArtistEndpoint;
+using SevenDigital.Api.Wrapper.Extensions;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint
 {

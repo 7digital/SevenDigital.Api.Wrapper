@@ -105,6 +105,36 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Exceptions\MissingOauthCredentialsException.cs">
       <Link>Exceptions\MissingOauthCredentialsException.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\ArtistExtensions.cs">
+      <Link>Extensions\ArtistExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\BasePurchaseItemExtensions.cs">
+      <Link>Extensions\BasePurchaseItemExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\BasketExtensions.cs">
+      <Link>Extensions\BasketExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\ChartExtensions.cs">
+      <Link>Extensions\ChartExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasPagingExtensions.cs">
+      <Link>Extensions\HasPagingExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\LockerExtensions.cs">
+      <Link>Extensions\LockerExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\RequiresKeyParameterExtensions.cs">
+      <Link>Extensions\RequiresKeyParameterExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\TrackExtensions.cs">
+      <Link>Extensions\TrackExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\UserDeliverItemExtensions.cs">
+      <Link>Extensions\UserDeliverItemExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\UserPurchaseBasketExtensions.cs">
+      <Link>Extensions\UserPurchaseBasketExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\FluentApi.cs">
       <Link>FluentApi.cs</Link>
     </Compile>
@@ -116,36 +146,6 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\IOAuthCredentials.cs">
       <Link>IOAuthCredentials.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\ArtistEndpoint\ArtistExtensions.cs">
-      <Link>Schema\ArtistEndpoint\ArtistExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\Basket\BasketExtensions.cs">
-      <Link>Schema\Basket\BasketExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\ChartExtensions.cs">
-      <Link>Schema\ChartExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\HasPagingExtensions.cs">
-      <Link>Schema\HasPagingExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\LockerEndpoint\LockerExtensions.cs">
-      <Link>Schema\LockerEndpoint\LockerExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\RequiresKeyParameterExtensions.cs">
-      <Link>Schema\RequiresKeyParameterExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\TrackEndpoint\TrackExtensions.cs">
-      <Link>Schema\TrackEndpoint\TrackExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\User\Purchase\BasePurchaseItemExtensions.cs">
-      <Link>Schema\User\Purchase\BasePurchaseItemExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\User\Purchase\UserPurchaseBasketExtensions.cs">
-      <Link>Schema\User\Purchase\UserPurchaseBasketExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Schema\User\UserDeliverItemExtensions.cs">
-      <Link>Schema\User\UserDeliverItemExtensions.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\HttpPostResolver.cs">
       <Link>Utility\Http\HttpPostResolver.cs</Link>
@@ -185,7 +185,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

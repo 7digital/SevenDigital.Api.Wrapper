@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 
 	[ApiEndpoint("release/chart")]
 	[XmlRoot("chart")]
-	public class ReleaseChart : HasPaging, IHasChartPeriod<ReleaseChartItem>
+	public class ReleaseChart : HasPaging, IIsChart<ReleaseChartItem>
 	{
 		[XmlElement("type")]
 		public ChartType Type { get; set; }

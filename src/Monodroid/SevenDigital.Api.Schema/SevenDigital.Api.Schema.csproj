@@ -76,8 +76,8 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\Chart\ChartType.cs">
       <Link>Chart\ChartType.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\HasChartPeriod.cs">
-      <Link>Chart\HasChartPeriod.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Chart\IIsChart.cs">
+      <Link>Chart\IIsChart.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Error.cs">
       <Link>Error.cs</Link>
