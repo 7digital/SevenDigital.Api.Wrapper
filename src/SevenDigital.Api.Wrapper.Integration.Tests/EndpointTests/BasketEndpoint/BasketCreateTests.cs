@@ -2,7 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Basket;
-using SevenDigital.Api.Wrapper.Schema.Basket;
+using SevenDigital.Api.Wrapper.Extensions;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoint
 {

@@ -1,6 +1,6 @@
 ﻿using SevenDigital.Api.Schema.User;
 
-namespace SevenDigital.Api.Wrapper.Schema.User
+namespace SevenDigital.Api.Wrapper.Extensions
 {
 	public static class UserDeliverItemExtensions
 	{

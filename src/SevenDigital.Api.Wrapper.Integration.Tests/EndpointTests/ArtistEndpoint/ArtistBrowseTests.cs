@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Wrapper.Extensions;
-using SevenDigital.Api.Wrapper.Schema;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint
 {

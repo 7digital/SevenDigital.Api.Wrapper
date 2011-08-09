@@ -1,6 +1,6 @@
 ﻿using SevenDigital.Api.Schema.LockerEndpoint;
 
-namespace SevenDigital.Api.Wrapper.Schema.LockerEndpoint
+namespace SevenDigital.Api.Wrapper.Extensions
 {
 	public static class LockerExtensions
 	{

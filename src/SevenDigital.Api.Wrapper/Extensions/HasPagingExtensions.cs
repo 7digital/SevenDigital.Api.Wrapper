@@ -1,6 +1,6 @@
 ﻿using SevenDigital.Api.Schema;
 
-namespace SevenDigital.Api.Wrapper.Schema
+namespace SevenDigital.Api.Wrapper.Extensions
 {
 	public static class HasPagingExtensions
 	{

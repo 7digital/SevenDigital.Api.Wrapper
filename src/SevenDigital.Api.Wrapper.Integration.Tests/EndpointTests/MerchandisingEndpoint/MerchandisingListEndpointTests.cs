@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Merchandising;
-using SevenDigital.Api.Wrapper.Schema;
+using SevenDigital.Api.Wrapper.Extensions;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.MerchandisingEndpoint
 {

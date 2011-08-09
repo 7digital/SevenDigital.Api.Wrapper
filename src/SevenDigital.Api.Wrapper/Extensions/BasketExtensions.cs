@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SevenDigital.Api.Wrapper.Schema.Basket
+namespace SevenDigital.Api.Wrapper.Extensions
 {
 	public static class BasketExtensions
 	{

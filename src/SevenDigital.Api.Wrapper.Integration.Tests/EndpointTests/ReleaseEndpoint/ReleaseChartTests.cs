@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Chart;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
-using SevenDigital.Api.Wrapper.Schema;
+using SevenDigital.Api.Wrapper.Extensions;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoint
 {

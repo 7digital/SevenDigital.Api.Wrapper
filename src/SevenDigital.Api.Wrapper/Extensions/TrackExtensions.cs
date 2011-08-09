@@ -1,6 +1,6 @@
 ﻿using SevenDigital.Api.Schema.TrackEndpoint;
 
-namespace SevenDigital.Api.Wrapper.Schema.TrackEndpoint
+namespace SevenDigital.Api.Wrapper.Extensions
 {
 	public static class TrackExtensions
 	{

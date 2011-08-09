@@ -1,7 +1,7 @@
 ﻿using System;
 using SevenDigital.Api.Schema.Chart;
 
-namespace SevenDigital.Api.Wrapper.Schema
+namespace SevenDigital.Api.Wrapper.Extensions
 {
 	public static class ChartExtensions
 	{
