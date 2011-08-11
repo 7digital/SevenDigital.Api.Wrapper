@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.ReleaseEndpoint
 {
@@ -10,5 +10,7 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 		Video,
 		Exclusive,
 		Item,
+		[XmlEnum(Name = "")]
+		Unknown,
 	}
 }

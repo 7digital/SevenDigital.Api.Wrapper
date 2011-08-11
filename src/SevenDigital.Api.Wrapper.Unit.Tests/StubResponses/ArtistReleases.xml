@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<response status="ok" version="1.2"
+
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://api.7digital.live/1.2/static/7digitalAPI.xsd" >
+	<releases>
+		<page>1</page>
+		<pageSize>30</pageSize>
+		<totalItems>73</totalItems>
+		<release id="263431">
+			<title>KylieFever2002 Live In Manchester</title>
+			<version></version>
+			<type></type>
+			<barcode>0724349010154</barcode>
+			<year>2008</year>
+			<explicitContent>false</explicitContent>
+			<artist id="1599">
+				<name>Kylie</name>
+				<appearsAs>Kylie Minogue</appearsAs>
+				<url>http://www.7digital.com/artists/kylie/?partner=712</url>
+			</artist>
+			<url>http://www.7digital.com/artists/kylie/kyliefever2002-live-in-manchester/?partner=712</url>
+			<image>http://cdn.7static.com/static/img/sleeveart/00/002/634/0000263431_50.jpg</image>
+			<releaseDate>2008-05-26T00:00:00+01:00</releaseDate>
+			<addedDate>2008-05-22T17:29:40+01:00</addedDate>
+			<price>
+				<currency code="GBP">&#163;</currency>
+				<value></value>
+				<formattedPrice>N/A</formattedPrice>
+				<onSale>false</onSale>
+			</price>
+			<formats availableDrmFree="true">
+				<format id="4">
+					<fileFormat>WMV</fileFormat>
+					<bitRate></bitRate>
+					<drmFree>false</drmFree>
+				</format>
+				<format id="9">
+					<fileFormat>MP4</fileFormat>
+					<bitRate></bitRate>
+					<drmFree>true</drmFree>
+				</format>
+				<format id="13">
+					<fileFormat>WMV</fileFormat>
+					<bitRate></bitRate>
+					<drmFree>false</drmFree>
+				</format>
+				<format id="21">
+					<fileFormat>MP4</fileFormat>
+					<bitRate></bitRate>
+					<drmFree>true</drmFree>
+				</format>
+			</formats>
+			<label id="77">
+				<name>EMI UK</name>
+			</label>
+		</release>
+		<release id="233595">
+			<title>In My Arms</title>
+			<version></version>
+			<type>Single</type>
+			<barcode>5099921283857</barcode>
+			<year>2008</year>
+			<explicitContent>false</explicitContent>
+			<artist id="1599">
+				<name>Kylie</name>
+				<appearsAs>Kylie Minogue</appearsAs>
+				<url>http://www.7digital.com/artists/kylie/?partner=712</url>
+			</artist>
+			<url>http://www.7digital.com/artists/kylie/in-my-arms-7/?partner=712</url>
+			<image>http://cdn.7static.com/static/img/sleeveart/00/002/335/0000233595_50.jpg</image>
+			<releaseDate>2008-05-04T00:00:00+01:00</releaseDate>
+			<addedDate>2008-04-30T16:31:32+01:00</addedDate>
+			<price>
+				<currency code="GBP">&#163;</currency>
+				<value>2.49</value>
+				<formattedPrice>&#163;2.49</formattedPrice>
+				<onSale>false</onSale>
+			</price>
+			<formats availableDrmFree="true">
+				<format id="17">
+					<fileFormat>MP3</fileFormat>
+					<bitRate>320</bitRate>
+					<drmFree>true</drmFree>
+				</format>
+			</formats>
+			<label id="77">
+				<name>EMI UK</name>
+			</label>
+		</release>
+		<release id="233596">
+			<title>In My Arms</title>
+			<version></version>
+			<type>Single</type>
+			<barcode>5099921298752</barcode>
+			<year>2008</year>
+			<explicitContent>false</explicitContent>
+			<artist id="1599">
+				<name>Kylie</name>
+				<appearsAs>Kylie Minogue</appearsAs>
+				<url>http://www.7digital.com/artists/kylie/?partner=712</url>
+			</artist>
+			<url>http://www.7digital.com/artists/kylie/in-my-arms-8/?partner=712</url>
+			<image>http://cdn.7static.com/static/img/sleeveart/00/002/335/0000233596_50.jpg</image>
+			<releaseDate>2008-05-04T00:00:00+01:00</releaseDate>
+			<addedDate>2008-04-30T16:32:38+01:00</addedDate>
+			<price>
+				<currency code="GBP">&#163;</currency>
+				<value>1.99</value>
+				<formattedPrice>&#163;1.99</formattedPrice>
+				<onSale>false</onSale>
+			</price>
+			<formats availableDrmFree="true">
+				<format id="17">
+					<fileFormat>MP3</fileFormat>
+					<bitRate>320</bitRate>
+					<drmFree>true</drmFree>
+				</format>
+			</formats>
+			<label id="77">
+				<name>EMI UK</name>
+			</label>
+		</release>
+		<release id="199459">
+			<title>WOW</title>
+			<version></version>
+			<type>Single</type>
+			<barcode>5099952230851</barcode>
+			<year>2008</year>
+			<explicitContent>false</explicitContent>
+			<artist id="1599">
+				<name>Kylie</name>
+				<appearsAs>Kylie Minogue</appearsAs>
+				<url>http://www.7digital.com/artists/kylie/?partner=712</url>
+			</artist>
+			<url>http://www.7digital.com/artists/kylie/wow/?partner=712</url>
+			<image>http://cdn.7static.com/static/img/sleeveart/00/001/994/0000199459_50.jpg</image>
+			<releaseDate>2008-02-17T00:00:00Z</releaseDate>
+			<addedDate>2008-01-24T10:28:35Z</addedDate>
+			<price>
+				<currency code="GBP">&#163;</currency>
+				<value>4.49</value>
+				<formattedPrice>&#163;4.49</formattedPrice>
+				<onSale>false</onSale>
+			</price>
+			<formats availableDrmFree="true">
+				<format id="17">
+					<fileFormat>MP3</fileFormat>
+					<bitRate>320</bitRate>
+					<drmFree>true</drmFree>
+				</format>
+			</formats>
+			<label id="77">
+				<name>EMI UK</name>
+			</label>
+		</release>
+		<release id="199465">
+			<title>WOW</title>
+			<version></version>
+			<type>Single</type>
+			<barcode>5099952230950</barcode>
+			<year>2008</year>
+			<explicitContent>false</explicitContent>
+			<artist id="1599">
+				<name>Kylie</name>
+				<appearsAs>Kylie Minogue</appearsAs>
+				<url>http://www.7digital.com/artists/kylie/?partner=712</url>
+			</artist>
+			<url>http://www.7digital.com/artists/kylie/wow-1-1/?partner=712</url>
+			<image>http://cdn.7static.com/static/img/sleeveart/00/001/994/0000199465_50.jpg</image>
+			<releaseDate>2008-02-17T00:00:00Z</releaseDate>
+			<addedDate>2008-01-24T12:52:44Z</addedDate>
+			<price>
+				<currency code="GBP">&#163;</currency>
+				<value>1.99</value>
+				<formattedPrice>&#163;1.99</formattedPrice>
+				<onSale>false</onSale>
+			</price>
+			<formats availableDrmFree="true">
+				<format id="17">
+					<fileFormat>MP3</fileFormat>
+					<bitRate>320</bitRate>
+					<drmFree>true</drmFree>
+				</format>
+			</formats>
+			<label id="77">
+				<name>EMI UK</name>
+			</label>
+		</release>
+		<release id="291260">
+			<title>WOW</title>
+			<version></version>
+			<type>Single</type>
+			<barcode>5099952094057</barcode>
+			<year>2008</year>
+			<explicitContent>false</explicitContent>
+			<artist id="1599">
+				<name>Kylie</name>
+				<appearsAs>Kylie Minogue</appearsAs>
+				<url>http://www.7digital.com/artists/kylie/?partner=712</url>
+			</artist>
+			<url>http://www.7digital.com/artists/kylie/wow-9/?partner=712</url>
+			<image>http://cdn.7static.com/static/img/sleeveart/00/002/912/0000291260_50.jpg</image>
+			<releaseDate>2008-02-17T00:00:00Z</releaseDate>
+			<addedDate>2008-08-01T00:27:32+01:00</addedDate>
+			<price>
+				<currency code="GBP">&#163;</currency>
+				<value>1.99</value>
+				<formattedPrice>&#163;1.99</formattedPrice>
+				<onSale>false</onSale>
+			</price>
+			<formats availableDrmFree="true">
+				<format id="17">
+					<fileFormat>MP3</fileFormat>
+					<bitRate>320</bitRate>
+					<drmFree>true</drmFree>
+				</format>
+			</formats>
+			<label id="77">
+				<name>EMI UK</name>
+			</label>
+		</release>
+		<release id="171968">
+			<title>X</title>
+			<version></version>
+			<type>Album</type>
+			<barcode>5099951395254</barcode>
+			<year>2007</year>
+			<explicitContent>false</explicitContent>
+			<artist id="1599">
+				<name>Kylie</name>
+				<appearsAs>Kylie Minogue</appearsAs>
+				<url>http://www.7digital.com/artists/kylie/?partner=712</url>
+			</artist>
+			<url>http://www.7digital.com/artists/kylie/x/?partner=712</url>
+			<image>http://cdn.7static.com/static/img/sleeveart/00/001/719/0000171968_50.jpg</image>
+			<releaseDate>2007-11-26T00:00:00Z</releaseDate>
+			<addedDate>2007-11-01T23:04:56Z</addedDate>
+			<price>
+				<currency code="GBP">&#163;</currency>
+				<value>7.99</value>
+				<formattedPrice>&#163;7.99</formattedPrice>
+				<onSale>false</onSale>
+			</price>
+			<formats availableDrmFree="true">
+				<format id="17">
+					<fileFormat>MP3</fileFormat>
+					<bitRate>320</bitRate>
+					<drmFree>true</drmFree>
+				</format>
+			</formats>
+			<label id="77">
+				<name>EMI UK</name>
+			</label>
+		</release>
+		<release id="171782">
+			<title>2 Hearts</title>
+			<version></version>
+			<type>Single</type>
+			<barcode>5099951393656</barcode>
+			<year>2007</year>
+			<explicitContent>false</explicitContent>
+			<artist id="1599">
+				<name>Kylie</name>
+				<appearsAs>Kylie Minogue</appearsAs>
+				<url>http://www.7digital.com/artists/kylie/?partner=712</url>
+			</artist>
+			<url>http://www.7digital.com/artists/kylie/2-hearts-1/?partner=712</url>
+			<image>http://cdn.7static.com/static/img/sleeveart/00/001/717/0000171782_50.jpg</image>
+			<releaseDate>2007-11-11T00:00:00Z</releaseDate>
+			<addedDate>2007-11-01T17:22:12Z</addedDate>
+			<price>
+				<currency code="GBP">&#163;</currency>
+				<value>1.99</value>
+				<formattedPrice>&#163;1.99</formattedPrice>
+				<onSale>false</onSale>
+			</price>
+			<formats availableDrmFree="true">
+				<format id="17">
+					<fileFormat>MP3</fileFormat>
+					<bitRate>320</bitRate>
+					<drmFree>true</drmFree>
+				</format>
+			</formats>
+			<label id="77">
+				<name>EMI UK</name>
+			</label>
+		</release>
+		<release id="171825">
+			<title>2 Hearts</title>
+			<version></version>
+			<type>Single</type>
+			<barcode>5099951455552</barcode>
+			<year>2007</year>
+			<explicitContent>false</explicitContent>
+			<artist id="1599">
+				<name>Kylie</name>
+				<appearsAs>Kylie Minogue</appearsAs>
+				<url>http://www.7digital.com/artists/kylie/?partner=712</url>
+			</artist>
+			<url>http://www.7digital.com/artists/kylie/2-hearts-2/?partner=712</url>
+			<image>http://cdn.7static.com/static/img/sleeveart/00/001/718/0000171825_50.jpg</image>
+			<releaseDate>2007-11-11T00:00:00Z</releaseDate>
+			<addedDate>2007-11-01T17:47:06Z</addedDate>
+			<price>
+				<currency code="GBP">&#163;</currency>
+				<value>1.99</value>
+				<formattedPrice>&#163;1.99</formattedPrice>
+				<onSale>false</onSale>
+			</price>
+			<formats availableDrmFree="true">
+				<format id="17">
+					<fileFormat>MP3</fileFormat>
+					<bitRate>320</bitRate>
+					<drmFree>true</drmFree>
+				</format>
+			</formats>
+			<label id="77">
+				<name>EMI UK</name>
+			</label>
+		</release>
+		<release id="150828">
+			<title>2 Hearts</title>
+			<version></version>
+			<type>Single</type>
+			<barcode>5099951390358</barcode>
+			<year>2007</year>
+			<explicitContent>false</explicitContent>
+			<artist id="1599">
+				<name>Kylie</name>
+				<appearsAs>Kylie Minogue</appearsAs>
+				<url>http://www.7digital.com/artists/kylie/?partner=712</url>
+			</artist>
+			<url>http://www.7digital.com/artists/kylie/2-hearts/?partner=712</url>
+			<image>http://cdn.7static.com/static/img/sleeveart/00/001/508/0000150828_50.jpg</image>
+			<releaseDate>2007-11-04T00:00:00Z</releaseDate>
+			<addedDate>2007-10-09T15:44:23+01:00</addedDate>
+			<price>
+				<currency code="GBP">&#163;</currency>
+				<value></value>
+				<formattedPrice>N/A</formattedPrice>
+				<onSale>false</onSale>
+			</price>
+			<formats availableDrmFree="true">
+				<format id="17">
+					<fileFormat>MP3</fileFormat>
+					<bitRate>320</bitRate>
+					<drmFree>true</drmFree>
+				</format>
+			</formats>
+			<label id="77">
+				<name>EMI UK</name>
+			</label>
+		</release>
+	</releases>
+</response>
