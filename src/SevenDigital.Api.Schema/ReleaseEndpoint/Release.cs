@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Schema.Media;
+using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 using SevenDigital.Api.Schema.Pricing;
 
 namespace SevenDigital.Api.Schema.ReleaseEndpoint
@@ -10,7 +11,7 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 	
 	[XmlRoot("release")]
 	[ApiEndpoint("release/details")]
-	public class Release
+	public class Release : HasReleaseIdParameter
 	{
 		[XmlAttribute("id")]
 		public int Id { get; set; }
