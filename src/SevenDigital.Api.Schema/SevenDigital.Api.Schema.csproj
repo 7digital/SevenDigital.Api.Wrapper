@@ -92,6 +92,7 @@
     <Compile Include="ReleaseEndpoint\ReleaseRecommend.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseSearch.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseSearchResult.cs" />
+    <Compile Include="ReleaseEndpoint\ReleaseTracks.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseType.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="Tags\ArtistByTagTop.cs" />

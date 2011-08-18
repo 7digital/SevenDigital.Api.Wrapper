@@ -51,6 +51,7 @@
     <Compile Include="EndpointTests\MerchandisingEndpoint\MerchandisingListEndpointTests.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthAccessTokenTest.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthRequestTokenTest.cs" />
+    <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseTracksTests.cs" />
     <Compile Include="EndpointTests\TagsEndpoint\ArtistByTagTopTests.cs" />
     <Compile Include="EndpointTests\ArtistEndpoint\ArtistBrowseTests.cs" />
     <Compile Include="EndpointTests\ArtistEndpoint\ArtistChartTests.cs" />

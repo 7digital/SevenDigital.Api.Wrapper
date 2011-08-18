@@ -12,3 +12,4 @@ log-file.txt
 .idea
 *.cache
 build/spec/report.html
+.dotCover
