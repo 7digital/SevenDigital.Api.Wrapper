@@ -25,14 +25,17 @@ namespace SevenDigital.Api.Schema.Pricing
 		[XmlElement("isOnSale")]
 		public bool IsOnSale { get; set; }
 
-		public bool IsFree
+		public PriceStatus Status
 		{
-			get { return Value == "0" && Rrp == "0"; }
-		}
+			get
+			{
+				if (Value == "0" && Rrp == "0")
+					return PriceStatus.Free;
+				if(string.IsNullOrEmpty(Value) && FormattedPrice == "N/A")
+					return PriceStatus.UnAvailable;
 
-		public bool IsAvailable
-		{
-			get { return !string.IsNullOrEmpty(Value) && FormattedPrice != "N/A"; }
+				return PriceStatus.Available;
+			}
 		}
 	}
 }

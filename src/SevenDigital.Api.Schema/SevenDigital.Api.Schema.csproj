@@ -54,6 +54,7 @@
     <Compile Include="Merchandising\MerchandisingList.cs" />
     <Compile Include="Merchandising\MerchandisingItem.cs" />
     <Compile Include="OAuth\OAuthSignedAttribute.cs" />
+    <Compile Include="Pricing\PriceStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Chart\ChartPeriod.cs" />
     <Compile Include="ArtistEndpoint\Artist.cs" />
