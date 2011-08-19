@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.Pricing
 {
-	
+
 	[XmlRoot("price")]
 	public class Price
 	{
@@ -24,5 +24,15 @@ namespace SevenDigital.Api.Schema.Pricing
 
 		[XmlElement("isOnSale")]
 		public bool IsOnSale { get; set; }
+
+		public bool IsFree
+		{
+			get { return Value == "0" && Rrp == "0"; }
+		}
+
+		public bool IsAvailable
+		{
+			get { return !string.IsNullOrEmpty(Value) && FormattedPrice != "N/A"; }
+		}
 	}
 }
