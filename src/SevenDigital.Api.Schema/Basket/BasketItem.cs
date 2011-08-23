@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Pricing;
 
 namespace SevenDigital.Api.Schema.Basket
@@ -27,5 +26,8 @@ namespace SevenDigital.Api.Schema.Basket
 
 		[XmlElement("price")]
 		public Price Price { get; set; }
+
+		[XmlElement("amountDue")]
+		public AmountDue AmountDue { get; set; }
 	}
 }
