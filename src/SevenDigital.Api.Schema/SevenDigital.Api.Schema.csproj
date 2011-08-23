@@ -38,6 +38,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Basket\AmountDue.cs" />
+    <Compile Include="Basket\Discount.cs" />
+    <Compile Include="Basket\DiscountType.cs" />
     <Compile Include="Chart\IChart.cs" />
     <Compile Include="Chart\ReleaseChartItem.cs" />
     <Compile Include="Chart\TrackChartItem.cs" />

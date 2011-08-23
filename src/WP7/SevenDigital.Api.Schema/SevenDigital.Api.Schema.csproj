@@ -72,6 +72,12 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\Basket\BasketItemList.cs">
       <Link>Basket\BasketItemList.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Basket\Discount.cs">
+      <Link>Basket\Discount.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Basket\DiscountType.cs">
+      <Link>Basket\DiscountType.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Chart\ArtistChartItem.cs">
       <Link>Chart\ArtistChartItem.cs</Link>
     </Compile>

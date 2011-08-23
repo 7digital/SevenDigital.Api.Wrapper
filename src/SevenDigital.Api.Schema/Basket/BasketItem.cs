@@ -29,5 +29,8 @@ namespace SevenDigital.Api.Schema.Basket
 
 		[XmlElement("amountDue")]
 		public AmountDue AmountDue { get; set; }
+
+		[XmlElement("discount")]
+		public Discount Discount { get; set; }
 	}
 }
