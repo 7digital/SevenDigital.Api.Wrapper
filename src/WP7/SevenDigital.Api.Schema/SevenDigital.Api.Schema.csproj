@@ -132,11 +132,11 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\Media\FormatList.cs">
       <Link>Media\FormatList.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\Merchandising\MerchandisingItem.cs">
-      <Link>Merchandising\MerchandisingItem.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Merchandising\List.cs">
+      <Link>Merchandising\List.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\Merchandising\MerchandisingList.cs">
-      <Link>Merchandising\MerchandisingList.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Merchandising\ListItem.cs">
+      <Link>Merchandising\ListItem.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\OAuth\OAuthAccessToken.cs">
       <Link>OAuth\OAuthAccessToken.cs</Link>
@@ -304,7 +304,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
