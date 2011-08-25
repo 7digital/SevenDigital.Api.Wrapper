@@ -1,17 +1,17 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using SevenDigital.Api.Schema.Merchandising;
 using SevenDigital.Api.Wrapper.Extensions.Get;
-using List = SevenDigital.Api.Schema.Merchandising.List;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.MerchandisingEndpoint
 {
 	[TestFixture]
-	public class ListEndpointTests
+	public class MerchandisingListEndpointTests
 	{
 		[Test, Ignore("In beta testing")]
 		public void Can_hit_fluent_endpoint_for_merchandising()
 		{
-			var merchList = Api<List>
+			var merchList = Api<MerchandisingList>
 				.Get
 				.WithKey("tabAlbums")
 				.WithParameter("shopId", "34")

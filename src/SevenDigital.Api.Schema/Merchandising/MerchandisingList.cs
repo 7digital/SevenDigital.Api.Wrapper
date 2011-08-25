@@ -7,7 +7,7 @@ namespace SevenDigital.Api.Schema.Merchandising
 {
 	[ApiEndpoint("merchandising/list/details")]
 	[XmlRoot("List")]
-	public class List : HasKeyParameter
+	public class MerchandisingList : HasKeyParameter
 	{
 		[XmlElement("key")]
 		public string Key { get; set; }
