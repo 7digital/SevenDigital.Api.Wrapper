@@ -54,7 +54,7 @@
     <Compile Include="ParameterDefinitions\Get\HasSearchParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasTrackIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasUserDeliverItemParameter.cs" />
-    <Compile Include="Merchandising\List.cs" />
+    <Compile Include="Merchandising\MerchandisingList.cs" />
     <Compile Include="Merchandising\ListItem.cs" />
     <Compile Include="OAuth\OAuthSignedAttribute.cs" />
     <Compile Include="Pricing\PriceStatus.cs" />

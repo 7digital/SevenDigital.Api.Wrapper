@@ -48,7 +48,7 @@
     <Compile Include="AppSettingsCredentials.cs" />
     <Compile Include="EndpointTests\BasketEndpoint\BasketCreateTests.cs" />
     <Compile Include="EndpointTests\LockerEndpoint\LockerTests.cs" />
-    <Compile Include="EndpointTests\MerchandisingEndpoint\ListEndpointTests.cs" />
+    <Compile Include="EndpointTests\MerchandisingEndpoint\MerchandisingListEndpointTests.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthAccessTokenTest.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthRequestTokenTest.cs" />
     <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseTracksTests.cs" />
