@@ -22,7 +22,7 @@ namespace SevenDigital.Api.Schema.Pricing
 		[XmlElement("formattedRrp")]
 		public string FormattedRrp { get; set; }
 
-		[XmlElement("isOnSale")]
+		[XmlElement("onSale")]
 		public bool IsOnSale { get; set; }
 
 		public PriceStatus Status
