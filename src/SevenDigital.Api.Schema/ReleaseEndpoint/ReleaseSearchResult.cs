@@ -12,6 +12,6 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 		public ItemType Type { get; set; }
 
 		[XmlElement("release")]
-		public List<Release> Releases { get; set; }
+		public Release Release { get; set; }
 	}
 }

@@ -18,8 +18,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 				.Please();
 
 			Assert.That(release, Is.Not.Null);
-			Assert.That(release.Results.Releases.Count, Is.GreaterThan(0));
-			Assert.That(release.Results.Releases.FirstOrDefault().Type, Is.EqualTo(ReleaseType.Single));
+			Assert.That(release.Results.Count, Is.GreaterThan(0));
+			Assert.That(release.Results.FirstOrDefault().Release.Type, Is.EqualTo(ReleaseType.Single));
 		}
 
 		[Test]
@@ -35,5 +35,20 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 			Assert.That(artistBrowse.Page, Is.EqualTo(2));
 			Assert.That(artistBrowse.PageSize, Is.EqualTo(20));
 		}
+
+        [Test]
+        public void Can_get_multiple_results()
+        {
+            var artistSearch = Api<ReleaseSearch>.Get
+                .WithParameter("q", "pink")
+                .WithParameter("page", "1")
+                .WithParameter("pageSize", "20")
+                .Please();
+
+            Assert.That(artistSearch.Results.Count, Is.GreaterThan(1));
+
+        }
+
+
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Attributes;
 
@@ -10,6 +11,6 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 	public class ReleaseSearch : HasPaging
 	{
 		[XmlElement("searchResult")]
-		public ReleaseSearchResult Results { get; set; }
+		public List<ReleaseSearchResult> Results { get; set; }
 	}
 }
