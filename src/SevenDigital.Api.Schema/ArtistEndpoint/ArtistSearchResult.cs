@@ -11,6 +11,6 @@ namespace SevenDigital.Api.Schema.ArtistEndpoint
 		public ItemType Type { get; set; }
 
 		[XmlElement("artist")]
-		public List<Artist> Artists { get; set; }
+		public Artist Artist { get; set; }
 	}
 }

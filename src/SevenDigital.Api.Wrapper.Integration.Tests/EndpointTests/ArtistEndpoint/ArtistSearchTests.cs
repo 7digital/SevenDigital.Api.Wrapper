@@ -16,8 +16,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 				.WithParameter("country", "GB")
 				.Please();
 
-			Assert.That(artist, Is.Not.Null);
-			Assert.That(artist.Results.Artists.Count, Is.GreaterThan(0));
+			Assert.That(artist, Is.Not.Null);			
 		}
 
 		[Test]
@@ -30,7 +29,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 							.Please();
 
 			Assert.That(artist, Is.Not.Null);
-			Assert.That(artist.Results.Artists.Count, Is.GreaterThan(0));
+			
 		}
 
 		[Test]
@@ -44,7 +43,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 				.Please();
 
 			Assert.That(artistSearch, Is.Not.Null);
-			Assert.That(artistSearch.Results.Artists.Count, Is.GreaterThan(0));
+			
 		}
 
 		[Test]
@@ -60,5 +59,21 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 			Assert.That(artistBrowse.Page, Is.EqualTo(2));
 			Assert.That(artistBrowse.PageSize, Is.EqualTo(20));
 		}
+
+        [Test]
+        public void Can_get_multiple_results()
+        {
+            ArtistSearch artistSearch = Api<ArtistSearch>.Get
+                .WithParameter("q", "pink")
+                .WithParameter("page", "1")
+                .WithParameter("pageSize", "20")
+                .Please();
+
+            Assert.That(artistSearch.Results.Count, Is.GreaterThan(1));
+            
+        }
+
+
+
 	}
 }

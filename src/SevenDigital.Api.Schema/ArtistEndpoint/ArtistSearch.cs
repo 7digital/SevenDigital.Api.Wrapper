@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Schema.ParameterDefinitions.Get;
@@ -9,7 +10,13 @@ namespace SevenDigital.Api.Schema.ArtistEndpoint
 	[XmlRoot("searchResults")]
 	public class ArtistSearch : HasPaging, HasSearchParameter
 	{
-		[XmlElement("searchResult")]
-		public ArtistSearchResult Results { get; set; }
+
+        public ArtistSearch()
+        {
+            Results = new List<ArtistSearchResult>();
+        }
+
+	    [XmlElement("searchResult")]
+		public List<ArtistSearchResult> Results { get; set; }
 	}
 }
