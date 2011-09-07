@@ -70,8 +70,8 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasArtistIdParameterExtensions.cs">
       <Link>Extensions\Get\HasArtistIdParameterExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasBasketIdParameterExtensions.cs">
-      <Link>Extensions\Get\HasBasketIdParameterExtensions.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasBasketParameterExtensions.cs">
+      <Link>Extensions\Get\HasBasketParameterExtensions.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\Get\HasChartParameterExtensions.cs">
       <Link>Extensions\Get\HasChartParameterExtensions.cs</Link>
@@ -176,7 +176,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

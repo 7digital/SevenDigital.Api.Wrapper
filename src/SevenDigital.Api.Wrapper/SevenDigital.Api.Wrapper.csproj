@@ -44,7 +44,7 @@
     <Compile Include="EndpointResolution\DependencyChecker.cs" />
     <Compile Include="Exceptions\MissingOauthCredentialsException.cs" />
     <Compile Include="Extensions\Get\HasArtistIdParameterExtensions.cs" />
-    <Compile Include="Extensions\Get\HasBasketIdParameterExtensions.cs" />
+    <Compile Include="Extensions\Get\HasBasketParameterExtensions.cs" />
     <Compile Include="Extensions\Get\HasChartParameterExtensions.cs" />
     <Compile Include="Extensions\Get\HasKeyParameterExtensions.cs" />
     <Compile Include="Extensions\Get\HasLetterParameterExtensions.cs" />

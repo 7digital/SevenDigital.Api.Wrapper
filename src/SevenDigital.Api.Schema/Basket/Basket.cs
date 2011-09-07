@@ -1,13 +1,13 @@
 ﻿using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Attributes;
-using SevenDigital.Api.Schema.ParameterDefinitions.Post;
+using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 using SevenDigital.Api.Schema.Pricing;
 
 namespace SevenDigital.Api.Schema.Basket
 {
 	[ApiEndpoint("basket")]
 	[XmlRoot("basket")]
-	public class Basket : HasBasketParameters
+	public class Basket : HasBasketParameter
 	{
 		[XmlAttribute("id")]
 		public string Id { get; set; }

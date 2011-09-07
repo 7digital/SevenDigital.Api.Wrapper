@@ -44,10 +44,9 @@
     <Compile Include="Chart\ReleaseChartItem.cs" />
     <Compile Include="Chart\TrackChartItem.cs" />
     <Compile Include="ParameterDefinitions\Get\HasArtistIdParameter.cs" />
-    <Compile Include="ParameterDefinitions\Get\HasBasketIdParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasBasketParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasChartParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasKeyParameter.cs" />
-    <Compile Include="ParameterDefinitions\Post\HasBasketParameters.cs" />
     <Compile Include="ParameterDefinitions\Get\HasLetterParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasPriceParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasReleaseIdParameter.cs" />
@@ -116,7 +115,9 @@
     <Compile Include="User\Purchase\UserPurchaseRrpItem.cs" />
     <Compile Include="User\UserDeliverItem.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ParameterDefinitions\Post\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

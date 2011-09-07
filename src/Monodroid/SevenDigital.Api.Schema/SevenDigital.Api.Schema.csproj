@@ -145,8 +145,8 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasArtistIdParameter.cs">
       <Link>ParameterDefinitions\Get\HasArtistIdParameter.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasBasketIdParameter.cs">
-      <Link>ParameterDefinitions\Get\HasBasketIdParameter.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasBasketParameter.cs">
+      <Link>ParameterDefinitions\Get\HasBasketParameter.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasChartParameter.cs">
       <Link>ParameterDefinitions\Get\HasChartParameter.cs</Link>
@@ -171,9 +171,6 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasUserDeliverItemParameter.cs">
       <Link>ParameterDefinitions\Get\HasUserDeliverItemParameter.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Post\HasBasketParameters.cs">
-      <Link>ParameterDefinitions\Post\HasBasketParameters.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Pricing\Currency.cs">
       <Link>Pricing\Currency.cs</Link>
@@ -275,10 +272,13 @@
       <HintPath>..\..\..\lib\Monodroid\System.Xml.Linq.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ParameterDefinitions\Post\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" />
+      <UserProperties ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
