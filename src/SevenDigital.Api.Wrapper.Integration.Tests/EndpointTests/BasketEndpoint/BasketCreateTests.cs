@@ -90,6 +90,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 
 			Assert.That(basket.BasketItems.Items.First().AmountDue.Amount, Is.EqualTo("7.99"));
 			Assert.That(basket.BasketItems.Items.First().AmountDue.FormattedAmount, Is.EqualTo("£7.99"));
+			Assert.That(basket.AmountDue.Amount, Is.EqualTo("7.99"));
+			Assert.That(basket.AmountDue.FormattedAmount, Is.EqualTo("£7.99"));
 		}
 
 	}
