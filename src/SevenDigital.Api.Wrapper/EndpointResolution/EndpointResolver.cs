@@ -20,14 +20,14 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			_apiUri = apiUri;
 		}
 
-		public string HitEndpoint(EndPointInfo endPointInfo)
+		public virtual string HitEndpoint(EndPointInfo endPointInfo)
 		{
 			Uri signedUrl = GetSignedUrl(endPointInfo);
 
 			return _urlResolver.Resolve(signedUrl, endPointInfo.HttpMethod, new Dictionary<string, string>());
 		}
 
-		public void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> payload)
+		public virtual void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> payload)
 		{
 			Uri signedUrl = GetSignedUrl(endPointInfo);
 			_urlResolver.ResolveAsync(signedUrl, endPointInfo.HttpMethod, new Dictionary<string, string>(), payload);
