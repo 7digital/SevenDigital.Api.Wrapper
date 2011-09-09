@@ -38,8 +38,8 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 																out normalizedRequestParameters,
 																new Dictionary<string, string>());
 
-			string escapeDataString = Uri.EscapeDataString(signature);
-			return string.Format("{0}?{1}&oauth_signature={2}", normalizedUrl, normalizedRequestParameters, escapeDataString);
+			var encodedSignature = OAuthBase.UrlEncode(signature);
+			return string.Format("{0}?{1}&oauth_signature={2}", normalizedUrl, normalizedRequestParameters, encodedSignature);
 		}
 
 		public Uri SignUrl(string urlWithParameters, string userToken, string userSecret, IOAuthCredentials consumerCredentials)
