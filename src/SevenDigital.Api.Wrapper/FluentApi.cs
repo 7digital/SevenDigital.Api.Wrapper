@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
@@ -45,33 +46,33 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public IFluentApi<T> WithMethod(string methodName)
+		public virtual IFluentApi<T> WithMethod(string methodName)
 		{
 			_endPointInfo.HttpMethod = methodName;
 			return this;
 		}
 
-		public IFluentApi<T> WithParameter(string parameterName, string parameterValue)
+		public virtual IFluentApi<T> WithParameter(string parameterName, string parameterValue)
 		{
 			_endPointInfo.Parameters[parameterName] = parameterValue;
 			return this;
 		}
 
-		public IFluentApi<T> ForUser(string token, string secret)
+		public virtual IFluentApi<T> ForUser(string token, string secret)
 		{
 			_endPointInfo.UserToken = token;
 			_endPointInfo.UserSecret = secret;
 			return this;
 		}
-		  
-		public T Please()
+
+		public virtual T Please()
 		{
 			var output = _endpointResolver.HitEndpoint(_endPointInfo);
 			var xmlSerializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>());
 			return xmlSerializer.DeSerialize(output);
 		}
 
-		public void PleaseAsync(Action<T> callback)
+		public virtual void PleaseAsync(Action<T> callback)
 		{
 			_endpointResolver.HitEndpointAsync(_endPointInfo, PleaseAsyncEnd(callback));
 		}
@@ -86,5 +87,7 @@ namespace SevenDigital.Api.Wrapper
 						   callback(entity);
 					   };
 		}
+
+		public IDictionary<string,string> Parameters { get { return _endPointInfo.Parameters; } }
 	}
 }
