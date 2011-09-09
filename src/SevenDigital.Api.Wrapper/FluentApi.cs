@@ -4,6 +4,7 @@ using System.Linq;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Schema.Attributes;
+using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Utility.Http;
 using SevenDigital.Api.Wrapper.Utility.Serialization;
 
@@ -67,9 +68,17 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual T Please()
 		{
-			var output = _endpointResolver.HitEndpoint(_endPointInfo);
-			var xmlSerializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>());
-			return xmlSerializer.DeSerialize(output);
+			try
+			{
+				var output = _endpointResolver.HitEndpoint(_endPointInfo);
+				var xmlSerializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>());
+				return xmlSerializer.DeSerialize(output);
+			}
+			catch (ApiXmlException apiXmlException)
+			{
+				apiXmlException.Uri = _endPointInfo.Uri;
+				throw;
+			}
 		}
 
 		public virtual void PleaseAsync(Action<T> callback)

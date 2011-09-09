@@ -7,10 +7,13 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 	public class ApiXmlException : Exception
 	{
 		public Error Error { get; set; }
-		public ApiXmlException(string message, string errorRepsonse) : base(message)
+		public string Uri { get; set; }
+
+		public ApiXmlException(string message, string errorRepsonse)
+			: base(message)
 		{
-		    var xmlSerializer = new ApiResourceDeSerializer<Error>();
-            Error = xmlSerializer.DeSerialize(errorRepsonse);
+			var xmlSerializer = new ApiResourceDeSerializer<Error>();
+			Error = xmlSerializer.DeSerialize(errorRepsonse);
 		}
 	}
 }
