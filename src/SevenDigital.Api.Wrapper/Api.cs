@@ -1,4 +1,6 @@
-﻿namespace SevenDigital.Api.Wrapper
+﻿using SevenDigital.Api.Schema.ArtistEndpoint;
+
+namespace SevenDigital.Api.Wrapper
 {
 	public static class Api<T> where T : class
 	{
@@ -16,6 +18,16 @@
 			{
 				var api = new FluentApi<T>();
 				return api.WithMethod("POST");
+			}
+		}
+	}
+
+	public static class Api
+	{
+		public static IFluentApi<ArtistSearch> ArtistSearch {
+			get {
+				var api = new FluentApi<ArtistSearch>();
+				return api.WithMethod("GET");
 			}
 		}
 	}

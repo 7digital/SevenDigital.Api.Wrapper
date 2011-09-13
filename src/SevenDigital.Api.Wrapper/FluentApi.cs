@@ -58,13 +58,17 @@ namespace SevenDigital.Api.Wrapper {
 
 		public virtual IFluentApi<T> ClearParamters() {
 			_endPointInfo.Parameters.Clear();
-
 			return this;
 		}
 
 		public virtual IFluentApi<T> ForUser(string token, string secret) {
 			_endPointInfo.UserToken = token;
 			_endPointInfo.UserSecret = secret;
+			return this;
+		}
+
+		public virtual IFluentApi<T> ForShop(int shopId) {
+			WithParameter("shopId", shopId.ToString());
 			return this;
 		}
 
