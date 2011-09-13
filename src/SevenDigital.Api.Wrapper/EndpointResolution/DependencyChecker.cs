@@ -32,16 +32,18 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 		}
 
 
-		private static T CheckIfAssembliesContainOAuthClass()
-		{
+		private static T CheckIfAssembliesContainOAuthClass() {
+
 			var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
 			var enumerable = new List<Type>();
 			foreach (var loadedAssembly in loadedAssemblies)
 			{
 				try {
-					enumerable.AddRange(GetValidTypes(loadedAssembly));
-				}catch(Exception) {}
+					IEnumerable<Type> validTypes = GetValidTypes(loadedAssembly);
+					enumerable.AddRange(validTypes);
+				}
+				catch(Exception) {}
 			}
 			if (enumerable.Count() < 1)
 				throw new MissingDependencyException(

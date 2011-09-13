@@ -37,6 +37,10 @@ namespace SevenDigital.Api.Wrapper
 				_endPointInfo.IsSigned = true;
 		}
 
+		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
+			: this(new EndpointResolver(new HttpGetResolver(), new UrlSigner(), oAuthCredentials, apiUri))
+		{}
+
 		public FluentApi()
 			: this(new EndpointResolver(new HttpGetResolver(), new UrlSigner(), DependencyChecker<IOAuthCredentials>.Instance.Dependency, DependencyChecker<IApiUri>.Instance.Dependency)) { }
 
