@@ -15,13 +15,8 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		public static DependencyChecker<T> Instance
 		{
-			get
-			{
-
-				if (_instance == null)
-					_instance = new DependencyChecker<T>();
-
-				return _instance;
+			get {
+				return _instance ?? (_instance = new DependencyChecker<T>());
 			}
 		}
 
@@ -44,7 +39,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			var enumerable = new List<Type>();
 			foreach (var loadedAssembly in loadedAssemblies)
 			{
-				enumerable.AddRange(GetValidTypes(loadedAssembly));
+				try {
+					enumerable.AddRange(GetValidTypes(loadedAssembly));
+				}catch(Exception) {}
 			}
 			if (enumerable.Count() < 1)
 				throw new MissingDependencyException(

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Xml;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Schema;
 using System.Threading;
-using SevenDigital.Api.Schema.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests
 {
