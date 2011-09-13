@@ -72,7 +72,18 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
             
         }
 
+		[Test]
+		public void Can_get_multiple_results_with_new_FluentApi_overload() {
+			var artistSearch = new FluentApi<ArtistSearch>(new AppSettingsCredentials(), new ApiUri())
+									   .WithQuery("pink")
+									   .WithPageNumber(1)
+									   .WithPageSize(20)
+									   .WithParameter("shopId", "34")
+									   .Please();
 
+			Assert.That(artistSearch.Results.Count, Is.GreaterThan(1));
+
+		}
 
 	}
 }

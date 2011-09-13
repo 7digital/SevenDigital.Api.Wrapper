@@ -42,7 +42,7 @@
     <Compile Include="Api.cs" />
     <Compile Include="EndpointResolution\AppDomainAssemblyResolver.cs" />
     <Compile Include="EndpointResolution\DependencyChecker.cs" />
-    <Compile Include="Exceptions\MissingOauthCredentialsException.cs" />
+    <Compile Include="Exceptions\MissingDependencyException.cs" />
     <Compile Include="Extensions\HasArtistIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasBasketParameterExtensions.cs" />
     <Compile Include="Extensions\HasChartParameterExtensions.cs" />

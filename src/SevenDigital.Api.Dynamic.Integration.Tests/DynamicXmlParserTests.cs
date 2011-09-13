@@ -13,7 +13,12 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 
 		[SetUp]
 		public void SetUp() {
-			_endpointResolver = new EndpointResolver(new HttpGetResolver(), new UrlSigner(), DependencyChecker<IOAuthCredentials>.Instance.Dependency, DependencyChecker<IApiUri>.Instance.Dependency);
+			IOAuthCredentials oAuthCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
+			IApiUri apiUri = EssentialDependencyCheck<IApiUri>.Instance;
+			var httpGetResolver = new HttpGetResolver();
+			var urlSigner = new UrlSigner();
+
+			_endpointResolver = new EndpointResolver(httpGetResolver, urlSigner, oAuthCredentials, apiUri);
 		}
 
 		[Test]

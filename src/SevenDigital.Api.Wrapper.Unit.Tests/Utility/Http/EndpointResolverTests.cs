@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
         {
             _urlResolver = A.Fake<IUrlResolver>();
             _urlSigner = A.Fake<IUrlSigner>();
-			_endpointResolver = new EndpointResolver(_urlResolver, _urlSigner, DependencyChecker<IOAuthCredentials>.Instance.Dependency, DependencyChecker<IApiUri>.Instance.Dependency);
+			_endpointResolver = new EndpointResolver(_urlResolver, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
         public void Should_return_xmlnode_if_valid_xml_received_using_async()
         {
             var resolver = new FakeUrlResolver { StubPayload = SERVICE_STATUS };
-			var endpointResolver = new EndpointResolver(resolver, _urlSigner, DependencyChecker<IOAuthCredentials>.Instance.Dependency, DependencyChecker<IApiUri>.Instance.Dependency);
+			var endpointResolver = new EndpointResolver(resolver, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
 
             var reset = new AutoResetEvent(false);
 
@@ -93,11 +93,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 
 			Given_a_urlresolver_that_returns_valid_xml();
 
-			IApiUri apiUri = A.Fake<IApiUri>();
+			var apiUri = A.Fake<IApiUri>();
 
 			A.CallTo(() => apiUri.Uri).Returns(expectedApiUri);
 
-			var endpointResolver = new EndpointResolver(_urlResolver, _urlSigner, DependencyChecker<IOAuthCredentials>.Instance.Dependency, apiUri);
+			IOAuthCredentials oAuthCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
+			var endpointResolver = new EndpointResolver(_urlResolver, _urlSigner, oAuthCredentials, apiUri);
 
 			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = "GET", Headers = new Dictionary<string, string>() };
 
