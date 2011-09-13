@@ -13,3 +13,4 @@ log-file.txt
 *.cache
 build/spec/report.html
 *.dotCover
+*.docstates
