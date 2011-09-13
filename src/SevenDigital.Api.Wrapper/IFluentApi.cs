@@ -7,7 +7,7 @@ namespace SevenDigital.Api.Wrapper
 // ReSharper restore TypeParameterCanBeVariant
 	{
 		IFluentApi<T> WithParameter(string key, string value);
-		IFluentApi<T> RemoveParameter(string key); 
+		IFluentApi<T> ClearParamters();
 		IFluentApi<T> ForUser(string token, string secret);
 		IFluentApi<T> WithEndpoint(string endpoint);
 		
