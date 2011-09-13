@@ -3,7 +3,6 @@ using System.Linq;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Schema.LockerEndpoint;
-using SevenDigital.Api.Wrapper.Extensions.Get;
 
 namespace SevenDigital.Api.Wrapper.ExampleUsage {
 	class Program {
@@ -12,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 
 			// -- artist/details
 			var artist = Api<Artist>.Get
-				.WithParameter("artistId", s)
+				.WithArtistId(Convert.ToInt32(s))
 				.Please();
 
 			Console.WriteLine("Artist \"{0}\" selected", artist.Name);
@@ -23,7 +22,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 			// -- artist/toptracks
 			var artistTopTracks = Api<ArtistTopTracks>
 				.Get
-				.WithParameter("artistId", s)
+				.WithArtistId(Convert.ToInt32(s))
 				.Please();
 
 			Console.WriteLine("Top Track: {0}", artistTopTracks.Tracks.FirstOrDefault().Title);
@@ -31,7 +30,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 
 
 			// -- artist/browse
-			const string searchValue = "Radioh";
+			const string searchValue = "Radio";
 			var artistBrowse = Api<ArtistBrowse>
 				.Get
 				.WithLetter(searchValue)

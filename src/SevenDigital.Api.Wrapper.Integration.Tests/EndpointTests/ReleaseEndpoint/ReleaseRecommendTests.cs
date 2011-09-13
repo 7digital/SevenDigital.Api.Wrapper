@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
-using SevenDigital.Api.Wrapper.Extensions.Get;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoint
 {

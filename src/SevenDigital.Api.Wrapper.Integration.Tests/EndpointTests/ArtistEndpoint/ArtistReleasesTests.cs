@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.ArtistEndpoint;
-using SevenDigital.Api.Wrapper.Extensions.Get;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint
 {
@@ -12,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
-			var artist = (ArtistReleases)Api<ArtistReleases>
+			var artist = Api<ArtistReleases>
 				.Get
 				.WithArtistId(1)
 				.Please();
@@ -25,7 +24,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			var artistBrowse = (ArtistReleases)Api<ArtistReleases>
+			var artistBrowse = Api<ArtistReleases>
 				.Get
 				.WithPageNumber(2)
 				.WithPageSize(20)

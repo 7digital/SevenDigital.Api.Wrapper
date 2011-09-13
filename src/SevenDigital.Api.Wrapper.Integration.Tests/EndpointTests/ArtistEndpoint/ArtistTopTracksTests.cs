@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Schema.ArtistEndpoint;
-using SevenDigital.Api.Wrapper.Extensions.Get;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint
 {
@@ -24,7 +23,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
-			var artist = (ArtistTopTracks)Api<ArtistTopTracks>
+			var artist = Api<ArtistTopTracks>
 								.Get
 								.WithArtistId(1)
 								.WithParameter("country", "GB")
