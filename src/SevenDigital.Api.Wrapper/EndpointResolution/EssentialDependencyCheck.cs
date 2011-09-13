@@ -8,12 +8,13 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
 	public class EssentialDependencyCheck<TClass> where TClass : class
 	{
-		private static TClass _dependency;
+		private static TClass _currentTClassInstance;
 		
 		public static TClass Instance
 		{
 			get {
-				return _dependency ?? (_dependency = FindTClassInLocalAssemblies());
+				return _currentTClassInstance ??
+					(_currentTClassInstance = FindTClassInLocalAssemblies());
 			}
 		}
 
@@ -21,24 +22,29 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 			var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-			var enumerable = new List<Type>();
-			foreach (var loadedAssembly in loadedAssemblies)
-			{
-				try {
-					IEnumerable<Type> validTypes = GetValidTypes(loadedAssembly);
-					enumerable.AddRange(validTypes);
-				}
-				catch(Exception) {}
-			}
+			var allTypesFound = FindAllTypesThatImplementTClass(loadedAssemblies);
 
-			if (enumerable.Count() < 1)
+			if (allTypesFound.Count() < 1)
 				throw new MissingDependencyException(typeof(TClass));
 
-			Type firstOrDefault = enumerable.FirstOrDefault();
-			return (TClass)Activator.CreateInstance(firstOrDefault);
+			Type firstTClassInstanceFound = allTypesFound.FirstOrDefault();
+			return (TClass)Activator.CreateInstance(firstTClassInstanceFound);
 		}
 
-		private static IEnumerable<Type> GetValidTypes(Assembly assembly)
+		private static IEnumerable<Type> FindAllTypesThatImplementTClass(IEnumerable<Assembly> loadedAssemblies) {
+			var allTypesFound = new List<Type>();
+			foreach (var loadedAssembly in loadedAssemblies) {
+				try {
+					IEnumerable<Type> typesOfTClass =
+						GetConcreteTypesThatImplementTClass(loadedAssembly);
+					allTypesFound.AddRange(typesOfTClass);
+				}
+				catch (Exception) {}
+			}
+			return allTypesFound;
+		}
+
+		private static IEnumerable<Type> GetConcreteTypesThatImplementTClass(Assembly assembly)
 		{
 			Type type = typeof (TClass);
 			return assembly.GetTypes().Where(x => type.IsAssignableFrom(x) && x != type);
