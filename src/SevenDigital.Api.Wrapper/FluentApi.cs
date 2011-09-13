@@ -59,10 +59,9 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public virtual IFluentApi<T> RemoveParameter(string parameterName)
+		public virtual IFluentApi<T> ClearParamters()
 		{
-			if (_endPointInfo.Parameters.Keys.Contains(parameterName))
-				_endPointInfo.Parameters.Remove(parameterName);
+			_endPointInfo.Parameters.Clear();
 
 			return this;
 		}
