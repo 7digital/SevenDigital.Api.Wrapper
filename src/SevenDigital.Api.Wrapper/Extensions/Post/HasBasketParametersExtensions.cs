@@ -19,8 +19,11 @@ namespace SevenDigital.Api.Wrapper.Extensions.Post
 		public static IFluentApi<T> AddItem<T>(this IFluentApi<T> api, string basketId, int releaseId) where T : HasBasketParameter
 		{
 			api.WithEndpoint("basket/additem");
+	
 			api.WithParameter("basketId", basketId);
 			api.WithParameter("releaseId", releaseId.ToString());
+			api.RemoveParameter("trackId");
+
 			return api;
 		}
 

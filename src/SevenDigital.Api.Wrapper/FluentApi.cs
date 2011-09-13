@@ -59,6 +59,14 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
+		public virtual IFluentApi<T> RemoveParameter(string parameterName)
+		{
+			if (_endPointInfo.Parameters.Keys.Contains(parameterName))
+				_endPointInfo.Parameters.Remove(parameterName);
+
+			return this;
+		}
+
 		public virtual IFluentApi<T> ForUser(string token, string secret)
 		{
 			_endPointInfo.UserToken = token;
@@ -97,6 +105,6 @@ namespace SevenDigital.Api.Wrapper
 					   };
 		}
 
-		public IDictionary<string,string> Parameters { get { return _endPointInfo.Parameters; } }
+		public IDictionary<string, string> Parameters { get { return _endPointInfo.Parameters; } }
 	}
 }
