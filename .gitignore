@@ -9,7 +9,7 @@ Bin
 logs
 ndepend
 log-file.txt
-.idea
+*.idea
 *.cache
 build/spec/report.html
-.dotCover
+*.dotCover
