@@ -31,7 +31,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			return (TClass)Activator.CreateInstance(firstTClassInstanceFound);
 		}
 
-		private static IEnumerable<Type> FindAllTypesThatImplementTClass(IEnumerable<Assembly> loadedAssemblies) {
+		private static IList<Type> FindAllTypesThatImplementTClass(IEnumerable<Assembly> loadedAssemblies) {
 			var allTypesFound = new List<Type>();
 			foreach (var loadedAssembly in loadedAssemblies) {
 				try {

@@ -1,7 +1,8 @@
 03/06/2011
 
-- Removed hard coded api url, and uses IApiUri instead.
-- Consuming applications require to provide an implementation of IApiUri and IOAuthCredentials in order to authenticate with the 7digital API.
+-- IMPORTANT --
+Consuming applications require to provide a concrete implementation of IApiUri and IOAuthCredentials 
+in order to authenticate with the 7digital API. Otherwise wrapper will throw MissingDependencyException.
 
 Current usage:
 

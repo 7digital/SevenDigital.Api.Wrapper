@@ -27,8 +27,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 
 			Console.WriteLine("Top Track: {0}", artistTopTracks.Tracks.FirstOrDefault().Title);
 			Console.WriteLine();
-
-
+			
 			// -- artist/browse
 			const string searchValue = "Radio";
 			var artistBrowse = Api<ArtistBrowse>
@@ -54,6 +53,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 			} catch (ApiXmlException ex) {
 				Console.WriteLine("{0} : {1}", ex.Error.Code, ex.Error.ErrorMessage);
 			}
+
 			Console.ReadKey();
 		}
 	}

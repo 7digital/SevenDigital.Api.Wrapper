@@ -84,6 +84,5 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 			Assert.That(artistSearch.Results.Count, Is.GreaterThan(1));
 
 		}
-
 	}
 }
