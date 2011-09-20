@@ -87,6 +87,10 @@ namespace SevenDigital.Api.Wrapper {
 			_endpointResolver.HitEndpointAsync(_endPointInfo, PleaseAsyncEnd(callback));
 		}
 
+		public string GetCurrentUri() {
+			return _endpointResolver.ConstructEndpoint(_endPointInfo);
+		}
+
 		internal static Action<string> PleaseAsyncEnd(Action<T> callback) {
 			return output => {
 						   var xmlSerializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>());

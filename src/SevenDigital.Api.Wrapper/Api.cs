@@ -22,18 +22,17 @@ namespace SevenDigital.Api.Wrapper
 		}
 	}
 
-	//public static class Api
-	//{
-	//    public static IFluentApi<ArtistSearch> ArtistSearch {
-	//        get {return new FluentApi<ArtistSearch>();}
-	//    }
+	public static class Api {
+		public static IFluentApi<ArtistSearch> ArtistSearch {
+			get { return new FluentApi<ArtistSearch>(); }
+		}
 
-	//    public static IFluentApi<ArtistBrowse> ArtistBrowse {
-	//        get { return new FluentApi<ArtistBrowse>(); }
-	//    }
+		public static IFluentApi<ArtistBrowse> ArtistBrowse {
+			get { return new FluentApi<ArtistBrowse>(); }
+		}
 
-	//    public static IFluentApi<ArtistChart> ArtistChart {
-	//        get { return new FluentApi<ArtistChart>(); }
-	//    }
-	//}
+		public static IFluentApi<ArtistChart> ArtistChart {
+			get { return new FluentApi<ArtistChart>(); }
+		}
+	}
 }

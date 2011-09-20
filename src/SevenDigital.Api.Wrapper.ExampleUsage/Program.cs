@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using SevenDigital.Api.Schema.ReleaseEndpoint;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Schema.LockerEndpoint;
@@ -8,6 +9,9 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 	class Program {
 		static void Main(string[] args) {
 			string s = args[0];
+
+			var appSettingsCredentials = new AppSettingsCredentials();
+			Console.WriteLine("Using creds: {0} - {1}", appSettingsCredentials.ConsumerKey, appSettingsCredentials.ConsumerSecret);
 
 			// -- artist/details
 			var artist = Api<Artist>.Get
@@ -37,6 +41,31 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 
 			Console.WriteLine("Browse on \"{0}\" returns: {1}", searchValue, artistBrowse.Artists.FirstOrDefault().Name);
 			Console.WriteLine();
+
+			// -- artist/search
+			var artistSearch = Api<ArtistSearch>.Get
+				.WithQuery(searchValue)
+				.WithPageNumber(1)
+				.WithPageSize(10)
+				.Please();
+
+			Console.WriteLine("Artist Search on \"{0}\" returns: {1} items", searchValue, artistSearch.TotalItems);
+			Console.WriteLine();
+
+			// -- release/search
+			var releaseSearch = Api<ReleaseSearch>.Get
+				.WithQuery(searchValue)
+				.WithPageNumber(1)
+				.WithPageSize(10)
+				.Please();
+
+			Console.WriteLine("Release search on \"{0}\" returns: {1} items", searchValue, releaseSearch.TotalItems);
+			Console.WriteLine();
+
+			// -- Debug uri
+
+			string currentUri = Api<ReleaseSearch>.Get.WithQuery("Test").GetCurrentUri();
+			Console.WriteLine("Release search hits: {0}", currentUri);
 
 			try {
 				// -- Deliberate error response

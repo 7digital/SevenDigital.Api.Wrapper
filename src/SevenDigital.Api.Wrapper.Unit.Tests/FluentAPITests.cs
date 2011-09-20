@@ -86,6 +86,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 				payload(StubPayload);
 			}
 
+			public string ConstructEndpoint(EndPointInfo endPointInfo) {
+				throw new NotImplementedException();
+			}
+
 			public string StubPayload { get; set; }
 		}
 	}
