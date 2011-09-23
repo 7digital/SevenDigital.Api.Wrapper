@@ -43,6 +43,7 @@
     <Compile Include="EndpointResolution\AppDomainAssemblyResolver.cs" />
     <Compile Include="EndpointResolution\EssentialDependencyCheck.cs" />
     <Compile Include="Exceptions\MissingDependencyException.cs" />
+    <Compile Include="Extensions\HasPurchaseIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasArtistIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasBasketParameterExtensions.cs" />
     <Compile Include="Extensions\HasChartParameterExtensions.cs" />

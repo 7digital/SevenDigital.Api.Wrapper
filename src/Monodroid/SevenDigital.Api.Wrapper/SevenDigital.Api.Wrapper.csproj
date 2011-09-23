@@ -91,6 +91,9 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasPriceParameterExtensions.cs">
       <Link>Extensions\HasPriceParameterExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasPurchaseIdParameterExtensions.cs">
+      <Link>Extensions\HasPurchaseIdParameterExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasReleaseIdParameterExtensions.cs">
       <Link>Extensions\HasReleaseIdParameterExtensions.cs</Link>
     </Compile>
@@ -176,7 +179,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
+      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
