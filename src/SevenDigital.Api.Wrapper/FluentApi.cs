@@ -56,7 +56,7 @@ namespace SevenDigital.Api.Wrapper {
 			return this;
 		}
 
-		public virtual IFluentApi<T> ClearParamters() {
+		public virtual IFluentApi<T> ClearParameters() {
 			_endPointInfo.Parameters.Clear();
 			return this;
 		}
