@@ -111,9 +111,6 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasBasketParameterExtensions.cs">
       <Link>Extensions\HasBasketParameterExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasBasketParametersExtensions.cs">
-      <Link>Extensions\HasBasketParametersExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasChartParameterExtensions.cs">
       <Link>Extensions\HasChartParameterExtensions.cs</Link>
     </Compile>
@@ -200,7 +197,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
+      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

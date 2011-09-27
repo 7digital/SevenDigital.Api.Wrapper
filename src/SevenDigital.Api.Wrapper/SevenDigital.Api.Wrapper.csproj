@@ -55,7 +55,6 @@
     <Compile Include="Extensions\HasSearchParameterExtensions.cs" />
     <Compile Include="Extensions\HasTrackIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasUserDeliverItemParameterExtensions.cs" />
-    <Compile Include="Extensions\HasBasketParametersExtensions.cs" />
     <Compile Include="IApiUri.cs" />
     <Compile Include="IOAuthCredentials.cs" />
     <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />
