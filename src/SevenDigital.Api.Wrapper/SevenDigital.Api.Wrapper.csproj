@@ -80,6 +80,8 @@
     <Compile Include="Utility\Http\IUrlResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Serialization\ApiResourceDeSerializer.cs" />
+    <Compile Include="Utility\Serialization\IXmlErrorHandler.cs" />
+    <Compile Include="Utility\Serialization\XmlErrorHandler.cs" />
     <Compile Include="Utility\Serialization\XmlSerializer.cs" />
   </ItemGroup>
   <ItemGroup>

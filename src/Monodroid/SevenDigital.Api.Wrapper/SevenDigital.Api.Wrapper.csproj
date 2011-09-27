@@ -151,6 +151,12 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\ISerializer.cs">
       <Link>Utility\Serialization\ISerializer.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\IXmlErrorHandler.cs">
+      <Link>Utility\Serialization\IXmlErrorHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\XmlErrorHandler.cs">
+      <Link>Utility\Serialization\XmlErrorHandler.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\XmlSerializer.cs">
       <Link>Utility\Serialization\XmlSerializer.cs</Link>
     </Compile>
@@ -179,7 +185,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

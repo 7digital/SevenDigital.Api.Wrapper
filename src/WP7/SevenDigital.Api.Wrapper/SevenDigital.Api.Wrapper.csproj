@@ -180,6 +180,12 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\IDeSerializer.cs">
       <Link>Utility\Serialization\IDeSerializer.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\IXmlErrorHandler.cs">
+      <Link>Utility\Serialization\IXmlErrorHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\XmlErrorHandler.cs">
+      <Link>Utility\Serialization\XmlErrorHandler.cs</Link>
+    </Compile>
     <Compile Include="EndpointResolution\CredentialChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Http\HttpGetResolver.cs" />
@@ -194,7 +200,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
