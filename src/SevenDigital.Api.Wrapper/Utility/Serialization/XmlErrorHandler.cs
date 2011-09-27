@@ -13,7 +13,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 			                         	: status.Value;
 
 			if (statusAttribute == "error")
-				throw new ApiXmlException("An error has occured in the Api, see Error property for details", response.FirstNode.ToString());
+				throw new ApiXmlException(string.Format("An error has occured in the Api\n{0}", response.FirstNode), response.FirstNode.ToString());
 		}
 
 		public XElement GetResponseAsXml(string output) {
