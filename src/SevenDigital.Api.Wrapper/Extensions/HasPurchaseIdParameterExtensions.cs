@@ -4,9 +4,9 @@ namespace SevenDigital.Api.Wrapper
 {
 	public static class HasPurchaseIdParameterExtensions
 	{
-		public static IFluentApi<T> WithPurchaseId<T>(this IFluentApi<T> api, string basketId) where T : HasPurchaseIdParameter
+		public static IFluentApi<T> ForPurchaseId<T>(this IFluentApi<T> api, int basketId) where T : HasPurchaseIdParameter
 		{
-			api.WithParameter("basketId", basketId);
+			api.WithParameter("basketId", basketId.ToString());
 			return api;
 		}
 	}

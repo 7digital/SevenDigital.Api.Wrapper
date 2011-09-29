@@ -97,6 +97,9 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasReleaseIdParameterExtensions.cs">
       <Link>Extensions\HasReleaseIdParameterExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasReleaseTypeParameterExtensions.cs">
+      <Link>Extensions\HasReleaseTypeParameterExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasSearchParameterExtensions.cs">
       <Link>Extensions\HasSearchParameterExtensions.cs</Link>
     </Compile>
@@ -179,7 +182,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

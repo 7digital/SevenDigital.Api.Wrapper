@@ -166,6 +166,9 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasReleaseIdParameter.cs">
       <Link>ParameterDefinitions\Get\HasReleaseIdParameter.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasReleaseTypeParameter.cs">
+      <Link>ParameterDefinitions\Get\HasReleaseTypeParameter.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasSearchParameter.cs">
       <Link>ParameterDefinitions\Get\HasSearchParameter.cs</Link>
     </Compile>
@@ -281,7 +284,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" />
+      <UserProperties ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
