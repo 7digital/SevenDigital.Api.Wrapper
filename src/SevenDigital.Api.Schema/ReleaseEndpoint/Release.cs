@@ -46,8 +46,8 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 		[XmlElement("releaseDate")]
 		public DateTime ReleaseDate { get; set; }
 
-		[XmlElement("addedDate")]
-		public DateTime AddedDate { get; set; }
+		[XmlElement("addedDate", IsNullable = true)]
+		public DateTime? AddedDate { get; set; }
 
 		[XmlElement("price")]
 		public Price Price { get; set; }
