@@ -9,9 +9,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
         public static string ToQueryString(this Dictionary<string,string> collection)
 		{
             var sb = new StringBuilder();
-            foreach (var item in collection)
+            foreach (var key in collection.Keys)
             {
-                sb.AppendFormat("{0}={1}&", item.Key, item.Value);
+                sb.AppendFormat("{0}={1}&", key, collection[key]);
             }
             return sb.ToString().TrimEnd('&');
 		}
