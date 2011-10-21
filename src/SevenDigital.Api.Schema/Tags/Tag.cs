@@ -1,9 +1,7 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.Tags
 {
-	
 	[XmlRoot("tag")]
 	public class Tag
 	{

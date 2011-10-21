@@ -101,6 +101,7 @@
     <Compile Include="Tags\ArtistByTagTop.cs" />
     <Compile Include="Tags\ArtistTags.cs" />
     <Compile Include="Tags\ReleaseTags.cs" />
+    <Compile Include="Tags\ReleatedTags.cs" />
     <Compile Include="Tags\Tag.cs" />
     <Compile Include="Tags\TaggedArtists.cs" />
     <Compile Include="Tags\Tags.cs" />
