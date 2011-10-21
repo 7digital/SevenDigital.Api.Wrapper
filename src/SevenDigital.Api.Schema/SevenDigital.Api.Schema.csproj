@@ -102,10 +102,13 @@
     <Compile Include="Status.cs" />
     <Compile Include="Tags\ArtistByTagTop.cs" />
     <Compile Include="Tags\ArtistTags.cs" />
+    <Compile Include="Tags\ReleaseByTagNew.cs" />
+    <Compile Include="Tags\ReleaseByTagTop.cs" />
     <Compile Include="Tags\ReleaseTags.cs" />
     <Compile Include="Tags\ReleatedTags.cs" />
     <Compile Include="Tags\Tag.cs" />
     <Compile Include="Tags\TaggedArtists.cs" />
+    <Compile Include="Tags\TaggedReleases.cs" />
     <Compile Include="Tags\Tags.cs" />
     <Compile Include="TrackEndpoint\Track.cs" />
     <Compile Include="TrackEndpoint\TrackChart.cs" />

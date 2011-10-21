@@ -14,15 +14,4 @@ namespace SevenDigital.Api.Schema.Tags
 		[XmlElement("taggedItem")]
 		public List<TaggedReleases> TaggedReleases { get; set; }
 	}
-
-	[ApiEndpoint("release/bytag/top")]
-	[XmlRoot("taggedResults")]
-	public class ReleaseByTagTop : HasPaging
-	{
-		[XmlElement("type")]
-		public ItemType Type { get; set; }
-
-		[XmlElement("taggedItem")]
-		public List<TaggedReleases> TaggedReleases { get; set; }
-	}
 }
