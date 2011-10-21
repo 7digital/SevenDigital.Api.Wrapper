@@ -13,7 +13,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 		public void Can_deserialize_object()
 		{
             const string xml = "<?xml version=\"1.0\"?><response xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><testObject id=\"1\"> <name>A big test object</name><listOfThings><string>one</string><string>two</string><string>three</string></listOfThings><listOfInnerObjects><InnerObject id=\"1\"><Name>Trevor</Name></InnerObject><InnerObject id=\"2\"><Name>Bill</Name></InnerObject></listOfInnerObjects></testObject></response>";
-		    var xmlSerializer = new ApiXmlDeSerializer<TestObject>(new ApiResourceDeSerializer<TestObject>());
+		    var xmlSerializer = new ApiXmlDeSerializer<TestObject>(new ApiResourceDeSerializer<TestObject>(), new XmlErrorHandler());
 
             Assert.DoesNotThrow(() => xmlSerializer.DeSerialize(xml));
 

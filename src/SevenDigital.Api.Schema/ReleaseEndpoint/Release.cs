@@ -48,6 +48,9 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 
 		[XmlElement("addedDate")]
 		public DateTime AddedDate { get; set; }
+        
+        [XmlIgnore]
+        public bool AddedDateSpecified { get { return AddedDate > DateTime.MinValue; } }
 
 		[XmlElement("price")]
 		public Price Price { get; set; }

@@ -165,8 +165,14 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasPriceParameter.cs">
       <Link>ParameterDefinitions\Get\HasPriceParameter.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasPurchaseIdParameter.cs">
+      <Link>ParameterDefinitions\Get\HasPurchaseIdParameter.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasReleaseIdParameter.cs">
       <Link>ParameterDefinitions\Get\HasReleaseIdParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasReleaseTypeParameter.cs">
+      <Link>ParameterDefinitions\Get\HasReleaseTypeParameter.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasSearchParameter.cs">
       <Link>ParameterDefinitions\Get\HasSearchParameter.cs</Link>

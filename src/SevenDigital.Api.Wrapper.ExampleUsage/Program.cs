@@ -63,9 +63,18 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 			Console.WriteLine();
 
 			// -- Debug uri
-
 			string currentUri = Api<ReleaseSearch>.Get.WithQuery("Test").GetCurrentUri();
 			Console.WriteLine("Release search hits: {0}", currentUri);
+
+			// -- async get (async post not implemented yet)
+			Api<ReleaseSearch>.Get
+				.WithQuery(searchValue)
+				.WithPageNumber(1)
+				.WithPageSize(10)
+				.PleaseAsync(x => {
+					Console.WriteLine("Async Release search on \"{0}\" returns: {1} items", "Radio", x.TotalItems);
+					Console.WriteLine();
+				 });
 
 			try {
 				// -- Deliberate error response

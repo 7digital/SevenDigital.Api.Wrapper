@@ -49,7 +49,9 @@
     <Compile Include="ParameterDefinitions\Get\HasKeyParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasLetterParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasPriceParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasPurchaseIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasReleaseIdParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasReleaseTypeParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasSearchParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasTrackIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasUserDeliverItemParameter.cs" />

@@ -12,10 +12,13 @@ namespace SevenDigital.Api.Wrapper {
 	public class FluentApi<T> : IFluentApi<T> where T : class {
 		private readonly EndPointInfo _endPointInfo = new EndPointInfo();
 		private readonly IEndpointResolver _endpointResolver;
-
-
+		private readonly IDeSerializer<T> _deserializer;
+		
 		public FluentApi(IEndpointResolver endpointResolver) {
 			_endpointResolver = endpointResolver;
+
+			_deserializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>(), new XmlErrorHandler());
+
 
 			ApiEndpointAttribute attribute = typeof(T).GetCustomAttributes(true)
 												.OfType<ApiEndpointAttribute>()
@@ -32,6 +35,8 @@ namespace SevenDigital.Api.Wrapper {
 
 			if (isSigned != null)
 				_endPointInfo.IsSigned = true;
+
+
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
@@ -56,7 +61,7 @@ namespace SevenDigital.Api.Wrapper {
 			return this;
 		}
 
-		public virtual IFluentApi<T> ClearParamters() {
+		public virtual IFluentApi<T> ClearParameters() {
 			_endPointInfo.Parameters.Clear();
 			return this;
 		}
@@ -75,8 +80,7 @@ namespace SevenDigital.Api.Wrapper {
 		public virtual T Please() {
 			try {
 				var output = _endpointResolver.HitEndpoint(_endPointInfo);
-				var xmlSerializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>());
-				return xmlSerializer.DeSerialize(output);
+				return _deserializer.DeSerialize(output);
 			} catch (ApiXmlException apiXmlException) {
 				apiXmlException.Uri = _endPointInfo.Uri;
 				throw;
@@ -91,13 +95,11 @@ namespace SevenDigital.Api.Wrapper {
 			return _endpointResolver.ConstructEndpoint(_endPointInfo);
 		}
 
-		internal static Action<string> PleaseAsyncEnd(Action<T> callback) {
+		internal Action<string> PleaseAsyncEnd(Action<T> callback) {
 			return output => {
-						   var xmlSerializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>());
-						   T entity = xmlSerializer.DeSerialize(output);
-
-						   callback(entity);
-					   };
+				T entity = _deserializer.DeSerialize(output);
+				callback(entity);
+			};
 		}
 
 		public IDictionary<string, string> Parameters { get { return _endPointInfo.Parameters; } }

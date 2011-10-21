@@ -43,6 +43,7 @@
     <Compile Include="EndpointResolution\AppDomainAssemblyResolver.cs" />
     <Compile Include="EndpointResolution\EssentialDependencyCheck.cs" />
     <Compile Include="Exceptions\MissingDependencyException.cs" />
+    <Compile Include="Extensions\HasPurchaseIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasArtistIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasBasketParameterExtensions.cs" />
     <Compile Include="Extensions\HasChartParameterExtensions.cs" />
@@ -51,10 +52,10 @@
     <Compile Include="Extensions\HasPagingExtensions.cs" />
     <Compile Include="Extensions\HasPriceParameterExtensions.cs" />
     <Compile Include="Extensions\HasReleaseIdParameterExtensions.cs" />
+    <Compile Include="Extensions\HasReleaseTypeParameterExtensions.cs" />
     <Compile Include="Extensions\HasSearchParameterExtensions.cs" />
     <Compile Include="Extensions\HasTrackIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasUserDeliverItemParameterExtensions.cs" />
-    <Compile Include="Extensions\HasBasketParametersExtensions.cs" />
     <Compile Include="IApiUri.cs" />
     <Compile Include="IOAuthCredentials.cs" />
     <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />
@@ -79,6 +80,8 @@
     <Compile Include="Utility\Http\IUrlResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Serialization\ApiResourceDeSerializer.cs" />
+    <Compile Include="Utility\Serialization\IXmlErrorHandler.cs" />
+    <Compile Include="Utility\Serialization\XmlErrorHandler.cs" />
     <Compile Include="Utility\Serialization\XmlSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
