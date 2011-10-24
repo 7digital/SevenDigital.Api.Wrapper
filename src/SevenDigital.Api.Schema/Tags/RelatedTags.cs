@@ -4,9 +4,9 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.Tags
 {
-	[ApiEndpoint("tag/releated")]
+	[ApiEndpoint("tag/related")]
 	[XmlRoot("tags")]
-	public class ReleatedTags : HasPaging
+	public class RelatedTags : HasPaging
 	{
 		[XmlElement("tag")]
 		public List<Tag> TagList { get; set; }
