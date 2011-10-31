@@ -105,7 +105,7 @@
     <Compile Include="Tags\ReleaseByTagNew.cs" />
     <Compile Include="Tags\ReleaseByTagTop.cs" />
     <Compile Include="Tags\ReleaseTags.cs" />
-    <Compile Include="Tags\ReleatedTags.cs" />
+    <Compile Include="Tags\RelatedTags.cs" />
     <Compile Include="Tags\Tag.cs" />
     <Compile Include="Tags\TaggedArtists.cs" />
     <Compile Include="Tags\TaggedReleases.cs" />
