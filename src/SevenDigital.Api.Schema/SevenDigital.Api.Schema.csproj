@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SevenDigital.Api.Schema</RootNamespace>
     <AssemblyName>SevenDigital.Api.Schema</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -33,16 +33,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiEndpointTypeGenerator.cs" />
     <Compile Include="Basket\AmountDue.cs" />
     <Compile Include="Basket\Discount.cs" />
     <Compile Include="Basket\DiscountType.cs" />
     <Compile Include="Chart\IChart.cs" />
     <Compile Include="Chart\ReleaseChartItem.cs" />
     <Compile Include="Chart\TrackChartItem.cs" />
+    <Compile Include="ITypeGenerator.cs" />
     <Compile Include="ParameterDefinitions\Get\HasArtistIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasBasketParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasChartParameter.cs" />

@@ -36,7 +36,6 @@ namespace SevenDigital.Api.Wrapper {
 			if (isSigned != null)
 				_endPointInfo.IsSigned = true;
 
-
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
