@@ -25,8 +25,8 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			Uri = string.Empty;
 			HttpMethod = "GET";
             Parameters = new Dictionary<string,string>();
+            Headers = new Dictionary<string,string>();
 			UseHttps = false;
-	    	Headers = new Dictionary<string, string> {{"User-Agent", "7digital .Net Api Wrapper"}};
 		}
 	}
 }

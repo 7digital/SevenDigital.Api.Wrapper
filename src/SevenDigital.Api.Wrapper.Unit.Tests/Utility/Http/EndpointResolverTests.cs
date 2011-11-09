@@ -35,7 +35,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
                 .Returns(SERVICE_STATUS);
 
             const string expectedMethod = "GET";
-			var expectedHeaders = new Dictionary<string, string> { { "User-Agent", "7digital .Net Api Wrapper" } };
+            var expectedHeaders = new Dictionary<string, string>();
 
             var endPointState = new EndPointInfo { Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
             var expected = new Uri(string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey));
@@ -45,7 +45,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
             _endpointResolver.HitEndpoint(endPointState);
 
             A.CallTo(() => _urlResolver
-                    .Resolve(A<Uri>.That.Matches(x => x.PathAndQuery == expected.PathAndQuery), expectedMethod, expectedHeaders))
+                    .Resolve(A<Uri>.That.Matches(x => x.PathAndQuery == expected.PathAndQuery), expectedMethod, A<Dictionary<string, string>>.Ignored))
                     .MustHaveHappened();
         }
 
@@ -60,6 +60,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
             Assert.That(hitEndpoint.HasChildNodes);
             Assert.That(hitEndpoint.SelectSingleNode("//serverTime"), Is.Not.Null);
         }
+
 
         [Test]
         public void Should_return_xmlnode_if_valid_xml_received_using_async()

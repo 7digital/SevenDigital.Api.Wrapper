@@ -57,21 +57,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void Should_fire_endpointresolver_with_correct_headers_on_resolve()
-		{
-			var endpointResolver = A.Fake<IEndpointResolver>();
-			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(VALID_STATUS_XML);
-
-			new FluentApi<Status>(endpointResolver).WithHeader("Accept", "application/xml").Please();
-
-			Expression<Func<string>> callWithCustomUserAgent =
-				() => endpointResolver.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.Headers["Accept"] == "application/xml"));
-
-			A.CallTo(callWithCustomUserAgent).MustHaveHappened();
-
-		}
-
-		[Test]
 		public void should_put_payload_in_action_result()
 		{
 			var endpointResolver = new FakeEndpointResolver { StubPayload = VALID_STATUS_XML };
