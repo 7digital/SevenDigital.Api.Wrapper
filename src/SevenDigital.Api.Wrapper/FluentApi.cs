@@ -60,6 +60,12 @@ namespace SevenDigital.Api.Wrapper {
 			return this;
 		}
 
+		public virtual IFluentApi<T> WithHeader(string headerName, string headerValue)
+		{
+			_endPointInfo.Headers[headerName] = headerValue;
+			return this;
+		}
+
 		public virtual IFluentApi<T> ClearParameters() {
 			_endPointInfo.Parameters.Clear();
 			return this;
