@@ -34,6 +34,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 
                 webClientWrapper.Encoding = Encoding.UTF8;
                 webClientWrapper.Headers = new WebHeaderCollection();
+				webClientWrapper.Headers[HttpRequestHeader.UserAgent] = "7digital .Net Api Wrapper";
 
                 return webClientWrapper.UploadString(endpoint.OriginalString, method, ParametersAsString);
             }

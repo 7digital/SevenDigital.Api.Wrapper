@@ -12,6 +12,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
         {
             var webRequest = (HttpWebRequest)WebRequest.Create(endpoint.OriginalString);
             webRequest.Method = method;
+			webRequest.UserAgent = "7digital .Net Api Wrapper";
 
             foreach (var header in headers)
             {
