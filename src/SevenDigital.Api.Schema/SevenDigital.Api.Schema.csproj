@@ -52,6 +52,7 @@
     <Compile Include="ParameterDefinitions\Get\HasArtistIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasBasketParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasChartParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasIpAddressParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasKeyParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasLetterParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasPriceParameter.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Tags\TaggedArtists.cs" />
     <Compile Include="Tags\TaggedReleases.cs" />
     <Compile Include="Tags\Tags.cs" />
+    <Compile Include="Territories\GeoIpLookup.cs" />
     <Compile Include="TrackEndpoint\Track.cs" />
     <Compile Include="TrackEndpoint\TrackChart.cs" />
     <Compile Include="TrackEndpoint\TrackPreview.cs" />
