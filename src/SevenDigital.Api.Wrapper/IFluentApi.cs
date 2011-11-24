@@ -10,6 +10,7 @@ namespace SevenDigital.Api.Wrapper
 		IFluentApi<T> ClearParameters();
 		IFluentApi<T> ForUser(string token, string secret);
 		IFluentApi<T> WithEndpoint(string endpoint);
+		string EndpointUrl { get; }
 
 		T Please();
 		void PleaseAsync(Action<T> callback);
