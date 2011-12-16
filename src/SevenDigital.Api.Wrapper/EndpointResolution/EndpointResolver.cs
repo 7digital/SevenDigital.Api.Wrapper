@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Utility.Http;
 using System.Collections.Generic;
@@ -45,7 +47,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 				apiUri = apiUri.Replace("http://", "https://");
 
 			var uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}",
-				apiUri, endPointInfo.Uri,
+				apiUri, SubstituteRouteParameters(endPointInfo.Uri,endPointInfo.Parameters),
 				_oAuthCredentials.ConsumerKey,
 				endPointInfo.Parameters.ToQueryString()).TrimEnd('&');
 
@@ -54,6 +56,21 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			if (endPointInfo.IsSigned)
 				signedUrl = _urlSigner.SignUrl(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _oAuthCredentials);
 			return signedUrl;
+		}
+
+
+		private string SubstituteRouteParameters(string endpointUri, Dictionary<string, string> parameters)
+		{
+			var regex = new Regex("{(.*?)}");
+			var result = regex.Matches(endpointUri);
+			foreach (var match in result)
+			{
+				var key = match.ToString().Remove(match.ToString().Length - 1).Remove(0, 1);
+				var value = parameters.First(x => x.Key.Equals(key, StringComparison.InvariantCultureIgnoreCase)).Value;
+				endpointUri = endpointUri.Replace(match.ToString(), value);
+			}
+
+			return endpointUri.ToLower();
 		}
 	}
 }

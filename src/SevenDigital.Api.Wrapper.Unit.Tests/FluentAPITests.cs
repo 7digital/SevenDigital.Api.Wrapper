@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Xml.Serialization;
 using FakeItEasy;
 using NUnit.Framework;
+using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Schema;
 using System.Threading;
@@ -86,13 +88,13 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 				payload(StubPayload);
 			}
 
-			public string ConstructEndpoint(EndPointInfo endPointInfo) {
+			public string ConstructEndpoint(EndPointInfo endPointInfo)
+			{
 				throw new NotImplementedException();
 			}
 
 			public string StubPayload { get; set; }
 		}
 	}
-
 
 }
