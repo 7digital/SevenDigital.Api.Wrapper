@@ -105,5 +105,22 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 			Assert.That(result, Is.StringContaining("something/routevalue"));
 		}
 
+		[Test]
+		public void should_remove_parameters_that_match()
+		{
+			var endpointInfo = new EndPointInfo
+			{
+				Uri = "something/{route-66}",
+				Parameters = new Dictionary<string, string>
+						{
+							{"route-66","routevalue"}
+						}
+			};
+
+			var result = _endpointResolver.ConstructEndpoint(endpointInfo);
+
+			Assert.That(result, Is.Not.StringContaining("route-66=routevalue"));
+		}
+
 	}
 }

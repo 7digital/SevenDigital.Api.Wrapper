@@ -66,8 +66,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			foreach (var match in result)
 			{
 				var key = match.ToString().Remove(match.ToString().Length - 1).Remove(0, 1);
-				var value = parameters.First(x => x.Key.Equals(key, StringComparison.InvariantCultureIgnoreCase)).Value;
-				endpointUri = endpointUri.Replace(match.ToString(), value);
+				var entry = parameters.First(x => x.Key.Equals(key, StringComparison.InvariantCultureIgnoreCase));
+				parameters.Remove(entry.Key);
+				endpointUri = endpointUri.Replace(match.ToString(), entry.Value);
 			}
 
 			return endpointUri.ToLower();
