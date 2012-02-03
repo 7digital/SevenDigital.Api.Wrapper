@@ -6,7 +6,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
 	public static class DictionaryExtensions
 	{
-        public static string ToQueryString(this Dictionary<string,string> collection)
+        public static string ToQueryString(this IDictionary<string,string> collection)
 		{
             var sb = new StringBuilder();
             foreach (var key in collection.Keys)
