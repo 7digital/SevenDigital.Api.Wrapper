@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper;
@@ -50,11 +52,13 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 
 			dynamic dx = new DynamicXmlParser(XDocument.Parse(xml));
 
-			var name = dx.releases.release[0].title.value;
-			var secondName = dx.releases.release[1].title.value;
+		    string [] titles = Enumerable.ToArray(Enumerable.Select<dynamic, string>(dx.releases.release, (Func<dynamic, string>) (r => r.title.value)));
 
-            Assert.That(name, Is.EqualTo("Night Train"));
-            Assert.That(secondName, Is.EqualTo("A Bad Dream"));
+		    foreach (var title in titles) {
+		        Console.WriteLine(title);
+		    }
+
+            Assert.That(titles, Has.Member("Night Train").And.Member("Perfect Symmetry"));
 		}
 	}
 }
