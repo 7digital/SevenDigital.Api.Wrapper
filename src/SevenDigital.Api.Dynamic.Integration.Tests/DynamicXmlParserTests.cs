@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper;
@@ -6,13 +8,16 @@ using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
-namespace SevenDigital.Api.Dynamic.Integration.Tests {
+namespace SevenDigital.Api.Dynamic.Integration.Tests
+{
 	[TestFixture]
-	public class DynamicXmlParserTests {
+	public class DynamicXmlParserTests
+	{
 		private EndpointResolver _endpointResolver;
 
 		[SetUp]
-		public void SetUp() {
+		public void SetUp()
+		{
 			IOAuthCredentials oAuthCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
 			IApiUri apiUri = EssentialDependencyCheck<IApiUri>.Instance;
 			var httpGetResolver = new HttpGetResolver();
@@ -22,10 +27,11 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 		}
 
 		[Test]
-		public void Can_get_an_artist() {
+		public void Can_get_an_artist()
+		{
 			const string endpoint = "artist/details";
 
-			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters = new Dictionary<string,string> { { "artistId", "1" } } };
+			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters = new Dictionary<string, string> { { "artistId", "1" } } };
 
 			string xml = _endpointResolver.HitEndpoint(endPointInfo);
 
@@ -41,20 +47,24 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 		}
 
 		[Test]
-		public void Can_get_an_artists_releases() {
+		public void Can_get_an_artists_releases()
+		{
 			const string endpoint = "artist/releases";
 
-			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters =  new Dictionary<string,string> { { "artistId", "1" } } };
+			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters = new Dictionary<string, string> { { "artistId", "1" } } };
 
 			string xml = _endpointResolver.HitEndpoint(endPointInfo);
 
 			dynamic dx = new DynamicXmlParser(XDocument.Parse(xml));
 
-			var name = dx.releases.release[0].title.value;
-			var secondName = dx.releases.release[1].title.value;
+			var titles = new List<string>();
+			foreach (var variable in dx.releases.release)
+			{
+				titles.Add(variable.title.value);
+			}
 
-            Assert.That(name, Is.EqualTo("Night Train"));
-            Assert.That(secondName, Is.EqualTo("A Bad Dream"));
+			Assert.That(titles.Contains("Perfect Symmetry"));
+			Assert.That(titles.Contains("Night Train"));
 		}
 	}
 }
