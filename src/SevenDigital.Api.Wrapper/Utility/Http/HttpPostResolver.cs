@@ -38,7 +38,6 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
             }
         }
 
-
         public void ResolveAsync(string endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
         {
 			throw new NotImplementedException();
