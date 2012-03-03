@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
+﻿using System.Collections.Generic;
 using FakeItEasy;
 using NUnit.Framework;
-using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Utility.Http;
@@ -21,7 +16,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		public void Setup()
 		{
 			var urlResolver = A.Fake<IUrlResolver>();
-			A.CallTo(() => urlResolver.Resolve(A<Uri>.Ignored, A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
+			A.CallTo(() => urlResolver.Resolve(A<string>.Ignored, A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
 				.Returns(string.Empty);
 
 			var apiUri = A.Fake<IApiUri>();

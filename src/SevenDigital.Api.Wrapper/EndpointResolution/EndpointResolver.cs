@@ -24,22 +24,21 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		public virtual string HitEndpoint(EndPointInfo endPointInfo)
 		{
-			Uri signedUrl = GetSignedUrl(endPointInfo);
-
+			var signedUrl = GetSignedUrl(endPointInfo);
 			return _urlResolver.Resolve(signedUrl, endPointInfo.HttpMethod, new Dictionary<string, string>());
 		}
 
 		public virtual void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> payload)
 		{
-			Uri signedUrl = GetSignedUrl(endPointInfo);
+			var signedUrl = GetSignedUrl(endPointInfo);
 			_urlResolver.ResolveAsync(signedUrl, endPointInfo.HttpMethod, new Dictionary<string, string>(), payload);
 		}
 
 		public string ConstructEndpoint(EndPointInfo endPointInfo) {
-			return GetSignedUrl(endPointInfo).ToString();
+			return GetSignedUrl(endPointInfo);
 		}
 
-		private Uri GetSignedUrl(EndPointInfo endPointInfo)
+		private string GetSignedUrl(EndPointInfo endPointInfo)
 		{
 			string apiUri = _apiUri.Uri;
 
@@ -50,12 +49,11 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 				apiUri, SubstituteRouteParameters(endPointInfo.Uri,endPointInfo.Parameters),
 				_oAuthCredentials.ConsumerKey,
 				endPointInfo.Parameters.ToQueryString()).TrimEnd('&');
-
-			var signedUrl = new Uri(uriString);
-
+			
 			if (endPointInfo.IsSigned)
-				signedUrl = _urlSigner.SignUrl(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _oAuthCredentials);
-			return signedUrl;
+				uriString = _urlSigner.SignUrlAsString(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _oAuthCredentials);
+
+			return uriString;
 		}
 
 
