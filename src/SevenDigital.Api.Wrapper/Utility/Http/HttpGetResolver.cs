@@ -7,10 +7,9 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 {
     public class HttpGetResolver : IUrlResolver
     {
-
-        public string Resolve(Uri endpoint, string method, Dictionary<string,string> headers)
+        public string Resolve(string endpoint, string method, Dictionary<string,string> headers)
         {
-            var webRequest = (HttpWebRequest)WebRequest.Create(endpoint.OriginalString);
+            var webRequest = (HttpWebRequest)WebRequest.Create(endpoint);
             webRequest.Method = method;
 			webRequest.UserAgent = "7digital .Net Api Wrapper";
 
@@ -36,11 +35,11 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
             return output;
         }
 
-        public void ResolveAsync(Uri endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
+        public void ResolveAsync(string endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
         {
             var client = new WebClient();
             client.DownloadDataCompleted += (s, e) => payload(System.Text.Encoding.UTF8.GetString(e.Result));
-            client.DownloadDataAsync(endpoint);
+            client.DownloadDataAsync(new Uri(endpoint));
         }
     }
 }

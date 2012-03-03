@@ -31,23 +31,44 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
         [Test]
         public void Should_fire_resolve_with_correct_values()
         {
-            A.CallTo(() => _urlResolver.Resolve(A<Uri>.Ignored, A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
+            A.CallTo(() => _urlResolver.Resolve(A<string>.Ignored, A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
                 .Returns(SERVICE_STATUS);
 
             const string expectedMethod = "GET";
             var expectedHeaders = new Dictionary<string, string>();
 
             var endPointState = new EndPointInfo { Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
-            var expected = new Uri(string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey));
-
-            A.CallTo(() => _urlSigner.SignUrl(A<string>.Ignored, A<string>.Ignored, A<string>.Ignored, null)).Returns(expected);
-
+            var expected = string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey);
+			
             _endpointResolver.HitEndpoint(endPointState);
 
             A.CallTo(() => _urlResolver
-                    .Resolve(A<Uri>.That.Matches(x => x.PathAndQuery == expected.PathAndQuery), expectedMethod, A<Dictionary<string, string>>.Ignored))
+                    .Resolve(expected, expectedMethod, A<Dictionary<string, string>>.Ignored))
                     .MustHaveHappened();
         }
+
+		[Test]
+		public void Should_fire_resolve_with_url_encoded_parameters()
+		{
+			A.CallTo(() => _urlResolver.Resolve(A<string>.Ignored, A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
+				.Returns(SERVICE_STATUS);
+
+			const string unEncodedParameterValue = "Alive & Amplified";
+			const string expectedParameterValue = "Alive%20%26%20Amplified";
+
+			var expectedHeaders = new Dictionary<string, string>();
+			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
+
+			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = "GET", Headers = expectedHeaders, Parameters = testParameters };
+			var expected = string.Format("{0}/test?oauth_consumer_key={1}&q={2}", API_URL, _consumerKey, expectedParameterValue);
+			
+			_endpointResolver.HitEndpoint(endPointState);
+
+			A.CallTo(() => _urlResolver
+					.Resolve(expected, A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
+					.MustHaveHappened();
+		}
+
 
         [Test]
         public void Should_return_xmlnode_if_valid_xml_received()
@@ -107,26 +128,26 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			A.CallTo(() => apiUri.Uri).MustHaveHappened(Repeated.Exactly.Once);
 
 			A.CallTo(() => _urlResolver.Resolve(
-				A<Uri>.That.Matches(x => x.ToString().Contains(expectedApiUri)),
+				A<string>.That.Matches(x => x.ToString().Contains(expectedApiUri)),
 				A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
 				.MustHaveHappened(Repeated.Exactly.Once);
 		}
 
         private void Given_a_urlresolver_that_returns_valid_xml()
         {
-            A.CallTo(() => _urlResolver.Resolve(A<Uri>.Ignored, A<string>.Ignored, A<Dictionary<string, string>>.Ignored)).Returns(
+            A.CallTo(() => _urlResolver.Resolve(A<string>.Ignored, A<string>.Ignored, A<Dictionary<string, string>>.Ignored)).Returns(
                 SERVICE_STATUS);
         }
     }
 
     public class FakeUrlResolver : IUrlResolver
     {
-        public string Resolve(Uri endpoint, string method, Dictionary<string, string> headers)
+        public string Resolve(string endpoint, string method, Dictionary<string, string> headers)
         {
             throw new NotImplementedException();
         }
 
-        public void ResolveAsync(Uri endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
+        public void ResolveAsync(string endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
         {
             payload(StubPayload);
         }

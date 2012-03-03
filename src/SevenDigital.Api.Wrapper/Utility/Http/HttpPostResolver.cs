@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Net;
 using System.Text;
 
@@ -27,21 +26,19 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
             ParametersAsString = parametersAsString;
         }
 
-        public string Resolve(Uri endpoint, string method, Dictionary<string, string> headers)
+        public string Resolve(string endpoint, string method, Dictionary<string, string> headers)
         {
             using (var webClientWrapper = _webClientFactory.GetWebClient())
             {
-
                 webClientWrapper.Encoding = Encoding.UTF8;
                 webClientWrapper.Headers = new WebHeaderCollection();
 				webClientWrapper.Headers[HttpRequestHeader.UserAgent] = "7digital .Net Api Wrapper";
 
-                return webClientWrapper.UploadString(endpoint.OriginalString, method, ParametersAsString);
+                return webClientWrapper.UploadString(endpoint, method, ParametersAsString);
             }
         }
 
-
-        public void ResolveAsync(Uri endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
+        public void ResolveAsync(string endpoint, string method, Dictionary<string, string> headers, Action<string> payload)
         {
 			throw new NotImplementedException();
 			//var client = new WebClient();
