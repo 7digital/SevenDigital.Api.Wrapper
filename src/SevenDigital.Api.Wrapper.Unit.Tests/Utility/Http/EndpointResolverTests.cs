@@ -39,15 +39,36 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 
             var endPointState = new EndPointInfo { Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
             var expected = string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey);
-
-            A.CallTo(() => _urlSigner.SignUrl(A<string>.Ignored, A<string>.Ignored, A<string>.Ignored, null)).Returns(new Uri(expected));
-
+			
             _endpointResolver.HitEndpoint(endPointState);
 
             A.CallTo(() => _urlResolver
                     .Resolve(expected, expectedMethod, A<Dictionary<string, string>>.Ignored))
                     .MustHaveHappened();
         }
+
+		[Test]
+		public void Should_fire_resolve_with_url_encoded_parameters()
+		{
+			A.CallTo(() => _urlResolver.Resolve(A<string>.Ignored, A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
+				.Returns(SERVICE_STATUS);
+
+			const string unEncodedParameterValue = "Alive & Amplified";
+			const string expectedParameterValue = "Alive%20%26%20Amplified";
+
+			var expectedHeaders = new Dictionary<string, string>();
+			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
+
+			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = "GET", Headers = expectedHeaders, Parameters = testParameters };
+			var expected = string.Format("{0}/test?oauth_consumer_key={1}&q={2}", API_URL, _consumerKey, expectedParameterValue);
+			
+			_endpointResolver.HitEndpoint(endPointState);
+
+			A.CallTo(() => _urlResolver
+					.Resolve(expected, A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
+					.MustHaveHappened();
+		}
+
 
         [Test]
         public void Should_return_xmlnode_if_valid_xml_received()

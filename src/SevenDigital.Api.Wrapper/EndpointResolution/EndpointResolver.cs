@@ -48,7 +48,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			var uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}",
 				apiUri, SubstituteRouteParameters(endPointInfo.Uri,endPointInfo.Parameters),
 				_oAuthCredentials.ConsumerKey,
-				endPointInfo.Parameters.ToQueryString()).TrimEnd('&');
+				endPointInfo.Parameters.ToQueryString(true)).TrimEnd('&');
 			
 			if (endPointInfo.IsSigned)
 				uriString = _urlSigner.SignUrlAsString(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _oAuthCredentials);
@@ -56,8 +56,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			return uriString;
 		}
 
-
-		private string SubstituteRouteParameters(string endpointUri, Dictionary<string, string> parameters)
+		private static string SubstituteRouteParameters(string endpointUri, Dictionary<string, string> parameters)
 		{
 			var regex = new Regex("{(.*?)}");
 			var result = regex.Matches(endpointUri);
