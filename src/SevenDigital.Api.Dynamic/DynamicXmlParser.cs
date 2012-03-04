@@ -6,8 +6,8 @@ using System.Xml.Linq;
 
 namespace SevenDigital.Api.Dynamic
 {
-	public class DynamicXmlParser : DynamicObject, IEnumerable
-	{
+	public class DynamicXmlParser : DynamicObject, IEnumerable, IEnumerable<object>
+    {
 		private readonly List<XElement> _elements;
 
 		public DynamicXmlParser(XDocument doc)
@@ -59,9 +59,12 @@ namespace SevenDigital.Api.Dynamic
 			return true;
 		}
 
-		public IEnumerator GetEnumerator()
-		{
-			return _elements.Select(element => new DynamicXmlParser(element)).GetEnumerator();
+	    IEnumerator<object> IEnumerable<object>.GetEnumerator() {
+            return _elements.Select(element => new DynamicXmlParser(element)).GetEnumerator();
+        }
+
+	    public IEnumerator GetEnumerator() {
+	        return ((IEnumerable<object>) this).GetEnumerator();
 		}
 	}
 }
