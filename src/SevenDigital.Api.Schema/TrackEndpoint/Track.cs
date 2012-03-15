@@ -48,6 +48,6 @@ namespace SevenDigital.Api.Schema.TrackEndpoint
 		public Price Price { get; set; }
 
 		[XmlElement("type")]
-		public ReleaseType Type { get; set; }
+		public TrackType Type { get; set; }
 	}
 }

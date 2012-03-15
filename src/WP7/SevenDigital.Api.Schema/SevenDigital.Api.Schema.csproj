@@ -252,6 +252,9 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackSearchResult.cs">
       <Link>TrackEndpoint\TrackSearchResult.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackType.cs">
+      <Link>TrackEndpoint\TrackType.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\User\Purchase\BasePurchaseItem.cs">
       <Link>User\Purchase\BasePurchaseItem.cs</Link>
     </Compile>
@@ -310,7 +313,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" />
+      <UserProperties ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

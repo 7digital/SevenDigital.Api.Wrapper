@@ -123,6 +123,7 @@
     <Compile Include="TrackEndpoint\TrackPreview.cs" />
     <Compile Include="TrackEndpoint\TrackSearch.cs" />
     <Compile Include="TrackEndpoint\TrackSearchResult.cs" />
+    <Compile Include="TrackEndpoint\TrackType.cs" />
     <Compile Include="User\Purchase\BasePurchaseItem.cs" />
     <Compile Include="User\Purchase\UserPurchaseBasket.cs" />
     <Compile Include="User\Purchase\UserPurchaseItem.cs" />
