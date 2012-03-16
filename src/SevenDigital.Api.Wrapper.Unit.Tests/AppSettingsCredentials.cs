@@ -6,8 +6,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 	{
 		public AppSettingsCredentials()
 		{
-			ConsumerKey = ConfigurationManager.AppSettings["Wrapper.ConsumerKey"];
-			ConsumerSecret = ConfigurationManager.AppSettings["Wrapper.ConsumerSecret"];
+			ConsumerKey = "UNIT_TEST";
+			ConsumerSecret = "";
 		}
 
 		public string ConsumerKey { get; set; }

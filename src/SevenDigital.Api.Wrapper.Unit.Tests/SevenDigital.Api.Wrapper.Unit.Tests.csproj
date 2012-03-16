@@ -77,10 +77,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="App.inttest.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="StubResponses\ArtistReleases.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
