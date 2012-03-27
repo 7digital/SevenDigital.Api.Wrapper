@@ -13,5 +13,8 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 
 		[XmlElement("release")]
 		public Release Release { get; set; }
+
+		[XmlElement("score")]
+		public float Score { get; set; }
 	}
 }

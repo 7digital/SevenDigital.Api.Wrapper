@@ -10,5 +10,8 @@ namespace SevenDigital.Api.Schema.TrackEndpoint
 
 		[XmlElement("track")]
 		public Track Track { get; set; }
+
+		[XmlElement("score")]
+		public float Score { get; set; }
 	}
 }

@@ -12,5 +12,8 @@ namespace SevenDigital.Api.Schema.ArtistEndpoint
 
 		[XmlElement("artist")]
 		public Artist Artist { get; set; }
+
+		[XmlElement("score")]
+		public float Score { get; set; }
 	}
 }
