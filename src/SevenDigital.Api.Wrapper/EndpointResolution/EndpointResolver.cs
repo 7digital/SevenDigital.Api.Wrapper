@@ -34,22 +34,23 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			_urlResolver.ResolveAsync(signedUrl, endPointInfo.HttpMethod, new Dictionary<string, string>(), payload);
 		}
 
-		public string ConstructEndpoint(EndPointInfo endPointInfo) {
+		public string ConstructEndpoint(EndPointInfo endPointInfo)
+		{
 			return GetSignedUrl(endPointInfo);
 		}
 
 		private string GetSignedUrl(EndPointInfo endPointInfo)
 		{
 			string apiUri = _apiUri.Uri;
-
+			var newDictionary = endPointInfo.Parameters.ToDictionary(entry => entry.Key, entry => entry.Value);
 			if (endPointInfo.UseHttps)
 				apiUri = apiUri.Replace("http://", "https://");
 
 			var uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}",
-				apiUri, SubstituteRouteParameters(endPointInfo.Uri,endPointInfo.Parameters),
+				apiUri, SubstituteRouteParameters(endPointInfo.Uri, newDictionary),
 				_oAuthCredentials.ConsumerKey,
-				endPointInfo.Parameters.ToQueryString(true)).TrimEnd('&');
-			
+				newDictionary.ToQueryString(true)).TrimEnd('&');
+
 			if (endPointInfo.IsSigned)
 				uriString = _urlSigner.SignUrlAsString(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _oAuthCredentials);
 
@@ -58,6 +59,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		private static string SubstituteRouteParameters(string endpointUri, Dictionary<string, string> parameters)
 		{
+			
 			var regex = new Regex("{(.*?)}");
 			var result = regex.Matches(endpointUri);
 			foreach (var match in result)
