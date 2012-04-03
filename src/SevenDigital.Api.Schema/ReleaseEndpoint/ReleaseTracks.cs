@@ -10,6 +10,7 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 {
 	[XmlRoot("tracks")]
 	[ApiEndpoint("release/tracks")]
+	[Serializable]
 	public class ReleaseTracks : HasPaging, HasReleaseIdParameter
 	{
 		[XmlElement("track")]

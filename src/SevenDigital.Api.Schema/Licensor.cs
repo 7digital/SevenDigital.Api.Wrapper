@@ -5,6 +5,7 @@ namespace SevenDigital.Api.Schema
 {
 	
 	[XmlRoot("licensor")]
+	[Serializable]
 	public class Licensor
 	{
 		[XmlAttribute("id")]

@@ -12,6 +12,7 @@ namespace SevenDigital.Api.Schema.TrackEndpoint
 	
 	[XmlRoot("track")]
 	[ApiEndpoint("track/details")]
+	[Serializable]
 	public class Track : HasTrackIdParameter
 	{
 		[XmlAttribute("id")]

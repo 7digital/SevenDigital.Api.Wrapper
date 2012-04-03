@@ -11,6 +11,7 @@ namespace SevenDigital.Api.Schema.ArtistEndpoint
 	[ApiEndpoint("artist/releases")]
 	[XmlRoot("releases")]
 	[DataContract(Name="releases")]
+	[Serializable]
 	public class ArtistReleases : HasPaging, HasArtistIdParameter, HasReleaseTypeParameter
 	{
 		[XmlElement("release")]

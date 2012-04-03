@@ -5,6 +5,7 @@ namespace SevenDigital.Api.Schema.Pricing
 {
 
 	[XmlRoot("price")]
+	[Serializable]
 	public class Price
 	{
 		[XmlElement("currency")]

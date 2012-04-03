@@ -1,8 +1,10 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.Tags
 {
 	[XmlRoot("tag")]
+	[Serializable]
 	public class Tag
 	{
 		[XmlAttribute("id")]

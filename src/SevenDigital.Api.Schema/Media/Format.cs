@@ -5,6 +5,7 @@ namespace SevenDigital.Api.Schema.Media
 {
 	
 	[XmlRoot("format")]
+	[Serializable]
 	public class Format
 	{
 		[XmlAttribute("id")]

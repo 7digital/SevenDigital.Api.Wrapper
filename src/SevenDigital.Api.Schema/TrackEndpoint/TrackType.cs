@@ -1,7 +1,9 @@
+using System;
 using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.TrackEndpoint
 {
+	[Serializable]
 	public enum TrackType
 	{
 		[XmlEnum(Name = "audio")]
