@@ -69,7 +69,7 @@
     <Compile Include="EndpointResolution\DictionaryExtensions.cs" />
     <Compile Include="EndpointResolution\RequestCoordinator.cs" />
     <Compile Include="EndpointResolution\IRequestCoordinator.cs" />
-    <Compile Include="Utility\Http\HttpPostDispatcher.cs" />
+    <Compile Include="Utility\Http\IHttpClient.cs" />
     <Compile Include="Utility\Http\IWebClientFactory.cs" />
     <Compile Include="Utility\Http\IWebClientWrapper.cs" />
     <Compile Include="Utility\Http\Response.cs" />
@@ -78,8 +78,6 @@
     <Compile Include="Utility\Serialization\ApiXmlDeSerializer.cs" />
     <Compile Include="Utility\Serialization\ISerializer.cs" />
     <Compile Include="Utility\Serialization\IDeSerializer.cs" />
-    <Compile Include="Utility\Http\HttpGetDispatcher.cs" />
-    <Compile Include="Utility\Http\IRequestDispatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Serialization\ApiResourceDeSerializer.cs" />
     <Compile Include="Utility\Serialization\IXmlErrorHandler.cs" />

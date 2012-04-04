@@ -22,20 +22,6 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		}
 
 		[Test]
-		public void Can_hit_endpoint_with_fluent_interface_and_get_full_response()
-		{
-			var response = Api<ArtistReleases>
-				.Get
-				.WithArtistId(1)
-				.WithHeadersPlease();
-
-			var artist = response.Body;
-			Assert.That(artist, Is.Not.Null);
-			Assert.That(artist.Releases.Count, Is.GreaterThan(0));
-			Assert.That(artist.Releases.FirstOrDefault().Artist.Name, Is.EqualTo("Keane"));
-		}
-
-		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
 			var artistBrowse = Api<ArtistReleases>

@@ -42,10 +42,10 @@ namespace SevenDigital.Api.Wrapper
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-			: this(new RequestCoordinator(new HttpGetDispatcher(), new UrlSigner(), oAuthCredentials, apiUri)) { }
+			: this(new RequestCoordinator(new HttpClient(), new UrlSigner(), oAuthCredentials, apiUri)) { }
 
 		public FluentApi()
-			: this(new RequestCoordinator(new HttpGetDispatcher(), new UrlSigner(), EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance)) { }
+			: this(new RequestCoordinator(new HttpClient(), new UrlSigner(), EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance)) { }
 
 
 		public IFluentApi<T> WithEndpoint(string endpoint)
@@ -112,26 +112,6 @@ namespace SevenDigital.Api.Wrapper
 		public string GetCurrentUri()
 		{
 			return _requestCoordinator.ConstructEndpoint(_endPointInfo);
-		}
-
-		public virtual Response<T> WithHeadersPlease()
-		{
-			try
-			{
-				var output = _requestCoordinator.HitEndpointAndGetResponse(_endPointInfo);
-				var deserialised = _deserializer.DeSerialize(output.Body);
-
-				return new Response<T>()
-						{
-							Body = deserialised,
-							Headers = output.Headers
-						};
-			}
-			catch (ApiXmlException apiXmlException)
-			{
-				apiXmlException.Uri = _endPointInfo.Uri;
-				throw;
-			}
 		}
 
 		internal Action<string> PleaseAsyncEnd(Action<T> callback)

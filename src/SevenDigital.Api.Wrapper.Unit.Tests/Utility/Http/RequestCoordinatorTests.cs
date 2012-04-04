@@ -11,61 +11,62 @@ using SevenDigital.Api.Wrapper.Utility.Http;
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 {
 	[TestFixture]
-	public class EndpointResolverTests
+	public class RequestCoordinatorTests
 	{
 		private const string API_URL = "http://api.7digital.com/1.2";
 		private const string SERVICE_STATUS = "<response status=\"ok\" version=\"1.2\" ><serviceStatus><serverTime>2011-03-04T08:10:29Z</serverTime></serviceStatus></response>";
 		private readonly string _consumerKey = new AppSettingsCredentials().ConsumerKey;
-		private IRequestDispatcher _requestDispatcher;
+		private IHttpClient _httpClient;
 		private RequestCoordinator _requestCoordinator;
 		private IUrlSigner _urlSigner;
 
 		[SetUp]
 		public void Setup()
 		{
-			_requestDispatcher = A.Fake<IRequestDispatcher>();
+			_httpClient = A.Fake<IHttpClient>();
 			_urlSigner = A.Fake<IUrlSigner>();
-			_requestCoordinator = new RequestCoordinator(_requestDispatcher, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
+			_requestCoordinator = new RequestCoordinator(_httpClient, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
 		}
 
 		[Test]
 		public void Should_fire_resolve_with_correct_values()
 		{
-			A.CallTo(() => _requestDispatcher.Dispatch(A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
-				.Returns(SERVICE_STATUS);
+			A.CallTo(() => _httpClient.Get(A<IRequest>.Ignored.Argument))
+				.Returns(new Response<string>{Body = SERVICE_STATUS});
 
 			const string expectedMethod = "GET";
 			var expectedHeaders = new Dictionary<string, string>();
+			var expected = string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey);
 
 			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
-			var expected = string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey);
+		
 
 			_requestCoordinator.HitEndpoint(endPointState);
 
-			A.CallTo(() => _requestDispatcher
-					.Dispatch(expected, A<Dictionary<string, string>>.Ignored))
+			A.CallTo(() => _httpClient
+					.Get(A<IRequest>.That.Matches(y => y.Url == expected).Argument))
 					.MustHaveHappened();
 		}
 
 		[Test]
 		public void Should_fire_resolve_with_url_encoded_parameters()
 		{
-			A.CallTo(() => _requestDispatcher.Dispatch(A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
-				.Returns(SERVICE_STATUS);
+			A.CallTo(() => _httpClient.Get(A<IRequest>.Ignored.Argument))
+				.Returns(new Response<string> {Body = SERVICE_STATUS});
 
 			const string unEncodedParameterValue = "Alive & Amplified";
-			const string expectedParameterValue = "Alive%20%26%20Amplified";
 
+			const string expectedParameterValue = "Alive%20%26%20Amplified";
 			var expectedHeaders = new Dictionary<string, string>();
 			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
+			var expected = string.Format("{0}/test?oauth_consumer_key={1}&q={2}", API_URL, _consumerKey, expectedParameterValue);
 
 			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = "GET", Headers = expectedHeaders, Parameters = testParameters };
-			var expected = string.Format("{0}/test?oauth_consumer_key={1}&q={2}", API_URL, _consumerKey, expectedParameterValue);
 
 			_requestCoordinator.HitEndpoint(endPointState);
 
-			A.CallTo(() => _requestDispatcher
-					.Dispatch(expected, A<Dictionary<string, string>>.Ignored))
+			A.CallTo(() => _httpClient
+					.Get(A<IRequest>.That.Matches(y => y.Url == expected).Argument))
 					.MustHaveHappened();
 		}
 
@@ -94,8 +95,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		[Test]
 		public void Should_return_xmlnode_if_valid_xml_received_using_async()
 		{
-			var resolver = new FakeRequestDispatcher { StubPayload = SERVICE_STATUS };
-			var endpointResolver = new RequestCoordinator(resolver, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
+			var fakeClient = new FakeHttpClient(new Response<string>() { Body = SERVICE_STATUS });
+
+			var endpointResolver = new RequestCoordinator(fakeClient, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
 
 			var reset = new AutoResetEvent(false);
 
@@ -127,7 +129,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			A.CallTo(() => apiUri.Uri).Returns(expectedApiUri);
 
 			IOAuthCredentials oAuthCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
-			var endpointResolver = new RequestCoordinator(_requestDispatcher, _urlSigner, oAuthCredentials, apiUri);
+			var endpointResolver = new RequestCoordinator(_httpClient, _urlSigner, oAuthCredentials, apiUri);
 
 			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = "GET", Headers = new Dictionary<string, string>() };
 
@@ -135,35 +137,46 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 
 			A.CallTo(() => apiUri.Uri).MustHaveHappened(Repeated.Exactly.Once);
 
-			A.CallTo(() => _requestDispatcher.Dispatch(
-				A<string>.That.Matches(x => x.ToString().Contains(expectedApiUri)), A<Dictionary<string, string>>.Ignored))
+			A.CallTo(() => _httpClient.Get(
+				A<IRequest>.That.Matches(x => x.Url.ToString().Contains(expectedApiUri)).Argument))
 				.MustHaveHappened(Repeated.Exactly.Once);
 		}
 
 		private void Given_a_urlresolver_that_returns_valid_xml()
 		{
-			A.CallTo(() => _requestDispatcher.Dispatch(A<string>.Ignored, A<Dictionary<string, string>>.Ignored)).Returns(
-				SERVICE_STATUS);
+			A.CallTo(() => _httpClient.Get(A<IRequest>.Ignored.Argument))
+				.Returns(new Response<string> { Body = SERVICE_STATUS });
 		}
 	}
 
-	public class FakeRequestDispatcher : IRequestDispatcher
+	public class FakeHttpClient : IHttpClient
 	{
-		public string Dispatch(string endpoint, Dictionary<string, string> headers)
+		private readonly IResponse<string> _fakeResponse;
+
+		public FakeHttpClient(IResponse<string> fakeResponse)
+		{
+			_fakeResponse = fakeResponse;
+		}
+
+		public IResponse<string> Get(IRequest request)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Response<string> FullDispatch(string endpoint, Dictionary<string, string> headers)
+		public void GetAsync(IRequest request, Action<IResponse<string>> callback)
+		{
+			callback(_fakeResponse);
+		}
+
+		public IResponse<string> Post(IRequest request, string data)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void DispatchAsync(string endpoint, Dictionary<string, string> headers, Action<string> payload)
+		public void PostAsync(IRequest request, string data, Action<IResponse<string>> callback)
 		{
-			payload(StubPayload);
+			throw new NotImplementedException();
 		}
-
-		public string StubPayload { get; set; }
 	}
+
 }

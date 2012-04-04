@@ -17,7 +17,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 		public void SetUp() {
 			IOAuthCredentials oAuthCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
 			IApiUri apiUri = EssentialDependencyCheck<IApiUri>.Instance;
-			var httpGetResolver = new HttpGetDispatcher();
+			var httpGetResolver = new HttpClient();
 			var urlSigner = new UrlSigner();
 
 			_requestCoordinator = new RequestCoordinator(httpGetResolver, urlSigner, oAuthCredentials, apiUri);

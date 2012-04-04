@@ -9,14 +9,14 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
 	public class RequestCoordinator : IRequestCoordinator
 	{
-		private readonly IRequestDispatcher _requestDispatcher;
+		private readonly IHttpClient _httpClient;
 		private readonly IUrlSigner _urlSigner;
 		private readonly IOAuthCredentials _oAuthCredentials;
 		private readonly IApiUri _apiUri;
 
-		public RequestCoordinator(IRequestDispatcher requestDispatcher, IUrlSigner urlSigner, IOAuthCredentials oAuthCredentials, IApiUri apiUri)
+		public RequestCoordinator(IHttpClient httpClient, IUrlSigner urlSigner, IOAuthCredentials oAuthCredentials, IApiUri apiUri)
 		{
-			_requestDispatcher = requestDispatcher;
+			_httpClient = httpClient;
 			_urlSigner = urlSigner;
 			_oAuthCredentials = oAuthCredentials;
 			_apiUri = apiUri;
@@ -24,20 +24,43 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		public virtual string HitEndpoint(EndPointInfo endPointInfo)
 		{
-			var signedUrl = GetSignedUrl(endPointInfo);
-			return _requestDispatcher.Dispatch(signedUrl, new Dictionary<string, string>());
+			return HitEndpointAndGetResponse(endPointInfo).Body;
 		}
 
-		public Response<string> HitEndpointAndGetResponse(EndPointInfo endPointInfo)
+		public IResponse<string> HitEndpointAndGetResponse(EndPointInfo endPointInfo)
 		{
 			var signedUrl = GetSignedUrl(endPointInfo);
-			return _requestDispatcher.FullDispatch(signedUrl, new Dictionary<string, string>());
+
+			var request = new Request(signedUrl, endPointInfo.Headers);
+			switch (endPointInfo.HttpMethod.ToUpperInvariant())
+			{
+				case "GET":
+					return _httpClient.Get(request);
+				case "POST":
+					var data = endPointInfo.Parameters.ToQueryString();
+					return _httpClient.Post(request, data);
+				default:
+					throw new NotImplementedException();
+			}
 		}
 
 		public virtual void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> payload)
 		{
 			var signedUrl = GetSignedUrl(endPointInfo);
-			_requestDispatcher.DispatchAsync(signedUrl, new Dictionary<string, string>(), payload);
+
+			var request = new Request(signedUrl, endPointInfo.Headers);
+			switch (endPointInfo.HttpMethod.ToUpperInvariant())
+			{
+				case "GET":
+					_httpClient.GetAsync(request, (response) => payload(response.Body));
+					break;
+				case "POST":
+					var data = endPointInfo.Parameters.ToQueryString();
+					_httpClient.PostAsync(request, data, (response) => payload(response.Body));
+					break;
+				default:
+					throw new NotImplementedException();
+			}
 		}
 
 		public string ConstructEndpoint(EndPointInfo endPointInfo)
@@ -65,7 +88,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		private static string SubstituteRouteParameters(string endpointUri, Dictionary<string, string> parameters)
 		{
-			
 			var regex = new Regex("{(.*?)}");
 			var result = regex.Matches(endpointUri);
 			foreach (var match in result)

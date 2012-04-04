@@ -15,15 +15,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		[SetUp]
 		public void Setup()
 		{
-			var urlResolver = A.Fake<IRequestDispatcher>();
-			A.CallTo(() => urlResolver.Dispatch(A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
-				.Returns(string.Empty);
+			var httpClient = A.Fake<IHttpClient>();
+			A.CallTo(() => httpClient.Get(A<IRequest>.Ignored.Argument)).Returns(new Response<string>());
 
 			var apiUri = A.Fake<IApiUri>();
 			A.CallTo(() => apiUri.Uri)
 				.Returns("http://uri/");
 
-			_requestCoordinator = new RequestCoordinator(urlResolver, new UrlSigner(), new AppSettingsCredentials(), apiUri);
+			_requestCoordinator = new RequestCoordinator(httpClient, new UrlSigner(), new AppSettingsCredentials(), apiUri);
 		}
 
 		[Test]

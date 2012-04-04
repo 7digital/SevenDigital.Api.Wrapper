@@ -1,5 +1,4 @@
 ﻿using System;
-using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper
 {
@@ -17,6 +16,5 @@ namespace SevenDigital.Api.Wrapper
 		T Please();
 		void PleaseAsync(Action<T> callback);
 		string GetCurrentUri();
-		Response<T> WithHeadersPlease();
 	}
 }

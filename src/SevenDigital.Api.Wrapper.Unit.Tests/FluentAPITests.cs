@@ -82,7 +82,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 				throw new NotImplementedException();
 			}
 
-			public Response<string> HitEndpointAndGetResponse(EndPointInfo endPointInfo)
+			public IResponse<string> HitEndpointAndGetResponse(EndPointInfo endPointInfo)
 			{
 				throw new NotImplementedException();
 			}

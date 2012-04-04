@@ -156,12 +156,6 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\IOAuthCredentials.cs">
       <Link>IOAuthCredentials.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\HttpPostDispatcher.cs">
-      <Link>Utility\Http\HttpPostDispatcher.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\IRequestDispatcher.cs">
-      <Link>Utility\Http\IRequestDispatcher.cs</Link>
-    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\IWebClientFactory.cs">
       <Link>Utility\Http\IWebClientFactory.cs</Link>
     </Compile>
@@ -191,7 +185,7 @@
     </Compile>
     <Compile Include="EndpointResolution\CredentialChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\Http\HttpGetDispatcher.cs" />
+    <Compile Include="Utility\Http\IHttpClient.cs" />
     <Compile Include="Utility\Http\WebClientWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -203,7 +197,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
