@@ -27,7 +27,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 				Console.WriteLine("Trying user/locker without any credentials...");
 				var apiXmlException = Assert.Throws<ApiXmlException>(() => Api<Locker>.Get.Please());
 				Assert.That(apiXmlException.Error.Code, Is.EqualTo(9001));
-				Assert.That(apiXmlException.Error.ErrorMessage, Is.EqualTo("OAuth authentication error: Resource requires access token"));
+				Assert.That(apiXmlException.Error.ErrorMessage, Is.EqualTo("OAuth authentication error: Not authorised - no user credentials provided"));
 		}
 	}
 }
