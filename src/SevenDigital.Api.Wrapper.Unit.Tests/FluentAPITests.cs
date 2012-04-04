@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Xml.Serialization;
 using FakeItEasy;
 using NUnit.Framework;
-using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Schema;
 using System.Threading;
+using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests
 {
@@ -18,7 +17,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public void Should_fire_endpointresolver_with_correct_endpoint_on_resolve()
 		{
-			var endpointResolver = A.Fake<IEndpointResolver>();
+			var endpointResolver = A.Fake<IRequestCoordinator>();
 			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(VALID_STATUS_XML);
 
 			new FluentApi<Status>(endpointResolver).Please();
@@ -32,7 +31,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public void Should_fire_endpointresolver_with_correct_methodname_on_resolve()
 		{
-			var endpointResolver = A.Fake<IEndpointResolver>();
+			var endpointResolver = A.Fake<IRequestCoordinator>();
 			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(VALID_STATUS_XML);
 
 			new FluentApi<Status>(endpointResolver).WithMethod("POST").Please();
@@ -46,7 +45,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public void Should_fire_endpointresolver_with_correct_parameters_on_resolve()
 		{
-			var endpointResolver = A.Fake<IEndpointResolver>();
+			var endpointResolver = A.Fake<IRequestCoordinator>();
 			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(VALID_STATUS_XML);
 
 			new FluentApi<Status>(endpointResolver).WithParameter("artistId", "123").Please();
@@ -61,7 +60,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public void should_put_payload_in_action_result()
 		{
-			var endpointResolver = new FakeEndpointResolver { StubPayload = VALID_STATUS_XML };
+			var endpointResolver = new FakeRequestCoordinator { StubPayload = VALID_STATUS_XML };
 			var reset = new AutoResetEvent(false);
 
 			new FluentApi<Status>(endpointResolver)
@@ -76,9 +75,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			Assert.True(true);
 		}
 
-		public class FakeEndpointResolver : IEndpointResolver
+		public class FakeRequestCoordinator : IRequestCoordinator
 		{
 			public string HitEndpoint(EndPointInfo endPointInfo)
+			{
+				throw new NotImplementedException();
+			}
+
+			public Response<string> HitEndpointAndGetResponse(EndPointInfo endPointInfo)
 			{
 				throw new NotImplementedException();
 			}

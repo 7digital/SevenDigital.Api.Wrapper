@@ -7,16 +7,16 @@ using System.Collections.Generic;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
-	public class EndpointResolver : IEndpointResolver
+	public class RequestCoordinator : IRequestCoordinator
 	{
-		private readonly IUrlResolver _urlResolver;
+		private readonly IRequestDispatcher _requestDispatcher;
 		private readonly IUrlSigner _urlSigner;
 		private readonly IOAuthCredentials _oAuthCredentials;
 		private readonly IApiUri _apiUri;
 
-		public EndpointResolver(IUrlResolver urlResolver, IUrlSigner urlSigner, IOAuthCredentials oAuthCredentials, IApiUri apiUri)
+		public RequestCoordinator(IRequestDispatcher requestDispatcher, IUrlSigner urlSigner, IOAuthCredentials oAuthCredentials, IApiUri apiUri)
 		{
-			_urlResolver = urlResolver;
+			_requestDispatcher = requestDispatcher;
 			_urlSigner = urlSigner;
 			_oAuthCredentials = oAuthCredentials;
 			_apiUri = apiUri;
@@ -25,13 +25,19 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 		public virtual string HitEndpoint(EndPointInfo endPointInfo)
 		{
 			var signedUrl = GetSignedUrl(endPointInfo);
-			return _urlResolver.Resolve(signedUrl, endPointInfo.HttpMethod, new Dictionary<string, string>());
+			return _requestDispatcher.Dispatch(signedUrl, new Dictionary<string, string>());
+		}
+
+		public Response<string> HitEndpointAndGetResponse(EndPointInfo endPointInfo)
+		{
+			var signedUrl = GetSignedUrl(endPointInfo);
+			return _requestDispatcher.FullDispatch(signedUrl, new Dictionary<string, string>());
 		}
 
 		public virtual void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> payload)
 		{
 			var signedUrl = GetSignedUrl(endPointInfo);
-			_urlResolver.ResolveAsync(signedUrl, endPointInfo.HttpMethod, new Dictionary<string, string>(), payload);
+			_requestDispatcher.DispatchAsync(signedUrl, new Dictionary<string, string>(), payload);
 		}
 
 		public string ConstructEndpoint(EndPointInfo endPointInfo)

@@ -81,14 +81,11 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\EndPointInfo.cs">
       <Link>EndpointResolution\EndPointInfo.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\EndpointResolver.cs">
-      <Link>EndpointResolution\EndpointResolver.cs</Link>
-    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\EssentialDependencyCheck.cs">
       <Link>EndpointResolution\EssentialDependencyCheck.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\IEndpointResolver.cs">
-      <Link>EndpointResolution\IEndpointResolver.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\IRequestCoordinator.cs">
+      <Link>EndpointResolution\IRequestCoordinator.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\IUrlSigner.cs">
       <Link>EndpointResolution\OAuth\IUrlSigner.cs</Link>
@@ -98,6 +95,9 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\OAuth\UrlSigner.cs">
       <Link>EndpointResolution\OAuth\UrlSigner.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\RequestCoordinator.cs">
+      <Link>EndpointResolution\RequestCoordinator.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Exceptions\ApiXmlException.cs">
       <Link>Exceptions\ApiXmlException.cs</Link>
@@ -156,17 +156,20 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\IOAuthCredentials.cs">
       <Link>IOAuthCredentials.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\HttpPostResolver.cs">
-      <Link>Utility\Http\HttpPostResolver.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\HttpPostDispatcher.cs">
+      <Link>Utility\Http\HttpPostDispatcher.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\IUrlResolver.cs">
-      <Link>Utility\Http\IUrlResolver.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\IRequestDispatcher.cs">
+      <Link>Utility\Http\IRequestDispatcher.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\IWebClientFactory.cs">
       <Link>Utility\Http\IWebClientFactory.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\IWebClientWrapper.cs">
       <Link>Utility\Http\IWebClientWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\Response.cs">
+      <Link>Utility\Http\Response.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\WebClientFactory.cs">
       <Link>Utility\Http\WebClientFactory.cs</Link>
@@ -188,7 +191,7 @@
     </Compile>
     <Compile Include="EndpointResolution\CredentialChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\Http\HttpGetResolver.cs" />
+    <Compile Include="Utility\Http\HttpGetDispatcher.cs" />
     <Compile Include="Utility\Http\WebClientWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -200,7 +203,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
+      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,6 @@
 ﻿using System;
+using SevenDigital.Api.Wrapper.Utility.Http;
+
 namespace SevenDigital.Api.Wrapper
 {
 	// [AD] DO NOT PUT THE OUR BACK IN, NOT SUPPORTED IN WINDOWS PHONE
@@ -15,5 +17,6 @@ namespace SevenDigital.Api.Wrapper
 		T Please();
 		void PleaseAsync(Action<T> callback);
 		string GetCurrentUri();
+		Response<T> WithHeadersPlease();
 	}
 }

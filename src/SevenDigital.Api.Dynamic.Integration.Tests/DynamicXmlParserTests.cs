@@ -11,16 +11,16 @@ using SevenDigital.Api.Wrapper.Utility.Http;
 namespace SevenDigital.Api.Dynamic.Integration.Tests {
 	[TestFixture]
 	public class DynamicXmlParserTests {
-		private EndpointResolver _endpointResolver;
+		private RequestCoordinator _requestCoordinator;
 
 		[SetUp]
 		public void SetUp() {
 			IOAuthCredentials oAuthCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
 			IApiUri apiUri = EssentialDependencyCheck<IApiUri>.Instance;
-			var httpGetResolver = new HttpGetResolver();
+			var httpGetResolver = new HttpGetDispatcher();
 			var urlSigner = new UrlSigner();
 
-			_endpointResolver = new EndpointResolver(httpGetResolver, urlSigner, oAuthCredentials, apiUri);
+			_requestCoordinator = new RequestCoordinator(httpGetResolver, urlSigner, oAuthCredentials, apiUri);
 		}
 
 		[Test]
@@ -29,7 +29,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 
 			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters = new Dictionary<string,string> { { "artistId", "1" } } };
 
-			string xml = _endpointResolver.HitEndpoint(endPointInfo);
+			string xml = _requestCoordinator.HitEndpoint(endPointInfo);
 
 			dynamic dx = new DynamicXmlParser(XDocument.Parse(xml));
 
@@ -48,7 +48,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 
 			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters =  new Dictionary<string,string> { { "artistId", "1" } } };
 
-			string xml = _endpointResolver.HitEndpoint(endPointInfo);
+			string xml = _requestCoordinator.HitEndpoint(endPointInfo);
 
 			dynamic dx = new DynamicXmlParser(XDocument.Parse(xml));
 

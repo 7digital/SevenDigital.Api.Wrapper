@@ -13,12 +13,12 @@ namespace SevenDigital.Api.Wrapper
 	public class FluentApi<T> : IFluentApi<T> where T : class
 	{
 		private readonly EndPointInfo _endPointInfo = new EndPointInfo();
-		private readonly IEndpointResolver _endpointResolver;
+		private readonly IRequestCoordinator _requestCoordinator;
 		private readonly IDeSerializer<T> _deserializer;
 
-		public FluentApi(IEndpointResolver endpointResolver)
+		public FluentApi(IRequestCoordinator requestCoordinator)
 		{
-			_endpointResolver = endpointResolver;
+			_requestCoordinator = requestCoordinator;
 
 			_deserializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>(), new XmlErrorHandler());
 
@@ -42,10 +42,10 @@ namespace SevenDigital.Api.Wrapper
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-			: this(new EndpointResolver(new HttpGetResolver(), new UrlSigner(), oAuthCredentials, apiUri)) { }
+			: this(new RequestCoordinator(new HttpGetDispatcher(), new UrlSigner(), oAuthCredentials, apiUri)) { }
 
 		public FluentApi()
-			: this(new EndpointResolver(new HttpGetResolver(), new UrlSigner(), EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance)) { }
+			: this(new RequestCoordinator(new HttpGetDispatcher(), new UrlSigner(), EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance)) { }
 
 
 		public IFluentApi<T> WithEndpoint(string endpoint)
@@ -89,7 +89,7 @@ namespace SevenDigital.Api.Wrapper
 		{
 			try
 			{
-				var output = _endpointResolver.HitEndpoint(_endPointInfo);
+				var output = _requestCoordinator.HitEndpoint(_endPointInfo);
 				return _deserializer.DeSerialize(output);
 			}
 			catch (ApiXmlException apiXmlException)
@@ -101,17 +101,37 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual string EndpointUrl
 		{
-			get { return _endpointResolver.ConstructEndpoint(_endPointInfo); }
+			get { return _requestCoordinator.ConstructEndpoint(_endPointInfo); }
 		}
 
 		public virtual void PleaseAsync(Action<T> callback)
 		{
-			_endpointResolver.HitEndpointAsync(_endPointInfo, PleaseAsyncEnd(callback));
+			_requestCoordinator.HitEndpointAsync(_endPointInfo, PleaseAsyncEnd(callback));
 		}
 
 		public string GetCurrentUri()
 		{
-			return _endpointResolver.ConstructEndpoint(_endPointInfo);
+			return _requestCoordinator.ConstructEndpoint(_endPointInfo);
+		}
+
+		public virtual Response<T> WithHeadersPlease()
+		{
+			try
+			{
+				var output = _requestCoordinator.HitEndpointAndGetResponse(_endPointInfo);
+				var deserialised = _deserializer.DeSerialize(output.Body);
+
+				return new Response<T>()
+						{
+							Body = deserialised,
+							Headers = output.Headers
+						};
+			}
+			catch (ApiXmlException apiXmlException)
+			{
+				apiXmlException.Uri = _endPointInfo.Uri;
+				throw;
+			}
 		}
 
 		internal Action<string> PleaseAsyncEnd(Action<T> callback)

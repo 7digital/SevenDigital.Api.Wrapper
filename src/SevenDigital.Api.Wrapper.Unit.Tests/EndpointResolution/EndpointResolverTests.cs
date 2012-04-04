@@ -10,20 +10,20 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 	[TestFixture]
 	public class EndpointResolverTests
 	{
-		private EndpointResolver _endpointResolver;
+		private RequestCoordinator _requestCoordinator;
 
 		[SetUp]
 		public void Setup()
 		{
-			var urlResolver = A.Fake<IUrlResolver>();
-			A.CallTo(() => urlResolver.Resolve(A<string>.Ignored, A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
+			var urlResolver = A.Fake<IRequestDispatcher>();
+			A.CallTo(() => urlResolver.Dispatch(A<string>.Ignored, A<Dictionary<string, string>>.Ignored))
 				.Returns(string.Empty);
 
 			var apiUri = A.Fake<IApiUri>();
 			A.CallTo(() => apiUri.Uri)
 				.Returns("http://uri/");
 
-			_endpointResolver = new EndpointResolver(urlResolver, new UrlSigner(), new AppSettingsCredentials(), apiUri);
+			_requestCoordinator = new RequestCoordinator(urlResolver, new UrlSigner(), new AppSettingsCredentials(), apiUri);
 		}
 
 		[Test]
@@ -38,7 +38,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 						}
 			};
 
-			var result = _endpointResolver.ConstructEndpoint(endpointInfo);
+			var result = _requestCoordinator.ConstructEndpoint(endpointInfo);
 
 			Assert.That(result,Is.StringContaining("something/routevalue"));
 		}
@@ -58,7 +58,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 						}
 			};
 
-			var result = _endpointResolver.ConstructEndpoint(endpointInfo);
+			var result = _requestCoordinator.ConstructEndpoint(endpointInfo);
 
 			Assert.That(result, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
 		}
@@ -78,7 +78,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 						}
 			};
 
-			var result = _endpointResolver.ConstructEndpoint(endpointInfo);
+			var result = _requestCoordinator.ConstructEndpoint(endpointInfo);
 
 			Assert.That(result, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
 		}
@@ -95,7 +95,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 						}
 			};
 
-			var result = _endpointResolver.ConstructEndpoint(endpointInfo);
+			var result = _requestCoordinator.ConstructEndpoint(endpointInfo);
 
 			Assert.That(result, Is.StringContaining("something/routevalue"));
 		}
@@ -112,7 +112,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 						}
 			};
 
-			var result = _endpointResolver.ConstructEndpoint(endpointInfo);
+			var result = _requestCoordinator.ConstructEndpoint(endpointInfo);
 
 			Assert.That(result, Is.Not.StringContaining("route-66=routevalue"));
 		}
