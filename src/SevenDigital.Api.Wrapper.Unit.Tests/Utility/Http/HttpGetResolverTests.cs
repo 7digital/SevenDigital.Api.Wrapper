@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Utility.Http;
 

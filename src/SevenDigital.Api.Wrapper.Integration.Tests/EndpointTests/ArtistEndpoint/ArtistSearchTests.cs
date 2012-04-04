@@ -15,7 +15,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 				.WithParameter("country", "GB")
 				.Please();
 
-			Assert.That(artist, Is.Not.Null);			
+			Assert.That(artist, Is.Not.Null);
 		}
 
 		[Test]
