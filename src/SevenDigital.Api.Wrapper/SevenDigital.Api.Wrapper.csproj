@@ -72,12 +72,9 @@
     <Compile Include="Utility\Http\HttpClient.cs" />
     <Compile Include="Utility\Http\IHttpClient.cs" />
     <Compile Include="Utility\Http\IRequest.cs" />
-    <Compile Include="Utility\Http\IWebClientFactory.cs" />
-    <Compile Include="Utility\Http\IWebClientWrapper.cs" />
+    <Compile Include="Utility\Http\IResponse.cs" />
     <Compile Include="Utility\Http\Request.cs" />
     <Compile Include="Utility\Http\Response.cs" />
-    <Compile Include="Utility\Http\WebClientFactory.cs" />
-    <Compile Include="Utility\Http\WebClientWrapper.cs" />
     <Compile Include="Utility\Serialization\ApiXmlDeSerializer.cs" />
     <Compile Include="Utility\Serialization\ISerializer.cs" />
     <Compile Include="Utility\Serialization\IDeSerializer.cs" />

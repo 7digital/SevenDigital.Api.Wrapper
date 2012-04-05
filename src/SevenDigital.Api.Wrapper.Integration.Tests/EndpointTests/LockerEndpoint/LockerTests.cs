@@ -5,11 +5,11 @@ using SevenDigital.Api.Schema.LockerEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoint
 {
-    [TestFixture]
-    public class LockerTests
-    {
+	[TestFixture]
+	public class LockerTests
+	{
 		private readonly string _token = ConfigurationManager.AppSettings["Integration.Tests.AccessToken"];
-    	private readonly string _tokenSecret = ConfigurationManager.AppSettings["Integration.Tests.AccessTokenSecret"];
+		private readonly string _tokenSecret = ConfigurationManager.AppSettings["Integration.Tests.AccessTokenSecret"];
 
 		[SetUp]
 		public void RunOnce() {
@@ -17,15 +17,15 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 				Assert.Ignore("these tests need an access token and secret to run");
 		}
 
-    	[Test]
-        public void Should_get_a_users_locker_with_correct_access_credentials()
-        {
+		[Test]
+		public void Should_get_a_users_locker_with_correct_access_credentials()
+		{
 			var locker = Api<Locker>.Get
-                .ForUser(_token, _tokenSecret)
-                .Please();
+				.ForUser(_token, _tokenSecret)
+				.Please();
 
-            Assert.That(locker.LockerReleases.Count, Is.GreaterThan(0));
-        }
+			Assert.That(locker.LockerReleases.Count, Is.GreaterThan(0));
+		}
 
 		[Test]
 		public void Should_get_specific_users_release()
@@ -49,5 +49,5 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 
 			Assert.That(locker.LockerReleases.FirstOrDefault().LockerTracks.Count, Is.EqualTo(1));
 		}
-    }
+	}
 }

@@ -6,18 +6,18 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 {
 	public class HttpClient : IHttpClient
 	{
-		public IResponse<string> Get(IRequest request)
+		public IResponse Get(IRequest request)
 		{
 			throw new NotSupportedException("Need to use async in windows mobile");
 
 		}
 
-		public void GetAsync(IRequest request, Action<IResponse<string>> callback)
+		public void GetAsync(IRequest request, Action<IResponse> callback)
 		{
 			var client = new WebClient();
 			client.DownloadStringCompleted += (s, e) =>
 			{
-				var response = new Response<string>()
+				var response = new Response()
 				{
 					Body = e.Result,
 					Headers = MapHeaders(client.ResponseHeaders)
@@ -28,12 +28,12 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			client.DownloadStringAsync(new Uri(request.Url));
 		}
 
-		public IResponse<string> Post(IRequest request, string data)
+		public IResponse Post(IRequest request, string data)
 		{
 			throw new NotSupportedException("Need to use async in windows mobile");
 		}
 
-		public void PostAsync(IRequest request, string data, Action<IResponse<string>> callback)
+		public void PostAsync(IRequest request, string data, Action<IResponse> callback)
 		{
 			throw new NotImplementedException();
 		}

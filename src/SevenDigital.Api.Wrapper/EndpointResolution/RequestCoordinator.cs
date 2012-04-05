@@ -27,7 +27,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			return HitEndpointAndGetResponse(endPointInfo).Body;
 		}
 
-		public IResponse<string> HitEndpointAndGetResponse(EndPointInfo endPointInfo)
+		public IResponse HitEndpointAndGetResponse(EndPointInfo endPointInfo)
 		{
 			var signedUrl = GetSignedUrl(endPointInfo);
 

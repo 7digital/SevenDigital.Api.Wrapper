@@ -7,7 +7,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 {
 	public class HttpClient : IHttpClient
 	{
-		public IResponse<string> Get(IRequest request)
+		public IResponse Get(IRequest request)
 		{
 			var webRequest = (HttpWebRequest)WebRequest.Create(request.Url);
 			webRequest.Method = "GET";
@@ -34,7 +34,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 				output = sr.ReadToEnd();
 			}
 
-			var response = new Response<string> 
+			var response = new Response 
 			               	{
 			               		Body = output,
 			               		Headers = MapHeaders(webResponse.Headers)
@@ -43,12 +43,12 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return response;
 		}
 
-		public void GetAsync(IRequest request, Action<IResponse<string>> callback)
+		public void GetAsync(IRequest request, Action<IResponse> callback)
 		{
 			var client = new WebClient();
 			client.DownloadDataCompleted += (s, e) =>
 			                                	{
-			                                		var response = new Response<string>()
+			                                		var response = new Response()
 			                                		               	{
 			                                		               		Body = System.Text.Encoding.UTF8.GetString(e.Result),
 			                                		               		Headers = MapHeaders(client.ResponseHeaders)
@@ -58,12 +58,12 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			client.DownloadDataAsync(new Uri(request.Url));
 		}
 
-		public IResponse<string> Post(IRequest request, string data)
+		public IResponse Post(IRequest request, string data)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void PostAsync(IRequest request, string data, Action<IResponse<string>> callback)
+		public void PostAsync(IRequest request, string data, Action<IResponse> callback)
 		{
 			throw new NotImplementedException();
 		}

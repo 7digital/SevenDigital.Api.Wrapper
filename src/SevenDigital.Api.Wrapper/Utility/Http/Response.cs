@@ -1,17 +1,11 @@
 using System.Collections.Generic;
 
 namespace SevenDigital.Api.Wrapper.Utility.Http
-{	
-	public interface IResponse<T>
-	{
-		Dictionary<string, string> Headers { get; }
-		T Body { get; }
-	}
-
-	public class Response<T> : IResponse<T>
+{
+	public class Response : IResponse
 	{
 		public Dictionary<string, string> Headers { get; set; }
-		public T Body { get; set; }
+		public string Body { get; set; }
 
 		public Response() 
 		{
