@@ -5,6 +5,7 @@ using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Schema;
 using System.Threading;
+using SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests
@@ -56,6 +57,16 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			A.CallTo(callWithArtistId123).MustHaveHappened();
 
 		}
+		[Test]
+		public void Should_use_custom_http_client()
+		{
+			var fakeRequestCoordinator = A.Fake<IRequestCoordinator>();
+			var fakeHttpClient = new FakeHttpClient();
+
+			new FluentApi<Status>(fakeRequestCoordinator).UsingClient(fakeHttpClient);
+
+			Assert.That(fakeRequestCoordinator.HttpClient, Is.EqualTo(fakeHttpClient));
+		}
 
 		[Test]
 		public void should_put_payload_in_action_result()
@@ -74,6 +85,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			reset.WaitOne(1000 * 60);
 			Assert.True(true);
 		}
+
+		
 
 		public class FakeRequestCoordinator : IRequestCoordinator
 		{
@@ -95,6 +108,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			public string ConstructEndpoint(EndPointInfo endPointInfo)
 			{
 				throw new NotImplementedException();
+			}
+
+			public IHttpClient HttpClient
+			{
+				get { throw new NotImplementedException(); }
+				set { throw new NotImplementedException(); }
 			}
 
 			public string StubPayload { get; set; }

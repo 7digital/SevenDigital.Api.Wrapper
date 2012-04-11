@@ -58,12 +58,12 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			client.DownloadDataAsync(new Uri(request.Url));
 		}
 
-		public IResponse Post(IRequest request, string data)
+		public IResponse Post(IRequest request)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void PostAsync(IRequest request, string data, Action<IResponse> callback)
+		public void PostAsync(IRequest request, Action<IResponse> callback)
 		{
 			throw new NotImplementedException();
 		}

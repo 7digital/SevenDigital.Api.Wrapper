@@ -1,4 +1,5 @@
 ﻿using System;
+using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper
 {
@@ -11,6 +12,7 @@ namespace SevenDigital.Api.Wrapper
 		IFluentApi<T> ClearParameters();
 		IFluentApi<T> ForUser(string token, string secret);
 		IFluentApi<T> WithEndpoint(string endpoint);
+		IFluentApi<T> UsingClient(IHttpClient httpClient);
 		string EndpointUrl { get; }
 
 		T Please();

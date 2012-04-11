@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
 	public class RequestCoordinator : IRequestCoordinator
 	{
-		private readonly IHttpClient _httpClient;
+		private IHttpClient _httpClient;
 		private readonly IUrlSigner _urlSigner;
 		private readonly IOAuthCredentials _oAuthCredentials;
 		private readonly IApiUri _apiUri;
@@ -22,6 +22,12 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			_apiUri = apiUri;
 		}
 
+		public IHttpClient HttpClient
+		{
+			get { return _httpClient; }
+			set { _httpClient = value; }
+		}
+
 		public virtual string HitEndpoint(EndPointInfo endPointInfo)
 		{
 			return HitEndpointAndGetResponse(endPointInfo).Body;
@@ -31,14 +37,14 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 		{
 			var signedUrl = GetSignedUrl(endPointInfo);
 
-			var request = new Request(signedUrl, endPointInfo.Headers);
+			var request = new Request(signedUrl, endPointInfo.Headers, string.Empty);
 			switch (endPointInfo.HttpMethod.ToUpperInvariant())
 			{
 				case "GET":
-					return _httpClient.Get(request);
+					return HttpClient.Get(request);
 				case "POST":
 					var data = endPointInfo.Parameters.ToQueryString();
-					return _httpClient.Post(request, data);
+					return HttpClient.Post(request);
 				default:
 					throw new NotImplementedException();
 			}
@@ -48,15 +54,15 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 		{
 			var signedUrl = GetSignedUrl(endPointInfo);
 
-			var request = new Request(signedUrl, endPointInfo.Headers);
+			var request = new Request(signedUrl, endPointInfo.Headers, string.Empty);
 			switch (endPointInfo.HttpMethod.ToUpperInvariant())
 			{
 				case "GET":
-					_httpClient.GetAsync(request, (response) => payload(response.Body));
+					HttpClient.GetAsync(request, (response) => payload(response.Body));
 					break;
 				case "POST":
 					var data = endPointInfo.Parameters.ToQueryString();
-					_httpClient.PostAsync(request, data, (response) => payload(response.Body));
+					HttpClient.PostAsync(request, (response) => payload(response.Body));
 					break;
 				default:
 					throw new NotImplementedException();

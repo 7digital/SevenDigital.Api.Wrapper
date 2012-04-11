@@ -54,6 +54,12 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
+		public IFluentApi<T> UsingClient(IHttpClient httpClient)
+		{
+			RequestCoordinator.HttpClient = httpClient;
+			return this;
+		}
+
 		public virtual IFluentApi<T> WithMethod(string methodName)
 		{
 			_endPointInfo.HttpMethod = methodName;
@@ -124,5 +130,10 @@ namespace SevenDigital.Api.Wrapper
 		}
 
 		public IDictionary<string, string> Parameters { get { return _endPointInfo.Parameters; } }
+
+		public IRequestCoordinator RequestCoordinator
+		{
+			get { return _requestCoordinator; }
+		}
 	}
 }

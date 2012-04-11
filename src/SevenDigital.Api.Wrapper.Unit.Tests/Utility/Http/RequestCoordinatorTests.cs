@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Xml;
 using FakeItEasy;
@@ -148,35 +147,4 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 				.Returns(new Response { Body = SERVICE_STATUS });
 		}
 	}
-
-	public class FakeHttpClient : IHttpClient
-	{
-		private readonly IResponse _fakeResponse;
-
-		public FakeHttpClient(IResponse fakeResponse)
-		{
-			_fakeResponse = fakeResponse;
-		}
-
-		public IResponse Get(IRequest request)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void GetAsync(IRequest request, Action<IResponse> callback)
-		{
-			callback(_fakeResponse);
-		}
-
-		public IResponse Post(IRequest request, string data)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void PostAsync(IRequest request, string data, Action<IResponse> callback)
-		{
-			throw new NotImplementedException();
-		}
-	}
-
 }

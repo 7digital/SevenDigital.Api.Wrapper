@@ -13,7 +13,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 			var apiUrl = "http://api.7digital.com/1.2";
 			var consumerKey = new AppSettingsCredentials().ConsumerKey;
 			var request = new Request(string.Format("{0}/status?oauth_consumer_key={1}", apiUrl, consumerKey),
-									  new Dictionary<string, string>());
+									  new Dictionary<string, string>(), string.Empty);
 
 			var response = new HttpClient().Get(request);
 			Assert.That(response.Body, Is.Not.Empty);
