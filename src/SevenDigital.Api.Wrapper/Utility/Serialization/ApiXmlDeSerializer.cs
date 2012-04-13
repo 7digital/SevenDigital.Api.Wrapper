@@ -1,7 +1,4 @@
-﻿using System;
-using SevenDigital.Api.Wrapper.Exceptions;
-
-namespace SevenDigital.Api.Wrapper.Utility.Serialization
+﻿namespace SevenDigital.Api.Wrapper.Utility.Serialization
 {
 	public class ApiXmlDeSerializer<T> : IDeSerializer<T> where T : class
 	{
@@ -15,19 +12,10 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 
 		public T DeSerialize(string response)
 		{
-			try
-			{
-				var responseNode = _xmlErrorHandler.GetResponseAsXml(response);
-				_xmlErrorHandler.AssertError(responseNode);
-				var resourceNode = responseNode.FirstNode.ToString();
-				return _deSerializer.DeSerialize(resourceNode);
-			}
-			catch (Exception e)
-			{
-				if (e is ApiXmlException)
-					throw;
-				throw new ApplicationException("Internal error while deserializing response " + response, e);
-			}
+			var responseNode = _xmlErrorHandler.GetResponseAsXml(response);
+			_xmlErrorHandler.AssertError(responseNode);
+			var resourceNode = responseNode.FirstNode.ToString();
+			return _deSerializer.DeSerialize(resourceNode);
 		}
 	}
 }
