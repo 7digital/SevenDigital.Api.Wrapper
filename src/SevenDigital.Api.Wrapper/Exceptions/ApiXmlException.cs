@@ -9,11 +9,16 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		public Error Error { get; set; }
 		public string Uri { get; set; }
 
-		public ApiXmlException(string message, string errorRepsonse)
-			: base(message)
+		public ApiXmlException(string message, string errorResponse)
+			: this(message, errorResponse, null)
+		{
+		}
+
+		public ApiXmlException(string message, string errorResponse, Exception innerException)
+			: base(message, innerException)
 		{
 			var xmlSerializer = new ApiResourceDeSerializer<Error>();
-			Error = xmlSerializer.DeSerialize(errorRepsonse);
+			Error = xmlSerializer.DeSerialize(errorResponse);
 		}
 	}
 }

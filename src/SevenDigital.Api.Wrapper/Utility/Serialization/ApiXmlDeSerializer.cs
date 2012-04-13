@@ -1,4 +1,7 @@
-﻿namespace SevenDigital.Api.Wrapper.Utility.Serialization
+﻿using System;
+using SevenDigital.Api.Wrapper.Exceptions;
+
+namespace SevenDigital.Api.Wrapper.Utility.Serialization
 {
 	public class ApiXmlDeSerializer<T> : IDeSerializer<T> where T : class
 	{
@@ -15,7 +18,15 @@
 			var responseNode = _xmlErrorHandler.GetResponseAsXml(response);
 			_xmlErrorHandler.AssertError(responseNode);
 			var resourceNode = responseNode.FirstNode.ToString();
-			return _deSerializer.DeSerialize(resourceNode);
+			
+			try
+			{
+				return _deSerializer.DeSerialize(resourceNode);	
+			}
+			catch(InvalidOperationException ioex)
+			{
+				throw new ApiXmlException("Error deserializing response from API", response, ioex);
+			}
 		}
 	}
 }
