@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 			}
 			catch(InvalidOperationException ioex)
 			{
-				throw new ApiXmlException("Error deserializing response from API", response, ioex);
+				throw new ApiXmlException("Error deserializing response from API", ioex);
 			}
 		}
 	}

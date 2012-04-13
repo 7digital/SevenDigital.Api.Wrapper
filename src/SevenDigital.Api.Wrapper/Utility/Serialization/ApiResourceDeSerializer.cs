@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Serialization;
+using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.Exceptions;
 
 namespace SevenDigital.Api.Wrapper.Utility.Serialization
@@ -20,7 +21,10 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 				}
 				catch(InvalidOperationException ioex)
 				{
-					throw new ApiXmlException("Error trying to deserialize error response xml", response, ioex);
+					if (typeof(T) == typeof(Error))
+						throw new ApiXmlException("Error trying to deserialize xml response", response);
+
+					throw new ApiXmlException("Error trying to deserialize error xml response", ioex);
 				}
 			}
 		}
