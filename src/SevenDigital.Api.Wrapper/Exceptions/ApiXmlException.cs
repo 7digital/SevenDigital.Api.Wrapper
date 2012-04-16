@@ -19,6 +19,8 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		public ApiXmlException(string message, Exception innerException)
 			: base(message, innerException)
 		{
+			Error = new Error();
+			Error.ErrorMessage = "Unable to deserialize XML entity";
 		}
 	}
 }
