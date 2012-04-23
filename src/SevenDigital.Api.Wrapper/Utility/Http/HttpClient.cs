@@ -25,6 +25,8 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			}
 			catch (WebException ex)
 			{
+				if (ex.Response == null)
+					throw;
 				webResponse = ex.Response;
 			}
 			
