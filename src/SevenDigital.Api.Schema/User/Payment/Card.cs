@@ -34,5 +34,8 @@ namespace SevenDigital.Api.Schema.User.Payment
 
 		[XmlElement("country")]
 		public string IsoTwoLetterCountryCode { get; set; }
+		
+		[XmlElement("default")]
+		public bool IsDefault { get; set; }
 	}
 }
