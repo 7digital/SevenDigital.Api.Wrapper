@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
+namespace SevenDigital.Api.Schema.OAuth
 {
 	public class OAuthSignedAttribute : Attribute
 	{

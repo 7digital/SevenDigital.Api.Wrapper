@@ -75,6 +75,7 @@
     <Compile Include="EndpointTests\TrackEndpoint\TrackDetailsTests.cs" />
     <Compile Include="EndpointTests\TrackEndpoint\TrackPreviewTests.cs" />
     <Compile Include="EndpointTests\TrackEndpoint\TrackSearchTests.cs" />
+    <Compile Include="EndpointTests\User\Payment\Cards_unit_tests.cs" />
     <Compile Include="Exceptions\ApiXmlExceptionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Http\HttpClientTests.cs" />

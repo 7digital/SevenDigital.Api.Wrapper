@@ -216,6 +216,9 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\ReleaseType.cs">
       <Link>ReleaseEndpoint\ReleaseType.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\RequireSecureAttribute.cs">
+      <Link>RequireSecureAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Status.cs">
       <Link>Status.cs</Link>
     </Compile>
@@ -254,6 +257,12 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackType.cs">
       <Link>TrackEndpoint\TrackType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\Card.cs">
+      <Link>User\Payment\Card.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\Cards.cs">
+      <Link>User\Payment\Cards.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\User\Purchase\BasePurchaseItem.cs">
       <Link>User\Purchase\BasePurchaseItem.cs</Link>

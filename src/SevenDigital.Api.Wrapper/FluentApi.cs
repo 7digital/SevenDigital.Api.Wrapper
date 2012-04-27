@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SevenDigital.Api.Schema;
+using SevenDigital.Api.Schema.OAuth;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Schema.Attributes;
@@ -38,6 +40,13 @@ namespace SevenDigital.Api.Wrapper
 
 			if (isSigned != null)
 				_endPointInfo.IsSigned = true;
+
+			RequireSecureAttribute isSecure = typeof(T).GetCustomAttributes(true)
+											.OfType<RequireSecureAttribute>()
+											.FirstOrDefault();
+
+			if (isSecure != null)
+				_endPointInfo.UseHttps = true;
 
 		}
 

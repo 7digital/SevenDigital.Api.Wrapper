@@ -106,6 +106,7 @@
     <Compile Include="ReleaseEndpoint\ReleaseSearchResult.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseTracks.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseType.cs" />
+    <Compile Include="RequireSecureAttribute.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="Tags\ArtistByTagTop.cs" />
     <Compile Include="Tags\ArtistTags.cs" />
@@ -124,6 +125,8 @@
     <Compile Include="TrackEndpoint\TrackSearch.cs" />
     <Compile Include="TrackEndpoint\TrackSearchResult.cs" />
     <Compile Include="TrackEndpoint\TrackType.cs" />
+    <Compile Include="User\Payment\Card.cs" />
+    <Compile Include="User\Payment\Cards.cs" />
     <Compile Include="User\Purchase\BasePurchaseItem.cs" />
     <Compile Include="User\Purchase\UserPurchaseBasket.cs" />
     <Compile Include="User\Purchase\UserPurchaseItem.cs" />

@@ -76,10 +76,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		private string GetSignedUrl(EndPointInfo endPointInfo)
 		{
-			string apiUri = _apiUri.Uri;
+			string apiUri = endPointInfo.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
+
 			var newDictionary = endPointInfo.Parameters.ToDictionary(entry => entry.Key, entry => entry.Value);
-			if (endPointInfo.UseHttps)
-				apiUri = apiUri.Replace("http://", "https://");
 
 			var uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}",
 				apiUri, SubstituteRouteParameters(endPointInfo.Uri, newDictionary),
