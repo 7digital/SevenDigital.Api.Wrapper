@@ -7,7 +7,6 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 	public class Request : IRequest
 	{
 		private readonly string _url;
-		private readonly string _body;
 		private readonly IDictionary<string, string> _headers;
 		private readonly IDictionary<string, string> _parameters;
 
