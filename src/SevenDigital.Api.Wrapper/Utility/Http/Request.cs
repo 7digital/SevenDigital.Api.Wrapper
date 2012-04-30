@@ -35,11 +35,6 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			get { return _url; }
 		}
 
-		public string Body
-		{
-			get { return _body; }
-		}
-
 		public IDictionary<string, string> Headers
 		{
 			get { return _headers; }
