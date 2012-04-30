@@ -100,9 +100,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 				throw new NotImplementedException();
 			}
 
-			public void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> payload)
+			public void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> callback)
 			{
-				payload(StubPayload);
+				callback(StubPayload);
 			}
 
 			public string ConstructEndpoint(EndPointInfo endPointInfo)

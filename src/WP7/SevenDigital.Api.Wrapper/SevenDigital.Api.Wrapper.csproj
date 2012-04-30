@@ -99,6 +99,15 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\RequestCoordinator.cs">
       <Link>EndpointResolution\RequestCoordinator.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\RequestHandlers\GetRequestHandler.cs">
+      <Link>EndpointResolution\RequestHandlers\GetRequestHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\RequestHandlers\PostRequestHandler.cs">
+      <Link>EndpointResolution\RequestHandlers\PostRequestHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\EndpointResolution\RequestHandlers\RequestHandler.cs">
+      <Link>EndpointResolution\RequestHandlers\RequestHandler.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Exceptions\ApiXmlException.cs">
       <Link>Exceptions\ApiXmlException.cs</Link>
     </Compile>

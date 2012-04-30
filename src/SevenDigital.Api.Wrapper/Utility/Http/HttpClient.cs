@@ -30,18 +30,18 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 					throw;
 				webResponse = ex.Response;
 			}
-			
+
 			var output = string.Empty;
 			using (var sr = new StreamReader(webResponse.GetResponseStream()))
 			{
 				output = sr.ReadToEnd();
 			}
 
-			var response = new Response 
-			               	{
-			               		Body = output,
-			               		Headers = MapHeaders(webResponse.Headers)
-			               	};
+			var response = new Response
+							{
+								Body = output,
+								Headers = MapHeaders(webResponse.Headers)
+							};
 
 			return response;
 		}
@@ -49,28 +49,28 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 		public void GetAsync(IRequest request, Action<IResponse> callback)
 		{
 			var client = new WebClient();
-			client.DownloadDataCompleted += (s, e) =>
-			                                	{
-			                                		var response = new Response()
-			                                		               	{
-			                                		               		Body = System.Text.Encoding.UTF8.GetString(e.Result),
-			                                		               		Headers = MapHeaders(client.ResponseHeaders)
-			                                		               	};
-			                                		callback(response);
-			                                	};
-			client.DownloadDataAsync(new Uri(request.Url));
+			client.DownloadStringCompleted += (s, e) =>
+												{
+													var response = new Response()
+																	{
+																		Body = e.Result,
+																		Headers = MapHeaders(client.ResponseHeaders)
+																	};
+													callback(response);
+												};
+			client.DownloadStringAsync(new Uri(request.Url));
 		}
 
 		public IResponse Post(IRequest request)
 		{
 			var client = new WebClient();
-			
+
 			client.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
-			
+
 			string output;
 			try
 			{
-				output = client.UploadString(request.Url,request.Parameters.ToQueryString());
+				output = client.UploadString(request.Url, request.Parameters.ToQueryString());
 			}
 			catch (WebException ex)
 			{
@@ -83,8 +83,6 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 				}
 			}
 
-			
-
 			var response = new Response
 			{
 				Body = output,
@@ -95,7 +93,21 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 
 		public void PostAsync(IRequest request, Action<IResponse> callback)
 		{
-			throw new NotImplementedException();
+			var client = new WebClient();
+
+			client.UploadStringCompleted += (s, e) =>
+			{
+				var response = new Response()
+				{
+					Body = e.Result,
+					Headers = MapHeaders(client.ResponseHeaders)
+				};
+				callback(response);
+			};
+			
+			
+			client.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+			client.UploadStringAsync(new Uri(request.Url), request.Parameters.ToQueryString());
 		}
 
 		public Dictionary<string, string> MapHeaders(WebHeaderCollection headerCollection)
