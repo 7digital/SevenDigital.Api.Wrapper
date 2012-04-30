@@ -18,7 +18,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 		/// the Uri into a string, it unescapes the oauth signature and if it contains '+' characters
 		/// it will fail.
 		/// </summary>
-		public string SignUrlAsString(string urlWithParameters, string userToken, string userSecret, IOAuthCredentials consumerCredentials)
+		public string SignGetUrl(string urlWithParameters, string userToken, string userSecret, IOAuthCredentials consumerCredentials)
 		{
 			
 			var timeStamp = _oAuthBase.GenerateTimeStamp();
@@ -44,7 +44,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 
 		public Uri SignUrl(string urlWithParameters, string userToken, string userSecret, IOAuthCredentials consumerCredentials)
 		{
-			return new Uri(SignUrlAsString(urlWithParameters, userToken, userSecret, consumerCredentials));
+			return new Uri(SignGetUrl(urlWithParameters, userToken, userSecret, consumerCredentials));
 		}
 
 		public IDictionary<string, string> SignPostRequest(string url, string userToken, string userSecret, 

@@ -30,7 +30,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		{
 			var endpointInfo = new EndPointInfo
 			{
-				Uri = "something/{route}",
+				UriPath = "something/{route}",
 				Parameters = new Dictionary<string, string>
 						{
 							{"route","routevalue"}
@@ -47,7 +47,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		{
 			var endpointInfo = new EndPointInfo
 			{
-				Uri = "something/{firstRoute}/{secondRoute}/thrid/{thirdRoute}",
+				UriPath = "something/{firstRoute}/{secondRoute}/thrid/{thirdRoute}",
 				Parameters = new Dictionary<string, string>
 						{
 							{"firstRoute" , "firstValue"},
@@ -67,7 +67,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		{
 			var endpointInfo = new EndPointInfo
 			{
-				Uri = "something/{firstRoUte}/{secOndrouTe}/thrid/{tHirdRoute}",
+				UriPath = "something/{firstRoUte}/{secOndrouTe}/thrid/{tHirdRoute}",
 				Parameters = new Dictionary<string, string>
 						{
 							{"firstRoute" , "firstValue"},
@@ -87,7 +87,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		{
 			var endpointInfo = new EndPointInfo
 			{
-				Uri = "something/{route-66}",
+				UriPath = "something/{route-66}",
 				Parameters = new Dictionary<string, string>
 						{
 							{"route-66","routevalue"}
@@ -104,7 +104,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		{
 			var endpointInfo = new EndPointInfo
 			{
-				Uri = "something/{route-66}",
+				UriPath = "something/{route-66}",
 				Parameters = new Dictionary<string, string>
 						{
 							{"route-66","routevalue"}

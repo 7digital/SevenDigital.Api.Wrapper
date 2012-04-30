@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using SevenDigital.Api.Wrapper.EndpointResolution;
 
 namespace SevenDigital.Api.Wrapper.Utility.Http
 {
@@ -62,7 +63,34 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 
 		public IResponse Post(IRequest request)
 		{
-			throw new NotImplementedException();
+			var client = new WebClient();
+			
+			client.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+			
+			string output;
+			try
+			{
+				output = client.UploadString(request.Url,request.Parameters.ToQueryString());
+			}
+			catch (WebException ex)
+			{
+				if (ex.Response == null)
+					throw;
+
+				using (var sr = new StreamReader(ex.Response.GetResponseStream()))
+				{
+					output = sr.ReadToEnd();
+				}
+			}
+
+			
+
+			var response = new Response
+			{
+				Body = output,
+			};
+
+			return response;
 		}
 
 		public void PostAsync(IRequest request, Action<IResponse> callback)

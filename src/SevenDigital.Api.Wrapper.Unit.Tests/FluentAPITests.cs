@@ -24,7 +24,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			new FluentApi<Status>(requestCoordinator).Please();
 
 			Expression<Func<string>> callWithEndpointStatus =
-				() => requestCoordinator.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.Uri == "status"));
+				() => requestCoordinator.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.UriPath == "status"));
 
 			A.CallTo(callWithEndpointStatus).MustHaveHappened(Repeated.Exactly.Once);
 		}

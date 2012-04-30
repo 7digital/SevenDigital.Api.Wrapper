@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			Track track = Api<Track>.Get
+			Track track = Api<Track>.Create
 				.ForTrackId(12345)
 				.Please();
 

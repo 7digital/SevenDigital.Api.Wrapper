@@ -4,7 +4,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
 	public class EndPointInfo
 	{
-		public string Uri { get; set; }
+		public string UriPath { get; set; }
 
 		public string HttpMethod { get; set; }
 
@@ -22,7 +22,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		public EndPointInfo()
 		{
-			Uri = string.Empty;
+			UriPath = string.Empty;
 			HttpMethod = "GET";
 			Parameters = new Dictionary<string,string>();
 			Headers = new Dictionary<string,string>();

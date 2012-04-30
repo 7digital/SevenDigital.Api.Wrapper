@@ -13,7 +13,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			ReleaseChart release = Api<ReleaseChart>.Get
+			ReleaseChart release = Api<ReleaseChart>.Create
 				.WithParameter("fromDate", "20110101")
 				.WithParameter("toDate", "20110301")
 				.WithParameter("country", "GB")
@@ -29,7 +29,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			ReleaseChart artistBrowse = Api<ReleaseChart>.Get
+			ReleaseChart artistBrowse = Api<ReleaseChart>.Create
 				.WithParameter("fromDate", "20090610")
 				.WithParameter("toDate", "20110101")
 				.WithParameter("page", "2")
@@ -45,7 +45,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		public void Can_hit_fluent_endpoint() 
 		{
 			var release = Api<ReleaseChart>
-							.Get
+							.Create
 							.WithToDate(new DateTime(2011, 01, 31))
 							.WithPeriod(ChartPeriod.Week)
 							.Please();

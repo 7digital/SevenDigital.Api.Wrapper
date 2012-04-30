@@ -14,7 +14,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 		{
 			// -- Deliberate error response
 			Console.WriteLine("Trying artist/details without artistId parameter...");
-			var apiXmlException = Assert.Throws<ApiXmlException>(() => Api<Artist>.Get.Please());
+			var apiXmlException = Assert.Throws<ApiXmlException>(() => Api<Artist>.Create.Please());
 
 			Assert.That(apiXmlException.Error.Code, Is.EqualTo(1001));
 			Assert.That(apiXmlException.Error.ErrorMessage, Is.EqualTo("Missing parameter artistId."));
@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 		{
 				// -- Deliberate unauthorized response
 				Console.WriteLine("Trying user/locker without any credentials...");
-				var apiXmlException = Assert.Throws<ApiXmlException>(() => Api<Locker>.Get.Please());
+				var apiXmlException = Assert.Throws<ApiXmlException>(() => Api<Locker>.Create.Please());
 				Assert.That(apiXmlException.Error.Code, Is.EqualTo(9001));
 				Assert.That(apiXmlException.Error.ErrorMessage, Is.EqualTo("OAuth authentication error: Resource requires access token"));
 		}

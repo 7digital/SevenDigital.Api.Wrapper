@@ -24,7 +24,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
 			var artist = Api<ArtistTopTracks>
-								.Get
+								.Create
 								.WithArtistId(1)
 								.WithParameter("country", "GB")
 								.Please();

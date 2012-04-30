@@ -6,6 +6,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 	{
 		string Url { get; }
 		string Body { get; }
-		Dictionary<string, string> Headers { get; } 
+		IDictionary<string, string> Headers { get; } 
+		IDictionary<string, string> Parameters { get; } 
 	}
 }

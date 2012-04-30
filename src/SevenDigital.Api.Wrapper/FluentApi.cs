@@ -31,7 +31,7 @@ namespace SevenDigital.Api.Wrapper
 			if (attribute == null)
 				throw new ArgumentException(string.Format("The Type {0} cannot be used in this way, it has no ApiEndpointAttribute", typeof(T)));
 
-			_endPointInfo.Uri = attribute.EndpointUri;
+			_endPointInfo.UriPath = attribute.EndpointUri;
 
 
 			OAuthSignedAttribute isSigned = typeof(T).GetCustomAttributes(true)
@@ -48,6 +48,12 @@ namespace SevenDigital.Api.Wrapper
 			if (isSecure != null)
 				_endPointInfo.UseHttps = true;
 
+			HttpPostAttribute isHttpPost = typeof(T).GetCustomAttributes(true)
+								.OfType<HttpPostAttribute>()
+								.FirstOrDefault();
+			if (isHttpPost != null)
+				_endPointInfo.HttpMethod = "POST";
+
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
@@ -59,7 +65,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public IFluentApi<T> WithEndpoint(string endpoint)
 		{
-			_endPointInfo.Uri = endpoint;
+			_endPointInfo.UriPath = endpoint;
 			return this;
 		}
 
@@ -109,7 +115,7 @@ namespace SevenDigital.Api.Wrapper
 			}
 			catch (ApiXmlException apiXmlException)
 			{
-				apiXmlException.Uri = _endPointInfo.Uri;
+				apiXmlException.Uri = _endPointInfo.UriPath;
 				throw;
 			}
 		}
@@ -122,11 +128,6 @@ namespace SevenDigital.Api.Wrapper
 		public virtual void PleaseAsync(Action<T> callback)
 		{
 			_requestCoordinator.HitEndpointAsync(_endPointInfo, PleaseAsyncEnd(callback));
-		}
-
-		public string GetCurrentUri()
-		{
-			return _requestCoordinator.ConstructEndpoint(_endPointInfo);
 		}
 
 		internal Action<string> PleaseAsyncEnd(Action<T> callback)

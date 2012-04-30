@@ -22,7 +22,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		public void Can_do_similar_to_browse()
 		{
 			var artist = Api<ArtistSearch>
-							.Get
+							.Create
 							.WithQuery("radiohe")
 							.WithParameter("sort","popularity+desc")
 							.Please();
@@ -36,7 +36,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		{
 
 			ArtistSearch artistSearch = Api<ArtistSearch>
-				.Get
+				.Create
 				.WithQuery("pink")
 				.WithParameter("country", "GB")
 				.Please();
@@ -48,7 +48,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			ArtistSearch artistBrowse = Api<ArtistSearch>.Get
+			ArtistSearch artistBrowse = Api<ArtistSearch>.Create
 				.WithParameter("q", "pink")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
@@ -62,7 +62,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
         [Test]
         public void Can_get_multiple_results()
         {
-            ArtistSearch artistSearch = Api<ArtistSearch>.Get
+            ArtistSearch artistSearch = Api<ArtistSearch>.Create
                 .WithParameter("q", "pink")
                 .WithParameter("page", "1")
                 .WithParameter("pageSize", "20")

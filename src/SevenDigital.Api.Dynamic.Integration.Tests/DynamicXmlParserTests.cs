@@ -27,7 +27,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 		public void Can_get_an_artist() {
 			const string endpoint = "artist/details";
 
-			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters = new Dictionary<string,string> { { "artistId", "1" } } };
+			var endPointInfo = new EndPointInfo { UriPath = endpoint, Parameters = new Dictionary<string,string> { { "artistId", "1" } } };
 
 			string xml = _requestCoordinator.HitEndpoint(endPointInfo);
 
@@ -46,7 +46,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 		public void Can_get_an_artists_releases() {
 			const string endpoint = "artist/releases";
 
-			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters =  new Dictionary<string,string> { { "artistId", "1" } } };
+			var endPointInfo = new EndPointInfo { UriPath = endpoint, Parameters =  new Dictionary<string,string> { { "artistId", "1" } } };
 
 			string xml = _requestCoordinator.HitEndpoint(endPointInfo);
 

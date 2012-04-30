@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiEndpointTypeGenerator.cs" />
+    <Compile Include="Attributes\HttpPostAttribute.cs" />
+    <Compile Include="Attributes\RequireSecureAttribute.cs" />
     <Compile Include="Basket\AmountDue.cs" />
     <Compile Include="Basket\Discount.cs" />
     <Compile Include="Basket\DiscountType.cs" />
@@ -106,7 +108,6 @@
     <Compile Include="ReleaseEndpoint\ReleaseSearchResult.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseTracks.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseType.cs" />
-    <Compile Include="RequireSecureAttribute.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="Tags\ArtistByTagTop.cs" />
     <Compile Include="Tags\ArtistTags.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="TrackEndpoint\TrackType.cs" />
     <Compile Include="User\Payment\Card.cs" />
     <Compile Include="User\Payment\Cards.cs" />
+    <Compile Include="User\Payment\DefaultCard.cs" />
     <Compile Include="User\Purchase\BasePurchaseItem.cs" />
     <Compile Include="User\Purchase\UserPurchaseBasket.cs" />
     <Compile Include="User\Purchase\UserPurchaseItem.cs" />

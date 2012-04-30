@@ -31,14 +31,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		public void Should_fire_resolve_with_correct_values()
 		{
 			A.CallTo(() => _httpClient.Get(A<IRequest>.Ignored.Argument))
-				.Returns(new Response{Body = SERVICE_STATUS});
+				.Returns(new Response { Body = SERVICE_STATUS });
 
 			const string expectedMethod = "GET";
 			var expectedHeaders = new Dictionary<string, string>();
 			var expected = string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey);
 
-			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
-		
+			var endPointState = new EndPointInfo { UriPath = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
+
 
 			_requestCoordinator.HitEndpoint(endPointState);
 
@@ -51,7 +51,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		public void Should_fire_resolve_with_url_encoded_parameters()
 		{
 			A.CallTo(() => _httpClient.Get(A<IRequest>.Ignored.Argument))
-				.Returns(new Response {Body = SERVICE_STATUS});
+				.Returns(new Response { Body = SERVICE_STATUS });
 
 			const string unEncodedParameterValue = "Alive & Amplified";
 
@@ -60,7 +60,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
 			var expected = string.Format("{0}/test?oauth_consumer_key={1}&q={2}", API_URL, _consumerKey, expectedParameterValue);
 
-			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = "GET", Headers = expectedHeaders, Parameters = testParameters };
+			var endPointState = new EndPointInfo { UriPath = "test", HttpMethod = "GET", Headers = expectedHeaders, Parameters = testParameters };
 
 			_requestCoordinator.HitEndpoint(endPointState);
 
@@ -72,7 +72,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		[Test]
 		public void Should_not_care_how_many_times_you_create_an_endpoint()
 		{
-			var endPointState = new EndPointInfo { Uri = "{slug}", HttpMethod = "GET", Parameters =new Dictionary<string, string> { { "slug", "something" } }};
+			var endPointState = new EndPointInfo { UriPath = "{slug}", HttpMethod = "GET", Parameters = new Dictionary<string, string> { { "slug", "something" } } };
 			var result = _requestCoordinator.ConstructEndpoint(endPointState);
 
 			Assert.That(result, Is.EqualTo(_requestCoordinator.ConstructEndpoint(endPointState)));
@@ -108,7 +108,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 				 reset.Set();
 			 });
 
-			reset.WaitOne(1000 * 60);
+			reset.WaitOne(1000 * 5);
 			var payload = new XmlDocument();
 			payload.LoadXml(response);
 
@@ -130,7 +130,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			IOAuthCredentials oAuthCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
 			var endpointResolver = new RequestCoordinator(_httpClient, _urlSigner, oAuthCredentials, apiUri);
 
-			var endPointState = new EndPointInfo { Uri = "test", HttpMethod = "GET", Headers = new Dictionary<string, string>() };
+			var endPointState = new EndPointInfo { UriPath = "test", HttpMethod = "GET", Headers = new Dictionary<string, string>() };
 
 			endpointResolver.HitEndpoint(endPointState);
 
@@ -140,6 +140,25 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 				A<IRequest>.That.Matches(x => x.Url.ToString().Contains(expectedApiUri)).Argument))
 				.MustHaveHappened(Repeated.Exactly.Once);
 		}
+
+		[Test]
+		public void Construct_url_should_combine_url_and_query_params_for_get_requests()
+		{
+			const string uriPath = "something";
+			var result = _requestCoordinator.ConstructEndpoint(new EndPointInfo { UriPath = uriPath });
+
+			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath + "?oauth_consumer_key=" + _consumerKey));
+		}
+
+		[Test]
+		public void Construct_url_should_combine_url_and_not_query_params_for_post_requests()
+		{
+			const string uriPath = "something";
+			var result = _requestCoordinator.ConstructEndpoint(new EndPointInfo { UriPath = uriPath,HttpMethod = "POST" });
+
+			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath ));
+		}
+
 
 		private void Given_a_urlresolver_that_returns_valid_xml()
 		{

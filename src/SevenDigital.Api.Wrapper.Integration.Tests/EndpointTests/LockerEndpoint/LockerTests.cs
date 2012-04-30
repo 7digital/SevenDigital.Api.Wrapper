@@ -20,7 +20,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 		[Test]
 		public void Should_get_a_users_locker_with_correct_access_credentials()
 		{
-			var locker = Api<Locker>.Get
+			var locker = Api<Locker>.Create
 				.ForUser(_token, _tokenSecret)
 				.Please();
 
@@ -30,7 +30,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 		[Test]
 		public void Should_get_specific_users_release()
 		{
-			var locker = Api<Locker>.Get
+			var locker = Api<Locker>.Create
 				.ForReleaseId(343418)
 				.ForUser(_token, _tokenSecret)
 				.Please();
@@ -41,7 +41,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 		[Test]
 		public void Should_get_specific_users_track()
 		{
-			var locker = Api<Locker>.Get
+			var locker = Api<Locker>.Create
 				.ForReleaseId(343418)
 				.ForTrackId(3846716)
 				.ForUser(_token, _tokenSecret)

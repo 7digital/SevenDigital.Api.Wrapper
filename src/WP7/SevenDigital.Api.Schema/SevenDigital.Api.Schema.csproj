@@ -60,6 +60,12 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\Attributes\ApiEndpointAttribute.cs">
       <Link>Attributes\ApiEndpointAttribute.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Attributes\HttpPostAttribute.cs">
+      <Link>Attributes\HttpPostAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Attributes\RequireSecureAttribute.cs">
+      <Link>Attributes\RequireSecureAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Basket\AmountDue.cs">
       <Link>Basket\AmountDue.cs</Link>
     </Compile>
@@ -216,9 +222,6 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\ReleaseEndpoint\ReleaseType.cs">
       <Link>ReleaseEndpoint\ReleaseType.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\RequireSecureAttribute.cs">
-      <Link>RequireSecureAttribute.cs</Link>
-    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Status.cs">
       <Link>Status.cs</Link>
     </Compile>
@@ -263,6 +266,9 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\Cards.cs">
       <Link>User\Payment\Cards.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\DefaultCard.cs">
+      <Link>User\Payment\DefaultCard.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\User\Purchase\BasePurchaseItem.cs">
       <Link>User\Purchase\BasePurchaseItem.cs</Link>
@@ -322,7 +328,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

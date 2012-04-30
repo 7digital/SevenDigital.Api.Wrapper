@@ -15,7 +15,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		    var chartDate = DateTime.Today.AddDays(-7);
 
 		    var artist = Api<ArtistChart>
-							.Get
+							.Create
 							.WithToDate(chartDate)
 							.WithPeriod(ChartPeriod.Week)
 							.WithPageSize(20)

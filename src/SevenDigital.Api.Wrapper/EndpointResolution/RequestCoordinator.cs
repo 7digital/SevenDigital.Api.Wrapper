@@ -28,66 +28,18 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			set { _httpClient = value; }
 		}
 
-		public virtual string HitEndpoint(EndPointInfo endPointInfo)
-		{
-			return HitEndpointAndGetResponse(endPointInfo).Body;
-		}
-
-		public IResponse HitEndpointAndGetResponse(EndPointInfo endPointInfo)
-		{
-			var signedUrl = GetSignedUrl(endPointInfo);
-
-			var request = new Request(signedUrl, endPointInfo.Headers, string.Empty);
-			switch (endPointInfo.HttpMethod.ToUpperInvariant())
-			{
-				case "GET":
-					return HttpClient.Get(request);
-				case "POST":
-					var data = endPointInfo.Parameters.ToQueryString();
-					return HttpClient.Post(request);
-				default:
-					throw new NotImplementedException();
-			}
-		}
-
-		public virtual void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> payload)
-		{
-			var signedUrl = GetSignedUrl(endPointInfo);
-
-			var request = new Request(signedUrl, endPointInfo.Headers, string.Empty);
-			switch (endPointInfo.HttpMethod.ToUpperInvariant())
-			{
-				case "GET":
-					HttpClient.GetAsync(request, (response) => payload(response.Body));
-					break;
-				case "POST":
-					var data = endPointInfo.Parameters.ToQueryString();
-					HttpClient.PostAsync(request, (response) => payload(response.Body));
-					break;
-				default:
-					throw new NotImplementedException();
-			}
-		}
-
 		public string ConstructEndpoint(EndPointInfo endPointInfo)
-		{
-			return GetSignedUrl(endPointInfo);
-		}
-
-		private string GetSignedUrl(EndPointInfo endPointInfo)
 		{
 			string apiUri = endPointInfo.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
 
 			var newDictionary = endPointInfo.Parameters.ToDictionary(entry => entry.Key, entry => entry.Value);
 
-			var uriString = string.Format("{0}/{1}?oauth_consumer_key={2}&{3}",
-				apiUri, SubstituteRouteParameters(endPointInfo.Uri, newDictionary),
-				_oAuthCredentials.ConsumerKey,
-				newDictionary.ToQueryString(true)).TrimEnd('&');
+			var uriString = string.Format("{0}/{1}", apiUri, SubstituteRouteParameters(endPointInfo.UriPath, newDictionary));
 
-			if (endPointInfo.IsSigned)
-				uriString = _urlSigner.SignUrlAsString(uriString, endPointInfo.UserToken, endPointInfo.UserSecret, _oAuthCredentials);
-
+			if (endPointInfo.HttpMethod == "GET")
+			{
+				uriString = string.Format("{0}?oauth_consumer_key={1}&{2}", uriString, _oAuthCredentials.ConsumerKey, newDictionary.ToQueryString(true)).TrimEnd('&');
+			}
 			return uriString;
 		}
 
@@ -104,6 +56,78 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			}
 
 			return endpointUri.ToLower();
+		}
+
+
+		public virtual string HitEndpoint(EndPointInfo endPointInfo)
+		{
+			var uri = ConstructEndpoint(endPointInfo);
+
+			switch (endPointInfo.HttpMethod.ToUpperInvariant())
+			{
+				case "GET":
+					var getRequest = GetRequest(endPointInfo, uri);
+					return HttpClient.Get(getRequest).Body;
+				case "POST":
+					var postRequest = PostRequest(endPointInfo, uri);
+					return HttpClient.Post(postRequest).Body;
+				default:
+					throw new NotImplementedException();
+			}
+		}
+
+		private Request GetRequest(EndPointInfo endPointInfo, string uri)
+		{
+			var signedUrl = SignHttpGetUrl(uri, endPointInfo);
+			var getRequest = new Request(signedUrl, endPointInfo.Headers);
+			return getRequest;
+		}
+
+		private Request PostRequest(EndPointInfo endPointInfo, string uri)
+		{
+			var signedParams = SignHttpPostParams(uri, endPointInfo);
+			var postRequest = new Request(uri, endPointInfo.Headers, signedParams);
+			return postRequest;
+		}
+
+		private IDictionary<string, string> SignHttpPostParams(string uri, EndPointInfo endPointInfo)
+		{
+			if (endPointInfo.IsSigned)
+			{
+				return _urlSigner.SignPostRequest(uri, endPointInfo.UserToken, endPointInfo.UserSecret, _oAuthCredentials, endPointInfo.Parameters);
+			}
+
+			return endPointInfo.Parameters;
+		}
+
+		private string SignHttpGetUrl(string uri, EndPointInfo endPointInfo)
+		{
+			if (endPointInfo.IsSigned)
+			{
+				return _urlSigner.SignGetUrl(uri, endPointInfo.UserToken, endPointInfo.UserSecret, _oAuthCredentials);
+			}
+
+			return uri;
+		}
+
+
+		public virtual void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> payload)
+		{
+			var uri = ConstructEndpoint(endPointInfo);
+
+			switch (endPointInfo.HttpMethod.ToUpperInvariant())
+			{
+				case "GET":
+					var getRequest = GetRequest(endPointInfo, uri);
+					HttpClient.GetAsync(getRequest, (response) => payload(response.Body));
+					break;
+				case "POST":
+					var postRequest = PostRequest(endPointInfo, uri);
+					HttpClient.PostAsync(postRequest, (response) => payload(response.Body));
+					break;
+				default:
+					throw new NotImplementedException();
+			}
 		}
 	}
 }

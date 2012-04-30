@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		public void Can_hit_endpoint()
 		{
 
-			ReleaseSearch release = Api<ReleaseSearch>.Get
+			ReleaseSearch release = Api<ReleaseSearch>.Create
 				.WithParameter("q", "no surprises")
 				.WithParameter("type", ReleaseType.Single.ToString())
 				.WithParameter("country", "GB")
@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			ReleaseSearch artistBrowse = Api<ReleaseSearch>.Get
+			ReleaseSearch artistBrowse = Api<ReleaseSearch>.Create
 				.WithParameter("q", "no surprises")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
@@ -39,7 +39,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
         [Test]
         public void Can_get_multiple_results()
         {
-            var artistSearch = Api<ReleaseSearch>.Get
+            var artistSearch = Api<ReleaseSearch>.Create
                 .WithParameter("q", "pink")
                 .WithParameter("page", "1")
                 .WithParameter("pageSize", "20")

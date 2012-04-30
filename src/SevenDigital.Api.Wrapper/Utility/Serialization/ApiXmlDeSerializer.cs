@@ -17,16 +17,20 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 		{
 			var responseNode = _xmlErrorHandler.GetResponseAsXml(response);
 			_xmlErrorHandler.AssertError(responseNode);
-			var resourceNode = responseNode.FirstNode.ToString();
-			
-			try
+
+			if (responseNode.FirstNode != null)
 			{
-				return _deSerializer.DeSerialize(resourceNode);	
+				try
+				{
+					var resourceNode = responseNode.FirstNode.ToString();
+					return _deSerializer.DeSerialize(resourceNode);
+				}
+				catch (InvalidOperationException ioex)
+				{
+					throw new ApiXmlException("Error deserializing response from API", ioex);
+				}
 			}
-			catch(InvalidOperationException ioex)
-			{
-				throw new ApiXmlException("Error deserializing response from API", ioex);
-			}
+			return Activator.CreateInstance<T>();
 		}
 	}
 }
