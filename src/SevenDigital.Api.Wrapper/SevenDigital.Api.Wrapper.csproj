@@ -46,6 +46,7 @@
     <Compile Include="EndpointResolution\RequestHandlers\PostRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\RequestHandler.cs" />
     <Compile Include="Exceptions\MissingDependencyException.cs" />
+    <Compile Include="Extensions\HasCardIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasIpAddressParameter.cs" />
     <Compile Include="Extensions\HasPurchaseIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasArtistIdParameterExtensions.cs" />

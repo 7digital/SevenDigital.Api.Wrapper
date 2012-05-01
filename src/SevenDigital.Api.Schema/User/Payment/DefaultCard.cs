@@ -1,6 +1,7 @@
 ﻿using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Schema.OAuth;
 using System;
+using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 
 namespace SevenDigital.Api.Schema.User.Payment
 {
@@ -9,7 +10,7 @@ namespace SevenDigital.Api.Schema.User.Payment
 	[RequireSecure]
 	[Serializable]
 	[HttpPost]
-	public class DefaultCard
+	public class DefaultCard : HasCardIdParameter
 	{
 	}
 }

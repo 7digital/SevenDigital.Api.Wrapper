@@ -53,6 +53,7 @@
     <Compile Include="ITypeGenerator.cs" />
     <Compile Include="ParameterDefinitions\Get\HasArtistIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasBasketParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasCardIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasChartParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasIpAddressParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasKeyParameter.cs" />
