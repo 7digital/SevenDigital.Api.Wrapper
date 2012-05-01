@@ -130,6 +130,7 @@
     <Compile Include="User\Payment\Card.cs" />
     <Compile Include="User\Payment\Cards.cs" />
     <Compile Include="User\Payment\DefaultCard.cs" />
+    <Compile Include="User\Payment\DeleteCard.cs" />
     <Compile Include="User\Purchase\BasePurchaseItem.cs" />
     <Compile Include="User\Purchase\UserPurchaseBasket.cs" />
     <Compile Include="User\Purchase\UserPurchaseItem.cs" />

@@ -273,6 +273,9 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\DefaultCard.cs">
       <Link>User\Payment\DefaultCard.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\DeleteCard.cs">
+      <Link>User\Payment\DeleteCard.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\User\Purchase\BasePurchaseItem.cs">
       <Link>User\Purchase\BasePurchaseItem.cs</Link>
     </Compile>
