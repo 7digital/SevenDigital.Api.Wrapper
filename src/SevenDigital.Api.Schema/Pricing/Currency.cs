@@ -3,7 +3,6 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.Pricing
 {
-	
 	[XmlRoot("currency")]
 	[Serializable]
 	public class Currency

@@ -3,12 +3,13 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.User.Payment
 {
-	[XmlRoot("card")]
 	[Serializable]
+	[XmlRoot("card")]
 	public class Card
 	{
 		[XmlAttribute("id")]
 		public int Id { get; set; }
+
 		[XmlElement("type")]
 		public string Type { get; set; }
 
@@ -34,7 +35,7 @@ namespace SevenDigital.Api.Schema.User.Payment
 
 		[XmlElement("country")]
 		public string IsoTwoLetterCountryCode { get; set; }
-		
+
 		[XmlElement("default")]
 		public bool IsDefault { get; set; }
 	}

@@ -54,6 +54,8 @@
     <Compile Include="ApiUri.cs" />
     <Compile Include="AppSettingsCredentials.cs" />
     <Compile Include="BasketEndpoint\BasketEndpointTests.cs" />
+    <Compile Include="Deserialisation\User\Payment\Cards_unit_tests.cs" />
+    <Compile Include="Deserialisation\User\Payment\AddCardsTests.cs" />
     <Compile Include="EndpointResolution\EndpointResolverTests.cs" />
     <Compile Include="EndpointResolution\OAuth\UrlSignerTests.cs" />
     <Compile Include="FluentAPITests.cs" />

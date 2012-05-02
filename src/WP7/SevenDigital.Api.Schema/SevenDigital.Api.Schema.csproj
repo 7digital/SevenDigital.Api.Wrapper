@@ -192,6 +192,12 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasUserDeliverItemParameter.cs">
       <Link>ParameterDefinitions\Get\HasUserDeliverItemParameter.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Post\AddCardParameters.cs">
+      <Link>ParameterDefinitions\Post\AddCardParameters.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Post\HasAddCardParameter.cs">
+      <Link>ParameterDefinitions\Post\HasAddCardParameter.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Pricing\Currency.cs">
       <Link>Pricing\Currency.cs</Link>
     </Compile>
@@ -264,6 +270,9 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackType.cs">
       <Link>TrackEndpoint\TrackType.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\AddCard.cs">
+      <Link>User\Payment\AddCard.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\Card.cs">
       <Link>User\Payment\Card.cs</Link>
     </Compile>
@@ -328,9 +337,7 @@
       <HintPath>..\..\..\lib\Windows Phone 7\System.Xml.Serialization.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ParameterDefinitions\Post\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

@@ -114,6 +114,9 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Exceptions\MissingDependencyException.cs">
       <Link>Exceptions\MissingDependencyException.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasAddCardParameterExtensions.cs">
+      <Link>Extensions\HasAddCardParameterExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasArtistIdParameterExtensions.cs">
       <Link>Extensions\HasArtistIdParameterExtensions.cs</Link>
     </Compile>
