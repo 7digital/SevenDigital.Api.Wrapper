@@ -70,6 +70,7 @@
     <Compile Include="OAuth\OAuthSignedAttribute.cs" />
     <Compile Include="ParameterDefinitions\Post\AddCardParameters.cs" />
     <Compile Include="ParameterDefinitions\Post\HasAddCardParameter.cs" />
+    <Compile Include="Payment\PaymentCardTypes.cs" />
     <Compile Include="Pricing\PriceStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Chart\ChartPeriod.cs" />
