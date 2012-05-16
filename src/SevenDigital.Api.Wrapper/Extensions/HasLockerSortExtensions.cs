@@ -1,0 +1,15 @@
+﻿using SevenDigital.Api.Schema.ParameterDefinitions.Get;
+using SevenDigital.Api.Wrapper.Extensions;
+
+namespace SevenDigital.Api.Wrapper
+{
+	public static class HasLockerSortExtensions
+	{
+		public static IFluentApi<T> Sort<T>(this IFluentApi<T> api, LockerSortColumn sortBy, SortOrder sortOrder) where T : HasLockerSort
+		{
+			var sortConcatenation = sortBy.GetDescription() + "%20" + sortOrder.GetDescription();
+			api.WithParameter("sort", sortConcatenation);
+			return api;
+		}
+	}
+}

@@ -10,7 +10,7 @@ namespace SevenDigital.Api.Schema.LockerEndpoint
 	[ApiEndpoint("user/locker")]
 	[XmlRoot("locker")]
 	[OAuthSigned]
-	public class Locker : HasPaging, HasReleaseIdParameter, HasTrackIdParameter, HasPurchaseIdParameter
+	public class Locker : HasPaging, HasReleaseIdParameter, HasTrackIdParameter, HasPurchaseIdParameter, HasLockerSort
 	{
 		[XmlArray("lockerReleases")]
 		[XmlArrayItem("lockerRelease")]

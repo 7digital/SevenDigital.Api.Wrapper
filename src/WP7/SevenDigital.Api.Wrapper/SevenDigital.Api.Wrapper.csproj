@@ -114,6 +114,9 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Exceptions\MissingDependencyException.cs">
       <Link>Exceptions\MissingDependencyException.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\EnumExtensions.cs">
+      <Link>Extensions\EnumExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasAddCardParameterExtensions.cs">
       <Link>Extensions\HasAddCardParameterExtensions.cs</Link>
     </Compile>
@@ -134,6 +137,9 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasLetterParameterExtensions.cs">
       <Link>Extensions\HasLetterParameterExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasLockerSortExtensions.cs">
+      <Link>Extensions\HasLockerSortExtensions.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasPagingExtensions.cs">
       <Link>Extensions\HasPagingExtensions.cs</Link>
@@ -158,6 +164,12 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\HasUserDeliverItemParameterExtensions.cs">
       <Link>Extensions\HasUserDeliverItemParameterExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\LockerSortColumn.cs">
+      <Link>Extensions\LockerSortColumn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Extensions\SortOrder.cs">
+      <Link>Extensions\SortOrder.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\FluentApi.cs">
       <Link>FluentApi.cs</Link>

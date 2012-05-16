@@ -58,6 +58,7 @@
     <Compile Include="ParameterDefinitions\Get\HasIpAddressParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasKeyParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasLetterParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasLockerSort.cs" />
     <Compile Include="ParameterDefinitions\Get\HasPriceParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasPurchaseIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasReleaseIdParameter.cs" />
