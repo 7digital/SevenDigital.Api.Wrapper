@@ -24,7 +24,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 				.ForUser(_token, _tokenSecret)
 				.Please();
 
-			Assert.That(locker.LockerReleases.Count, Is.GreaterThan(0));
+			Assert.That(locker.Response.LockerReleases.Count, Is.GreaterThan(0));
 		}
 
 		[Test]
@@ -35,7 +35,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 				.ForUser(_token, _tokenSecret)
 				.Please();
 
-			Assert.That(locker.LockerReleases.Count, Is.EqualTo(1));
+			Assert.That(locker.Response.LockerReleases.Count, Is.EqualTo(1));
 		}
 
 		[Test]
@@ -47,7 +47,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 				.ForUser(_token, _tokenSecret)
 				.Please();
 
-			Assert.That(locker.LockerReleases.FirstOrDefault().LockerTracks.Count, Is.EqualTo(1));
+			Assert.That(locker.Response.LockerReleases.FirstOrDefault().LockerTracks.Count, Is.EqualTo(1));
 		}
 	}
 }

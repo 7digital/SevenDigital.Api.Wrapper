@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace SevenDigital.Api.Schema
 {
 	[Serializable]
-	public abstract class HasPaging
+	public abstract class HasPaging : IHasPaging
 	{
 		[XmlElement("page")]
 		public int Page { get; set; }
@@ -14,5 +14,9 @@ namespace SevenDigital.Api.Schema
 
 		[XmlElement("totalItems")]
 		public int TotalItems { get; set; }
+	}
+
+	public interface IHasPaging
+	{
 	}
 }

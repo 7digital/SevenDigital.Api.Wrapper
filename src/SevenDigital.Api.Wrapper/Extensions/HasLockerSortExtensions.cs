@@ -7,7 +7,7 @@ namespace SevenDigital.Api.Wrapper
 	{
 		public static IFluentApi<T> Sort<T>(this IFluentApi<T> api, LockerSortColumn sortBy, SortOrder sortOrder) where T : HasLockerSort
 		{
-			var sortConcatenation = sortBy.GetDescription() + "%20" + sortOrder.GetDescription();
+			var sortConcatenation = sortBy.GetDescription() +  " " + sortOrder.GetDescription();
 			api.WithParameter("sort", sortConcatenation);
 			return api;
 		}
