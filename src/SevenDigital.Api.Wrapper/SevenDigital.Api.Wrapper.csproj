@@ -62,6 +62,7 @@
     <Compile Include="Extensions\HasReleaseIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasReleaseTypeParameterExtensions.cs" />
     <Compile Include="Extensions\HasSearchParameterExtensions.cs" />
+    <Compile Include="Extensions\HasTagsExtensions.cs" />
     <Compile Include="Extensions\HasTrackIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasUserDeliverItemParameterExtensions.cs" />
     <Compile Include="Extensions\LockerSortColumn.cs" />

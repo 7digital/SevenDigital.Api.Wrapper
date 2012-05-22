@@ -189,6 +189,9 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasSearchParameter.cs">
       <Link>ParameterDefinitions\Get\HasSearchParameter.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasTags.cs">
+      <Link>ParameterDefinitions\Get\HasTags.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasTrackIdParameter.cs">
       <Link>ParameterDefinitions\Get\HasTrackIdParameter.cs</Link>
     </Compile>
@@ -254,6 +257,9 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Tags\TaggedArtists.cs">
       <Link>Tags\TaggedArtists.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Tags\TaggedRelease.cs">
+      <Link>Tags\TaggedRelease.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Tags\Tags.cs">
       <Link>Tags\Tags.cs</Link>

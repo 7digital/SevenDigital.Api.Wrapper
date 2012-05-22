@@ -64,6 +64,7 @@
     <Compile Include="ParameterDefinitions\Get\HasReleaseIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasReleaseTypeParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasSearchParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasTags.cs" />
     <Compile Include="ParameterDefinitions\Get\HasTrackIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasUserDeliverItemParameter.cs" />
     <Compile Include="Merchandising\MerchandisingList.cs" />
@@ -122,7 +123,7 @@
     <Compile Include="Tags\RelatedTags.cs" />
     <Compile Include="Tags\Tag.cs" />
     <Compile Include="Tags\TaggedArtists.cs" />
-    <Compile Include="Tags\TaggedReleases.cs" />
+    <Compile Include="Tags\TaggedRelease.cs" />
     <Compile Include="Tags\Tags.cs" />
     <Compile Include="Territories\GeoIpLookup.cs" />
     <Compile Include="TrackEndpoint\Track.cs" />

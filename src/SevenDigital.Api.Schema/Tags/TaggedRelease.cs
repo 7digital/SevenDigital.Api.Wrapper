@@ -4,7 +4,7 @@ using SevenDigital.Api.Schema.ReleaseEndpoint;
 namespace SevenDigital.Api.Schema.Tags
 {
 	[XmlRoot("taggedItem")]
-	public class TaggedReleases
+	public class TaggedRelease
 	{
 		[XmlElement("release")]
 		public Release Release { get; set; }
