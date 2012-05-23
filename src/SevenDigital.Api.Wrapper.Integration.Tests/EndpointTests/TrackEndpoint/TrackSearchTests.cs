@@ -17,7 +17,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 
 			Assert.That(release, Is.Not.Null);
 			Assert.That(release.Results.Count, Is.GreaterThan(0));
-			Assert.That(release.Results.FirstOrDefault().Type, Is.EqualTo(ItemType.track));
+			Assert.That(release.Results.FirstOrDefault().Type, Is.EqualTo(TrackType.track));
 		}
 
 		[Test]
