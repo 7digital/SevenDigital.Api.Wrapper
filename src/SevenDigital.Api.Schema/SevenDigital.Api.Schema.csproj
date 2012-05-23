@@ -122,7 +122,7 @@
     <Compile Include="Tags\ReleaseTags.cs" />
     <Compile Include="Tags\RelatedTags.cs" />
     <Compile Include="Tags\Tag.cs" />
-    <Compile Include="Tags\TaggedArtists.cs" />
+    <Compile Include="Tags\TaggedArtist.cs" />
     <Compile Include="Tags\TaggedRelease.cs" />
     <Compile Include="Tags\Tags.cs" />
     <Compile Include="Territories\GeoIpLookup.cs" />

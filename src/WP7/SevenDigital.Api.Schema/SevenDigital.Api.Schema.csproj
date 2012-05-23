@@ -255,8 +255,8 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\Tags\Tag.cs">
       <Link>Tags\Tag.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\Tags\TaggedArtists.cs">
-      <Link>Tags\TaggedArtists.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Tags\TaggedArtist.cs">
+      <Link>Tags\TaggedArtist.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Tags\TaggedRelease.cs">
       <Link>Tags\TaggedRelease.cs</Link>

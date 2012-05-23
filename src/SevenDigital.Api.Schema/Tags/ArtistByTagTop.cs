@@ -12,6 +12,6 @@ namespace SevenDigital.Api.Schema.Tags
 		public ItemType Type { get; set; }
 
 		[XmlElement("taggedItem")]
-		public List<TaggedArtists> TaggedArtists { get; set; }
+		public List<TaggedArtist> TaggedArtists { get; set; }
 	}
 }
