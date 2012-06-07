@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using SevenDigital.Api.Schema.OAuth;
@@ -16,7 +17,7 @@ namespace SevenDigital.Api.Schema.LockerEndpoint
 		public LockerResponse Response { get; set; }
 	}
 
-
+	[Serializable]
 	public class LockerResponse : HasPaging
 	{
 		[XmlElement("lockerRelease")]
