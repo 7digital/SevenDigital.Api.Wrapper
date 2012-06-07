@@ -2,6 +2,7 @@
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
+	[Serializable]
 	public class MissingDependencyException : Exception
 	{
 		public MissingDependencyException(Type dependency)

@@ -4,6 +4,7 @@ using SevenDigital.Api.Wrapper.Utility.Serialization;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
+	[Serializable]
 	public class ApiXmlException : Exception
 	{
 		public Error Error { get; set; }
