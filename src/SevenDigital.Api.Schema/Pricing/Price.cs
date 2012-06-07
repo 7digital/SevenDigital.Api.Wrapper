@@ -30,13 +30,22 @@ namespace SevenDigital.Api.Schema.Pricing
 		{
 			get
 			{
-				if (Value == "0" && Rrp == "0")
+				if (PriceIsZero())
 					return PriceStatus.Free;
 				if(string.IsNullOrEmpty(Value) && FormattedPrice == "N/A")
 					return PriceStatus.UnAvailable;
 
 				return PriceStatus.Available;
 			}
+		}
+
+		private bool PriceIsZero()
+		{
+			decimal value;
+			if (decimal.TryParse(Value, out value))
+				return value == 0;
+			
+			return false;
 		}
 	}
 }
