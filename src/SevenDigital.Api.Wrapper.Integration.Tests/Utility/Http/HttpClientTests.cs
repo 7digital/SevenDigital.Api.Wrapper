@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
@@ -7,17 +10,90 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 	[TestFixture]
 	public class HttpClientTests
 	{
+		private const string ApiUrl = "http://api.7digital.com/1.2";
+		private string ConsumerKey;
+		private readonly TimeSpan AsyncTimeout = new TimeSpan(0, 0, 0, 20);
+
+		[SetUp]
+		public void Setup()
+		{
+			ConsumerKey = new AppSettingsCredentials().ConsumerKey;
+		}
+
 		[Test]
 		public void Can_resolve_uri()
 		{
-			var apiUrl = "http://api.7digital.com/1.2";
-			var consumerKey = new AppSettingsCredentials().ConsumerKey;
-			var request = new Request(string.Format("{0}/status?oauth_consumer_key={1}", apiUrl, consumerKey),
-									  new Dictionary<string, string>());
+			string url = string.Format("{0}/status?oauth_consumer_key={1}", ApiUrl, ConsumerKey);
+			var request = new Request(url,  new Dictionary<string, string>());
 
 			var response = new HttpClient().Get(request);
-			Assert.That(response.Body, Is.Not.Empty);
-			Assert.That(response.Headers.Count, Is.GreaterThan(0));
+			AssertResponse(response, HttpStatusCode.OK);
+		}
+
+		[Test]
+		public void Can_resolve_uri_async()
+		{
+			string url = string.Format("{0}/status?oauth_consumer_key={1}", ApiUrl, ConsumerKey);
+			var request = new Request(url, new Dictionary<string, string>());
+
+			AutoResetEvent autoResetEvent = new AutoResetEvent(false);
+			IResponse response = null;
+
+			Action<IResponse> callback = callbackResponse =>
+			{
+				response = callbackResponse;
+				autoResetEvent.Set();
+			};
+
+			new HttpClient().GetAsync(request, callback);
+
+			var signalled = autoResetEvent.WaitOne(AsyncTimeout);
+			Assert.That(signalled, Is.True, "event was not signalled");
+
+			AssertResponse(response, HttpStatusCode.OK);
+		}
+
+		[Test]
+		public void Bad_url_should_returns_not_found()
+		{
+			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, ConsumerKey);
+			var request = new Request(url, new Dictionary<string, string>());
+
+			var response = new HttpClient().Get(request);
+			AssertResponse(response, HttpStatusCode.NotFound);
+		}
+
+		[Test]
+		public void Bad_url_should_return_not_found_async()
+		{
+			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, ConsumerKey);
+			var request = new Request(url, new Dictionary<string, string>());
+
+			AutoResetEvent autoResetEvent = new AutoResetEvent(false);
+			IResponse response = null;
+
+			Action<IResponse> callback = callbackResponse =>
+			{
+				response = callbackResponse;
+				autoResetEvent.Set();
+			};
+
+			new HttpClient().GetAsync(request, callback);
+
+			var signalled = autoResetEvent.WaitOne(AsyncTimeout);
+			Assert.That(signalled, Is.True, "event was not signalled");
+
+			AssertResponse(response, HttpStatusCode.NotFound);
+		}
+
+		[Test]
+		public void No_key_should_return_unauthorized()
+		{
+			string url = string.Format("{0}/status", ApiUrl);
+			var request = new Request(url, new Dictionary<string, string>());
+
+			var response = new HttpClient().Get(request);
+			AssertResponse(response, HttpStatusCode.Unauthorized);
 		}
 
 		[Test]
@@ -30,8 +106,59 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 			var request = new Request(apiUrl, new Dictionary<string, string>());
 
 			var response = new HttpClient().Get(request);
-			Assert.That(response.Body, Is.Not.Empty);
+			AssertResponse(response, HttpStatusCode.OK);
+		}
+
+
+		[Test]
+		public void bad_url_post_returns_not_found()
+		{
+			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, ConsumerKey);
+			var parameters = new Dictionary<string, string>
+				{
+					{"foo", "bar"}
+				};
+
+			var request = new Request(url, new Dictionary<string, string>(), parameters);
+
+			var response = new HttpClient().Post(request);
+			AssertResponse(response, HttpStatusCode.NotFound);
+		}
+
+		[Test]
+		public void bad_url_post_returns_not_found_async()
+		{
+			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, ConsumerKey);
+			var parameters = new Dictionary<string, string>
+				{
+					{"foo", "bar"}
+				};
+
+			var request = new Request(url, new Dictionary<string, string>(), parameters);
+
+			AutoResetEvent autoResetEvent = new AutoResetEvent(false);
+			IResponse response = null;
+
+			Action<IResponse> callback = callbackResponse =>
+			{
+				response = callbackResponse;
+				autoResetEvent.Set();
+			};
+
+			new HttpClient().PostAsync(request, callback);
+
+			var signalled = autoResetEvent.WaitOne(AsyncTimeout);
+			Assert.That(signalled, Is.True, "event was not signalled");
+
+			AssertResponse(response, HttpStatusCode.NotFound);
+		}
+
+		private static void AssertResponse(IResponse response, HttpStatusCode expectedCode)
+		{
+			Assert.That(response, Is.Not.Null);
+			Assert.That(response.StatusCode, Is.EqualTo(expectedCode));
 			Assert.That(response.Headers.Count, Is.GreaterThan(0));
+			Assert.That(response.Body, Is.Not.Empty);
 		}
 	}
 }

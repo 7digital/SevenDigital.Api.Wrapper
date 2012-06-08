@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net;
 
 namespace SevenDigital.Api.Wrapper.Utility.Http
 {
@@ -6,5 +7,6 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 	{
 		Dictionary<string, string> Headers { get; }
 		string Body { get; }
+		HttpStatusCode StatusCode { get; }
 	}
 }
