@@ -11,19 +11,19 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 	public class HttpClientTests
 	{
 		private const string ApiUrl = "http://api.7digital.com/1.2";
-		private string ConsumerKey;
 		private readonly TimeSpan AsyncTimeout = new TimeSpan(0, 0, 0, 20);
+		private string consumerKey;
 
 		[SetUp]
 		public void Setup()
 		{
-			ConsumerKey = new AppSettingsCredentials().ConsumerKey;
+			consumerKey = new AppSettingsCredentials().ConsumerKey;
 		}
 
 		[Test]
 		public void Can_resolve_uri()
 		{
-			string url = string.Format("{0}/status?oauth_consumer_key={1}", ApiUrl, ConsumerKey);
+			string url = string.Format("{0}/status?oauth_consumer_key={1}", ApiUrl, consumerKey);
 			var request = new Request(url,  new Dictionary<string, string>());
 
 			var response = new HttpClient().Get(request);
@@ -33,7 +33,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 		[Test]
 		public void Can_resolve_uri_async()
 		{
-			string url = string.Format("{0}/status?oauth_consumer_key={1}", ApiUrl, ConsumerKey);
+			string url = string.Format("{0}/status?oauth_consumer_key={1}", ApiUrl, consumerKey);
 			var request = new Request(url, new Dictionary<string, string>());
 
 			AutoResetEvent autoResetEvent = new AutoResetEvent(false);
@@ -54,9 +54,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 		}
 
 		[Test]
-		public void Bad_url_should_returns_not_found()
+		public void Bad_url_should_return_not_found()
 		{
-			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, ConsumerKey);
+			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, consumerKey);
 			var request = new Request(url, new Dictionary<string, string>());
 
 			var response = new HttpClient().Get(request);
@@ -66,7 +66,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 		[Test]
 		public void Bad_url_should_return_not_found_async()
 		{
-			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, ConsumerKey);
+			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, consumerKey);
 			var request = new Request(url, new Dictionary<string, string>());
 
 			AutoResetEvent autoResetEvent = new AutoResetEvent(false);
@@ -111,9 +111,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 
 
 		[Test]
-		public void bad_url_post_returns_not_found()
+		public void bad_url_post__should_return_not_found()
 		{
-			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, ConsumerKey);
+			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, consumerKey);
 			var parameters = new Dictionary<string, string>
 				{
 					{"foo", "bar"}
@@ -126,9 +126,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 		}
 
 		[Test]
-		public void bad_url_post_returns_not_found_async()
+		public void bad_url_post_should_return_not_found_async()
 		{
-			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, ConsumerKey);
+			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, consumerKey);
 			var parameters = new Dictionary<string, string>
 				{
 					{"foo", "bar"}
@@ -155,10 +155,10 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 
 		private static void AssertResponse(IResponse response, HttpStatusCode expectedCode)
 		{
-			Assert.That(response, Is.Not.Null);
-			Assert.That(response.StatusCode, Is.EqualTo(expectedCode));
-			Assert.That(response.Headers.Count, Is.GreaterThan(0));
-			Assert.That(response.Body, Is.Not.Empty);
+			Assert.That(response, Is.Not.Null, "No response");
+			Assert.That(response.StatusCode, Is.EqualTo(expectedCode), "Unexpected http status code");
+			Assert.That(response.Headers.Count, Is.GreaterThan(0), "No headers found");
+			Assert.That(response.Body, Is.Not.Empty, "No response body found");
 		}
 	}
 }
