@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Xml;
 using FakeItEasy;
@@ -14,6 +15,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 	{
 		private const string API_URL = "http://api.7digital.com/1.2";
 		private const string SERVICE_STATUS = "<response status=\"ok\" version=\"1.2\" ><serviceStatus><serverTime>2011-03-04T08:10:29Z</serverTime></serviceStatus></response>";
+
 		private readonly string _consumerKey = new AppSettingsCredentials().ConsumerKey;
 		private IHttpClient _httpClient;
 		private RequestCoordinator _requestCoordinator;
@@ -31,7 +33,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		public void Should_fire_resolve_with_correct_values()
 		{
 			A.CallTo(() => _httpClient.Get(A<IRequest>.Ignored.Argument))
-				.Returns(new Response { Body = SERVICE_STATUS });
+				.Returns(new Response
+					{
+						Body = SERVICE_STATUS,
+						StatusCode = HttpStatusCode.OK
+					});
 
 			const string expectedMethod = "GET";
 			var expectedHeaders = new Dictionary<string, string>();
@@ -51,7 +57,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		public void Should_fire_resolve_with_url_encoded_parameters()
 		{
 			A.CallTo(() => _httpClient.Get(A<IRequest>.Ignored.Argument))
-				.Returns(new Response { Body = SERVICE_STATUS });
+				.Returns(new Response
+					{
+						Body = SERVICE_STATUS,
+						StatusCode = HttpStatusCode.OK
+					});
 
 			const string unEncodedParameterValue = "Alive & Amplified";
 
@@ -72,7 +82,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		[Test]
 		public void Should_not_care_how_many_times_you_create_an_endpoint()
 		{
-			var endPointState = new EndPointInfo { UriPath = "{slug}", HttpMethod = "GET", Parameters = new Dictionary<string, string> { { "slug", "something" } } };
+			var endPointState = new EndPointInfo
+				{
+					UriPath = "{slug}", 
+					HttpMethod = "GET", 
+					Parameters = new Dictionary<string, string> { { "slug", "something" } }
+				};
 			var result = _requestCoordinator.ConstructEndpoint(endPointState);
 
 			Assert.That(result, Is.EqualTo(_requestCoordinator.ConstructEndpoint(endPointState)));
@@ -85,7 +100,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 
 			var response = _requestCoordinator.HitEndpoint(new EndPointInfo());
 			var hitEndpoint = new XmlDocument();
-			hitEndpoint.LoadXml(response);
+			hitEndpoint.LoadXml(response.Body);
 			Assert.That(hitEndpoint.HasChildNodes);
 			Assert.That(hitEndpoint.SelectSingleNode("//serverTime"), Is.Not.Null);
 		}
@@ -94,7 +109,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		[Test]
 		public void Should_return_xmlnode_if_valid_xml_received_using_async()
 		{
-			var fakeClient = new FakeHttpClient(new Response() { Body = SERVICE_STATUS });
+			var fakeClient = new FakeHttpClient(new Response
+				{
+					StatusCode = HttpStatusCode.OK,
+					Body = SERVICE_STATUS
+				});
 
 			var endpointResolver = new RequestCoordinator(fakeClient, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
 
@@ -103,10 +122,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			string response = string.Empty;
 			endpointResolver.HitEndpointAsync(new EndPointInfo(),
 			 s =>
-			 {
-				 response = s;
-				 reset.Set();
-			 });
+				 {
+					 response = s.Body;
+					 reset.Set();
+				 });
 
 			reset.WaitOne(1000 * 5);
 			var payload = new XmlDocument();
@@ -130,7 +149,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			IOAuthCredentials oAuthCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
 			var endpointResolver = new RequestCoordinator(_httpClient, _urlSigner, oAuthCredentials, apiUri);
 
-			var endPointState = new EndPointInfo { UriPath = "test", HttpMethod = "GET", Headers = new Dictionary<string, string>() };
+			var endPointState = new EndPointInfo
+				{
+					UriPath = "test", 
+					HttpMethod = "GET", 
+					Headers = new Dictionary<string, string>()
+				};
 
 			endpointResolver.HitEndpoint(endPointState);
 
@@ -163,7 +187,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		private void Given_a_urlresolver_that_returns_valid_xml()
 		{
 			A.CallTo(() => _httpClient.Get(A<IRequest>.Ignored.Argument))
-				.Returns(new Response { Body = SERVICE_STATUS });
+				.Returns(new Response
+					{
+						StatusCode = HttpStatusCode.OK,
+						Body = SERVICE_STATUS
+					});
 		}
 	}
 }

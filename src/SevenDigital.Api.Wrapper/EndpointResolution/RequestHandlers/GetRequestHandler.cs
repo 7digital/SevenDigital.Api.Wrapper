@@ -16,10 +16,10 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			_urlSigner = urlSigner;
 		}
 
-		public override string HitEndpoint(EndPointInfo endPointInfo)
+		public override IResponse HitEndpoint(EndPointInfo endPointInfo)
 		{
 			var getRequest = BuildGetRequest(endPointInfo);
-			return HttpClient.Get(getRequest).Body;
+			return HttpClient.Get(getRequest);
 		}
 
 		private Request BuildGetRequest(EndPointInfo endPointInfo)
@@ -30,10 +30,10 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			return getRequest;
 		}
 
-		public override void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> action)
+		public override void HitEndpointAsync(EndPointInfo endPointInfo, Action<IResponse> action)
 		{
 			var getRequest = BuildGetRequest(endPointInfo);
-			HttpClient.GetAsync(getRequest, response => action(response.Body));
+			HttpClient.GetAsync(getRequest, response => action(response));
 		}
 
 		private string SignHttpGetUrl(string uri, EndPointInfo endPointInfo)

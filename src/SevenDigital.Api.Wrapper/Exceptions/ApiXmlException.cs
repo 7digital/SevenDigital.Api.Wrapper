@@ -1,27 +1,52 @@
 ﻿using System;
+using System.Net;
 using SevenDigital.Api.Schema;
-using SevenDigital.Api.Wrapper.Utility.Serialization;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
 	[Serializable]
 	public class ApiXmlException : Exception
 	{
-		public Error Error { get; set; }
 		public string Uri { get; set; }
+		public Error Error { get; private set; }
+		public HttpStatusCode StatusCode { get; private set; }
 
-		public ApiXmlException(string message, string errorResponse)
+		public ApiXmlException(string message)
 			: base(message)
 		{
-			var xmlSerializer = new ApiResourceDeSerializer<Error>();
-			Error = xmlSerializer.DeSerialize(errorResponse);
 		}
 
-		public ApiXmlException(string message, Exception innerException)
+		public ApiXmlException(string message, Error error)
+			: base(message)
+		{
+			Error = error;
+		}
+
+		public ApiXmlException(string message, HttpStatusCode statusCode, Exception innerException)
 			: base(message, innerException)
 		{
-			Error = new Error();
-			Error.ErrorMessage = "Unable to deserialize XML entity";
+			StatusCode = statusCode;
+			Error = new Error
+				{
+					ErrorMessage = "Unable to deserialize XML"
+				};
+		}
+
+		public ApiXmlException(string message, HttpStatusCode statusCode)
+			: this(message)
+		{
+			StatusCode = statusCode;
+			Error = new Error
+			{
+				ErrorMessage = "Unable to deserialize XML"
+			};
+		}
+
+		public ApiXmlException(string message, HttpStatusCode statusCode, Error error)
+			: this(message)
+		{
+			StatusCode = statusCode;
+			Error = error;
 		}
 	}
 }

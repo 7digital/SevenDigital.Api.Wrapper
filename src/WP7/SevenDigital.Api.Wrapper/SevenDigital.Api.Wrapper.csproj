@@ -201,20 +201,14 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\Response.cs">
       <Link>Utility\Http\Response.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\ApiResourceDeSerializer.cs">
-      <Link>Utility\Serialization\ApiResourceDeSerializer.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\IResponseDeserializer.cs">
+      <Link>Utility\Serialization\IResponseDeserializer.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\ApiXmlDeSerializer.cs">
-      <Link>Utility\Serialization\ApiXmlDeSerializer.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\ResponseDeserializer.cs">
+      <Link>Utility\Serialization\ResponseDeserializer.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\IDeSerializer.cs">
-      <Link>Utility\Serialization\IDeSerializer.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\IXmlErrorHandler.cs">
-      <Link>Utility\Serialization\IXmlErrorHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\XmlErrorHandler.cs">
-      <Link>Utility\Serialization\XmlErrorHandler.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Serialization\StringDeserializer.cs">
+      <Link>Utility\Serialization\StringDeserializer.cs</Link>
     </Compile>
     <Compile Include="EndpointResolution\CredentialChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -229,7 +223,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" />
+      <UserProperties ProjectLinkReference="42b4ee01-cdc9-482d-bbb1-b6147a6ea00d" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
