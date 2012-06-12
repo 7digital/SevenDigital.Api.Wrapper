@@ -29,9 +29,9 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 
 			var endPointInfo = new EndPointInfo { UriPath = endpoint, Parameters = new Dictionary<string,string> { { "artistId", "1" } } };
 
-			string xml = _requestCoordinator.HitEndpoint(endPointInfo);
+			var response = _requestCoordinator.HitEndpoint(endPointInfo);
 
-			dynamic dx = new DynamicXmlParser(XDocument.Parse(xml));
+			dynamic dx = new DynamicXmlParser(XDocument.Parse(response.Body));
 
 			var name = dx.artist[0].name.value;
 			var sortName = dx.artist[0].sortName.value;
@@ -48,9 +48,9 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 
 			var endPointInfo = new EndPointInfo { UriPath = endpoint, Parameters =  new Dictionary<string,string> { { "artistId", "1" } } };
 
-			string xml = _requestCoordinator.HitEndpoint(endPointInfo);
+			var response = _requestCoordinator.HitEndpoint(endPointInfo);
 
-			dynamic dx = new DynamicXmlParser(XDocument.Parse(xml));
+			dynamic dx = new DynamicXmlParser(XDocument.Parse(response.Body));
 
 		    string [] titles = Enumerable.ToArray(Enumerable.Select<dynamic, string>(dx.releases.release, (Func<dynamic, string>) (r => r.title.value)));
 

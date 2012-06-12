@@ -16,15 +16,15 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			_urlSigner = urlSigner;
 		}
 
-		public override string HitEndpoint(EndPointInfo endPointInfo)
+		public override IResponse HitEndpoint(EndPointInfo endPointInfo)
 		{
 			var postRequest = BuildPostRequest(endPointInfo);
-			return HttpClient.Post(postRequest).Body;
+			return HttpClient.Post(postRequest);
 		}
-		public override void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> action)
+		public override void HitEndpointAsync(EndPointInfo endPointInfo, Action<IResponse> action)
 		{
 			var postRequest = BuildPostRequest(endPointInfo);
-			HttpClient.PostAsync(postRequest,response => action(response.Body));
+			HttpClient.PostAsync(postRequest,response => action(response));
 		}
 
 		private Request BuildPostRequest(EndPointInfo endPointInfo)

@@ -100,7 +100,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 
 			var response = _requestCoordinator.HitEndpoint(new EndPointInfo());
 			var hitEndpoint = new XmlDocument();
-			hitEndpoint.LoadXml(response);
+			hitEndpoint.LoadXml(response.Body);
 			Assert.That(hitEndpoint.HasChildNodes);
 			Assert.That(hitEndpoint.SelectSingleNode("//serverTime"), Is.Not.Null);
 		}
@@ -123,7 +123,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			endpointResolver.HitEndpointAsync(new EndPointInfo(),
 			 s =>
 				 {
-					 response = s;
+					 response = s.Body;
 					 reset.Set();
 				 });
 

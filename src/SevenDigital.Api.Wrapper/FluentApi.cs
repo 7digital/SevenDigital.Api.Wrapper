@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SevenDigital.Api.Schema;
 using SevenDigital.Api.Schema.OAuth;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
@@ -16,20 +15,22 @@ namespace SevenDigital.Api.Wrapper
 	{
 		private readonly EndPointInfo _endPointInfo = new EndPointInfo();
 		private readonly IRequestCoordinator _requestCoordinator;
-		private readonly IDeSerializer<T> _deserializer;
+		private readonly IResponseDeserializer<T> _deserializer;
 
 		public FluentApi(IRequestCoordinator requestCoordinator)
 		{
 			_requestCoordinator = requestCoordinator;
 
-			_deserializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>(), new XmlErrorHandler());
-
+			_deserializer = new ResponseDeserializer<T>();
 
 			ApiEndpointAttribute attribute = typeof(T).GetCustomAttributes(true)
-												.OfType<ApiEndpointAttribute>()
-												.FirstOrDefault();
+				.OfType<ApiEndpointAttribute>()
+				.FirstOrDefault();
+
 			if (attribute == null)
+			{
 				throw new ArgumentException(string.Format("The Type {0} cannot be used in this way, it has no ApiEndpointAttribute", typeof(T)));
+			}
 
 			_endPointInfo.UriPath = attribute.EndpointUri;
 
@@ -110,8 +111,8 @@ namespace SevenDigital.Api.Wrapper
 		{
 			try
 			{
-				var output = _requestCoordinator.HitEndpoint(_endPointInfo);
-				return _deserializer.DeSerialize(output);
+				var response = _requestCoordinator.HitEndpoint(_endPointInfo);
+				return _deserializer.Deserialize(response);
 			}
 			catch (ApiXmlException apiXmlException)
 			{
@@ -130,11 +131,11 @@ namespace SevenDigital.Api.Wrapper
 			_requestCoordinator.HitEndpointAsync(_endPointInfo, PleaseAsyncEnd(callback));
 		}
 
-		internal Action<string> PleaseAsyncEnd(Action<T> callback)
+		internal Action<IResponse> PleaseAsyncEnd(Action<T> callback)
 		{
 			return output =>
 			{
-				T entity = _deserializer.DeSerialize(output);
+				T entity = _deserializer.Deserialize(output);
 				callback(entity);
 			};
 		}
