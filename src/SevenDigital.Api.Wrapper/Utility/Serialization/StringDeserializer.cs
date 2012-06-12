@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -14,6 +15,11 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 				XDocument doc = XDocument.Load(reader);
 				var responseNode = doc.Descendants("response").First();
 				var responsePayload = responseNode.FirstNode;
+
+				if (responsePayload == null)
+				{
+					return (T) Activator.CreateInstance(typeof (T));
+				}
 
 				using (var payloadReader = responsePayload.CreateReader())
 				{
