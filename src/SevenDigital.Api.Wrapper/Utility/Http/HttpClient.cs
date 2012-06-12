@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 
 namespace SevenDigital.Api.Wrapper.Utility.Http
@@ -10,14 +11,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 	{
 		public IResponse Get(IRequest request)
 		{
-			var webRequest = (HttpWebRequest)WebRequest.Create(request.Url);
-			webRequest.Method = "GET";
-			webRequest.UserAgent = "7digital .Net Api Wrapper";
-
-			foreach (var header in request.Headers)
-			{
-				webRequest.Headers.Add(header.Key, header.Value);
-			}
+			var webRequest = MakeWebRequest(request);
 
 			WebResponse webResponse;
 			try
@@ -27,87 +21,119 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			catch (WebException ex)
 			{
 				if (ex.Response == null)
+				{
 					throw;
+				}
 				webResponse = ex.Response;
 			}
 
-			var output = string.Empty;
+			return MakeResponse(webResponse);
+		}
+
+		public void GetAsync(IRequest request, Action<IResponse> callback)
+		{
+			var webRequest = MakeWebRequest(request);
+			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
+		}
+
+		private IResponse GetAsyncResponse(IAsyncResult iar)
+		{
+			var webRequest = (WebRequest)iar.AsyncState;
+
+			WebResponse webResponse;
+			try
+			{
+				webResponse = webRequest.EndGetResponse(iar);
+			}
+			catch (WebException ex)
+			{
+				if (ex.Response == null)
+				{
+					throw;
+				}
+				webResponse = ex.Response;
+			}
+
+			return MakeResponse(webResponse);
+		}
+
+		public IResponse Post(IRequest request)
+		{
+			var webRequest = MakePostRequest(request);
+
+			WebResponse webResponse;
+			try
+			{
+				webResponse = webRequest.GetResponse();
+			}
+			catch (WebException ex)
+			{
+				if (ex.Response == null)
+				{
+					throw;
+				}
+				webResponse = ex.Response;
+			}
+
+			return MakeResponse(webResponse);
+		}
+
+		public void PostAsync(IRequest request, Action<IResponse> callback)
+		{
+			var webRequest = MakePostRequest(request);
+
+			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
+		}
+
+		private static HttpWebRequest MakeWebRequest(IRequest request)
+		{
+			var webRequest = (HttpWebRequest)WebRequest.Create(request.Url);
+			webRequest.Method = "GET";
+			webRequest.UserAgent = "7digital .Net Api Wrapper";
+
+			foreach (var header in request.Headers)
+			{
+				webRequest.Headers.Add(header.Key, header.Value);
+			}
+			return webRequest;
+		}
+
+		private IResponse MakeResponse(WebResponse webResponse)
+		{
+
+			string output;
 			using (var sr = new StreamReader(webResponse.GetResponseStream()))
 			{
 				output = sr.ReadToEnd();
 			}
 
 			var response = new Response
-							{
-								Body = output,
-								Headers = MapHeaders(webResponse.Headers)
-							};
+			{
+				StatusCode = ReadStatusCode(webResponse),
+				Headers = MapHeaders(webResponse.Headers),
+				Body = output
+			};
+
+			webResponse.Close();
 
 			return response;
 		}
 
-		public void GetAsync(IRequest request, Action<IResponse> callback)
+		private static HttpWebRequest MakePostRequest(IRequest request)
 		{
-			var client = new WebClient();
-			client.DownloadStringCompleted += (s, e) =>
-												{
-													var response = new Response()
-																	{
-																		Body = e.Result,
-																		Headers = MapHeaders(client.ResponseHeaders)
-																	};
-													callback(response);
-												};
-			client.DownloadStringAsync(new Uri(request.Url));
-		}
+			var webRequest = MakeWebRequest(request);
+			webRequest.Method = "POST";
+			webRequest.ContentType = "application/x-www-form-urlencoded";
 
-		public IResponse Post(IRequest request)
-		{
-			var client = new WebClient();
+			var postData = request.Parameters.ToQueryString();
+			var postBytes = Encoding.UTF8.GetBytes(postData);
+			webRequest.ContentLength = postBytes.Length;
 
-			client.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
-
-			string output;
-			try
+			using (Stream dataStream = webRequest.GetRequestStream())
 			{
-				output = client.UploadString(request.Url, request.Parameters.ToQueryString());
+				dataStream.Write(postBytes, 0, postBytes.Length);
 			}
-			catch (WebException ex)
-			{
-				if (ex.Response == null)
-					throw;
-
-				using (var sr = new StreamReader(ex.Response.GetResponseStream()))
-				{
-					output = sr.ReadToEnd();
-				}
-			}
-
-			var response = new Response
-			{
-				Body = output,
-			};
-
-			return response;
-		}
-
-		public void PostAsync(IRequest request, Action<IResponse> callback)
-		{
-			var client = new WebClient();
-
-			client.UploadStringCompleted += (s, e) =>
-			{
-				var response = new Response()
-				{
-					Body = e.Result,
-					Headers = MapHeaders(client.ResponseHeaders)
-				};
-				callback(response);
-			};
-			
-			
-			client.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
-			client.UploadStringAsync(new Uri(request.Url), request.Parameters.ToQueryString());
+			return webRequest;
 		}
 
 		public Dictionary<string, string> MapHeaders(WebHeaderCollection headerCollection)
@@ -120,6 +146,17 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			}
 
 			return headers;
+		}
+
+		private static HttpStatusCode ReadStatusCode(WebResponse webResponse)
+		{
+			HttpWebResponse httpResponse = webResponse as HttpWebResponse;
+			if (httpResponse == null)
+			{
+				return HttpStatusCode.NoContent;
+			}
+
+			return httpResponse.StatusCode;
 		}
 	}
 }

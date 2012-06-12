@@ -67,9 +67,9 @@
     <Compile Include="Utility\Http\NameValueExtensionsTests.cs" />
     <Compile Include="Utility\Http\RequestCoordinatorTests.cs" />
     <Compile Include="Utility\Http\DictionaryExtensionsTests.cs" />
-    <Compile Include="Utility\Serialization\ApiDeSerializationTests.cs" />
-    <Compile Include="Utility\Serialization\DeSerializationTests.cs" />
-    <Compile Include="Utility\Serialization\XmlErrorHandlerTests.cs" />
+    <Compile Include="Utility\Serialization\ResponseDeserializerTests.cs" />
+    <Compile Include="Utility\Serialization\StringDeserializerTests.cs" />
+    <Compile Include="Utility\Serialization\TestObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">
