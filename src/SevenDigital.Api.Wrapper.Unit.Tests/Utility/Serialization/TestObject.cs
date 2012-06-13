@@ -31,4 +31,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 		[XmlElement("Name")]
 		public string Name { get; set; }
 	}
+
+	[Serializable]
+	public class TestEmptyObject
+	{
+	}
 }
