@@ -19,7 +19,6 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 
 		private void CheckResponse(IResponse response)
 		{
-			// missing response
 			if (response == null)
 			{
 				throw new ApiXmlException("No response");
@@ -30,18 +29,21 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 				throw new ApiXmlException("No response body", response.StatusCode);
 			}
 
-			if (IsApiErrorResponse(response.Body))
+			var startOfMessage = StartOfMessage(response.Body);
+			var messageIsXml = IsXml(startOfMessage);
+
+			if (messageIsXml && IsApiErrorResponse(startOfMessage))
 			{
 				var error = ParseError(response.Body);
 				throw new ApiXmlException("Error response:\n" + response.Body, response.StatusCode, error);
 			}
 
-			if (IsServerError((int) response.StatusCode))
+			if (IsServerError((int)response.StatusCode))
 			{
 				throw new ApiXmlException("Server error:\n" + response.Body, response.StatusCode);
 			}
 
-			if (!IsXml(response.Body) && response.StatusCode != HttpStatusCode.OK)
+			if (!messageIsXml && response.StatusCode != HttpStatusCode.OK)
 			{
 				var error = new Error
 					{
@@ -50,24 +52,32 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 					};
 				throw new ApiXmlException("Error response:\n" + response.Body, response.StatusCode, error);
 			}
+
+			if (messageIsXml && !IsApiOkResponse(startOfMessage))
+			{
+				throw new ApiXmlException("No valid status found in response. Status must be one of 'ok' or 'error':\n" + response.Body, response.StatusCode);
+			}
 		}
 
 		private static string StartOfMessage(string bodyMarkup)
 		{
-			int length = Math.Min(bodyMarkup.Length, 256);
-			return bodyMarkup.Substring(0, length);
-		}
-
-		private bool IsApiErrorResponse(string bodyMarkup)
-		{
-			string startOfMessage = StartOfMessage(bodyMarkup);
-			return startOfMessage.Contains("<?xml") && startOfMessage.Contains("<response status=\"error\"");
+			int maxLength = Math.Min(bodyMarkup.Length, 512);
+			return bodyMarkup.Substring(0, maxLength);
 		}
 
 		private bool IsXml(string bodyMarkup)
 		{
-			string startOfMessage = StartOfMessage(bodyMarkup);
-			return startOfMessage.Contains("<?xml");
+			return bodyMarkup.Contains("<?xml");
+		}
+
+		private bool IsApiOkResponse(string bodyMarkup)
+		{
+			return bodyMarkup.Contains("<response") && bodyMarkup.Contains("status=\"ok\"");
+		}
+
+		private bool IsApiErrorResponse(string bodyMarkup)
+		{
+			return bodyMarkup.Contains("<response")  && bodyMarkup.Contains("status=\"error\"");
 		}
 
 		private bool IsServerError(int httpStatusCode)
