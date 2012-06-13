@@ -10,11 +10,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 	[TestFixture]
 	public class ResponseDeserializerTests
 	{
-		//well formed response
 		[Test]
 		public void Can_deserialize_object()
 		{
-			const string xml = "<?xml version=\"1.0\"?><response xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><testObject id=\"1\"> <name>A big test object</name><listOfThings><string>one</string><string>two</string><string>three</string></listOfThings><listOfInnerObjects><InnerObject id=\"1\"><Name>Trevor</Name></InnerObject><InnerObject id=\"2\"><Name>Bill</Name></InnerObject></listOfInnerObjects></testObject></response>";
+			//success case with well formed response
+			const string xml = "<?xml version=\"1.0\"?><response xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" status=\"ok\"><testObject id=\"1\"> <name>A big test object</name><listOfThings><string>one</string><string>two</string><string>three</string></listOfThings><listOfInnerObjects><InnerObject id=\"1\"><Name>Trevor</Name></InnerObject><InnerObject id=\"2\"><Name>Bill</Name></InnerObject></listOfInnerObjects></testObject></response>";
 
 			var stubResponse = new Response
 				{
@@ -36,10 +36,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 		{
 			const string errorXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"error\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\" ><error code=\"1001\"><errorMessage>Test error</errorMessage></error></response>";
 			var response = new Response
-			{
-				StatusCode = HttpStatusCode.InternalServerError,
-				Body = errorXml
-			};
+				{
+					StatusCode = HttpStatusCode.InternalServerError,
+					Body = errorXml
+				};
 
 			var xmlSerializer = new ResponseDeserializer<TestObject>();
 
@@ -197,8 +197,44 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 
 			Assert.That(ex.Error.Code, Is.EqualTo(9001));
 			Assert.That(ex.Error.ErrorMessage, Is.EqualTo(response.Body));
-
 		}
+
+		[Test]
+		public void should_throw_exception_when_deserialize_with_invalid_status()
+		{
+			const string InvalidStatusXmlResponse = "<?xml version=\"1.0\"?><response status=\"fish\" version=\"1.2\"></response>";
+			var response = new Response
+				{
+					StatusCode = HttpStatusCode.OK,
+					Body = InvalidStatusXmlResponse
+				};
+			var deserializer = new ResponseDeserializer<TestEmptyObject>();
+
+			var ex = Assert.Throws<ApiXmlException>(() => deserializer.Deserialize(response));
+
+			Assert.That(ex, Is.Not.Null);
+			Assert.That(ex.Message, Is.StringStarting("No valid status found in response."));
+			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
+		}
+
+		[Test]
+		public void should_throw_exception_when_deserialize_with_missing_status()
+		{
+			const string MissingStatusXmlResponse = "<?xml version=\"1.0\"?><response version=\"1.2\"></response>";
+			var response = new Response
+				{
+					StatusCode = HttpStatusCode.OK,
+					Body = MissingStatusXmlResponse
+				};
+			var deserializer = new ResponseDeserializer<TestEmptyObject>();
+
+			var ex = Assert.Throws<ApiXmlException>(() => deserializer.Deserialize(response));
+
+			Assert.That(ex, Is.Not.Null);
+			Assert.That(ex.Message, Is.StringStarting("No valid status found in response."));
+			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
+		}
+
 	}
 
 }
