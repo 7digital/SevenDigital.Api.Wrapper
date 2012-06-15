@@ -116,7 +116,7 @@ namespace SevenDigital.Api.Wrapper
 			}
 			catch (ApiXmlException apiXmlException)
 			{
-				apiXmlException.Uri = _endPointInfo.UriPath;
+				apiXmlException.Uri = EndpointUrl;
 				throw;
 			}
 		}
