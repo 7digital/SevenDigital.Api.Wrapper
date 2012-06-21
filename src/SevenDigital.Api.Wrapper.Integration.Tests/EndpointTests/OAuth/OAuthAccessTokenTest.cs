@@ -15,7 +15,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 			{
 				const string oauthToken = "YOUR_REQUEST_TOKEN_HERE";
 				const string oauthSecret = "YOUR_TOKEN_SCRET_HERE";
-				OAuthAccessToken authAccessToken = Api<OAuthAccessToken>.Get
+				OAuthAccessToken authAccessToken = Api<OAuthAccessToken>.Create
 					.ForUser(oauthToken, oauthSecret)
 					.Please();
 

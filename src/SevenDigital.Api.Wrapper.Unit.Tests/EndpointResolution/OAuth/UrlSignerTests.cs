@@ -19,7 +19,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.OAuth
 
 			for (int i = 0; i < 50; i++)
 			{
-				var signedUrl = new UrlSigner().SignUrlAsString(url, null, null, GetOAuthCredentials());
+				var signedUrl = new UrlSigner().SignGetUrl(url, null, null, GetOAuthCredentials());
 				var index = signedUrl.IndexOf("oauth_signature");
 				var signature = signedUrl.Substring(index + "oauth_signature".Length);
 

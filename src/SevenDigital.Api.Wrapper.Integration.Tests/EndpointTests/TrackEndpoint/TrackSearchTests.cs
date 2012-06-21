@@ -11,19 +11,19 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			TrackSearch release = Api<TrackSearch>.Get
+			TrackSearch release = Api<TrackSearch>.Create
 				.WithParameter("q", "Happy")
 				.Please();
 
 			Assert.That(release, Is.Not.Null);
 			Assert.That(release.Results.Count, Is.GreaterThan(0));
-			Assert.That(release.Results.FirstOrDefault().Type, Is.EqualTo(ItemType.track));
+			Assert.That(release.Results.FirstOrDefault().Type, Is.EqualTo(TrackType.track));
 		}
 
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			TrackSearch artistBrowse = Api<TrackSearch>.Get
+			TrackSearch artistBrowse = Api<TrackSearch>.Create
 				.WithParameter("q","Happy")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")

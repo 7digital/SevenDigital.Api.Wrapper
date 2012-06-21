@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SevenDigital.Api.Schema.OAuth;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Schema.Attributes;
@@ -13,23 +14,25 @@ namespace SevenDigital.Api.Wrapper
 	public class FluentApi<T> : IFluentApi<T> where T : class
 	{
 		private readonly EndPointInfo _endPointInfo = new EndPointInfo();
-		private readonly IEndpointResolver _endpointResolver;
-		private readonly IDeSerializer<T> _deserializer;
+		private readonly IRequestCoordinator _requestCoordinator;
+		private readonly IResponseDeserializer<T> _deserializer;
 
-		public FluentApi(IEndpointResolver endpointResolver)
+		public FluentApi(IRequestCoordinator requestCoordinator)
 		{
-			_endpointResolver = endpointResolver;
+			_requestCoordinator = requestCoordinator;
 
-			_deserializer = new ApiXmlDeSerializer<T>(new ApiResourceDeSerializer<T>(), new XmlErrorHandler());
-
+			_deserializer = new ResponseDeserializer<T>();
 
 			ApiEndpointAttribute attribute = typeof(T).GetCustomAttributes(true)
-												.OfType<ApiEndpointAttribute>()
-												.FirstOrDefault();
-			if (attribute == null)
-				throw new ArgumentException(string.Format("The Type {0} cannot be used in this way, it has no ApiEndpointAttribute", typeof(T)));
+				.OfType<ApiEndpointAttribute>()
+				.FirstOrDefault();
 
-			_endPointInfo.Uri = attribute.EndpointUri;
+			if (attribute == null)
+			{
+				throw new ArgumentException(string.Format("The Type {0} cannot be used in this way, it has no ApiEndpointAttribute", typeof(T)));
+			}
+
+			_endPointInfo.UriPath = attribute.EndpointUri;
 
 
 			OAuthSignedAttribute isSigned = typeof(T).GetCustomAttributes(true)
@@ -39,18 +42,37 @@ namespace SevenDigital.Api.Wrapper
 			if (isSigned != null)
 				_endPointInfo.IsSigned = true;
 
+			RequireSecureAttribute isSecure = typeof(T).GetCustomAttributes(true)
+											.OfType<RequireSecureAttribute>()
+											.FirstOrDefault();
+
+			if (isSecure != null)
+				_endPointInfo.UseHttps = true;
+
+			HttpPostAttribute isHttpPost = typeof(T).GetCustomAttributes(true)
+								.OfType<HttpPostAttribute>()
+								.FirstOrDefault();
+			if (isHttpPost != null)
+				_endPointInfo.HttpMethod = "POST";
+
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-			: this(new EndpointResolver(new HttpGetResolver(), new UrlSigner(), oAuthCredentials, apiUri)) { }
+			: this(new RequestCoordinator(new HttpClient(), new UrlSigner(), oAuthCredentials, apiUri)) { }
 
 		public FluentApi()
-			: this(new EndpointResolver(new HttpGetResolver(), new UrlSigner(), EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance)) { }
+			: this(new RequestCoordinator(new HttpClient(), new UrlSigner(), EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance)) { }
 
 
 		public IFluentApi<T> WithEndpoint(string endpoint)
 		{
-			_endPointInfo.Uri = endpoint;
+			_endPointInfo.UriPath = endpoint;
+			return this;
+		}
+
+		public IFluentApi<T> UsingClient(IHttpClient httpClient)
+		{
+			_requestCoordinator.HttpClient = httpClient;
 			return this;
 		}
 
@@ -89,36 +111,31 @@ namespace SevenDigital.Api.Wrapper
 		{
 			try
 			{
-				var output = _endpointResolver.HitEndpoint(_endPointInfo);
-				return _deserializer.DeSerialize(output);
+				var response = _requestCoordinator.HitEndpoint(_endPointInfo);
+				return _deserializer.Deserialize(response);
 			}
 			catch (ApiXmlException apiXmlException)
 			{
-				apiXmlException.Uri = _endPointInfo.Uri;
+				apiXmlException.Uri = EndpointUrl;
 				throw;
 			}
 		}
 
 		public virtual string EndpointUrl
 		{
-			get { return _endpointResolver.ConstructEndpoint(_endPointInfo); }
+			get { return _requestCoordinator.ConstructEndpoint(_endPointInfo); }
 		}
 
 		public virtual void PleaseAsync(Action<T> callback)
 		{
-			_endpointResolver.HitEndpointAsync(_endPointInfo, PleaseAsyncEnd(callback));
+			_requestCoordinator.HitEndpointAsync(_endPointInfo, PleaseAsyncEnd(callback));
 		}
 
-		public string GetCurrentUri()
-		{
-			return _endpointResolver.ConstructEndpoint(_endPointInfo);
-		}
-
-		internal Action<string> PleaseAsyncEnd(Action<T> callback)
+		internal Action<IResponse> PleaseAsyncEnd(Action<T> callback)
 		{
 			return output =>
 			{
-				T entity = _deserializer.DeSerialize(output);
+				T entity = _deserializer.Deserialize(output);
 				callback(entity);
 			};
 		}

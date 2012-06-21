@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Xml.Serialization;
+using System.Net;
 using FakeItEasy;
 using NUnit.Framework;
-using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Schema;
 using System.Threading;
+using SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http;
+using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests
 {
@@ -15,56 +16,72 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 	{
 		private const string VALID_STATUS_XML = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"ok\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\"><serviceStatus><serverTime>2011-05-31T15:31:22Z</serverTime></serviceStatus></response>";
 
+		private readonly Response stubResponse  = new Response
+			{
+				StatusCode = HttpStatusCode.OK,
+				Body = VALID_STATUS_XML
+			};
+
 		[Test]
-		public void Should_fire_endpointresolver_with_correct_endpoint_on_resolve()
+		public void Should_fire_requestcoordinator_with_correct_endpoint_on_resolve()
 		{
-			var endpointResolver = A.Fake<IEndpointResolver>();
-			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(VALID_STATUS_XML);
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(stubResponse);
 
-			new FluentApi<Status>(endpointResolver).Please();
+			new FluentApi<Status>(requestCoordinator).Please();
 
-			Expression<Func<string>> callWithEndpointStatus =
-				() => endpointResolver.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.Uri == "status"));
+			Expression<Func<IResponse>> callWithEndpointStatus =
+				() => requestCoordinator.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.UriPath == "status"));
 
 			A.CallTo(callWithEndpointStatus).MustHaveHappened(Repeated.Exactly.Once);
 		}
 
 		[Test]
-		public void Should_fire_endpointresolver_with_correct_methodname_on_resolve()
+		public void Should_fire_requestcoordinator_with_correct_methodname_on_resolve()
 		{
-			var endpointResolver = A.Fake<IEndpointResolver>();
-			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(VALID_STATUS_XML);
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(stubResponse);
 
-			new FluentApi<Status>(endpointResolver).WithMethod("POST").Please();
+			new FluentApi<Status>(requestCoordinator).WithMethod("POST").Please();
 
-			Expression<Func<string>> callWithMethodPost =
-				() => endpointResolver.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.HttpMethod == "POST"));
+			Expression<Func<IResponse>> callWithMethodPost =
+				() => requestCoordinator.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.HttpMethod == "POST"));
 
 			A.CallTo(callWithMethodPost).MustHaveHappened(Repeated.Exactly.Once);
 		}
 
 		[Test]
-		public void Should_fire_endpointresolver_with_correct_parameters_on_resolve()
+		public void Should_fire_requestcoordinator_with_correct_parameters_on_resolve()
 		{
-			var endpointResolver = A.Fake<IEndpointResolver>();
-			A.CallTo(() => endpointResolver.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(VALID_STATUS_XML);
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(stubResponse);
 
-			new FluentApi<Status>(endpointResolver).WithParameter("artistId", "123").Please();
+			new FluentApi<Status>(requestCoordinator).WithParameter("artistId", "123").Please();
 
-			Expression<Func<string>> callWithArtistId123 =
-				() => endpointResolver.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.Parameters["artistId"] == "123"));
+			Expression<Func<IResponse>> callWithArtistId123 =
+				() => requestCoordinator.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.Parameters["artistId"] == "123"));
 
 			A.CallTo(callWithArtistId123).MustHaveHappened();
 
+		}
+		[Test]
+		public void Should_use_custom_http_client()
+		{
+			var fakeRequestCoordinator = A.Fake<IRequestCoordinator>();
+			var fakeHttpClient = new FakeHttpClient();
+
+			new FluentApi<Status>(fakeRequestCoordinator).UsingClient(fakeHttpClient);
+
+			Assert.That(fakeRequestCoordinator.HttpClient, Is.EqualTo(fakeHttpClient));
 		}
 
 		[Test]
 		public void should_put_payload_in_action_result()
 		{
-			var endpointResolver = new FakeEndpointResolver { StubPayload = VALID_STATUS_XML };
+			var requestCoordinator = new FakeRequestCoordinator { StubPayload = stubResponse };
 			var reset = new AutoResetEvent(false);
 
-			new FluentApi<Status>(endpointResolver)
+			new FluentApi<Status>(requestCoordinator)
 				.PleaseAsync(
 				status =>
 				{
@@ -76,16 +93,23 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			Assert.True(true);
 		}
 
-		public class FakeEndpointResolver : IEndpointResolver
+		
+
+		public class FakeRequestCoordinator : IRequestCoordinator
 		{
-			public string HitEndpoint(EndPointInfo endPointInfo)
+			public IResponse HitEndpoint(EndPointInfo endPointInfo)
 			{
 				throw new NotImplementedException();
 			}
 
-			public void HitEndpointAsync(EndPointInfo endPointInfo, Action<string> payload)
+			public IResponse HitEndpointAndGetResponse(EndPointInfo endPointInfo)
 			{
-				payload(StubPayload);
+				throw new NotImplementedException();
+			}
+
+			public void HitEndpointAsync(EndPointInfo endPointInfo, Action<IResponse> callback)
+			{
+				callback(StubPayload);
 			}
 
 			public string ConstructEndpoint(EndPointInfo endPointInfo)
@@ -93,7 +117,13 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 				throw new NotImplementedException();
 			}
 
-			public string StubPayload { get; set; }
+			public IHttpClient HttpClient
+			{
+				get { throw new NotImplementedException(); }
+				set { throw new NotImplementedException(); }
+			}
+
+			public IResponse StubPayload { get; set; }
 		}
 	}
 

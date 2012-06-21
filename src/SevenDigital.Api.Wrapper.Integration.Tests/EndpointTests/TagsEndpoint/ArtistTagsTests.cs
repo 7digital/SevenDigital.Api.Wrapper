@@ -10,7 +10,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			ArtistTags tags = Api<ArtistTags>.Get
+			ArtistTags tags = Api<ArtistTags>.Create
 									.WithParameter("artistId", "1")
 									.Please();
 
@@ -23,7 +23,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			ArtistTags artistBrowse = Api<ArtistTags>.Get
+			ArtistTags artistBrowse = Api<ArtistTags>.Create
 				.WithParameter("artistId", "1")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "1")

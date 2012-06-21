@@ -1,8 +1,10 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Media;
 
 namespace SevenDigital.Api.Schema.LockerEndpoint
 {
+	[Serializable]
 	[XmlRoot("downloadUrl")]
 	public class DownloadUrl
 	{

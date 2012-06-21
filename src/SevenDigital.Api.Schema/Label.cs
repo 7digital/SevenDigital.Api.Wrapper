@@ -5,6 +5,7 @@ namespace SevenDigital.Api.Schema
 {
 	
 	[XmlRoot("label")]
+	[Serializable]
 	public class Label
 	{
 		[XmlAttribute("id")]

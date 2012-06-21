@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Merchandising
 		public void Can_hit_fluent_endpoint_for_merchandising()
 		{
 			var merchList = Api<MerchandisingList>
-				.Get
+				.Create
 				.WithKey("tabAlbums")
 				.WithParameter("shopId", "34")
 				.Please();

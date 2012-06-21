@@ -12,7 +12,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		public void Can_hit_endpoint()
 		{
 
-			var releaseTracks = Api<ReleaseTracks>.Get
+			var releaseTracks = Api<ReleaseTracks>.Create
 				.ForReleaseId(155408)
 				.Please();
 
@@ -26,7 +26,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		public void can_determine_if_a_track_is_free()
 		{
 
-			var releaseTracks = Api<ReleaseTracks>.Get
+			var releaseTracks = Api<ReleaseTracks>.Create
 				.ForReleaseId(394123)
 				.Please();
 
@@ -39,7 +39,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		public void can_determine_if_a_track_is_available_separately()
 		{
 
-			var releaseTracks = Api<ReleaseTracks>.Get
+			var releaseTracks = Api<ReleaseTracks>.Create
 				.ForReleaseId(1193196)
 				.Please();
 

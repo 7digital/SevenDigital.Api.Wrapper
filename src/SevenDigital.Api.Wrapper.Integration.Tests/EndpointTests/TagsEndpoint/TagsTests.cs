@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		[Test]
 		public void Can_hit_endpoint() {
 
-			Tags tags = Api<Tags>.Get
+			Tags tags = Api<Tags>.Create
 				.Please();
 
 			Assert.That(tags, Is.Not.Null);
@@ -22,7 +22,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		[Test]
 		public void Can_hit_endpoint_with_paging() {
 
-			Tags artistBrowse = Api<Tags>.Get
+			Tags artistBrowse = Api<Tags>.Create
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
 				.Please();

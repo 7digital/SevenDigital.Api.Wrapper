@@ -12,7 +12,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		public void Can_hit_fluent_endpoint_for_territories()
 		{
 			var merchList = Api<GeoIpLookup>
-				.Get
+				.Create
 				.WithIpAddress("84.45.95.241")
 				.WithParameter("shopId", "34")
 				.Please();

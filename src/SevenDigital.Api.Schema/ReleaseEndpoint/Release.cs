@@ -11,6 +11,7 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 	
 	[XmlRoot("release")]
 	[ApiEndpoint("release/details")]
+	[Serializable]
 	public class Release : HasReleaseIdParameter
 	{
 		[XmlAttribute("id")]
@@ -29,7 +30,7 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 		public string Barcode { get; set; }
 
 		[XmlElement("year")]
-		public object Year { get; set; }
+		public string Year { get; set; }
 
 		[XmlElement("explicitContent")]
 		public bool ExplicitContent { get; set; }

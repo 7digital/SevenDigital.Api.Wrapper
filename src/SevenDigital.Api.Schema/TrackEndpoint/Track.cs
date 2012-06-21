@@ -5,13 +5,13 @@ using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 using SevenDigital.Api.Schema.Pricing;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
-using SevenDigital.Api.Schema.User.Purchase;
 
 namespace SevenDigital.Api.Schema.TrackEndpoint
 {
 	
 	[XmlRoot("track")]
 	[ApiEndpoint("track/details")]
+	[Serializable]
 	public class Track : HasTrackIdParameter
 	{
 		[XmlAttribute("id")]
@@ -44,7 +44,13 @@ namespace SevenDigital.Api.Schema.TrackEndpoint
 		[XmlElement("url")]
 		public string Url { get; set; }
 
+		[XmlElement("image")]
+		public string Image { get; set; }
+
 		[XmlElement("price")]
 		public Price Price { get; set; }
+
+		[XmlElement("type")]
+		public TrackType Type { get; set; }
 	}
 }

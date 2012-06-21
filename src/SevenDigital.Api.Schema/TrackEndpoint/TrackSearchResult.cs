@@ -6,9 +6,12 @@ namespace SevenDigital.Api.Schema.TrackEndpoint
 	public class TrackSearchResult
 	{
 		[XmlElement("type")]
-		public ItemType Type { get; set; }
+		public TrackType Type { get; set; }
 
 		[XmlElement("track")]
 		public Track Track { get; set; }
+
+		[XmlElement("score")]
+		public float Score { get; set; }
 	}
 }

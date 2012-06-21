@@ -5,11 +5,11 @@ using SevenDigital.Api.Schema.LockerEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoint
 {
-    [TestFixture]
-    public class LockerTests
-    {
+	[TestFixture]
+	public class LockerTests
+	{
 		private readonly string _token = ConfigurationManager.AppSettings["Integration.Tests.AccessToken"];
-    	private readonly string _tokenSecret = ConfigurationManager.AppSettings["Integration.Tests.AccessTokenSecret"];
+		private readonly string _tokenSecret = ConfigurationManager.AppSettings["Integration.Tests.AccessTokenSecret"];
 
 		[SetUp]
 		public void RunOnce() {
@@ -17,37 +17,37 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 				Assert.Ignore("these tests need an access token and secret to run");
 		}
 
-    	[Test]
-        public void Should_get_a_users_locker_with_correct_access_credentials()
-        {
-			var locker = Api<Locker>.Get
-                .ForUser(_token, _tokenSecret)
-                .Please();
+		[Test]
+		public void Should_get_a_users_locker_with_correct_access_credentials()
+		{
+			var locker = Api<Locker>.Create
+				.ForUser(_token, _tokenSecret)
+				.Please();
 
-            Assert.That(locker.LockerReleases.Count, Is.GreaterThan(0));
-        }
+			Assert.That(locker.Response.LockerReleases.Count, Is.GreaterThan(0));
+		}
 
 		[Test]
 		public void Should_get_specific_users_release()
 		{
-			var locker = Api<Locker>.Get
+			var locker = Api<Locker>.Create
 				.ForReleaseId(343418)
 				.ForUser(_token, _tokenSecret)
 				.Please();
 
-			Assert.That(locker.LockerReleases.Count, Is.EqualTo(1));
+			Assert.That(locker.Response.LockerReleases.Count, Is.EqualTo(1));
 		}
 
 		[Test]
 		public void Should_get_specific_users_track()
 		{
-			var locker = Api<Locker>.Get
+			var locker = Api<Locker>.Create
 				.ForReleaseId(343418)
 				.ForTrackId(3846716)
 				.ForUser(_token, _tokenSecret)
 				.Please();
 
-			Assert.That(locker.LockerReleases.FirstOrDefault().LockerTracks.Count, Is.EqualTo(1));
+			Assert.That(locker.Response.LockerReleases.FirstOrDefault().LockerTracks.Count, Is.EqualTo(1));
 		}
-    }
+	}
 }

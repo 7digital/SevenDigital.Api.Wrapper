@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Xml.Serialization;
-using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.OAuth

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema
 {
-	
 	[XmlRoot("error")]
 	public class Error
 	{

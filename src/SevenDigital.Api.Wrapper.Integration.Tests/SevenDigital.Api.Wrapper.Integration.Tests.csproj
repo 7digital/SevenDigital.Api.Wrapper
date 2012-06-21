@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -77,6 +78,7 @@
     <Compile Include="EndpointTests\TrackEndpoint\TrackSearchTests.cs" />
     <Compile Include="Exceptions\ApiXmlExceptionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Http\HttpClientTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">
@@ -91,7 +93,6 @@
   <ItemGroup>
     <Folder Include="EndpointTests\MediaEndpoint\" />
     <Folder Include="EndpointTests\PurchasingEndpoint\" />
-    <Folder Include="EndpointTests\User\Purchase\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiEndpointTypeGenerator.cs" />
+    <Compile Include="Attributes\HttpPostAttribute.cs" />
+    <Compile Include="Attributes\RequireSecureAttribute.cs" />
     <Compile Include="Basket\AmountDue.cs" />
     <Compile Include="Basket\Discount.cs" />
     <Compile Include="Basket\DiscountType.cs" />
@@ -51,20 +54,26 @@
     <Compile Include="ITypeGenerator.cs" />
     <Compile Include="ParameterDefinitions\Get\HasArtistIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasBasketParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasCardIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasChartParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasIpAddressParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasKeyParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasLetterParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasLockerSort.cs" />
     <Compile Include="ParameterDefinitions\Get\HasPriceParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasPurchaseIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasReleaseIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasReleaseTypeParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasSearchParameter.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasTags.cs" />
     <Compile Include="ParameterDefinitions\Get\HasTrackIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasUserDeliverItemParameter.cs" />
     <Compile Include="Merchandising\MerchandisingList.cs" />
     <Compile Include="Merchandising\ListItem.cs" />
     <Compile Include="OAuth\OAuthSignedAttribute.cs" />
+    <Compile Include="ParameterDefinitions\Post\AddCardParameters.cs" />
+    <Compile Include="ParameterDefinitions\Post\HasAddCardParameter.cs" />
+    <Compile Include="Payment\PaymentCardTypes.cs" />
     <Compile Include="Pricing\PriceStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Chart\ChartPeriod.cs" />
@@ -114,8 +123,8 @@
     <Compile Include="Tags\ReleaseTags.cs" />
     <Compile Include="Tags\RelatedTags.cs" />
     <Compile Include="Tags\Tag.cs" />
-    <Compile Include="Tags\TaggedArtists.cs" />
-    <Compile Include="Tags\TaggedReleases.cs" />
+    <Compile Include="Tags\TaggedArtist.cs" />
+    <Compile Include="Tags\TaggedRelease.cs" />
     <Compile Include="Tags\Tags.cs" />
     <Compile Include="Territories\GeoIpLookup.cs" />
     <Compile Include="TrackEndpoint\Track.cs" />
@@ -123,15 +132,19 @@
     <Compile Include="TrackEndpoint\TrackPreview.cs" />
     <Compile Include="TrackEndpoint\TrackSearch.cs" />
     <Compile Include="TrackEndpoint\TrackSearchResult.cs" />
+    <Compile Include="TrackEndpoint\TrackType.cs" />
+    <Compile Include="User\Payment\Card.cs" />
+    <Compile Include="User\Payment\Cards.cs" />
+    <Compile Include="User\Payment\AddCard.cs" />
+    <Compile Include="User\Payment\DefaultCard.cs" />
+    <Compile Include="User\Payment\DeleteCard.cs" />
     <Compile Include="User\Purchase\BasePurchaseItem.cs" />
     <Compile Include="User\Purchase\UserPurchaseBasket.cs" />
     <Compile Include="User\Purchase\UserPurchaseItem.cs" />
     <Compile Include="User\Purchase\UserPurchaseRrpItem.cs" />
     <Compile Include="User\UserDeliverItem.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ParameterDefinitions\Post\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

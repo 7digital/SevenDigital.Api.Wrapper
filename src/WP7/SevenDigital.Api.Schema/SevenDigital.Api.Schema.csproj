@@ -60,6 +60,12 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\Attributes\ApiEndpointAttribute.cs">
       <Link>Attributes\ApiEndpointAttribute.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Attributes\HttpPostAttribute.cs">
+      <Link>Attributes\HttpPostAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Attributes\RequireSecureAttribute.cs">
+      <Link>Attributes\RequireSecureAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Basket\AmountDue.cs">
       <Link>Basket\AmountDue.cs</Link>
     </Compile>
@@ -153,6 +159,9 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasBasketParameter.cs">
       <Link>ParameterDefinitions\Get\HasBasketParameter.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasCardIdParameter.cs">
+      <Link>ParameterDefinitions\Get\HasCardIdParameter.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasChartParameter.cs">
       <Link>ParameterDefinitions\Get\HasChartParameter.cs</Link>
     </Compile>
@@ -161,6 +170,9 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasLetterParameter.cs">
       <Link>ParameterDefinitions\Get\HasLetterParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasLockerSort.cs">
+      <Link>ParameterDefinitions\Get\HasLockerSort.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasPriceParameter.cs">
       <Link>ParameterDefinitions\Get\HasPriceParameter.cs</Link>
@@ -177,11 +189,23 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasSearchParameter.cs">
       <Link>ParameterDefinitions\Get\HasSearchParameter.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasTags.cs">
+      <Link>ParameterDefinitions\Get\HasTags.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasTrackIdParameter.cs">
       <Link>ParameterDefinitions\Get\HasTrackIdParameter.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Get\HasUserDeliverItemParameter.cs">
       <Link>ParameterDefinitions\Get\HasUserDeliverItemParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Post\AddCardParameters.cs">
+      <Link>ParameterDefinitions\Post\AddCardParameters.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\ParameterDefinitions\Post\HasAddCardParameter.cs">
+      <Link>ParameterDefinitions\Post\HasAddCardParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Payment\PaymentCardTypes.cs">
+      <Link>Payment\PaymentCardTypes.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Pricing\Currency.cs">
       <Link>Pricing\Currency.cs</Link>
@@ -231,8 +255,11 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\Tags\Tag.cs">
       <Link>Tags\Tag.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Schema\Tags\TaggedArtists.cs">
-      <Link>Tags\TaggedArtists.cs</Link>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Tags\TaggedArtist.cs">
+      <Link>Tags\TaggedArtist.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Tags\TaggedRelease.cs">
+      <Link>Tags\TaggedRelease.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\Tags\Tags.cs">
       <Link>Tags\Tags.cs</Link>
@@ -251,6 +278,24 @@
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackSearchResult.cs">
       <Link>TrackEndpoint\TrackSearchResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\TrackType.cs">
+      <Link>TrackEndpoint\TrackType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\AddCard.cs">
+      <Link>User\Payment\AddCard.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\Card.cs">
+      <Link>User\Payment\Card.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\Cards.cs">
+      <Link>User\Payment\Cards.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\DefaultCard.cs">
+      <Link>User\Payment\DefaultCard.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\User\Payment\DeleteCard.cs">
+      <Link>User\Payment\DeleteCard.cs</Link>
     </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\User\Purchase\BasePurchaseItem.cs">
       <Link>User\Purchase\BasePurchaseItem.cs</Link>
@@ -304,13 +349,11 @@
       <HintPath>..\..\..\lib\Windows Phone 7\System.Xml.Serialization.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ParameterDefinitions\Post\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" />
+      <UserProperties ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

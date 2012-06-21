@@ -11,14 +11,14 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
 			var artist = Api<Artist>
-			    .Get
+			    .Create
 			    .WithArtistId(1)
 			    .Please();
 
 			Assert.That(artist, Is.Not.Null);
 			Assert.That(artist.Name, Is.EqualTo("Keane"));
 			Assert.That(artist.SortName, Is.EqualTo("Keane"));
-			Assert.That(artist.Url, Is.EqualTo("http://www.7digital.com/artists/keane/?partner=1401"));
+			Assert.That(artist.Url, Is.StringStarting("http://www.7digital.com/artists/keane/"));
 			Assert.That(artist.Image, Is.EqualTo("http://cdn.7static.com/static/img/artistimages/00/000/000/0000000001_150.jpg"));
 		}
 
@@ -30,7 +30,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
             var reset = new AutoResetEvent(false);
 
                Api<Artist>
-                .Get
+                .Create
                 .WithArtistId(1)
                 .PleaseAsync(payload =>
                                  {
@@ -43,7 +43,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
             Assert.That(artist, Is.Not.Null);
             Assert.That(artist.Name, Is.EqualTo("Keane"));
             Assert.That(artist.SortName, Is.EqualTo("Keane"));
-            Assert.That(artist.Url, Is.EqualTo("http://www.7digital.com/artists/keane/?partner=1401"));
+            Assert.That(artist.Url, Is.StringStarting("http://www.7digital.com/artists/keane/"));
             Assert.That(artist.Image, Is.EqualTo("http://cdn.7static.com/static/img/artistimages/00/000/000/0000000001_150.jpg"));
         }
 	}

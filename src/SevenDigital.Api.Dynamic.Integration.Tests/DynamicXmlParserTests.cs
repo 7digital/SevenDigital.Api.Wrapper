@@ -8,30 +8,34 @@ using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
-namespace SevenDigital.Api.Dynamic.Integration.Tests {
+namespace SevenDigital.Api.Dynamic.Integration.Tests 
+{
 	[TestFixture]
-	public class DynamicXmlParserTests {
-		private EndpointResolver _endpointResolver;
+	public class DynamicXmlParserTests 
+	{
+		private RequestCoordinator _requestCoordinator;
 
 		[SetUp]
-		public void SetUp() {
+		public void SetUp() 
+		{
 			IOAuthCredentials oAuthCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
 			IApiUri apiUri = EssentialDependencyCheck<IApiUri>.Instance;
-			var httpGetResolver = new HttpGetResolver();
+			var httpGetResolver = new HttpClient();
 			var urlSigner = new UrlSigner();
 
-			_endpointResolver = new EndpointResolver(httpGetResolver, urlSigner, oAuthCredentials, apiUri);
+			_requestCoordinator = new RequestCoordinator(httpGetResolver, urlSigner, oAuthCredentials, apiUri);
 		}
 
 		[Test]
-		public void Can_get_an_artist() {
+		public void Can_get_an_artist() 
+		{
 			const string endpoint = "artist/details";
 
-			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters = new Dictionary<string,string> { { "artistId", "1" } } };
+			var endPointInfo = new EndPointInfo { UriPath = endpoint, Parameters = new Dictionary<string,string> { { "artistId", "1" } } };
 
-			string xml = _endpointResolver.HitEndpoint(endPointInfo);
+			var response = _requestCoordinator.HitEndpoint(endPointInfo);
 
-			dynamic dx = new DynamicXmlParser(XDocument.Parse(xml));
+			dynamic dx = new DynamicXmlParser(XDocument.Parse(response.Body));
 
 			var name = dx.artist[0].name.value;
 			var sortName = dx.artist[0].sortName.value;
@@ -43,22 +47,33 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests {
 		}
 
 		[Test]
-		public void Can_get_an_artists_releases() {
+		public void Can_get_an_artists_releases() 
+		{
 			const string endpoint = "artist/releases";
 
-			var endPointInfo = new EndPointInfo { Uri = endpoint, Parameters =  new Dictionary<string,string> { { "artistId", "1" } } };
+			var endPointInfo = new EndPointInfo
+				{
+					UriPath = endpoint, 
+					Parameters =  new Dictionary<string,string>
+						{
+							{ "artistId", "1" },
+							{ "pageSize", "100" }
+						}
+				};
 
-			string xml = _endpointResolver.HitEndpoint(endPointInfo);
+			var response = _requestCoordinator.HitEndpoint(endPointInfo);
 
-			dynamic dx = new DynamicXmlParser(XDocument.Parse(xml));
+			dynamic dx = new DynamicXmlParser(XDocument.Parse(response.Body));
 
 		    string [] titles = Enumerable.ToArray(Enumerable.Select<dynamic, string>(dx.releases.release, (Func<dynamic, string>) (r => r.title.value)));
 
-		    foreach (var title in titles) {
+		    foreach (var title in titles) 
+			{
 		        Console.WriteLine(title);
 		    }
 
-            Assert.That(titles, Has.Member("Night Train").And.Member("Perfect Symmetry"));
+            Assert.That(titles, Has.Member("Night Train"));
+            Assert.That(titles, Has.Member("Perfect Symmetry"));
 		}
 	}
 }
