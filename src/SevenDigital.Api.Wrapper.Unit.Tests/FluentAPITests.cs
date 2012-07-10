@@ -89,8 +89,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 					reset.Set();
 				});
 
-			reset.WaitOne(1000 * 60);
-			Assert.True(true);
+			var result = reset.WaitOne(1000 * 60);
+			Assert.That(result, Is.True, "Method");
 		}
 
 		
