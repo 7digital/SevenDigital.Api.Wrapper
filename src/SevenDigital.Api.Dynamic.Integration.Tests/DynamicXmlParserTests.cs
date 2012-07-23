@@ -64,7 +64,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests
 			var response = _requestCoordinator.HitEndpoint(endPointInfo);
 
 			dynamic dx = new DynamicXmlParser(XDocument.Parse(response.Body));
-
+			
 		    string [] titles = Enumerable.ToArray(Enumerable.Select<dynamic, string>(dx.releases.release, (Func<dynamic, string>) (r => r.title.value)));
 
 		    foreach (var title in titles) 
@@ -72,8 +72,7 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests
 		        Console.WriteLine(title);
 		    }
 
-            Assert.That(titles, Has.Member("Night Train"));
-            Assert.That(titles, Has.Member("Perfect Symmetry"));
+			Assert.That(titles.Count(), Is.GreaterThan(0));
 		}
 	}
 }
