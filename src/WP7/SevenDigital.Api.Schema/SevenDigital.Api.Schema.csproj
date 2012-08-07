@@ -264,6 +264,9 @@
     <Compile Include="..\..\SevenDigital.Api.Schema\Tags\Tags.cs">
       <Link>Tags\Tags.cs</Link>
     </Compile>
+    <Compile Include="..\..\SevenDigital.Api.Schema\Territories\GeoRestrictions.cs">
+      <Link>Territories\GeoRestrictions.cs</Link>
+    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Schema\TrackEndpoint\Track.cs">
       <Link>TrackEndpoint\Track.cs</Link>
     </Compile>
@@ -353,7 +356,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="513c4b04-994e-4149-bfd6-a6910e0f95b8" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
