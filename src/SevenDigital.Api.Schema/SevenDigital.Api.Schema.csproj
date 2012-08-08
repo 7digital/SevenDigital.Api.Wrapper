@@ -127,6 +127,7 @@
     <Compile Include="Tags\TaggedRelease.cs" />
     <Compile Include="Tags\Tags.cs" />
     <Compile Include="Territories\GeoIpLookup.cs" />
+    <Compile Include="Territories\GeoRestrictions.cs" />
     <Compile Include="TrackEndpoint\Track.cs" />
     <Compile Include="TrackEndpoint\TrackChart.cs" />
     <Compile Include="TrackEndpoint\TrackPreview.cs" />
