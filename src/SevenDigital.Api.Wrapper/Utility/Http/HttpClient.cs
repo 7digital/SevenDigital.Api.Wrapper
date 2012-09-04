@@ -9,9 +9,9 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 {
 	public class HttpClient : IHttpClient
 	{
-		public IResponse Get(IRequest request)
+		public Response Get(GetRequest request)
 		{
-			var webRequest = MakeWebRequest(request);
+			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
 
 			WebResponse webResponse;
 			try
@@ -30,13 +30,13 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return MakeResponse(webResponse);
 		}
 
-		public void GetAsync(IRequest request, Action<IResponse> callback)
+		public void GetAsync(GetRequest request, Action<Response> callback)
 		{
-			var webRequest = MakeWebRequest(request);
+			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
 			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
 		}
 
-		private IResponse GetAsyncResponse(IAsyncResult iar)
+		private Response GetAsyncResponse(IAsyncResult iar)
 		{
 			var webRequest = (WebRequest)iar.AsyncState;
 
@@ -57,7 +57,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return MakeResponse(webResponse);
 		}
 
-		public IResponse Post(IRequest request)
+		public Response Post(PostRequest request)
 		{
 			var webRequest = MakePostRequest(request);
 
@@ -78,27 +78,27 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return MakeResponse(webResponse);
 		}
 
-		public void PostAsync(IRequest request, Action<IResponse> callback)
+		public void PostAsync(PostRequest request, Action<Response> callback)
 		{
 			var webRequest = MakePostRequest(request);
 
 			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
 		}
 
-		private static HttpWebRequest MakeWebRequest(IRequest request)
+		private static HttpWebRequest MakeWebRequest(string url, string method, IDictionary<string, string> headers)
 		{
-			var webRequest = (HttpWebRequest)WebRequest.Create(request.Url);
-			webRequest.Method = "GET";
+			var webRequest = (HttpWebRequest)WebRequest.Create(url);
+			webRequest.Method = method;
 			webRequest.UserAgent = "7digital .Net Api Wrapper";
 
-			foreach (var header in request.Headers)
+			foreach (var header in headers)
 			{
 				webRequest.Headers.Add(header.Key, header.Value);
 			}
 			return webRequest;
 		}
 
-		private IResponse MakeResponse(WebResponse webResponse)
+		private Response MakeResponse(WebResponse webResponse)
 		{
 
 			string output;
@@ -119,10 +119,9 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return response;
 		}
 
-		private static HttpWebRequest MakePostRequest(IRequest request)
+		private static HttpWebRequest MakePostRequest(PostRequest request)
 		{
-			var webRequest = MakeWebRequest(request);
-			webRequest.Method = "POST";
+			var webRequest = MakeWebRequest(request.Url, "POST", request.Headers);
 			webRequest.ContentType = "application/x-www-form-urlencoded";
 
 			var postData = request.Parameters.ToQueryString();

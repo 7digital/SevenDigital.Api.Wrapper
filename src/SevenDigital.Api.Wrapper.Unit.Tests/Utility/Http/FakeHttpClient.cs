@@ -5,33 +5,33 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 {
 	public class FakeHttpClient : IHttpClient
 	{
-		private readonly IResponse _fakeResponse;
+		private readonly Response _fakeResponse;
 
 		public FakeHttpClient()
 		{
 		}
 
-		public FakeHttpClient(IResponse fakeResponse)
+		public FakeHttpClient(Response fakeResponse)
 		{
 			_fakeResponse = fakeResponse;
 		}
 
-		public IResponse Get(IRequest request)
+		public Response Get(GetRequest request)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void GetAsync(IRequest request, Action<IResponse> callback)
+		public void GetAsync(GetRequest request, Action<Response> callback)
 		{
 			callback(_fakeResponse);
 		}
 
-		public IResponse Post(IRequest request)
+		public Response Post(PostRequest request)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void PostAsync(IRequest request, Action<IResponse> callback)
+		public void PostAsync(PostRequest request, Action<Response> callback)
 		{
 			throw new NotImplementedException();
 		}
