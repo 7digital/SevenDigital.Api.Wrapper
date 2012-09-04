@@ -4,10 +4,10 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 {
 	public interface IHttpClient
 	{
-		IResponse Get(IRequest request);
-		void GetAsync(IRequest request, Action<IResponse> callback);
+		Response Get(IRequest request);
+		void GetAsync(IRequest request, Action<Response> callback);
 
-		IResponse Post(IRequest request);
-		void PostAsync(IRequest request, Action<IResponse> callback);
+		Response Post(IRequest request);
+		void PostAsync(IRequest request, Action<Response> callback);
 	}
 }

@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 {
 	public class HttpClient : IHttpClient
 	{
-		public IResponse Get(IRequest request)
+		public Response Get(IRequest request)
 		{
 			var webRequest = MakeWebRequest(request);
 
@@ -30,13 +30,13 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return MakeResponse(webResponse);
 		}
 
-		public void GetAsync(IRequest request, Action<IResponse> callback)
+		public void GetAsync(IRequest request, Action<Response> callback)
 		{
 			var webRequest = MakeWebRequest(request);
 			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
 		}
 
-		private IResponse GetAsyncResponse(IAsyncResult iar)
+		private Response GetAsyncResponse(IAsyncResult iar)
 		{
 			var webRequest = (WebRequest)iar.AsyncState;
 
@@ -57,7 +57,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return MakeResponse(webResponse);
 		}
 
-		public IResponse Post(IRequest request)
+		public Response Post(IRequest request)
 		{
 			var webRequest = MakePostRequest(request);
 
@@ -78,7 +78,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return MakeResponse(webResponse);
 		}
 
-		public void PostAsync(IRequest request, Action<IResponse> callback)
+		public void PostAsync(IRequest request, Action<Response> callback)
 		{
 			var webRequest = MakePostRequest(request);
 
@@ -98,7 +98,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return webRequest;
 		}
 
-		private IResponse MakeResponse(WebResponse webResponse)
+		private Response MakeResponse(WebResponse webResponse)
 		{
 
 			string output;

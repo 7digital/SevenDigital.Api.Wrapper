@@ -6,13 +6,13 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 {
 	public class HttpClient : IHttpClient
 	{
-		public IResponse Get(IRequest request)
+		public Response Get(IRequest request)
 		{
 			throw new NotSupportedException("Need to use async in windows mobile");
 
 		}
 
-		public void GetAsync(IRequest request, Action<IResponse> callback)
+		public void GetAsync(IRequest request, Action<Response> callback)
 		{
 			var client = new WebClient();
 			client.DownloadStringCompleted += (s, e) =>
@@ -28,12 +28,12 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			client.DownloadStringAsync(new Uri(request.Url));
 		}
 
-		public IResponse Post(IRequest request)
+		public Response Post(IRequest request)
 		{
 			throw new NotSupportedException("Need to use async in windows mobile");
 		}
 
-		public void PostAsync(IRequest request, Action<IResponse> callback)
+		public void PostAsync(IRequest request, Action<Response> callback)
 		{
 			throw new NotImplementedException();
 		}

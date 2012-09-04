@@ -8,8 +8,8 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
 	public abstract class RequestHandler
 	{
-		public abstract IResponse HitEndpoint(EndPointInfo endPointInfo);
-		public abstract void HitEndpointAsync(EndPointInfo endPointInfo, Action<IResponse> action);
+		public abstract Response HitEndpoint(EndPointInfo endPointInfo);
+		public abstract void HitEndpointAsync(EndPointInfo endPointInfo, Action<Response> action);
 		protected abstract string AdditionalParameters(Dictionary<string, string> newDictionary);
 
 		private readonly IApiUri _apiUri;

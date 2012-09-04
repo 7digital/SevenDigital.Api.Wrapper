@@ -37,9 +37,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 			var request = new Request(url, new Dictionary<string, string>());
 
 			AutoResetEvent autoResetEvent = new AutoResetEvent(false);
-			IResponse response = null;
+			Response response = null;
 
-			Action<IResponse> callback = callbackResponse =>
+			Action<Response> callback = callbackResponse =>
 			{
 				response = callbackResponse;
 				autoResetEvent.Set();
@@ -70,9 +70,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 			var request = new Request(url, new Dictionary<string, string>());
 
 			AutoResetEvent autoResetEvent = new AutoResetEvent(false);
-			IResponse response = null;
+			Response response = null;
 
-			Action<IResponse> callback = callbackResponse =>
+			Action<Response> callback = callbackResponse =>
 			{
 				response = callbackResponse;
 				autoResetEvent.Set();
@@ -137,9 +137,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 			var request = new Request(url, new Dictionary<string, string>(), parameters);
 
 			AutoResetEvent autoResetEvent = new AutoResetEvent(false);
-			IResponse response = null;
+			Response response = null;
 
-			Action<IResponse> callback = callbackResponse =>
+			Action<Response> callback = callbackResponse =>
 			{
 				response = callbackResponse;
 				autoResetEvent.Set();
@@ -153,7 +153,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 
-		private static void AssertResponse(IResponse response, HttpStatusCode expectedCode)
+		private static void AssertResponse(Response response, HttpStatusCode expectedCode)
 		{
 			Assert.That(response, Is.Not.Null, "No response");
 			Assert.That(response.StatusCode, Is.EqualTo(expectedCode), "Unexpected http status code");
