@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 {
 	public class HttpClient : IHttpClient
 	{
-		public Response Get(IRequest request)
+		public Response Get(Request request)
 		{
 			var webRequest = MakeWebRequest(request);
 
@@ -30,7 +30,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return MakeResponse(webResponse);
 		}
 
-		public void GetAsync(IRequest request, Action<Response> callback)
+		public void GetAsync(Request request, Action<Response> callback)
 		{
 			var webRequest = MakeWebRequest(request);
 			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
@@ -57,7 +57,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return MakeResponse(webResponse);
 		}
 
-		public Response Post(IRequest request)
+		public Response Post(Request request)
 		{
 			var webRequest = MakePostRequest(request);
 
@@ -78,14 +78,14 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return MakeResponse(webResponse);
 		}
 
-		public void PostAsync(IRequest request, Action<Response> callback)
+		public void PostAsync(Request request, Action<Response> callback)
 		{
 			var webRequest = MakePostRequest(request);
 
 			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
 		}
 
-		private static HttpWebRequest MakeWebRequest(IRequest request)
+		private static HttpWebRequest MakeWebRequest(Request request)
 		{
 			var webRequest = (HttpWebRequest)WebRequest.Create(request.Url);
 			webRequest.Method = "GET";
@@ -119,7 +119,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return response;
 		}
 
-		private static HttpWebRequest MakePostRequest(IRequest request)
+		private static HttpWebRequest MakePostRequest(Request request)
 		{
 			var webRequest = MakeWebRequest(request);
 			webRequest.Method = "POST";

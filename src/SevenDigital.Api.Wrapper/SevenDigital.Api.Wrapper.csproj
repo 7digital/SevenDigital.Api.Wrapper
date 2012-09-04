@@ -82,7 +82,6 @@
     <Compile Include="EndpointResolution\IRequestCoordinator.cs" />
     <Compile Include="Utility\Http\HttpClient.cs" />
     <Compile Include="Utility\Http\IHttpClient.cs" />
-    <Compile Include="Utility\Http\IRequest.cs" />
     <Compile Include="Utility\Http\Request.cs" />
     <Compile Include="Utility\Http\Response.cs" />
     <Compile Include="Utility\Serialization\ResponseDeserializer.cs" />

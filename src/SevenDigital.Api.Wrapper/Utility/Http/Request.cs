@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace SevenDigital.Api.Wrapper.Utility.Http
 {
 	[Serializable]
-	public class Request : IRequest
+	public class Request
 	{
 		private readonly string _url;
 		private readonly IDictionary<string, string> _headers;

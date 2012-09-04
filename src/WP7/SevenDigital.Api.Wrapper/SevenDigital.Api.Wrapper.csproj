@@ -189,9 +189,6 @@
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\IHttpClient.cs">
       <Link>Utility\Http\IHttpClient.cs</Link>
     </Compile>
-    <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\IRequest.cs">
-      <Link>Utility\Http\IRequest.cs</Link>
-    </Compile>
     <Compile Include="..\..\SevenDigital.Api.Wrapper\Utility\Http\Request.cs">
       <Link>Utility\Http\Request.cs</Link>
     </Compile>

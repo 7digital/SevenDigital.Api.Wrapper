@@ -16,22 +16,22 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			_fakeResponse = fakeResponse;
 		}
 
-		public Response Get(IRequest request)
+		public Response Get(Request request)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void GetAsync(IRequest request, Action<Response> callback)
+		public void GetAsync(Request request, Action<Response> callback)
 		{
 			callback(_fakeResponse);
 		}
 
-		public Response Post(IRequest request)
+		public Response Post(Request request)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void PostAsync(IRequest request, Action<Response> callback)
+		public void PostAsync(Request request, Action<Response> callback)
 		{
 			throw new NotImplementedException();
 		}
