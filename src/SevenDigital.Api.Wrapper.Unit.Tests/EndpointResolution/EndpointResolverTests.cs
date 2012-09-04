@@ -16,7 +16,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		public void Setup()
 		{
 			var httpClient = A.Fake<IHttpClient>();
-			A.CallTo(() => httpClient.Get(A<IRequest>.Ignored.Argument)).Returns(new Response());
+			A.CallTo(() => httpClient.Get(A<IRequest>.Ignored)).Returns(new Response());
 
 			var apiUri = A.Fake<IApiUri>();
 			A.CallTo(() => apiUri.Uri)
