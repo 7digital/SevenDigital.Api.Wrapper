@@ -27,11 +27,11 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			HttpClient.PostAsync(postRequest,response => action(response));
 		}
 
-		private Request BuildPostRequest(EndPointInfo endPointInfo)
+		private PostRequest BuildPostRequest(EndPointInfo endPointInfo)
 		{
 			var uri = ConstructEndpoint(endPointInfo);
 			var signedParams = SignHttpPostParams(uri, endPointInfo);
-			var postRequest = new Request(uri, endPointInfo.Headers, signedParams);
+			var postRequest = new PostRequest(uri, endPointInfo.Headers, signedParams);
 			return postRequest;
 		}
 

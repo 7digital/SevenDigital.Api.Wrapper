@@ -22,11 +22,11 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			return HttpClient.Get(getRequest);
 		}
 
-		private Request BuildGetRequest(EndPointInfo endPointInfo)
+		private GetRequest BuildGetRequest(EndPointInfo endPointInfo)
 		{
 			var uri = ConstructEndpoint(endPointInfo);
 			var signedUrl = SignHttpGetUrl(uri, endPointInfo);
-			var getRequest = new Request(signedUrl, endPointInfo.Headers);
+			var getRequest = new GetRequest(signedUrl, endPointInfo.Headers);
 			return getRequest;
 		}
 
