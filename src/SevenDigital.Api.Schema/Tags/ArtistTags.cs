@@ -4,7 +4,6 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.Tags
 {
-	
 	[ApiEndpoint("artist/tags")]
 	[XmlRoot("tags")]
 	public class ArtistTags : HasPaging

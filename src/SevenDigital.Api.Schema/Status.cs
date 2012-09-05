@@ -4,7 +4,6 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema
 {
-	
 	[ApiEndpoint("status")]
 	[XmlRoot("serviceStatus")]
 	public class Status

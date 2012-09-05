@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Schema.ParameterDefinitions.Get;
@@ -9,15 +8,14 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 	
 	[ApiEndpoint("release/search")]
 	[XmlRoot("searchResults")]
-    public class ReleaseSearch : HasPaging, HasSearchParameter
+	public class ReleaseSearch : HasPaging, HasSearchParameter
 	{
+		public ReleaseSearch()
+		{
+			Results = new List<ReleaseSearchResult>();
+		}
 
-        public ReleaseSearch()
-        {
-            Results = new List<ReleaseSearchResult>();
-        }
-
-	    [XmlElement("searchResult")]
+		[XmlElement("searchResult")]
 		public List<ReleaseSearchResult> Results { get; set; }
 	}
 }

@@ -97,10 +97,10 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 				int errorCode = ReadErrorCode(errorNode);
 
 				return new Error
-				    {
+					{
 						Code = errorCode,
-				       	ErrorMessage = errorMessage.Value
-				    };
+						ErrorMessage = errorMessage.Value
+					};
 			}
 			catch(Exception ex)
 			{

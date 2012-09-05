@@ -14,14 +14,6 @@ namespace SevenDigital.Api.Schema.Payment
 		public List<CardType> CardTypes { get; set; }
 	}
 
-
-
-
-
-
-
-
-
 	[Serializable]
 	[XmlRoot("cardType")]
 	public class CardType

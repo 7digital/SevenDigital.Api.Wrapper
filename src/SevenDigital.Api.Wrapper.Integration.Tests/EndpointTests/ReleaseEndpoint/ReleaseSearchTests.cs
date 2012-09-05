@@ -36,17 +36,16 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 			Assert.That(artistBrowse.PageSize, Is.EqualTo(20));
 		}
 
-        [Test]
-        public void Can_get_multiple_results()
-        {
-            var artistSearch = Api<ReleaseSearch>.Create
-                .WithParameter("q", "pink")
-                .WithParameter("page", "1")
-                .WithParameter("pageSize", "20")
-                .Please();
+		[Test]
+		public void Can_get_multiple_results()
+		{
+			var artistSearch = Api<ReleaseSearch>.Create
+				.WithParameter("q", "pink")
+				.WithParameter("page", "1")
+				.WithParameter("pageSize", "20")
+				.Please();
 
-            Assert.That(artistSearch.Results.Count, Is.GreaterThan(1));
-
-        }
+			Assert.That(artistSearch.Results.Count, Is.GreaterThan(1));
+		}
 	}
 }
