@@ -1,3 +1,4 @@
-namespace SevenDigital.Api.Schema.ParameterDefinitions.Get {
+namespace SevenDigital.Api.Schema.ParameterDefinitions.Get 
+{
 	public interface HasUserDeliverItemParameter { }
 }

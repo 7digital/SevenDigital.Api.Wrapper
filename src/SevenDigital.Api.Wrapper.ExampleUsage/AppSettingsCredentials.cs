@@ -2,8 +2,10 @@
 
 namespace SevenDigital.Api.Wrapper.ExampleUsage
 {
-	public class AppSettingsCredentials : IOAuthCredentials {
-		public AppSettingsCredentials() {
+	public class AppSettingsCredentials : IOAuthCredentials 
+	{
+		public AppSettingsCredentials() 
+		{
 			ConsumerKey = ConfigurationManager.AppSettings["Wrapper.ConsumerKey"];
 			ConsumerSecret = ConfigurationManager.AppSettings["Wrapper.ConsumerSecret"];
 		}

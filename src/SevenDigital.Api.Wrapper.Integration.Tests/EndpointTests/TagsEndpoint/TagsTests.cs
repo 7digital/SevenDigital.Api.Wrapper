@@ -5,9 +5,11 @@ using SevenDigital.Api.Schema.Tags;
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 {
 	[TestFixture]
-	public class TagsTests {
+	public class TagsTests 
+	{
 		[Test]
-		public void Can_hit_endpoint() {
+		public void Can_hit_endpoint() 
+		{
 
 			Tags tags = Api<Tags>.Create
 				.Please();
@@ -16,12 +18,11 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 			Assert.That(tags.TagList.Count, Is.GreaterThan(0));
 			Assert.That(tags.TagList.FirstOrDefault().Id, Is.Not.Empty);
 			Assert.That(tags.TagList.Where(x=>x.Id == "rock").FirstOrDefault().Text, Is.EqualTo("rock"));
-
 		}
 
 		[Test]
-		public void Can_hit_endpoint_with_paging() {
-
+		public void Can_hit_endpoint_with_paging() 
+		{
 			Tags artistBrowse = Api<Tags>.Create
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")

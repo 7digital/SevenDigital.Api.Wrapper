@@ -7,7 +7,6 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.LockerEndpoint
 {
-	
 	[ApiEndpoint("user/locker")]
 	[XmlRoot("locker")]
 	[OAuthSigned]

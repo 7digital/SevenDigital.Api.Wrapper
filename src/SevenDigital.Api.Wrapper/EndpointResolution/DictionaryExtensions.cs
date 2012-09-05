@@ -6,14 +6,14 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
 	public static class DictionaryExtensions
 	{
-        public static string ToQueryString(this IDictionary<string,string> collection)
+		public static string ToQueryString(this IDictionary<string,string> collection)
 		{
-            var sb = new StringBuilder();
-            foreach (var key in collection.Keys)
-            {
-                sb.AppendFormat("{0}={1}&", key, collection[key]);
-            }
-            return sb.ToString().TrimEnd('&');
+			var sb = new StringBuilder();
+			foreach (var key in collection.Keys)
+			{
+				sb.AppendFormat("{0}={1}&", key, collection[key]);
+			}
+			return sb.ToString().TrimEnd('&');
 		}
 
 		public static string ToQueryString(this IDictionary<string, string> collection, bool shouldUrlEncode)
@@ -21,9 +21,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			var sb = new StringBuilder();
 			foreach (var key in collection.Keys)
 			{
-				var parameter = shouldUrlEncode 
-								? Uri.EscapeDataString(collection[key]) 
-								: collection[key];
+				var parameter = shouldUrlEncode
+					? Uri.EscapeDataString(collection[key]) 
+					: collection[key];
 
 				sb.AppendFormat("{0}={1}&", key, parameter);
 			}

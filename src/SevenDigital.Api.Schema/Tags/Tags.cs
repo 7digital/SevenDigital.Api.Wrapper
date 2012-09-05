@@ -4,7 +4,6 @@ using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.Tags
 {
-	
 	[ApiEndpoint("tag")]
 	[XmlRoot("tags")]
 	public class Tags : HasPaging

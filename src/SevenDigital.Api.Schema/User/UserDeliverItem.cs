@@ -8,7 +8,6 @@ using SevenDigital.Api.Schema.LockerEndpoint;
 
 namespace SevenDigital.Api.Schema.User
 {
-	
 	[OAuthSigned]
 	[ApiEndpoint("user/deliveritem")]
 	[XmlRoot("purchase")]
