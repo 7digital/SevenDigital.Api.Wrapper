@@ -131,7 +131,7 @@ namespace SevenDigital.Api.Wrapper
 			_requestCoordinator.HitEndpointAsync(_endPointInfo, PleaseAsyncEnd(callback));
 		}
 
-		internal Action<IResponse> PleaseAsyncEnd(Action<T> callback)
+		internal Action<Response> PleaseAsyncEnd(Action<T> callback)
 		{
 			return output =>
 			{

@@ -24,7 +24,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 		public void Can_resolve_uri()
 		{
 			string url = string.Format("{0}/status?oauth_consumer_key={1}", ApiUrl, consumerKey);
-			var request = new Request(url,  new Dictionary<string, string>());
+			var request = new GetRequest(url,  new Dictionary<string, string>());
 
 			var response = new HttpClient().Get(request);
 			AssertResponse(response, HttpStatusCode.OK);
@@ -34,12 +34,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 		public void Can_resolve_uri_async()
 		{
 			string url = string.Format("{0}/status?oauth_consumer_key={1}", ApiUrl, consumerKey);
-			var request = new Request(url, new Dictionary<string, string>());
+			var request = new GetRequest(url, new Dictionary<string, string>());
 
 			AutoResetEvent autoResetEvent = new AutoResetEvent(false);
-			IResponse response = null;
+			Response response = null;
 
-			Action<IResponse> callback = callbackResponse =>
+			Action<Response> callback = callbackResponse =>
 			{
 				response = callbackResponse;
 				autoResetEvent.Set();
@@ -57,7 +57,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 		public void Bad_url_should_return_not_found()
 		{
 			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, consumerKey);
-			var request = new Request(url, new Dictionary<string, string>());
+			var request = new GetRequest(url, new Dictionary<string, string>());
 
 			var response = new HttpClient().Get(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
@@ -67,12 +67,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 		public void Bad_url_should_return_not_found_async()
 		{
 			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, consumerKey);
-			var request = new Request(url, new Dictionary<string, string>());
+			var request = new GetRequest(url, new Dictionary<string, string>());
 
 			AutoResetEvent autoResetEvent = new AutoResetEvent(false);
-			IResponse response = null;
+			Response response = null;
 
-			Action<IResponse> callback = callbackResponse =>
+			Action<Response> callback = callbackResponse =>
 			{
 				response = callbackResponse;
 				autoResetEvent.Set();
@@ -90,7 +90,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 		public void No_key_should_return_unauthorized()
 		{
 			string url = string.Format("{0}/status", ApiUrl);
-			var request = new Request(url, new Dictionary<string, string>());
+			var request = new GetRequest(url, new Dictionary<string, string>());
 
 			var response = new HttpClient().Get(request);
 			AssertResponse(response, HttpStatusCode.Unauthorized);
@@ -103,7 +103,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 		public void Can_cope_with_timeouts()
 		{
 			var apiUrl = "http://hanging-web-app.7digital.local";
-			var request = new Request(apiUrl, new Dictionary<string, string>());
+			var request = new GetRequest(apiUrl, new Dictionary<string, string>());
 
 			var response = new HttpClient().Get(request);
 			AssertResponse(response, HttpStatusCode.OK);
@@ -119,7 +119,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 					{"foo", "bar"}
 				};
 
-			var request = new Request(url, new Dictionary<string, string>(), parameters);
+			var request = new PostRequest(url, new Dictionary<string, string>(), parameters);
 
 			var response = new HttpClient().Post(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
@@ -134,12 +134,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 					{"foo", "bar"}
 				};
 
-			var request = new Request(url, new Dictionary<string, string>(), parameters);
+			var request = new PostRequest(url, new Dictionary<string, string>(), parameters);
 
 			AutoResetEvent autoResetEvent = new AutoResetEvent(false);
-			IResponse response = null;
+			Response response = null;
 
-			Action<IResponse> callback = callbackResponse =>
+			Action<Response> callback = callbackResponse =>
 			{
 				response = callbackResponse;
 				autoResetEvent.Set();
@@ -153,7 +153,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 
-		private static void AssertResponse(IResponse response, HttpStatusCode expectedCode)
+		private static void AssertResponse(Response response, HttpStatusCode expectedCode)
 		{
 			Assert.That(response, Is.Not.Null, "No response");
 			Assert.That(response.StatusCode, Is.EqualTo(expectedCode), "Unexpected http status code");

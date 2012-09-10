@@ -30,7 +30,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			new FluentApi<Status>(requestCoordinator).Please();
 
-			Expression<Func<IResponse>> callWithEndpointStatus =
+			Expression<Func<Response>> callWithEndpointStatus =
 				() => requestCoordinator.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.UriPath == "status"));
 
 			A.CallTo(callWithEndpointStatus).MustHaveHappened(Repeated.Exactly.Once);
@@ -44,7 +44,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			new FluentApi<Status>(requestCoordinator).WithMethod("POST").Please();
 
-			Expression<Func<IResponse>> callWithMethodPost =
+			Expression<Func<Response>> callWithMethodPost =
 				() => requestCoordinator.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.HttpMethod == "POST"));
 
 			A.CallTo(callWithMethodPost).MustHaveHappened(Repeated.Exactly.Once);
@@ -58,7 +58,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			new FluentApi<Status>(requestCoordinator).WithParameter("artistId", "123").Please();
 
-			Expression<Func<IResponse>> callWithArtistId123 =
+			Expression<Func<Response>> callWithArtistId123 =
 				() => requestCoordinator.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.Parameters["artistId"] == "123"));
 
 			A.CallTo(callWithArtistId123).MustHaveHappened();
@@ -97,17 +97,17 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 		public class FakeRequestCoordinator : IRequestCoordinator
 		{
-			public IResponse HitEndpoint(EndPointInfo endPointInfo)
+			public Response HitEndpoint(EndPointInfo endPointInfo)
 			{
 				throw new NotImplementedException();
 			}
 
-			public IResponse HitEndpointAndGetResponse(EndPointInfo endPointInfo)
+			public Response HitEndpointAndGetResponse(EndPointInfo endPointInfo)
 			{
 				throw new NotImplementedException();
 			}
 
-			public void HitEndpointAsync(EndPointInfo endPointInfo, Action<IResponse> callback)
+			public void HitEndpointAsync(EndPointInfo endPointInfo, Action<Response> callback)
 			{
 				callback(StubPayload);
 			}
@@ -123,7 +123,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 				set { throw new NotImplementedException(); }
 			}
 
-			public IResponse StubPayload { get; set; }
+			public Response StubPayload { get; set; }
 		}
 	}
 

@@ -5,7 +5,7 @@ using System.Net;
 namespace SevenDigital.Api.Wrapper.Utility.Http
 {
 	[Serializable]
-	public class Response : IResponse
+	public class Response
 	{
 		public Dictionary<string, string> Headers { get; set; }
 		public string Body { get; set; }
