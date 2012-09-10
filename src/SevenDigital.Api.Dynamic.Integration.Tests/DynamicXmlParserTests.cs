@@ -65,12 +65,12 @@ namespace SevenDigital.Api.Dynamic.Integration.Tests
 
 			dynamic dx = new DynamicXmlParser(XDocument.Parse(response.Body));
 			
-		    string [] titles = Enumerable.ToArray(Enumerable.Select<dynamic, string>(dx.releases.release, (Func<dynamic, string>) (r => r.title.value)));
+			string [] titles = Enumerable.ToArray(Enumerable.Select<dynamic, string>(dx.releases.release, (Func<dynamic, string>) (r => r.title.value)));
 
-		    foreach (var title in titles) 
+			foreach (var title in titles) 
 			{
-		        Console.WriteLine(title);
-		    }
+				Console.WriteLine(title);
+			}
 
 			Assert.That(titles.Count(), Is.GreaterThan(0));
 		}

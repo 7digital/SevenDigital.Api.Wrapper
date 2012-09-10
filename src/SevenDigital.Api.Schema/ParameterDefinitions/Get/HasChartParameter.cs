@@ -1,3 +1,4 @@
-﻿namespace SevenDigital.Api.Schema.ParameterDefinitions.Get {
-	public interface HasChartParameter {}
+﻿namespace SevenDigital.Api.Schema.ParameterDefinitions.Get 
+{
+	public interface HasChartParameter { }
 }

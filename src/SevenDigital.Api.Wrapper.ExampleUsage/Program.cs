@@ -5,9 +5,12 @@ using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Schema.LockerEndpoint;
 
-namespace SevenDigital.Api.Wrapper.ExampleUsage {
-	class Program {
-		static void Main(string[] args) {
+namespace SevenDigital.Api.Wrapper.ExampleUsage 
+{
+	class Program 
+	{
+		static void Main(string[] args) 
+		{
 			string s = args[0];
 
 			var appSettingsCredentials = new AppSettingsCredentials();
@@ -76,25 +79,29 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage {
 					Console.WriteLine();
 				 });
 
-			try {
+			try 
+			{
 				// -- Deliberate error response
 				Console.WriteLine("Trying artist/details without artistId parameter...");
 				Api<Artist>.Create.Please();
-			} catch (ApiXmlException ex) {
+			} 
+			catch (ApiXmlException ex) 
+			{
 				Console.WriteLine("{0} : {1}", ex.Error.Code, ex.Error.ErrorMessage);
 			}
 
-			try {
+			try 
+			{
 				// -- Deliberate unauthorized response
 				Console.WriteLine("Trying user/locker without any credentials...");
 				Api<Locker>.Create.Please();
-			} catch (ApiXmlException ex) {
+			} 
+			catch (ApiXmlException ex) 
+			{
 				Console.WriteLine("{0} : {1}", ex.Error.Code, ex.Error.ErrorMessage);
 			}
 
 			Console.ReadKey();
 		}
 	}
-
-
 }

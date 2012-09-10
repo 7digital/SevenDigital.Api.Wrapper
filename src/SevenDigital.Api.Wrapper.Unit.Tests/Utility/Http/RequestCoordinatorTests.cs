@@ -122,10 +122,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 			string response = string.Empty;
 			endpointResolver.HitEndpointAsync(new EndPointInfo(),
 			 s =>
-				 {
-					 response = s.Body;
-					 reset.Set();
-				 });
+				{
+					response = s.Body;
+					reset.Set();
+				});
 
 			reset.WaitOne(1000 * 5);
 			var payload = new XmlDocument();
@@ -182,7 +182,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 
 			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath ));
 		}
-
 
 		private void Given_a_urlresolver_that_returns_valid_xml()
 		{

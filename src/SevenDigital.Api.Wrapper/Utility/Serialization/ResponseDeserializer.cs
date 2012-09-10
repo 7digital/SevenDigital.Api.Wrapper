@@ -77,7 +77,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 
 		private bool IsApiErrorResponse(string bodyMarkup)
 		{
-			return bodyMarkup.Contains("<response")  && bodyMarkup.Contains("status=\"error\"");
+			return bodyMarkup.Contains("<response") && bodyMarkup.Contains("status=\"error\"");
 		}
 
 		private bool IsServerError(int httpStatusCode)
@@ -97,17 +97,17 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 				int errorCode = ReadErrorCode(errorNode);
 
 				return new Error
-				    {
+					{
 						Code = errorCode,
-				       	ErrorMessage = errorMessage.Value
-				    };
+						ErrorMessage = errorMessage.Value
+					};
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				return new Error
 					{
 						Code = DefaultErrorCode,
-						ErrorMessage =  "XML error parse failed: " + ex
+						ErrorMessage = "XML error parse failed: " + ex
 					};
 			}
 		}
@@ -132,4 +132,5 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 			}
 		}
 	}
+
 }

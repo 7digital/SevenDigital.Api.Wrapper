@@ -8,7 +8,6 @@ using SevenDigital.Api.Schema.ReleaseEndpoint;
 
 namespace SevenDigital.Api.Schema.TrackEndpoint
 {
-	
 	[XmlRoot("track")]
 	[ApiEndpoint("track/details")]
 	[Serializable]

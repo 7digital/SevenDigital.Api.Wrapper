@@ -24,7 +24,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 			Assert.That(artist, Is.Not.Null);
 			Assert.That(artist.ChartItems.Count, Is.EqualTo(20));
 			Assert.That(artist.Type, Is.EqualTo(ChartType.artist));
-            Assert.That(artist.FromDate, Is.LessThanOrEqualTo(chartDate));
+			Assert.That(artist.FromDate, Is.LessThanOrEqualTo(chartDate));
 			Assert.That(artist.ToDate, Is.GreaterThanOrEqualTo(chartDate));
 			Assert.That(artist.ChartItems.FirstOrDefault().Artist, Is.Not.Null);
 		}

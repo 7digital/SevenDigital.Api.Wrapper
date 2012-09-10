@@ -8,7 +8,6 @@ using SevenDigital.Api.Schema.Pricing;
 
 namespace SevenDigital.Api.Schema.ReleaseEndpoint
 {
-	
 	[XmlRoot("release")]
 	[ApiEndpoint("release/details")]
 	[Serializable]
@@ -49,9 +48,9 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 
 		[XmlElement("addedDate")]
 		public DateTime AddedDate { get; set; }
-        
-        [XmlIgnore]
-        public bool AddedDateSpecified { get { return AddedDate > DateTime.MinValue; } }
+		
+		[XmlIgnore]
+		public bool AddedDateSpecified { get { return AddedDate > DateTime.MinValue; } }
 
 		[XmlElement("price")]
 		public Price Price { get; set; }

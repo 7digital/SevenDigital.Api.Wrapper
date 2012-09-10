@@ -6,7 +6,6 @@ using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 
 namespace SevenDigital.Api.Schema.ReleaseEndpoint
 {
-	
 	[ApiEndpoint("release/recommend")]
 	[XmlRoot("recommendations")]
 	[Serializable]

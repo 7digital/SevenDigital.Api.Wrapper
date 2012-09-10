@@ -12,34 +12,40 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 		
 		public static TClass Instance
 		{
-			get {
+			get 
+			{
 				return _currentTClassInstance ??
 					(_currentTClassInstance = FindTClassInLocalAssemblies());
 			}
 		}
 
-		private static TClass FindTClassInLocalAssemblies() {
-
+		private static TClass FindTClassInLocalAssemblies() 
+		{
 			var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
 			var allTypesFound = FindAllTypesThatImplementTClass(loadedAssemblies);
 
 			if (allTypesFound.Count() < 1)
+			{
 				throw new MissingDependencyException(typeof(TClass));
+			}
 
 			Type firstTClassInstanceFound = allTypesFound.FirstOrDefault();
 			return (TClass)Activator.CreateInstance(firstTClassInstanceFound);
 		}
 
-		private static IList<Type> FindAllTypesThatImplementTClass(IEnumerable<Assembly> loadedAssemblies) {
+		private static IList<Type> FindAllTypesThatImplementTClass(IEnumerable<Assembly> loadedAssemblies) 
+		{
 			var allTypesFound = new List<Type>();
-			foreach (var loadedAssembly in loadedAssemblies) {
-				try {
-					IEnumerable<Type> typesOfTClass =
-						GetConcreteTypesThatImplementTClass(loadedAssembly);
+			foreach (var loadedAssembly in loadedAssemblies) 
+			{
+				try 
+				{
+					IEnumerable<Type> typesOfTClass = GetConcreteTypesThatImplementTClass(loadedAssembly);
 					allTypesFound.AddRange(typesOfTClass);
 				}
-				catch (Exception) {}
+				catch (Exception) 
+				{}
 			}
 			return allTypesFound;
 		}

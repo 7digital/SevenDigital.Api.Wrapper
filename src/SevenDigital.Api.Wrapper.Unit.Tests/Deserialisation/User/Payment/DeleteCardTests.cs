@@ -20,10 +20,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Deserialisation.User.Payment
 			const string ResponseXml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?><response status=\"ok\" version=\"1.2\" />";
 
 			var response = new Response
-			    {
-			        StatusCode = HttpStatusCode.OK,
-			        Body = ResponseXml
-			    };
+				{
+					StatusCode = HttpStatusCode.OK,
+					Body = ResponseXml
+				};
 
 			var xmlSerializer = new ResponseDeserializer<DeleteCard>();
 			var result = xmlSerializer.Deserialize(response);

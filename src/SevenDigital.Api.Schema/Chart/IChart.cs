@@ -10,6 +10,7 @@ namespace SevenDigital.Api.Schema.Chart
 		DateTime FromDate { get; set; }
 		DateTime ToDate { get; set; }
 	}
+
 	public interface IChart<T> : IChart
 	{
 		List<T> ChartItems { get; set; }
