@@ -53,7 +53,7 @@ namespace SevenDigital.Api.Schema.TrackEndpoint
 		public TrackType Type { get; set; }
 
 		[XmlElement("streamingReleaseDate")]
-		public TrackType StreamingReleaseDate { get; set; }
+		public DateTime StreamingReleaseDate { get; set; }
 
 	}
 }
