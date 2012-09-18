@@ -51,5 +51,9 @@ namespace SevenDigital.Api.Schema.TrackEndpoint
 
 		[XmlElement("type")]
 		public TrackType Type { get; set; }
+
+		[XmlElement("streamingReleaseDate")]
+		public TrackType StreamingReleaseDate { get; set; }
+
 	}
 }
