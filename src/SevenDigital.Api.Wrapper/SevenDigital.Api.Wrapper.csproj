@@ -80,6 +80,7 @@
     <Compile Include="EndpointResolution\DictionaryExtensions.cs" />
     <Compile Include="EndpointResolution\RequestCoordinator.cs" />
     <Compile Include="EndpointResolution\IRequestCoordinator.cs" />
+    <Compile Include="Utility\Http\GzipHttpClient.cs" />
     <Compile Include="Utility\Http\PostRequest.cs" />
     <Compile Include="Utility\Http\GetRequest.cs" />
     <Compile Include="Utility\Http\HttpClient.cs" />
