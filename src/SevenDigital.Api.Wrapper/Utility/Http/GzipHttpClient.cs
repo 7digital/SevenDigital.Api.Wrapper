@@ -7,27 +7,13 @@ using SevenDigital.Api.Wrapper.EndpointResolution;
 
 namespace SevenDigital.Api.Wrapper.Utility.Http
 {
-	public class HttpClient : IHttpClient
+	public class GzipHttpClient : IHttpClient
 	{
 		public Response Get(GetRequest request)
 		{
 			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
-
-			WebResponse webResponse;
-			try
-			{
-				webResponse = webRequest.GetResponse();
-			}
-			catch (WebException ex)
-			{
-				if (ex.Response == null)
-				{
-					throw;
-				}
-				webResponse = ex.Response;
-			}
-
-			return MakeResponse(webResponse);
+			
+			return TryGetResponse(webRequest.GetResponse);
 		}
 
 		public void GetAsync(GetRequest request, Action<Response> callback)
@@ -40,10 +26,15 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 		{
 			var webRequest = (WebRequest)iar.AsyncState;
 
+			return TryGetResponse(() => webRequest.EndGetResponse(iar));
+		}
+
+		private Response TryGetResponse(Func<WebResponse> a)
+		{
 			WebResponse webResponse;
 			try
 			{
-				webResponse = webRequest.EndGetResponse(iar);
+				webResponse = a();
 			}
 			catch (WebException ex)
 			{
@@ -60,22 +51,8 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 		public Response Post(PostRequest request)
 		{
 			var webRequest = MakePostRequest(request);
-
-			WebResponse webResponse;
-			try
-			{
-				webResponse = webRequest.GetResponse();
-			}
-			catch (WebException ex)
-			{
-				if (ex.Response == null)
-				{
-					throw;
-				}
-				webResponse = ex.Response;
-			}
-
-			return MakeResponse(webResponse);
+			
+			return TryGetResponse(webRequest.GetResponse);
 		}
 
 		public void PostAsync(PostRequest request, Action<Response> callback)
@@ -85,7 +62,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
 		}
 
-		private static HttpWebRequest MakeWebRequest(string url, string method, IDictionary<string, string> headers)
+		private static HttpWebRequest MakeWebRequest(string url, string method, IEnumerable<KeyValuePair<string, string>> headers)
 		{
 			var webRequest = (HttpWebRequest)WebRequest.Create(url);
 			webRequest.Method = method;
@@ -108,11 +85,11 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			}
 
 			var response = new Response
-			{
-				StatusCode = ReadStatusCode(webResponse),
-				Headers = MapHeaders(webResponse.Headers),
-				Body = output
-			};
+			               {
+								StatusCode = ReadStatusCode(webResponse),
+								Headers = MapHeaders(webResponse.Headers),
+								Body = output
+			               };
 
 			webResponse.Close();
 
@@ -149,7 +126,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 
 		private static HttpStatusCode ReadStatusCode(WebResponse webResponse)
 		{
-			HttpWebResponse httpResponse = webResponse as HttpWebResponse;
+			var httpResponse = webResponse as HttpWebResponse;
 			if (httpResponse == null)
 			{
 				return HttpStatusCode.NoContent;
