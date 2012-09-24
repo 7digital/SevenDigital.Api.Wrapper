@@ -23,32 +23,6 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
 		}
 
-		private Response GetAsyncResponse(IAsyncResult iar)
-		{
-			var webRequest = (WebRequest)iar.AsyncState;
-
-			return TryGetResponse(() => webRequest.EndGetResponse(iar));
-		}
-
-		private Response TryGetResponse(Func<WebResponse> getResponse)
-		{
-			WebResponse webResponse;
-			try
-			{
-				webResponse = getResponse();
-			}
-			catch (WebException ex)
-			{
-				if (ex.Response == null)
-				{
-					throw;
-				}
-				webResponse = ex.Response;
-			}
-
-			return MakeResponse(webResponse);
-		}
-
 		public Response Post(PostRequest request)
 		{
 			var webRequest = MakePostRequest(request);
@@ -73,6 +47,32 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			}
 
 			return headers;
+		}
+
+		private Response GetAsyncResponse(IAsyncResult iar)
+		{
+			var webRequest = (WebRequest)iar.AsyncState;
+
+			return TryGetResponse(() => webRequest.EndGetResponse(iar));
+		}
+
+		private Response TryGetResponse(Func<WebResponse> getResponse)
+		{
+			WebResponse webResponse;
+			try
+			{
+				webResponse = getResponse();
+			}
+			catch (WebException ex)
+			{
+				if (ex.Response == null)
+				{
+					throw;
+				}
+				webResponse = ex.Response;
+			}
+
+			return MakeResponse(webResponse);
 		}
 
 		private static HttpWebRequest MakeWebRequest(string url, string method, IEnumerable<KeyValuePair<string, string>> headers)
