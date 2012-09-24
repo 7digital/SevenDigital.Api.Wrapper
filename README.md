@@ -23,7 +23,7 @@ Current invocataion:
 artist/details endpoint
 
     Artist artist = Api<Artist>
-                        .Get
+                        .Create
                         .WithArtistId(1)
                         .Please()
 
