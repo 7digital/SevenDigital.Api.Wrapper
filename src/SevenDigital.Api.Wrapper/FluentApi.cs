@@ -61,10 +61,10 @@ namespace SevenDigital.Api.Wrapper
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-			: this(new RequestCoordinator(new HttpClient(), new UrlSigner(), oAuthCredentials, apiUri)) { }
+			: this(new RequestCoordinator(new GzipHttpClient(), new UrlSigner(), oAuthCredentials, apiUri)) { }
 
 		public FluentApi()
-			: this(new RequestCoordinator(new HttpClient(), new UrlSigner(), 
+			: this(new RequestCoordinator(new GzipHttpClient(), new UrlSigner(), 
 				EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance)) 
 			{ }
 

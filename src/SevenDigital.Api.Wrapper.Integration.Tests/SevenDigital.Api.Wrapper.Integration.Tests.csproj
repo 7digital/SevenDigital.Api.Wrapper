@@ -81,6 +81,7 @@
     <Compile Include="EndpointTests\TrackEndpoint\TrackSearchTests.cs" />
     <Compile Include="Exceptions\ApiXmlExceptionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Http\GzipHttpClientTests.cs" />
     <Compile Include="Utility\Http\HttpClientTests.cs" />
   </ItemGroup>
   <ItemGroup>
