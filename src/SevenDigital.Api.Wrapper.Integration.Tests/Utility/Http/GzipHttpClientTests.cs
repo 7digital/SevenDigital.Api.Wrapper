@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
+using System.Xml;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
@@ -28,6 +29,31 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 
 			var response = new GzipHttpClient().Get(request);
 			AssertResponse(response, HttpStatusCode.OK);
+		}
+
+		[Test]
+		public void Can_resolve_uri_that_returns_gzip()
+		{
+			var url = string.Format("{0}/release/details?oauth_consumer_key={1}&releaseId=12345", API_URL, _consumerKey);
+			var request = new GetRequest(url, new Dictionary<string, string>());
+
+			var response = new GzipHttpClient().Get(request);
+			AssertResponse(response, HttpStatusCode.OK);
+			AssertCanParseBody(response);
+		}
+
+		private static void AssertCanParseBody(Response response)
+		{
+			try
+			{
+				var doc = new XmlDocument();
+				doc.LoadXml(response.Body);
+				Assert.That(doc.SelectSingleNode("/response"), Is.Not.Null);
+			}
+			catch (XmlException ex)
+			{
+				Assert.Fail("Could not parse api response body as xml :{0}", ex.Message);
+			}
 		}
 
 		[Test]

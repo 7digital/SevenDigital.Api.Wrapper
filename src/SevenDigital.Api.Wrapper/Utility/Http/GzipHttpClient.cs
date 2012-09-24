@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Text;
 using SevenDigital.Api.Wrapper.EndpointResolution;
@@ -29,12 +30,12 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return TryGetResponse(() => webRequest.EndGetResponse(iar));
 		}
 
-		private Response TryGetResponse(Func<WebResponse> a)
+		private Response TryGetResponse(Func<WebResponse> getResponse)
 		{
 			WebResponse webResponse;
 			try
 			{
-				webResponse = a();
+				webResponse = getResponse();
 			}
 			catch (WebException ex)
 			{
@@ -62,11 +63,24 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
 		}
 
+		public Dictionary<string, string> MapHeaders(WebHeaderCollection headerCollection)
+		{
+			var headers = new Dictionary<string, string>();
+
+			for (var i = 0; i < headerCollection.Count; i++)
+			{
+				headers.Add(headerCollection.GetKey(i), string.Join(",", headerCollection.GetValues(i)));
+			}
+
+			return headers;
+		}
+
 		private static HttpWebRequest MakeWebRequest(string url, string method, IEnumerable<KeyValuePair<string, string>> headers)
 		{
 			var webRequest = (HttpWebRequest)WebRequest.Create(url);
 			webRequest.Method = method;
 			webRequest.UserAgent = "7digital .Net Api Wrapper";
+			webRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip");
 
 			foreach (var header in headers)
 			{
@@ -77,9 +91,8 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 
 		private Response MakeResponse(WebResponse webResponse)
 		{
-
 			string output;
-			using (var sr = new StreamReader(webResponse.GetResponseStream()))
+			using (var sr = new StreamReader(GetResponseStream(webResponse)))
 			{
 				output = sr.ReadToEnd();
 			}
@@ -96,6 +109,18 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			return response;
 		}
 
+		private Stream GetResponseStream(WebResponse webResponse)
+		{
+			string contentEncodingHeader = webResponse.Headers["Content-Encoding"];
+
+			var responseStream = webResponse.GetResponseStream();
+
+			if (contentEncodingHeader != null && contentEncodingHeader == "gzip")
+				responseStream = new GZipStream(webResponse.GetResponseStream(), CompressionMode.Decompress);
+
+			return responseStream;
+		}
+
 		private static HttpWebRequest MakePostRequest(PostRequest request)
 		{
 			var webRequest = MakeWebRequest(request.Url, "POST", request.Headers);
@@ -110,18 +135,6 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 				dataStream.Write(postBytes, 0, postBytes.Length);
 			}
 			return webRequest;
-		}
-
-		public Dictionary<string, string> MapHeaders(WebHeaderCollection headerCollection)
-		{
-			var headers = new Dictionary<string, string>();
-
-			for (var i = 0; i < headerCollection.Count; i++)
-			{
-				headers.Add(headerCollection.GetKey(i), string.Join(",", headerCollection.GetValues(i)));
-			}
-
-			return headers;
 		}
 
 		private static HttpStatusCode ReadStatusCode(WebResponse webResponse)
