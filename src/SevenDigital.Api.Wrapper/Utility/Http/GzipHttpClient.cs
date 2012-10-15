@@ -77,10 +77,17 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 
 		private static HttpWebRequest MakeWebRequest(string url, string method, IEnumerable<KeyValuePair<string, string>> headers)
 		{
-			var webRequest = (HttpWebRequest)WebRequest.Create(url);
-			webRequest.Method = method;
-			webRequest.UserAgent = "7digital .Net Api Wrapper";
-			webRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip");
+			var webRequest = WebRequest.Create(url);
+			var httpWebRequest =  webRequest as HttpWebRequest;
+
+			if (httpWebRequest == null)
+			{
+				throw new InvalidOperationException("Could not cast WebRequest to HttpWebRequest when creating instance for url " + url);
+			}
+
+			httpWebRequest.Method = method;
+			httpWebRequest.UserAgent = "7digital .Net Api Wrapper";
+			httpWebRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip");
 
 			foreach (var header in headers)
 			{
