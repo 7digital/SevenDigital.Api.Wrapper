@@ -93,7 +93,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 			{
 				webRequest.Headers.Add(header.Key, header.Value);
 			}
-			return webRequest;
+			return httpWebRequest;
 		}
 
 		private Response MakeResponse(WebResponse webResponse)
