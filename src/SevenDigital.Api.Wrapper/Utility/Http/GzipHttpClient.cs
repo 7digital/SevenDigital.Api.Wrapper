@@ -77,12 +77,13 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 
 		private static HttpWebRequest MakeWebRequest(string url, string method, IEnumerable<KeyValuePair<string, string>> headers)
 		{
-			var webRequest = WebRequest.Create(url);
-			var httpWebRequest =  webRequest as HttpWebRequest;
-
-			if (httpWebRequest == null)
-			{
-				throw new InvalidOperationException("Could not cast WebRequest to HttpWebRequest when creating instance for url " + url);
+			HttpWebRequest httpWebRequest;
+			try {
+				var uri = new Uri(url);
+				var webRequest = WebRequest.Create(uri);
+				httpWebRequest =  (HttpWebRequest)webRequest;
+			} catch (Exception ex) {
+				throw new InvalidOperationException("Could not create HttpWebRequest for url " + url, ex);
 			}
 
 			httpWebRequest.Method = method;
@@ -91,7 +92,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 
 			foreach (var header in headers)
 			{
-				webRequest.Headers.Add(header.Key, header.Value);
+				httpWebRequest.Headers.Add(header.Key, header.Value);
 			}
 			return httpWebRequest;
 		}
