@@ -3,7 +3,6 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Schema.Pricing
 {
-
 	[XmlRoot("price")]
 	[Serializable]
 	public class Price
@@ -31,9 +30,14 @@ namespace SevenDigital.Api.Schema.Pricing
 			get
 			{
 				if (PriceIsZero())
+				{
 					return PriceStatus.Free;
+				}
+
 				if(string.IsNullOrEmpty(Value) && FormattedPrice == "N/A")
+				{
 					return PriceStatus.UnAvailable;
+				}
 
 				return PriceStatus.Available;
 			}
@@ -43,7 +47,9 @@ namespace SevenDigital.Api.Schema.Pricing
 		{
 			decimal value;
 			if (decimal.TryParse(Value, out value))
+			{
 				return value == 0;
+			}
 			
 			return false;
 		}

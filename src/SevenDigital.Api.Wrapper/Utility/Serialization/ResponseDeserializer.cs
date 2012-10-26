@@ -11,13 +11,13 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 	{
 		private const int DefaultErrorCode = 9001;
 
-		public T Deserialize(IResponse response)
+		public T Deserialize(Response response)
 		{
 			CheckResponse(response);
 			return ParsedResponse(response);
 		}
 
-		private void CheckResponse(IResponse response)
+		private void CheckResponse(Response response)
 		{
 			if (response == null)
 			{
@@ -77,7 +77,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 
 		private bool IsApiErrorResponse(string bodyMarkup)
 		{
-			return bodyMarkup.Contains("<response")  && bodyMarkup.Contains("status=\"error\"");
+			return bodyMarkup.Contains("<response") && bodyMarkup.Contains("status=\"error\"");
 		}
 
 		private bool IsServerError(int httpStatusCode)
@@ -97,17 +97,17 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 				int errorCode = ReadErrorCode(errorNode);
 
 				return new Error
-				    {
+					{
 						Code = errorCode,
-				       	ErrorMessage = errorMessage.Value
-				    };
+						ErrorMessage = errorMessage.Value
+					};
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				return new Error
 					{
 						Code = DefaultErrorCode,
-						ErrorMessage =  "XML error parse failed: " + ex
+						ErrorMessage = "XML error parse failed: " + ex
 					};
 			}
 		}
@@ -118,7 +118,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 			return int.Parse(attribute.Value);
 		}
 
-		private static T ParsedResponse(IResponse response)
+		private static T ParsedResponse(Response response)
 		{
 			try
 			{
@@ -132,4 +132,5 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 			}
 		}
 	}
+
 }

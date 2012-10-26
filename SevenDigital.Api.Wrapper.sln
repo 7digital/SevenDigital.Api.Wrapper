@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Wrapper", "src\SevenDigital.Api.Wrapper\SevenDigital.Api.Wrapper.csproj", "{42B4EE01-CDC9-482D-BBB1-B6147A6EA00D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Wrapper.Unit.Tests", "src\SevenDigital.Api.Wrapper.Unit.Tests\SevenDigital.Api.Wrapper.Unit.Tests.csproj", "{8B74D4BA-15E9-4278-AD2F-2709621873DE}"
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Schema", "src\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj", "{513C4B04-994E-4149-BFD6-A6910E0F95B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Schema.Unit.Tests", "src\SevenDigital.Api.Schema.Unit.Tests\SevenDigital.Api.Schema.Unit.Tests.csproj", "{E421350F-D18D-4D30-B9EE-53CC360097FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FA01A18C-CD3B-4784-876A-F3838C613B3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

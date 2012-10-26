@@ -39,16 +39,14 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			}
 		}
 
-
-		public virtual IResponse HitEndpoint(EndPointInfo endPointInfo)
+		public virtual Response HitEndpoint(EndPointInfo endPointInfo)
 		{
 			var builder = ConstructBuilder(endPointInfo);
 			builder.HttpClient = HttpClient;
 			return builder.HitEndpoint(endPointInfo);
 		}
 
-
-		public virtual void HitEndpointAsync(EndPointInfo endPointInfo, Action<IResponse> callback)
+		public virtual void HitEndpointAsync(EndPointInfo endPointInfo, Action<Response> callback)
 		{
 			var builder = ConstructBuilder(endPointInfo);
 			builder.HttpClient = HttpClient;

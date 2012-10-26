@@ -6,7 +6,6 @@ using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 
 namespace SevenDigital.Api.Schema.Tags
 {
-	
 	[ApiEndpoint("release/tags")]
 	[XmlRoot("tags")]
 	[Serializable]

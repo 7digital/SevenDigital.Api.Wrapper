@@ -16,7 +16,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		public void Setup()
 		{
 			var httpClient = A.Fake<IHttpClient>();
-			A.CallTo(() => httpClient.Get(A<IRequest>.Ignored.Argument)).Returns(new Response());
+			A.CallTo(() => httpClient.Get(A<GetRequest>.Ignored)).Returns(new Response());
 
 			var apiUri = A.Fake<IApiUri>();
 			A.CallTo(() => apiUri.Uri)
@@ -32,9 +32,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 			{
 				UriPath = "something/{route}",
 				Parameters = new Dictionary<string, string>
-						{
-							{"route","routevalue"}
-						}
+					{
+						{"route","routevalue"}
+					}
 			};
 
 			var result = _requestCoordinator.ConstructEndpoint(endpointInfo);
@@ -49,12 +49,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 			{
 				UriPath = "something/{firstRoute}/{secondRoute}/thrid/{thirdRoute}",
 				Parameters = new Dictionary<string, string>
-						{
-							{"firstRoute" , "firstValue"},
-							{"secondRoute","secondValue"},
-							{"thirdRoute" , "thirdValue"}
+					{
+						{"firstRoute" , "firstValue"},
+						{"secondRoute","secondValue"},
+						{"thirdRoute" , "thirdValue"}
 							
-						}
+					}
 			};
 
 			var result = _requestCoordinator.ConstructEndpoint(endpointInfo);
@@ -69,12 +69,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 			{
 				UriPath = "something/{firstRoUte}/{secOndrouTe}/thrid/{tHirdRoute}",
 				Parameters = new Dictionary<string, string>
-						{
-							{"firstRoute" , "firstValue"},
-							{"secondRoute","secondValue"},
-							{"thirdRoute" , "thirdValue"}
+					{
+						{"firstRoute" , "firstValue"},
+						{"secondRoute","secondValue"},
+						{"thirdRoute" , "thirdValue"}
 							
-						}
+					}
 			};
 
 			var result = _requestCoordinator.ConstructEndpoint(endpointInfo);
@@ -89,9 +89,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 			{
 				UriPath = "something/{route-66}",
 				Parameters = new Dictionary<string, string>
-						{
-							{"route-66","routevalue"}
-						}
+					{
+						{"route-66","routevalue"}
+					}
 			};
 
 			var result = _requestCoordinator.ConstructEndpoint(endpointInfo);
@@ -106,9 +106,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 			{
 				UriPath = "something/{route-66}",
 				Parameters = new Dictionary<string, string>
-						{
-							{"route-66","routevalue"}
-						}
+					{
+						{"route-66","routevalue"}
+					}
 			};
 
 			var result = _requestCoordinator.ConstructEndpoint(endpointInfo);

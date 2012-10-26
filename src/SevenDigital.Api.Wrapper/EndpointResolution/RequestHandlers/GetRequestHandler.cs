@@ -16,21 +16,21 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			_urlSigner = urlSigner;
 		}
 
-		public override IResponse HitEndpoint(EndPointInfo endPointInfo)
+		public override Response HitEndpoint(EndPointInfo endPointInfo)
 		{
 			var getRequest = BuildGetRequest(endPointInfo);
 			return HttpClient.Get(getRequest);
 		}
 
-		private Request BuildGetRequest(EndPointInfo endPointInfo)
+		private GetRequest BuildGetRequest(EndPointInfo endPointInfo)
 		{
 			var uri = ConstructEndpoint(endPointInfo);
 			var signedUrl = SignHttpGetUrl(uri, endPointInfo);
-			var getRequest = new Request(signedUrl, endPointInfo.Headers);
+			var getRequest = new GetRequest(signedUrl, endPointInfo.Headers);
 			return getRequest;
 		}
 
-		public override void HitEndpointAsync(EndPointInfo endPointInfo, Action<IResponse> action)
+		public override void HitEndpointAsync(EndPointInfo endPointInfo, Action<Response> action)
 		{
 			var getRequest = BuildGetRequest(endPointInfo);
 			HttpClient.GetAsync(getRequest, response => action(response));

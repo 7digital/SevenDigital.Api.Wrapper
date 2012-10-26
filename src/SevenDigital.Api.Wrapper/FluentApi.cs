@@ -36,32 +36,37 @@ namespace SevenDigital.Api.Wrapper
 
 
 			OAuthSignedAttribute isSigned = typeof(T).GetCustomAttributes(true)
-												.OfType<OAuthSignedAttribute>()
-												.FirstOrDefault();
+				.OfType<OAuthSignedAttribute>()
+				.FirstOrDefault();
 
 			if (isSigned != null)
 				_endPointInfo.IsSigned = true;
 
 			RequireSecureAttribute isSecure = typeof(T).GetCustomAttributes(true)
-											.OfType<RequireSecureAttribute>()
-											.FirstOrDefault();
+				.OfType<RequireSecureAttribute>()
+				.FirstOrDefault();
 
 			if (isSecure != null)
 				_endPointInfo.UseHttps = true;
 
 			HttpPostAttribute isHttpPost = typeof(T).GetCustomAttributes(true)
-								.OfType<HttpPostAttribute>()
-								.FirstOrDefault();
+				.OfType<HttpPostAttribute>()
+				.FirstOrDefault();
+
 			if (isHttpPost != null)
+			{
 				_endPointInfo.HttpMethod = "POST";
+			}
 
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-			: this(new RequestCoordinator(new HttpClient(), new UrlSigner(), oAuthCredentials, apiUri)) { }
+			: this(new RequestCoordinator(new GzipHttpClient(), new UrlSigner(), oAuthCredentials, apiUri)) { }
 
 		public FluentApi()
-			: this(new RequestCoordinator(new HttpClient(), new UrlSigner(), EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance)) { }
+			: this(new RequestCoordinator(new GzipHttpClient(), new UrlSigner(), 
+				EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance)) 
+			{ }
 
 
 		public IFluentApi<T> WithEndpoint(string endpoint)
@@ -131,7 +136,7 @@ namespace SevenDigital.Api.Wrapper
 			_requestCoordinator.HitEndpointAsync(_endPointInfo, PleaseAsyncEnd(callback));
 		}
 
-		internal Action<IResponse> PleaseAsyncEnd(Action<T> callback)
+		internal Action<Response> PleaseAsyncEnd(Action<T> callback)
 		{
 			return output =>
 			{
@@ -140,6 +145,9 @@ namespace SevenDigital.Api.Wrapper
 			};
 		}
 
-		public IDictionary<string, string> Parameters { get { return _endPointInfo.Parameters; } }
+		public IDictionary<string, string> Parameters
+		{
+			get { return _endPointInfo.Parameters; }
+		}
 	}
 }

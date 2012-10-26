@@ -22,10 +22,10 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		public void Can_do_similar_to_browse()
 		{
 			var artist = Api<ArtistSearch>
-							.Create
-							.WithQuery("radiohe")
-							.WithParameter("sort","popularity+desc")
-							.Please();
+				.Create
+				.WithQuery("radiohe")
+				.WithParameter("sort","popularity+desc")
+				.Please();
 
 			Assert.That(artist, Is.Not.Null);
 			
@@ -59,30 +59,29 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 			Assert.That(artistBrowse.PageSize, Is.EqualTo(20));
 		}
 
-        [Test]
-        public void Can_get_multiple_results()
-        {
-            ArtistSearch artistSearch = Api<ArtistSearch>.Create
-                .WithParameter("q", "pink")
-                .WithParameter("page", "1")
-                .WithParameter("pageSize", "20")
-                .Please();
-
-            Assert.That(artistSearch.Results.Count, Is.GreaterThan(1));
-            
-        }
-
 		[Test]
-		public void Can_get_multiple_results_with_new_FluentApi_overload() {
-			var artistSearch = new FluentApi<ArtistSearch>(new AppSettingsCredentials(), new ApiUri())
-									.ForShop(34)
-									.WithQuery("pink")
-									.WithPageNumber(1)
-									.WithPageSize(20)
-									.Please();
+		public void Can_get_multiple_results()
+		{
+			ArtistSearch artistSearch = Api<ArtistSearch>.Create
+				.WithParameter("q", "pink")
+				.WithParameter("page", "1")
+				.WithParameter("pageSize", "20")
+				.Please();
 
 			Assert.That(artistSearch.Results.Count, Is.GreaterThan(1));
+		}
 
+		[Test]
+		public void Can_get_multiple_results_with_new_FluentApi_overload() 
+		{
+			var artistSearch = new FluentApi<ArtistSearch>(new AppSettingsCredentials(), new ApiUri())
+				.ForShop(34)
+				.WithQuery("pink")
+				.WithPageNumber(1)
+				.WithPageSize(20)
+				.Please();
+
+			Assert.That(artistSearch.Results.Count, Is.GreaterThan(1));
 		}
 	}
 }
