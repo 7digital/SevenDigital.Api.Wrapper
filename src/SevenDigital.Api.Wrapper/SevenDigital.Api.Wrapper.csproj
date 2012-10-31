@@ -47,6 +47,7 @@
     <Compile Include="EndpointResolution\RequestHandlers\PostRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\RequestHandler.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
+    <Compile Include="Exceptions\UnrecognisedStatusException.cs" />
     <Compile Include="Exceptions\MissingDependencyException.cs" />
     <Compile Include="Exceptions\NonXmlResponseException.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />

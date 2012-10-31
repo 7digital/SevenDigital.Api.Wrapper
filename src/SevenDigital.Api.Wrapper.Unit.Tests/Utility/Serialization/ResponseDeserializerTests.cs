@@ -230,7 +230,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 		}
 
 		[Test]
-		public void should_throw_exception_when_deserialize_with_invalid_status()
+		public void Should_throw_unrecognised_status_exception_when_deserializing_with_invalid_status()
 		{
 			const string InvalidStatusXmlResponse = "<?xml version=\"1.0\"?><response status=\"fish\" version=\"1.2\"></response>";
 			var response = new Response
@@ -240,10 +240,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 				};
 			var deserializer = new ResponseDeserializer<TestEmptyObject>();
 
-			var ex = Assert.Throws<ApiXmlException>(() => deserializer.Deserialize(response));
+			var ex = Assert.Throws<UnrecognisedStatusException>(() => deserializer.Deserialize(response));
 
 			Assert.That(ex, Is.Not.Null);
-			Assert.That(ex.Message, Is.StringStarting("No valid status found in response."));
+			Assert.That(ex.Message, Is.EqualTo(UnrecognisedStatusException.DEFAULT_ERROR_MESSAGE));
+			Assert.That(ex.ResponseBody, Is.EqualTo(InvalidStatusXmlResponse));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 		}
 
@@ -258,10 +259,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 				};
 			var deserializer = new ResponseDeserializer<TestEmptyObject>();
 
-			var ex = Assert.Throws<ApiXmlException>(() => deserializer.Deserialize(response));
+			var ex = Assert.Throws<UnrecognisedStatusException>(() => deserializer.Deserialize(response));
 
 			Assert.That(ex, Is.Not.Null);
-			Assert.That(ex.Message, Is.StringStarting("No valid status found in response."));
+			Assert.That(ex.Message, Is.EqualTo(UnrecognisedStatusException.DEFAULT_ERROR_MESSAGE));
+			Assert.That(ex.ResponseBody, Is.EqualTo(MissingStatusXmlResponse));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 		}
 	}

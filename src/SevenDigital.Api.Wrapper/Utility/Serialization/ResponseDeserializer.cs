@@ -67,7 +67,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 
 			if (messageIsXml && !_apiResponseDetector.IsApiOkResponse(response.Body))
 			{
-				throw new ApiXmlException("No valid status found in response. Status must be one of 'ok' or 'error':\n" + response.Body, response.StatusCode);
+				throw CreateUnrecognisedStatusException(response);
 			}
 		}
 
@@ -77,6 +77,14 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 			nonXmlResponseException.ResponseBody = response.Body;
 			nonXmlResponseException.StatusCode = response.StatusCode;
 			return nonXmlResponseException;
+		}
+
+		private static UnrecognisedStatusException CreateUnrecognisedStatusException(Response response)
+		{
+			var unrecognisedStatus = new UnrecognisedStatusException();
+			unrecognisedStatus.StatusCode = response.StatusCode;
+			unrecognisedStatus.ResponseBody = response.Body;
+			return unrecognisedStatus;
 		}
 
 		private Error ParseError(string xml)
