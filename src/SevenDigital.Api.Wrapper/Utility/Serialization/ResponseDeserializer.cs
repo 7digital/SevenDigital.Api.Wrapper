@@ -33,7 +33,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 		{
 			if (response == null)
 			{
-				throw new ApiXmlException("No response");
+				throw new ArgumentNullException("response");
 			}
 
 			if (string.IsNullOrEmpty(response.Body))
@@ -56,7 +56,8 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 					throw CreateNonXmlResponseException(response);
 				}
 
-				throw new ApiXmlException("Server error:\n" + response.Body, response.StatusCode);
+				var error = ParseError(response.Body);
+				throw new ApiXmlException("Server error:\n" + response.Body, response.StatusCode, error);
 			}
 
 			if (!messageIsXml && response.StatusCode != HttpStatusCode.OK)

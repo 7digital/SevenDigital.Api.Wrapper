@@ -1,6 +1,6 @@
+using System;
 using System.Net;
 using NUnit.Framework;
-using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Utility.Http;
 using SevenDigital.Api.Wrapper.Utility.Serialization;
@@ -10,6 +10,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 	[TestFixture]
 	public class ResponseDeserializerTests
 	{
+		[Test]
+		public void Should_throw_argument_null_exception_when_reponse_is_null()
+		{
+			var apiXmlDeserializer = new ResponseDeserializer<TestObject>();
+
+			Assert.Throws<ArgumentNullException>(() => apiXmlDeserializer.Deserialize(null));
+		}
+
 		[Test]
 		public void Can_deserialize_object()
 		{
@@ -158,15 +166,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 			var ex = Assert.Throws<ApiXmlException>(() => xmlSerializer.Deserialize(response));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.Error.ErrorMessage, Is.StringStarting("XML error parse failed"));
-		}
-
-		[Test]
-		public void Should_throw_api_exception_with_null()
-		{
-			var apiXmlDeSerializer = new ResponseDeserializer<Status>();
-
-			var apiException = Assert.Throws<ApiXmlException>(() => apiXmlDeSerializer.Deserialize(null));
-			Assert.That(apiException.Message, Is.EqualTo("No response"));
 		}
 
 		[Test]
