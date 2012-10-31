@@ -26,7 +26,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 
 			if (string.IsNullOrEmpty(response.Body))
 			{
-				throw new ApiXmlException("No response body", response.StatusCode);
+				throw CreateNonXmlResponseException(response);
 			}
 
 			var startOfMessage = StartOfMessage(response.Body);
@@ -40,23 +40,31 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 
 			if (IsServerError((int)response.StatusCode))
 			{
+				if (!messageIsXml)
+				{
+					throw CreateNonXmlResponseException(response);
+				}
+
 				throw new ApiXmlException("Server error:\n" + response.Body, response.StatusCode);
 			}
 
 			if (!messageIsXml && response.StatusCode != HttpStatusCode.OK)
 			{
-				var error = new Error
-					{
-						Code = DefaultErrorCode,
-						ErrorMessage = response.Body
-					};
-				throw new ApiXmlException("Error response:\n" + response.Body, response.StatusCode, error);
+				throw CreateNonXmlResponseException(response);
 			}
 
 			if (messageIsXml && !IsApiOkResponse(startOfMessage))
 			{
 				throw new ApiXmlException("No valid status found in response. Status must be one of 'ok' or 'error':\n" + response.Body, response.StatusCode);
 			}
+		}
+
+		private static NonXmlResponseException CreateNonXmlResponseException(Response response)
+		{
+			var nonXmlResponseException = new NonXmlResponseException();
+			nonXmlResponseException.ResponseBody = response.Body;
+			nonXmlResponseException.StatusCode = response.StatusCode;
+			return nonXmlResponseException;
 		}
 
 		private static string StartOfMessage(string bodyMarkup)
@@ -127,8 +135,10 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 			}
 			catch (Exception ex)
 			{
-				string message = string.Format("Error trying to deserialize xml response\n{0}", response.Body);
-				throw new ApiXmlException(message, response.StatusCode, ex);
+				var nonXmlResponseException = new NonXmlResponseException(NonXmlResponseException.DEFAULT_ERROR_MESSAGE, ex);
+				nonXmlResponseException.ResponseBody = response.Body;
+				nonXmlResponseException.StatusCode = response.StatusCode;
+				throw nonXmlResponseException;
 			}
 		}
 	}

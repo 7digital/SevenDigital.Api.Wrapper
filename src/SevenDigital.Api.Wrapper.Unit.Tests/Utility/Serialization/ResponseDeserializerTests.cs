@@ -94,6 +94,39 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 		}
 
 		[Test]
+		public void Should_throw_non_xml_response_exception_when_response_body_is_null()
+		{
+			var response = new Response
+			{
+				StatusCode = HttpStatusCode.OK,
+				Body = null
+			};
+
+			var xmlSerializer = new ResponseDeserializer<TestObject>();
+
+			var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Deserialize(response));
+			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
+			Assert.That(ex.ResponseBody, Is.Null);
+		}
+
+		[Test]
+		public void Should_throw_non_xml_response_exception_when_response_body_is_empty()
+		{
+			var response = new Response
+			{
+				StatusCode = HttpStatusCode.OK,
+				Body = string.Empty
+			};
+
+			var xmlSerializer = new ResponseDeserializer<TestObject>();
+
+			var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Deserialize(response));
+			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
+			Assert.That(ex.ResponseBody, Is.Empty);
+		}
+
+
+		[Test]
 		public void Should_not_fail_if_xml_is_missing_error_code()
 		{
 			const string validXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"error\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\" ><error><errorMessage>An error</errorMessage></error></response>";
@@ -149,11 +182,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 
 			var xmlSerializer = new ResponseDeserializer<TestObject>();
 
-			var ex = Assert.Throws<ApiXmlException>(() => xmlSerializer.Deserialize(response));
+			var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Deserialize(response));
 
 			Assert.That(ex, Is.Not.Null);
-			Assert.That(ex.Message, Is.StringStarting("Server error:"));
-			Assert.That(ex.Message, Is.StringEnding(badXml));
+			Assert.That(ex.Message, Is.EqualTo("Error deserializing xml response"));
+			Assert.That(ex.ResponseBody, Is.EqualTo(badXml));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 		}
 
@@ -170,11 +203,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 
 			var xmlSerializer = new ResponseDeserializer<TestObject>();
 
-			var ex = Assert.Throws<ApiXmlException>(() => xmlSerializer.Deserialize(response));
+			var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Deserialize(response));
 
 			Assert.That(ex, Is.Not.Null);
-			Assert.That(ex.Message, Is.StringStarting("Error trying to deserialize xml response"));
-			Assert.That(ex.Message, Is.StringEnding(badXml));
+			Assert.That(ex.Message, Is.EqualTo("Error deserializing xml response"));
+			Assert.That(ex.ResponseBody, Is.EqualTo(badXml));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 		}
 
@@ -188,15 +221,13 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 				};
 
 			var xmlSerializer = new ResponseDeserializer<TestObject>();
-			var ex = Assert.Throws<ApiXmlException>(() => xmlSerializer.Deserialize(response));
+			var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Deserialize(response));
 
 			Assert.That(ex, Is.Not.Null);
-			Assert.That(ex.Message, Is.StringStarting("Error response"));
-			Assert.That(ex.Message, Is.StringEnding(response.Body));
+			Assert.That(ex.Message, Is.EqualTo("Error deserializing xml response"));
+			Assert.That(ex.ResponseBody, Is.EqualTo(response.Body));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 
-			Assert.That(ex.Error.Code, Is.EqualTo(9001));
-			Assert.That(ex.Error.ErrorMessage, Is.EqualTo(response.Body));
 		}
 
 		[Test]
@@ -234,7 +265,5 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 			Assert.That(ex.Message, Is.StringStarting("No valid status found in response."));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 		}
-
 	}
-
 }

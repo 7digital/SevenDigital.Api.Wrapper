@@ -46,7 +46,9 @@
     <Compile Include="EndpointResolution\RequestHandlers\GetRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\PostRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\RequestHandler.cs" />
+    <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Exceptions\MissingDependencyException.cs" />
+    <Compile Include="Exceptions\NonXmlResponseException.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\HasAddCardParameterExtensions.cs" />
     <Compile Include="Extensions\HasCardIdParameterExtensions.cs" />
