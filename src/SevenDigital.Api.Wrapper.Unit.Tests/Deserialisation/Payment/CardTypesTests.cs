@@ -21,9 +21,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Deserialisation.Payment
 		[Test]
 		public void can_deseralize_card_types()
 		{
-			var xmlSerializer = new ResponseDeserializer<PaymentCardTypes>();
+			var xmlParser = new ResponseParser<PaymentCardTypes>();
 
-			var result = xmlSerializer.Deserialize(stubResponse);
+			var result = xmlParser.Parse(stubResponse);
 
 			Assert.That(result.CardTypes.Count(),Is.EqualTo(4));
 			var lastCard = result.CardTypes.Last();

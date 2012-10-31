@@ -35,9 +35,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Deserialisation.User.Payment
 		[Test]
 		public void can_deserialise_response_user_cards()
 		{
-			var xmlSerializer = new ResponseDeserializer<Cards>();
+			var xmlParser = new ResponseParser<Cards>();
 
-			var deserializedCards = xmlSerializer.Deserialize(response);
+			var deserializedCards = xmlParser.Parse(response);
 
 			var firstCard = deserializedCards.UserCards[0];
 			Assert.That(deserializedCards.UserCards.Count(), Is.EqualTo(1));

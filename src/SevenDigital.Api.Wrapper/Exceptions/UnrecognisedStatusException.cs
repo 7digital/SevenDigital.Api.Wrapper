@@ -8,8 +8,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 	public class UnrecognisedStatusException : ApiException
 	{
 		public const string DEFAULT_ERROR_MESSAGE = "API response status must be \"ok\" or \"error\"";
-		public string ResponseBody { get; set; }
-		public HttpStatusCode StatusCode { get; set; }
 
 		public UnrecognisedStatusException()
 			: base(DEFAULT_ERROR_MESSAGE)

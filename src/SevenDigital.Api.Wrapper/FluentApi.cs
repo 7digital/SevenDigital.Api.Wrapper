@@ -15,13 +15,13 @@ namespace SevenDigital.Api.Wrapper
 	{
 		private readonly EndPointInfo _endPointInfo = new EndPointInfo();
 		private readonly IRequestCoordinator _requestCoordinator;
-		private readonly IResponseDeserializer<T> _deserializer;
+		private readonly IResponseParser<T> _parser;
 
 		public FluentApi(IRequestCoordinator requestCoordinator)
 		{
 			_requestCoordinator = requestCoordinator;
 
-			_deserializer = new ResponseDeserializer<T>();
+			_parser = new ResponseParser<T>();
 
 			ApiEndpointAttribute attribute = typeof(T).GetCustomAttributes(true)
 				.OfType<ApiEndpointAttribute>()
@@ -117,9 +117,9 @@ namespace SevenDigital.Api.Wrapper
 			try
 			{
 				var response = _requestCoordinator.HitEndpoint(_endPointInfo);
-				return _deserializer.Deserialize(response);
+				return _parser.Parse(response);
 			}
-			catch (ApiXmlException apiXmlException)
+			catch (ApiException apiXmlException)
 			{
 				apiXmlException.Uri = EndpointUrl;
 				throw;
@@ -140,7 +140,7 @@ namespace SevenDigital.Api.Wrapper
 		{
 			return output =>
 			{
-				T entity = _deserializer.Deserialize(output);
+				T entity = _parser.Parse(output);
 				callback(entity);
 			};
 		}

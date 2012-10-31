@@ -8,8 +8,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 	public class NonXmlResponseException : ApiException
 	{
 		public const string DEFAULT_ERROR_MESSAGE = "Error deserializing xml response";
-		public string ResponseBody { get; set; }
-		public HttpStatusCode StatusCode { get; set; }
 
 		public NonXmlResponseException()
 			: base(DEFAULT_ERROR_MESSAGE)

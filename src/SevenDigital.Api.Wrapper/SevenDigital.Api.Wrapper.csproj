@@ -46,10 +46,16 @@
     <Compile Include="EndpointResolution\RequestHandlers\GetRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\PostRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\RequestHandler.cs" />
+    <Compile Include="Exceptions\ApiErrorException.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
+    <Compile Include="Exceptions\InputParameterException.cs" />
+    <Compile Include="Exceptions\InvalidResourceException.cs" />
+    <Compile Include="Exceptions\RemoteApiException.cs" />
+    <Compile Include="Exceptions\UnrecognisedErrorException.cs" />
     <Compile Include="Exceptions\UnrecognisedStatusException.cs" />
     <Compile Include="Exceptions\MissingDependencyException.cs" />
     <Compile Include="Exceptions\NonXmlResponseException.cs" />
+    <Compile Include="Exceptions\UserCardException.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\HasAddCardParameterExtensions.cs" />
     <Compile Include="Extensions\HasCardIdParameterExtensions.cs" />
@@ -76,7 +82,6 @@
     <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />
     <Compile Include="EndpointResolution\OAuth\OAuthBase.cs" />
     <Compile Include="EndpointResolution\OAuth\UrlSigner.cs" />
-    <Compile Include="Exceptions\ApiXmlException.cs" />
     <Compile Include="EndpointResolution\EndPointInfo.cs" />
     <Compile Include="FluentApi.cs" />
     <Compile Include="IFluentApi.cs" />
@@ -90,9 +95,10 @@
     <Compile Include="Utility\Http\IHttpClient.cs" />
     <Compile Include="Utility\Http\Response.cs" />
     <Compile Include="Utility\Serialization\ApiResponseDetector.cs" />
+    <Compile Include="Utility\Serialization\ExceptionFactory.cs" />
     <Compile Include="Utility\Serialization\IApiResponseDetector.cs" />
-    <Compile Include="Utility\Serialization\ResponseDeserializer.cs" />
-    <Compile Include="Utility\Serialization\IResponseDeserializer.cs" />
+    <Compile Include="Utility\Serialization\ResponseParser.cs" />
+    <Compile Include="Utility\Serialization\IResponseParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Serialization\StringDeserializer.cs" />
   </ItemGroup>

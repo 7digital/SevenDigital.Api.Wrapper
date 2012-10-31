@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using SevenDigital.Api.Wrapper.Exceptions;
 
 namespace SevenDigital.Api.Wrapper.Utility.Serialization
 {

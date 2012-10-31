@@ -85,9 +85,9 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 				Console.WriteLine("Trying artist/details without artistId parameter...");
 				Api<Artist>.Create.Please();
 			} 
-			catch (ApiXmlException ex) 
+			catch (ApiException ex) 
 			{
-				Console.WriteLine("{0} : {1}", ex.Error.Code, ex.Error.ErrorMessage);
+				Console.WriteLine("{0} : {1}", ex, ex.Message);
 			}
 
 			try 
@@ -96,9 +96,9 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 				Console.WriteLine("Trying user/locker without any credentials...");
 				Api<Locker>.Create.Please();
 			} 
-			catch (ApiXmlException ex) 
+			catch (ApiException ex) 
 			{
-				Console.WriteLine("{0} : {1}", ex.Error.Code, ex.Error.ErrorMessage);
+				Console.WriteLine("{0} : {1}", ex, ex.Message);
 			}
 
 			Console.ReadKey();

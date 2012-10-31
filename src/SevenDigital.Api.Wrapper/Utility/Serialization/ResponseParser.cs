@@ -8,25 +8,24 @@ using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Utility.Serialization
 {
-	public class ResponseDeserializer<T> : IResponseDeserializer<T> where T : class
+	public class ResponseParser<T> : IResponseParser<T> where T : class
 	{
 		private readonly IApiResponseDetector _apiResponseDetector;
-		private const int DefaultErrorCode = 9001;
 
-		public ResponseDeserializer()
+		public ResponseParser()
 			: this(EssentialDependencyCheck<IApiResponseDetector>.Instance)
 		{
 		}
 
-		public ResponseDeserializer(IApiResponseDetector apiResponseDetector)
+		public ResponseParser(IApiResponseDetector apiResponseDetector)
 		{
 			_apiResponseDetector = apiResponseDetector;
 		}
 
-		public T Deserialize(Response response)
+		public T Parse(Response response)
 		{
 			CheckResponse(response);
-			return ParsedResponse(response);
+			return ParseResponse(response);
 		}
 
 		private void CheckResponse(Response response)
@@ -38,65 +37,48 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 
 			if (string.IsNullOrEmpty(response.Body))
 			{
-				throw CreateNonXmlResponseException(response);
+				throw ExceptionFactory.CreateNonXmlResponseException(response);
 			}
 
 			var messageIsXml = _apiResponseDetector.IsXml(response.Body);
 
 			if (messageIsXml && _apiResponseDetector.IsApiErrorResponse(response.Body))
 			{
-				var error = ParseError(response.Body);
-				throw new ApiXmlException("Error response:\n" + response.Body, response.StatusCode, error);
+				var error = ParseError(response);
+				throw ExceptionFactory.CreateApiErrorException(error, response);
 			}
 
 			if (_apiResponseDetector.IsServerError((int)response.StatusCode))
 			{
 				if (!messageIsXml)
 				{
-					throw CreateNonXmlResponseException(response);
+					throw ExceptionFactory.CreateNonXmlResponseException(response);
 				}
 
-				var error = ParseError(response.Body);
-				throw new ApiXmlException("Server error:\n" + response.Body, response.StatusCode, error);
+				var error = ParseError(response);
+				throw ExceptionFactory.CreateApiErrorException(error, response);
 			}
 
 			if (!messageIsXml && response.StatusCode != HttpStatusCode.OK)
 			{
-				throw CreateNonXmlResponseException(response);
+				throw ExceptionFactory.CreateNonXmlResponseException(response);
 			}
 
 			if (messageIsXml && !_apiResponseDetector.IsApiOkResponse(response.Body))
 			{
-				throw CreateUnrecognisedStatusException(response);
+				throw ExceptionFactory.CreateUnrecognisedStatusException(response);
 			}
 		}
 
-		private static NonXmlResponseException CreateNonXmlResponseException(Response response)
-		{
-			var nonXmlResponseException = new NonXmlResponseException();
-			nonXmlResponseException.ResponseBody = response.Body;
-			nonXmlResponseException.StatusCode = response.StatusCode;
-			return nonXmlResponseException;
-		}
-
-		private static UnrecognisedStatusException CreateUnrecognisedStatusException(Response response)
-		{
-			var unrecognisedStatus = new UnrecognisedStatusException();
-			unrecognisedStatus.StatusCode = response.StatusCode;
-			unrecognisedStatus.ResponseBody = response.Body;
-			return unrecognisedStatus;
-		}
-
-		private Error ParseError(string xml)
+		private Error ParseError(Response response)
 		{
 			try
 			{
-				var xmlDoc = XDocument.Parse(xml);
+				var xmlDoc = XDocument.Parse(response.Body);
 				var responseNode = xmlDoc.FirstNode as XElement;
 				var errorNode = responseNode.FirstNode as XElement;
 				var errorMessage = errorNode.FirstNode as XElement;
-
-				var errorCode = ReadErrorCode(errorNode);
+				var errorCode = ParseErrorCode(errorNode);
 
 				return new Error
 					{
@@ -104,23 +86,19 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 						ErrorMessage = errorMessage.Value
 					};
 			}
-			catch (Exception ex)
+			catch(Exception ex)
 			{
-				return new Error
-					{
-						Code = DefaultErrorCode,
-						ErrorMessage = "XML error parse failed: " + ex
-					};
+				throw ExceptionFactory.CreateUnrecognisedErrorException(response, ex);
 			}
 		}
 
-		private int ReadErrorCode(XElement errorNode)
+		private int ParseErrorCode(XElement errorNode)
 		{
 			var attribute = errorNode.Attribute("code");
 			return int.Parse(attribute.Value);
 		}
 
-		private static T ParsedResponse(Response response)
+		private static T ParseResponse(Response response)
 		{
 			try
 			{

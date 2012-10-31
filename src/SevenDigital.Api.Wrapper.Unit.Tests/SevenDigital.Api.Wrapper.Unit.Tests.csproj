@@ -71,7 +71,7 @@
     <Compile Include="Utility\Http\RequestCoordinatorTests.cs" />
     <Compile Include="Utility\Http\DictionaryExtensionsTests.cs" />
     <Compile Include="Utility\Serialization\ApiResponseDetectorTests.cs" />
-    <Compile Include="Utility\Serialization\ResponseDeserializerTests.cs" />
+    <Compile Include="Utility\Serialization\ResponseParserTests.cs" />
     <Compile Include="Utility\Serialization\StringDeserializerTests.cs" />
     <Compile Include="Utility\Serialization\TestObject.cs" />
   </ItemGroup>
