@@ -2,6 +2,7 @@
 using System.Net;
 using System.Xml.Linq;
 using SevenDigital.Api.Schema;
+using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Utility.Http;
 
@@ -9,7 +10,18 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 {
 	public class ResponseDeserializer<T> : IResponseDeserializer<T> where T : class
 	{
+		private readonly IApiResponseDetector _apiResponseDetector;
 		private const int DefaultErrorCode = 9001;
+
+		public ResponseDeserializer()
+			: this(EssentialDependencyCheck<IApiResponseDetector>.Instance)
+		{
+		}
+
+		public ResponseDeserializer(IApiResponseDetector apiResponseDetector)
+		{
+			_apiResponseDetector = apiResponseDetector;
+		}
 
 		public T Deserialize(Response response)
 		{
@@ -29,16 +41,15 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 				throw CreateNonXmlResponseException(response);
 			}
 
-			var startOfMessage = StartOfMessage(response.Body);
-			var messageIsXml = IsXml(startOfMessage);
+			var messageIsXml = _apiResponseDetector.IsXml(response.Body);
 
-			if (messageIsXml && IsApiErrorResponse(startOfMessage))
+			if (messageIsXml && _apiResponseDetector.IsApiErrorResponse(response.Body))
 			{
 				var error = ParseError(response.Body);
 				throw new ApiXmlException("Error response:\n" + response.Body, response.StatusCode, error);
 			}
 
-			if (IsServerError((int)response.StatusCode))
+			if (_apiResponseDetector.IsServerError((int)response.StatusCode))
 			{
 				if (!messageIsXml)
 				{
@@ -53,7 +64,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 				throw CreateNonXmlResponseException(response);
 			}
 
-			if (messageIsXml && !IsApiOkResponse(startOfMessage))
+			if (messageIsXml && !_apiResponseDetector.IsApiOkResponse(response.Body))
 			{
 				throw new ApiXmlException("No valid status found in response. Status must be one of 'ok' or 'error':\n" + response.Body, response.StatusCode);
 			}
@@ -67,32 +78,6 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 			return nonXmlResponseException;
 		}
 
-		private static string StartOfMessage(string bodyMarkup)
-		{
-			int maxLength = Math.Min(bodyMarkup.Length, 512);
-			return bodyMarkup.Substring(0, maxLength);
-		}
-
-		private bool IsXml(string bodyMarkup)
-		{
-			return bodyMarkup.Contains("<?xml");
-		}
-
-		private bool IsApiOkResponse(string bodyMarkup)
-		{
-			return bodyMarkup.Contains("<response") && bodyMarkup.Contains("status=\"ok\"");
-		}
-
-		private bool IsApiErrorResponse(string bodyMarkup)
-		{
-			return bodyMarkup.Contains("<response") && bodyMarkup.Contains("status=\"error\"");
-		}
-
-		private bool IsServerError(int httpStatusCode)
-		{
-			return httpStatusCode >= 500;
-		}
-
 		private Error ParseError(string xml)
 		{
 			try
@@ -102,7 +87,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 				var errorNode = responseNode.FirstNode as XElement;
 				var errorMessage = errorNode.FirstNode as XElement;
 
-				int errorCode = ReadErrorCode(errorNode);
+				var errorCode = ReadErrorCode(errorNode);
 
 				return new Error
 					{
