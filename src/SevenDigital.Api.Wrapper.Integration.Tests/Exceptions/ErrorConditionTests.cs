@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 		{
 			// -- Deliberate unauthorized response
 			Console.WriteLine("Trying user/locker without any credentials...");
-			var apiXmlException = Assert.Throws<NonXmlResponseException>(() => Api<Locker>.Create.Please());
+			var apiXmlException = Assert.Throws<OAuthException>(() => Api<Locker>.Create.Please());
 			Assert.That(apiXmlException.ResponseBody, Is.EqualTo("OAuth authentication error: Resource requires access token"));
 		}
 	}

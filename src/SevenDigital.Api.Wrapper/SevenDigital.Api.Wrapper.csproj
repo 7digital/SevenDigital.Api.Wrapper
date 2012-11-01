@@ -50,6 +50,7 @@
     <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Exceptions\InputParameterException.cs" />
     <Compile Include="Exceptions\InvalidResourceException.cs" />
+    <Compile Include="Exceptions\OAuthException.cs" />
     <Compile Include="Exceptions\RemoteApiException.cs" />
     <Compile Include="Exceptions\UnrecognisedErrorException.cs" />
     <Compile Include="Exceptions\UnrecognisedStatusException.cs" />

@@ -6,5 +6,6 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 		bool IsApiOkResponse(string responseBody);
 		bool IsApiErrorResponse(string responseBody);
 		bool IsServerError(int httpStatusCode);
+		bool IsOAuthError(string responseBody);
 	}
 }

@@ -36,5 +36,10 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 		{
 			return httpStatusCode >= 500;
 		}
+
+		public bool IsOAuthError(string responseBody)
+		{
+			return responseBody.StartsWith("OAuth");
+		}
 	}
 }

@@ -59,6 +59,13 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 			return unrecognisedErrorException;
 		}
 
+		public static OAuthException CreateOAuthException(Response response)
+		{
+			var oAuthException = new OAuthException();
+			PopulateStatusAndBodyFromResponse(response, oAuthException);
+			return oAuthException;
+		}
+
 		private static void PopulateStatusAndBodyFromResponse(Response response, ApiException apiException)
 		{
 			apiException.StatusCode = response.StatusCode;

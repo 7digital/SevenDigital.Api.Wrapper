@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Xml.Linq;
 using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.EndpointResolution;
@@ -24,50 +23,37 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 
 		public T Parse(Response response)
 		{
-			CheckResponse(response);
+			DetectErrorResponsesAndThrow(response);
 			return ParseResponse(response);
 		}
 
-		private void CheckResponse(Response response)
+		private void DetectErrorResponsesAndThrow(Response response)
 		{
 			if (response == null)
-			{
 				throw new ArgumentNullException("response");
-			}
 
 			if (string.IsNullOrEmpty(response.Body))
-			{
 				throw ExceptionFactory.CreateNonXmlResponseException(response);
-			}
 
-			var messageIsXml = _apiResponseDetector.IsXml(response.Body);
+			if (!_apiResponseDetector.IsXml(response.Body))
+				DetectAndThrowForNonXmlResponses(response);
 
-			if (messageIsXml && _apiResponseDetector.IsApiErrorResponse(response.Body))
-			{
-				var error = ParseError(response);
-				throw ExceptionFactory.CreateApiErrorException(error, response);
-			}
-
-			if (_apiResponseDetector.IsServerError((int)response.StatusCode))
-			{
-				if (!messageIsXml)
-				{
-					throw ExceptionFactory.CreateNonXmlResponseException(response);
-				}
-
-				var error = ParseError(response);
-				throw ExceptionFactory.CreateApiErrorException(error, response);
-			}
-
-			if (!messageIsXml && response.StatusCode != HttpStatusCode.OK)
-			{
-				throw ExceptionFactory.CreateNonXmlResponseException(response);
-			}
-
-			if (messageIsXml && !_apiResponseDetector.IsApiOkResponse(response.Body))
-			{
+			if (!_apiResponseDetector.IsApiOkResponse(response.Body) && !_apiResponseDetector.IsApiErrorResponse(response.Body))
 				throw ExceptionFactory.CreateUnrecognisedStatusException(response);
-			}
+
+			if (_apiResponseDetector.IsApiOkResponse(response.Body) && !_apiResponseDetector.IsApiErrorResponse(response.Body))
+				return;
+
+			var error = ParseError(response);
+			throw ExceptionFactory.CreateApiErrorException(error, response);
+		}
+
+		private void DetectAndThrowForNonXmlResponses(Response response)
+		{
+			if (_apiResponseDetector.IsOAuthError(response.Body))
+				throw ExceptionFactory.CreateOAuthException(response);
+
+			throw ExceptionFactory.CreateNonXmlResponseException(response);
 		}
 
 		private Error ParseError(Response response)
