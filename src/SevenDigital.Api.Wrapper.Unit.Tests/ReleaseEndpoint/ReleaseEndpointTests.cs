@@ -23,8 +23,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.ReleaseEndpoint
 					Body = responseXml
 				};
 
-			var xmlSerializer = new ResponseDeserializer<ArtistReleases>();
-			var release =  xmlSerializer.Deserialize(response).Releases.First();
+			var xmlParser = new ResponseParser<ArtistReleases>();
+			var release =  xmlParser.Parse(response).Releases.First();
 
 			Assert.That(release.Type,Is.EqualTo(ReleaseType.Unknown));
 		}

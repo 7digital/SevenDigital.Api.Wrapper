@@ -63,6 +63,7 @@
     <Compile Include="Deserialisation\User\Payment\DeleteCardTests.cs" />
     <Compile Include="EndpointResolution\EndpointResolverTests.cs" />
     <Compile Include="EndpointResolution\OAuth\UrlSignerTests.cs" />
+    <Compile Include="Exceptions\ExceptionFactoryTests.cs" />
     <Compile Include="FluentAPITests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseEndpointTests.cs" />
@@ -70,7 +71,8 @@
     <Compile Include="Utility\Http\NameValueExtensionsTests.cs" />
     <Compile Include="Utility\Http\RequestCoordinatorTests.cs" />
     <Compile Include="Utility\Http\DictionaryExtensionsTests.cs" />
-    <Compile Include="Utility\Serialization\ResponseDeserializerTests.cs" />
+    <Compile Include="Utility\Serialization\ApiResponseDetectorTests.cs" />
+    <Compile Include="Utility\Serialization\ResponseParserTests.cs" />
     <Compile Include="Utility\Serialization\StringDeserializerTests.cs" />
     <Compile Include="Utility\Serialization\TestObject.cs" />
   </ItemGroup>

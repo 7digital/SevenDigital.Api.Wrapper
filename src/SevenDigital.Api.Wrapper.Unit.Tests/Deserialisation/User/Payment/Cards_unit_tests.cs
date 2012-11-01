@@ -32,9 +32,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Deserialisation.User.Payment
 		[Test]
 		public void can_deserialise_response_user_cards()
 		{
-			var xmlSerializer = new ResponseDeserializer<AddCard>();
+			var xmlParser = new ResponseParser<AddCard>();
 
-			var deserializedCards = xmlSerializer.Deserialize(response);
+			var deserializedCards = xmlParser.Parse(response);
 			
 			Assert.That(deserializedCards, Is.Not.Null);
 		}
