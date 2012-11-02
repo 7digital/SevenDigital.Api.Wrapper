@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
+﻿using System.Net;
 using NUnit.Framework;
-using SevenDigital.Api.Schema.Payment;
 using SevenDigital.Api.Schema.User.Payment;
 using SevenDigital.Api.Wrapper.Utility.Http;
 using SevenDigital.Api.Wrapper.Utility.Serialization;
@@ -25,8 +20,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Deserialisation.User.Payment
 					Body = ResponseXml
 				};
 
-			var xmlSerializer = new ResponseDeserializer<DeleteCard>();
-			var result = xmlSerializer.Deserialize(response);
+			var xmlParser = new ResponseParser<DeleteCard>();
+			var result = xmlParser.Parse(response);
 
 			Assert.That(result, Is.Not.Null);
 		}
