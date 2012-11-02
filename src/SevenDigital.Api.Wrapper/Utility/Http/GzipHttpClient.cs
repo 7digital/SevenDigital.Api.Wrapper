@@ -77,16 +77,24 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 
 		private static HttpWebRequest MakeWebRequest(string url, string method, IEnumerable<KeyValuePair<string, string>> headers)
 		{
-			var webRequest = (HttpWebRequest)WebRequest.Create(url);
-			webRequest.Method = method;
-			webRequest.UserAgent = "7digital .Net Api Wrapper";
-			webRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip");
+			HttpWebRequest httpWebRequest;
+			try {
+				var uri = new Uri(url);
+				var webRequest = WebRequest.Create(uri);
+				httpWebRequest =  (HttpWebRequest)webRequest;
+			} catch (Exception ex) {
+				throw new InvalidOperationException("Could not create HttpWebRequest for url " + url, ex);
+			}
+
+			httpWebRequest.Method = method;
+			httpWebRequest.UserAgent = "7digital .Net Api Wrapper";
+			httpWebRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip");
 
 			foreach (var header in headers)
 			{
-				webRequest.Headers.Add(header.Key, header.Value);
+				httpWebRequest.Headers.Add(header.Key, header.Value);
 			}
-			return webRequest;
+			return httpWebRequest;
 		}
 
 		private Response MakeResponse(WebResponse webResponse)

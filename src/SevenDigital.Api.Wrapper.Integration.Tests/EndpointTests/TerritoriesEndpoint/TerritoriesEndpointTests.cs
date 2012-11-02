@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 using SevenDigital.Api.Schema.Territories;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEndpoint
@@ -55,6 +56,50 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 
 			Assert.That(restrictions, Is.Not.Null);
 			Assert.That(restrictions.AllowCheckout, Is.True);
+		}
+
+		[Test]
+		public void Can_hit_countries_list_endpoint()
+		{
+			var countries = Api<Countries>
+				.Create
+				.Please();
+
+			Assert.That(countries, Is.Not.Null);
+			Assert.That(countries.CountryItems, Is.Not.Null);
+			Assert.That(countries.CountryItems.Count, Is.GreaterThan(0));
+		}
+
+		[Test]
+		public void Countries_list_contains_gb()
+		{
+			var countries = Api<Countries>
+				.Create
+				.Please();
+
+			var gb = countries.CountryItems.First(c => c.Code == "GB");
+			Assert.That(gb, Is.Not.Null);
+			Assert.That(gb.Description, Is.EqualTo("United Kingdom"));
+			Assert.That(gb.LocalDescription, Is.EqualTo("United Kingdom"));
+			Assert.That(gb.Url, Is.EqualTo("http://www.7digital.com"));
+		}
+
+		[Test]
+		public void Countries_list_contains_gb_language()
+		{
+			var countries = Api<Countries>
+				.Create
+				.Please();
+
+			var gb = countries.CountryItems.First(c => c.Code == "GB");
+
+			Assert.That(gb.Languages.Count, Is.EqualTo(1));
+
+			var ukEnglish = gb.Languages[0];
+
+			Assert.That(ukEnglish.Description, Is.EqualTo("English"));
+			Assert.That(ukEnglish.LocalDescription, Is.EqualTo("English"));
+			Assert.That(ukEnglish.Url, Is.EqualTo("http://www.7digital.com"));
 		}
 	}
 }
