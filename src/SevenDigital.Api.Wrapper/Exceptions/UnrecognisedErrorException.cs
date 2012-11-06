@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using System.Runtime.Serialization;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
@@ -7,7 +6,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 	[Serializable]
 	public class UnrecognisedErrorException : ApiException
 	{
-		public const string DEFAULT_ERROR_MESSAGE = "Error parsing error XML - yo dawg!";
+		public const string DEFAULT_ERROR_MESSAGE = "Error parsing error XML";
 
 		public UnrecognisedErrorException()
 			: base(DEFAULT_ERROR_MESSAGE)

@@ -61,7 +61,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Serialization
 
 		public static OAuthException CreateOAuthException(Response response)
 		{
-			var oAuthException = new OAuthException();
+			var oAuthException = new OAuthException(response.Body);
 			PopulateStatusAndBodyFromResponse(response, oAuthException);
 			return oAuthException;
 		}

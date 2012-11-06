@@ -290,39 +290,40 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 		[Test]
 		public void Should_handle_plaintext_oauth_fail()
 		{
+			const string ErrorText = "OAuth authentication error: Not authorised - no user credentials provided";
 			var response = new Response
 				{
 					StatusCode = HttpStatusCode.Unauthorized,
-					Body = "OAuth authentication error: Not authorised - no user credentials provided"
+					Body = ErrorText
 				};
 
 			var xmlParser = new ResponseParser<TestObject>();
 			var ex = Assert.Throws<OAuthException>(() => xmlParser.Parse(response));
 
 			Assert.That(ex, Is.Not.Null);
-			Assert.That(ex.Message, Is.EqualTo("Error deserializing xml response"));
+			Assert.That(ex.Message, Is.EqualTo(ErrorText));
 			Assert.That(ex.ResponseBody, Is.EqualTo(response.Body));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
-
 		}
 
 		[Test]
 		public void Should_handle_plaintext_oauth_fail_with_ok_status()
 		{
+			const string ErrorText = "OAuth authentication error: Not found";
+
 			var response = new Response
 				{
 					StatusCode = HttpStatusCode.OK,
-					Body = "OAuth authentication error: Not found"
+					Body = ErrorText
 				};
 
 			var xmlParser = new ResponseParser<TestObject>();
 			var ex = Assert.Throws<OAuthException>(() => xmlParser.Parse(response));
 
 			Assert.That(ex, Is.Not.Null);
-			Assert.That(ex.Message, Is.EqualTo("Error deserializing xml response"));
+			Assert.That(ex.Message, Is.EqualTo(ErrorText));
 			Assert.That(ex.ResponseBody, Is.EqualTo(response.Body));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
-
 		}
 
 		[Test]

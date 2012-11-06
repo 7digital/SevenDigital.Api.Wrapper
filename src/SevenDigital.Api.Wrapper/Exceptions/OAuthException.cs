@@ -6,10 +6,8 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 	[Serializable]
 	public class OAuthException : ApiException
 	{
-		public const string DEFAULT_ERROR_MESSAGE = "Error deserializing xml response";
-
 		public OAuthException()
-			: base(DEFAULT_ERROR_MESSAGE)
+			: base()
 		{
 		}
 
