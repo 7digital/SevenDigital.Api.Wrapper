@@ -18,9 +18,8 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 		/// the Uri into a string, it unescapes the oauth signature and if it contains '+' characters
 		/// it will fail.
 		/// </summary>
-		public string SignGetUrl(string urlWithParameters, string userToken, string userSecret, IOAuthCredentials consumerCredentials)
+		public string SignGetUrl(string urlWithParameters, string userToken, string tokenSecret, IOAuthCredentials consumerCredentials)
 		{
-			
 			var timeStamp = _oAuthBase.GenerateTimeStamp();
 			var nonce = _oAuthBase.GenerateNonce();
 
@@ -30,7 +29,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 				consumerCredentials.ConsumerKey,
 				consumerCredentials.ConsumerSecret,
 				userToken,
-				userSecret,
+				tokenSecret,
 				"GET",
 				timeStamp,
 				nonce,
@@ -42,12 +41,12 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 			return string.Format("{0}?{1}&oauth_signature={2}", normalizedUrl, normalizedRequestParameters, encodedSignature);
 		}
 
-		public Uri SignUrl(string urlWithParameters, string userToken, string userSecret, IOAuthCredentials consumerCredentials)
+		public Uri SignUrl(string urlWithParameters, string userToken, string tokenSecret, IOAuthCredentials consumerCredentials)
 		{
-			return new Uri(SignGetUrl(urlWithParameters, userToken, userSecret, consumerCredentials));
+			return new Uri(SignGetUrl(urlWithParameters, userToken, tokenSecret, consumerCredentials));
 		}
 
-		public IDictionary<string, string> SignPostRequest(string url, string userToken, string userSecret, 
+		public IDictionary<string, string> SignPostRequest(string url, string userToken, string tokenSecret,
 			IOAuthCredentials consumerCredentials, Dictionary<string, string> postParameters)
 		{
 			if (string.IsNullOrEmpty(consumerCredentials.ConsumerKey))
@@ -63,7 +62,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 			string normalizedUrl;
 			
 			var signature = _oAuthBase.GenerateSignature(new Uri(url), consumerCredentials.ConsumerKey, 
-				consumerCredentials.ConsumerSecret, userToken, userSecret, "POST", timestamp, nonce, 
+				consumerCredentials.ConsumerSecret, userToken, tokenSecret, "POST", timestamp, nonce,
 				out normalizedUrl, out normalizedRequestParameters, postParameters);
 
 			var parameters = new Dictionary<string, string>(postParameters)
