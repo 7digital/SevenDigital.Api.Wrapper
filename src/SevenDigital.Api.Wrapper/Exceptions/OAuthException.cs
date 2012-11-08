@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Serialization;
+using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
@@ -13,6 +14,10 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 
 		public OAuthException(string message)
 			: base(message)
+		{
+		}
+
+		public OAuthException(Response response) : base (response.Body, response)
 		{
 		}
 

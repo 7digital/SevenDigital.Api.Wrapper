@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Serialization;
+using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
@@ -13,13 +14,23 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public UnrecognisedErrorException(string message)
-			: base(message)
+		public UnrecognisedErrorException(Exception innerException, Response response)
+			: base(DEFAULT_ERROR_MESSAGE, innerException, response)
+		{
+		}
+
+		public UnrecognisedErrorException(string message, Response response)
+			: base(message, response)
 		{
 		}
 
 		public UnrecognisedErrorException(string message, Exception innerException)
 			: base(message, innerException)
+		{
+		}
+
+		public UnrecognisedErrorException(string message, Exception innerException, Response response)
+			: base(message, innerException, response)
 		{
 		}
 
