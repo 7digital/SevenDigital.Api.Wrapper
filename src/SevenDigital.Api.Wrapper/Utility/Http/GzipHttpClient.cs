@@ -121,12 +121,10 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 		{
 			string contentEncodingHeader = webResponse.Headers["Content-Encoding"];
 
-			var responseStream = webResponse.GetResponseStream();
-
 			if (contentEncodingHeader != null && contentEncodingHeader == "gzip")
-				responseStream = new GZipStream(webResponse.GetResponseStream(), CompressionMode.Decompress);
+				return new GZipStream(webResponse.GetResponseStream(), CompressionMode.Decompress);
 
-			return responseStream;
+			return webResponse.GetResponseStream();
 		}
 
 		private static HttpWebRequest MakePostRequest(PostRequest request)
