@@ -24,10 +24,10 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
 			var artist = Api<ArtistTopTracks>
-								.Create
-								.WithArtistId(1)
-								.WithParameter("country", "GB")
-								.Please();
+				.Create
+				.WithArtistId(1)
+				.WithParameter("country", "GB")
+				.Please();
 			
 			Assert.That(artist, Is.Not.Null);
 			Assert.That(artist.Tracks.Count, Is.GreaterThan(0));
