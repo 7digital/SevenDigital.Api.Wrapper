@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SevenDigital.Api.Schema.OAuth;
@@ -102,7 +102,7 @@ namespace SevenDigital.Api.Wrapper
 		public virtual IFluentApi<T> ForUser(string token, string secret)
 		{
 			_endPointInfo.UserToken = token;
-			_endPointInfo.UserSecret = secret;
+			_endPointInfo.TokenSecret = secret;
 			return this;
 		}
 

@@ -40,11 +40,10 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		{
 			if (endPointInfo.IsSigned)
 			{
-				return _urlSigner.SignGetUrl(uri, endPointInfo.UserToken, endPointInfo.UserSecret, _oAuthCredentials);
+				return _urlSigner.SignGetUrl(uri, endPointInfo.UserToken, endPointInfo.TokenSecret, _oAuthCredentials);
 			}
 			return uri;
 		}
-
 
 		protected override string AdditionalParameters(Dictionary<string, string> newDictionary)
 		{
