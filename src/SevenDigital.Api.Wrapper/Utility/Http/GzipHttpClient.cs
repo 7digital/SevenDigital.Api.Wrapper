@@ -13,7 +13,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 		public Response Get(GetRequest request)
 		{
 			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
-			
+
 			return TryGetResponse(webRequest.GetResponse);
 		}
 
@@ -26,7 +26,7 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 		public Response Post(PostRequest request)
 		{
 			var webRequest = MakePostRequest(request);
-			
+
 			return TryGetResponse(webRequest.GetResponse);
 		}
 
@@ -78,11 +78,14 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 		private static HttpWebRequest MakeWebRequest(string url, string method, IEnumerable<KeyValuePair<string, string>> headers)
 		{
 			HttpWebRequest httpWebRequest;
-			try {
+			try
+			{
 				var uri = new Uri(url);
 				var webRequest = WebRequest.Create(uri);
-				httpWebRequest =  (HttpWebRequest)webRequest;
-			} catch (Exception ex) {
+				httpWebRequest = (HttpWebRequest)webRequest;
+			}
+			catch (Exception ex)
+			{
 				throw new InvalidOperationException("Could not create HttpWebRequest for url " + url, ex);
 			}
 
@@ -99,34 +102,39 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 
 		private Response MakeResponse(WebResponse webResponse)
 		{
-			string output;
-			using (var sr = new StreamReader(GetResponseStream(webResponse)))
+			try
 			{
-				output = sr.ReadToEnd();
+				string output;
+				using (var sr = new StreamReader(GetResponseStream(webResponse)))
+				{
+					output = sr.ReadToEnd();
+				}
+
+				var response = new Response
+				{
+					StatusCode = ReadStatusCode(webResponse),
+					Headers = MapHeaders(webResponse.Headers),
+					Body = output
+				};
+
+				return response;
 			}
-
-			var response = new Response
-			               {
-								StatusCode = ReadStatusCode(webResponse),
-								Headers = MapHeaders(webResponse.Headers),
-								Body = output
-			               };
-
-			webResponse.Close();
-
-			return response;
+			finally
+			{
+				webResponse.Close();
+			}
 		}
 
 		private Stream GetResponseStream(WebResponse webResponse)
 		{
 			string contentEncodingHeader = webResponse.Headers["Content-Encoding"];
 
-			var responseStream = webResponse.GetResponseStream();
-
 			if (contentEncodingHeader != null && contentEncodingHeader == "gzip")
-				responseStream = new GZipStream(webResponse.GetResponseStream(), CompressionMode.Decompress);
+			{
+				return new GZipStream(webResponse.GetResponseStream(), CompressionMode.Decompress);
+			}
 
-			return responseStream;
+			return webResponse.GetResponseStream();
 		}
 
 		private static HttpWebRequest MakePostRequest(PostRequest request)
