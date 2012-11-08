@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Serialization;
+using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
@@ -13,13 +14,18 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
+		public NonXmlResponseException(Response response)
+			: base(DEFAULT_ERROR_MESSAGE, response)
+		{
+		}
+
 		public NonXmlResponseException(string message)
 			: base(message)
 		{
 		}
 
-		public NonXmlResponseException(string message, Exception innerException)
-			: base(message, innerException)
+		public NonXmlResponseException(string message, Exception innerException, Response response)
+			: base(message, innerException, response)
 		{
 		}
 
