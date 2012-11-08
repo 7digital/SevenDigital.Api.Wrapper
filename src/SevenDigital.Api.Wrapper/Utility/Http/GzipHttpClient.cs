@@ -72,7 +72,9 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 				webResponse = ex.Response;
 			}
 
-			return MakeResponse(webResponse);
+			using (webResponse) {
+				return MakeResponse(webResponse);
+			}
 		}
 
 		private static HttpWebRequest MakeWebRequest(string url, string method, IEnumerable<KeyValuePair<string, string>> headers)
@@ -110,8 +112,6 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 
 			var response = new Response(statusCode, headers, output);
 
-			webResponse.Close();
-
 			return response;
 		}
 
@@ -119,12 +119,10 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 		{
 			string contentEncodingHeader = webResponse.Headers["Content-Encoding"];
 
-			var responseStream = webResponse.GetResponseStream();
-
 			if (contentEncodingHeader != null && contentEncodingHeader == "gzip")
-				responseStream = new GZipStream(webResponse.GetResponseStream(), CompressionMode.Decompress);
+				return new GZipStream(webResponse.GetResponseStream(), CompressionMode.Decompress);
 
-			return responseStream;
+			return webResponse.GetResponseStream();
 		}
 
 		private static HttpWebRequest MakePostRequest(PostRequest request)
