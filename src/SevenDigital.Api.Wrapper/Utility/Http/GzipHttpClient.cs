@@ -72,7 +72,9 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 				webResponse = ex.Response;
 			}
 
-			return MakeResponse(webResponse);
+			using (webResponse) {
+				return MakeResponse(webResponse);
+			}
 		}
 
 		private static HttpWebRequest MakeWebRequest(string url, string method, IEnumerable<KeyValuePair<string, string>> headers)
@@ -111,8 +113,6 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 								Headers = MapHeaders(webResponse.Headers),
 								Body = output
 			               };
-
-			webResponse.Close();
 
 			return response;
 		}
