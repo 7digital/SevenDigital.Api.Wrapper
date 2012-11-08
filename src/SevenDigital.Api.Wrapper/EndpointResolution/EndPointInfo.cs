@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿
+using System;
+using System.Collections.Generic;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
@@ -16,7 +18,10 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		public string UserToken { get; set; }
 
-		public string UserSecret { get; set; }
+		public string TokenSecret { get; set; }
+
+		[Obsolete("Use TokenSecret")]
+		public string UserSecret { get { return TokenSecret; } set { TokenSecret = value; } }
 
 		public bool IsSigned { get; set; }
 

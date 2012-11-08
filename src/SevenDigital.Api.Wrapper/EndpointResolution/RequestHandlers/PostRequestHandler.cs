@@ -39,7 +39,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		{
 			if (endPointInfo.IsSigned)
 			{
-				return _urlSigner.SignPostRequest(uri, endPointInfo.UserToken, endPointInfo.UserSecret, _oAuthCredentials, endPointInfo.Parameters);
+				return _urlSigner.SignPostRequest(uri, endPointInfo.UserToken, endPointInfo.TokenSecret, _oAuthCredentials, endPointInfo.Parameters);
 			}
 			return endPointInfo.Parameters;
 		}
