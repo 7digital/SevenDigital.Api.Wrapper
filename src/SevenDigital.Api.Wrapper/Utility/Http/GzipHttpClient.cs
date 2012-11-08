@@ -105,12 +105,10 @@ namespace SevenDigital.Api.Wrapper.Utility.Http
 				output = sr.ReadToEnd();
 			}
 
-			var response = new Response
-			               {
-								StatusCode = ReadStatusCode(webResponse),
-								Headers = MapHeaders(webResponse.Headers),
-								Body = output
-			               };
+			var statusCode = ReadStatusCode(webResponse);
+			var headers = MapHeaders(webResponse.Headers);
+
+			var response = new Response(statusCode, headers, output);
 
 			webResponse.Close();
 
