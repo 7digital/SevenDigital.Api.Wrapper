@@ -6,8 +6,8 @@ using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Wrapper.Exceptions;
-using SevenDigital.Api.Wrapper.Utility.Http;
-using SevenDigital.Api.Wrapper.Utility.Serialization;
+using SevenDigital.Api.Wrapper.Http;
+using SevenDigital.Api.Wrapper.Serialization;
 
 namespace SevenDigital.Api.Wrapper
 {

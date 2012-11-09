@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SevenDigital.Api.Wrapper.Utility.Http
+namespace SevenDigital.Api.Wrapper.Http
 {
 	public interface IHttpClient
 	{

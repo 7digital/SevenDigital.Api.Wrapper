@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 
-namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
+namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 {
 	[TestFixture]
 	public class DictionaryExtensionsTests

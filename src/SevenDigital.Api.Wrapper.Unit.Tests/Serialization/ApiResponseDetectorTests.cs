@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using SevenDigital.Api.Wrapper.Utility.Serialization;
+using SevenDigital.Api.Wrapper.Serialization;
 
-namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
+namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 {
 	[TestFixture]
 	public class ApiResponseDetectorTests
@@ -90,8 +90,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
 
 			Assert.That(result, Is.False);
 		}
-
-
 
 		[Test]
 		public void Should_detect_500_as_server_error()

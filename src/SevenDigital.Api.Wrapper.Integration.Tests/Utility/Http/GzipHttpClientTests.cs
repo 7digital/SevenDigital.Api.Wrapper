@@ -4,7 +4,7 @@ using System.Net;
 using System.Threading;
 using System.Xml;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.Utility.Http;
+using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.Utility.Http
 {

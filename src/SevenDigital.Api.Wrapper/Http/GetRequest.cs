@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SevenDigital.Api.Wrapper.Utility.Http
+namespace SevenDigital.Api.Wrapper.Http
 {
 	[Serializable]
 	public class GetRequest
