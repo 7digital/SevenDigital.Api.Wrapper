@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Serialization;
+using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
@@ -10,6 +11,11 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 
 		public UnrecognisedStatusException()
 			: base(DEFAULT_ERROR_MESSAGE)
+		{
+		}
+
+		public UnrecognisedStatusException(Response response)
+			: base(DEFAULT_ERROR_MESSAGE, response)
 		{
 		}
 

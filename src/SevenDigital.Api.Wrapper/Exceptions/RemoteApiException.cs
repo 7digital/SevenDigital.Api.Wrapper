@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using SevenDigital.Api.Schema;
+using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
@@ -11,8 +13,8 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public RemoteApiException(string message)
-			: base(message)
+		public RemoteApiException(string message, Response response, Error error)
+			: base(message, response, error)
 		{
 		}
 

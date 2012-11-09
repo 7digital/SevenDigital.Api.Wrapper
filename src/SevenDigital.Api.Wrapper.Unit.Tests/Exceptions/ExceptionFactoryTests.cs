@@ -15,7 +15,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Exceptions
 		public void Should_set_properties_when_creating_unrecognised_status_exception()
 		{
 			var dummyResponse = new Response() {Body = "Test Body", StatusCode = HttpStatusCode.BadRequest};
-			var result = ExceptionFactory.CreateUnrecognisedStatusException(dummyResponse);
+			var result = new UnrecognisedStatusException(dummyResponse);
 
 			Assert.That(result.ResponseBody, Is.EqualTo(dummyResponse.Body));
 			Assert.That(result.StatusCode, Is.EqualTo(dummyResponse.StatusCode));
@@ -26,7 +26,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Exceptions
 		{
 			var dummyResponse = new Response() {Body = "Test Body", StatusCode = HttpStatusCode.BadRequest};
 			var innerException = new Exception();
-			var result = ExceptionFactory.CreateUnrecognisedErrorException(dummyResponse, innerException);
+			var result = new UnrecognisedErrorException(innerException, dummyResponse);
 
 			Assert.That(result.ResponseBody, Is.EqualTo(dummyResponse.Body));
 			Assert.That(result.StatusCode, Is.EqualTo(dummyResponse.StatusCode));
@@ -39,7 +39,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Exceptions
 		{
 			var dummyResponse = new Response() { Body = "Test Body", StatusCode = HttpStatusCode.BadRequest };
 			var innerException = new Exception();
-			var result = ExceptionFactory.CreateUnrecognisedErrorException(dummyResponse, innerException);
+			var result = new UnrecognisedErrorException(innerException, dummyResponse);
 
 			Assert.That(result.ResponseBody, Is.EqualTo(dummyResponse.Body));
 			Assert.That(result.StatusCode, Is.EqualTo(dummyResponse.StatusCode));
@@ -61,7 +61,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Exceptions
 		public void Should_set_properties_when_creating_oauth_exception()
 		{
 			var dummyResponse = new Response() { Body = "Test Body", StatusCode = HttpStatusCode.BadRequest };
-			var result = ExceptionFactory.CreateOAuthException(dummyResponse);
+			var result = new OAuthException(dummyResponse);
 
 			Assert.That(result.ResponseBody, Is.EqualTo(dummyResponse.Body));
 			Assert.That(result.StatusCode, Is.EqualTo(dummyResponse.StatusCode));
