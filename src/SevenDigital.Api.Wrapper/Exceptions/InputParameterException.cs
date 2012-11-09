@@ -13,8 +13,13 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public InputParameterException(string message, Response response, Error error)
-			: base(message, response, error)
+		public InputParameterException(string message, ErrorCode errorCode)
+			: base(message, errorCode)
+		{
+		}
+
+		public InputParameterException(string message, Response response, ErrorCode errorCode)
+			: base(message, response, errorCode)
 		{
 		}
 

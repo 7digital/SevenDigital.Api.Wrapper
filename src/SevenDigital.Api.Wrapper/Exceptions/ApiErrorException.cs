@@ -7,16 +7,22 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 {
 	public abstract class ApiErrorException : ApiException
 	{
-		public int ErrorCode { get; private set; }
+		public ErrorCode ErrorCode { get; private set; }
 
 		protected ApiErrorException()
 		{
 		}
 
-		protected ApiErrorException(string message, Response response, Error error)
+		protected ApiErrorException(string message, ErrorCode errorCode)
+			: base(message)
+		{
+			ErrorCode = errorCode;
+		}
+
+		protected ApiErrorException(string message, Response response, ErrorCode errorCode)
 			: base(message, response)
 		{
-			ErrorCode = error.Code;
+			ErrorCode = errorCode;
 		}
 
 		protected ApiErrorException(string message, Exception innerException)

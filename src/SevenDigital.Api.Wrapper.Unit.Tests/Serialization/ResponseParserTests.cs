@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using NUnit.Framework;
+using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Serialization;
@@ -48,7 +49,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
 			Assert.That(ex.Message, Is.EqualTo("Test error"));
-			Assert.That(ex.ErrorCode, Is.EqualTo(1001));
+			Assert.That(ex.ErrorCode, Is.EqualTo(ErrorCode.RequiredParameterMissing));
 		}
 
 		[Test]
@@ -64,7 +65,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
 			Assert.That(ex.Message, Is.EqualTo("Test error"));
-			Assert.That(ex.ErrorCode, Is.EqualTo(1001));
+			Assert.That(ex.ErrorCode, Is.EqualTo(ErrorCode.RequiredParameterMissing));
 		}
 
 		[Test]
@@ -80,7 +81,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
 			Assert.That(ex.Message, Is.EqualTo("Test error"));
-			Assert.That(ex.ErrorCode, Is.EqualTo(2001));
+			Assert.That(ex.ErrorCode, Is.EqualTo(ErrorCode.ResourceNotFound));
 		}
 
 		[Test]
@@ -96,7 +97,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
 			Assert.That(ex.Message, Is.EqualTo("Test error"));
-			Assert.That(ex.ErrorCode, Is.EqualTo(3001));
+			Assert.That(ex.ErrorCode, Is.EqualTo(ErrorCode.UserCardHasExpired));
 		}
 
 		[Test]
@@ -112,7 +113,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
 			Assert.That(ex.Message, Is.EqualTo("Test error"));
-			Assert.That(ex.ErrorCode, Is.EqualTo(9001));
+			Assert.That(ex.ErrorCode, Is.EqualTo(ErrorCode.UnexpectedInternalServerError));
 		}
 
 		[Test]

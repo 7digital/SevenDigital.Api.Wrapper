@@ -17,7 +17,8 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public OAuthException(Response response) : base (response.Body, response)
+		public OAuthException(Response response) 
+			: base (response.Body, response)
 		{
 		}
 

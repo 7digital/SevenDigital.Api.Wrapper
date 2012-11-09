@@ -13,8 +13,13 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public InvalidResourceException(string message, Response response, Error error)
-			: base(message, response, error)
+		public InvalidResourceException(string message, ErrorCode errorCode)
+			: base(message, errorCode)
+		{
+		}
+
+		public InvalidResourceException(string message, Response response, ErrorCode errorCode)
+			: base(message, response, errorCode)
 		{
 		}
 
