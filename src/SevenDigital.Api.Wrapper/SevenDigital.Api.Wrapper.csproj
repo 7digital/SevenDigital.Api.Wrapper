@@ -89,19 +89,19 @@
     <Compile Include="EndpointResolution\DictionaryExtensions.cs" />
     <Compile Include="EndpointResolution\RequestCoordinator.cs" />
     <Compile Include="EndpointResolution\IRequestCoordinator.cs" />
-    <Compile Include="Utility\Http\GzipHttpClient.cs" />
-    <Compile Include="Utility\Http\PostRequest.cs" />
-    <Compile Include="Utility\Http\GetRequest.cs" />
-    <Compile Include="Utility\Http\HttpClient.cs" />
-    <Compile Include="Utility\Http\IHttpClient.cs" />
-    <Compile Include="Utility\Http\Response.cs" />
-    <Compile Include="Utility\Serialization\ApiResponseDetector.cs" />
-    <Compile Include="Utility\Serialization\ExceptionFactory.cs" />
-    <Compile Include="Utility\Serialization\IApiResponseDetector.cs" />
-    <Compile Include="Utility\Serialization\ResponseParser.cs" />
-    <Compile Include="Utility\Serialization\IResponseParser.cs" />
+    <Compile Include="Http\GzipHttpClient.cs" />
+    <Compile Include="Http\PostRequest.cs" />
+    <Compile Include="Http\GetRequest.cs" />
+    <Compile Include="Http\HttpClient.cs" />
+    <Compile Include="Http\IHttpClient.cs" />
+    <Compile Include="Http\Response.cs" />
+    <Compile Include="Serialization\ApiResponseDetector.cs" />
+    <Compile Include="Serialization\ExceptionFactory.cs" />
+    <Compile Include="Serialization\IApiResponseDetector.cs" />
+    <Compile Include="Serialization\ResponseParser.cs" />
+    <Compile Include="Serialization\IResponseParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\Serialization\StringDeserializer.cs" />
+    <Compile Include="Serialization\StringDeserializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">

@@ -1,6 +1,6 @@
 using System;
 using System.Runtime.Serialization;
-using SevenDigital.Api.Wrapper.Utility.Http;
+using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {

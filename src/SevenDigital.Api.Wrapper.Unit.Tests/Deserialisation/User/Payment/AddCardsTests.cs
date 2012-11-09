@@ -3,8 +3,8 @@ using System.Linq;
 using System.Net;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.User.Payment;
-using SevenDigital.Api.Wrapper.Utility.Http;
-using SevenDigital.Api.Wrapper.Utility.Serialization;
+using SevenDigital.Api.Wrapper.Http;
+using SevenDigital.Api.Wrapper.Serialization;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Deserialisation.User.Payment
 {

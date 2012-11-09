@@ -1,5 +1,5 @@
 ﻿using System;
-using SevenDigital.Api.Wrapper.Utility.Http;
+using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper
 {
