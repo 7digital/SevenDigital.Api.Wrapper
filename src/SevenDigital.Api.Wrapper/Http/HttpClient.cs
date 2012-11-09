@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 
-namespace SevenDigital.Api.Wrapper.Utility.Http
+namespace SevenDigital.Api.Wrapper.Http
 {
 	public class HttpClient : IHttpClient
 	{

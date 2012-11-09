@@ -1,9 +1,8 @@
-using System;
 using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.Exceptions;
-using SevenDigital.Api.Wrapper.Utility.Http;
+using SevenDigital.Api.Wrapper.Http;
 
-namespace SevenDigital.Api.Wrapper.Utility.Serialization
+namespace SevenDigital.Api.Wrapper.Serialization
 {
 	public static class ExceptionFactory
 	{

@@ -3,9 +3,9 @@ using System.Xml.Linq;
 using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Exceptions;
-using SevenDigital.Api.Wrapper.Utility.Http;
+using SevenDigital.Api.Wrapper.Http;
 
-namespace SevenDigital.Api.Wrapper.Utility.Serialization
+namespace SevenDigital.Api.Wrapper.Serialization
 {
 	public class ResponseParser<T> : IResponseParser<T> where T : class
 	{
