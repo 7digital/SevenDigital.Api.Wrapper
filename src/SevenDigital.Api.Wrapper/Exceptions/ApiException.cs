@@ -7,7 +7,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 {
 	public abstract class ApiException : Exception
 	{
-		public string Uri { get; set; }
+		public string Uri { get; internal set; }
 		public HttpStatusCode StatusCode { get; private set; }
 		public string ResponseBody { get; private set; }
 
