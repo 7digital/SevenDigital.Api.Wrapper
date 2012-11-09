@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Net;
-using System.Xml.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
@@ -17,11 +16,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.ReleaseEndpoint
 		public void should_deserialize_emtpy_release_type_to_unknown()
 		{
 			var responseXml = File.ReadAllText("StubResponses/ArtistReleases.xml");
-			var response = new Response
-				{
-					StatusCode = HttpStatusCode.OK,
-					Body = responseXml
-				};
+			var response = new Response(HttpStatusCode.OK, responseXml);
 
 			var xmlParser = new ResponseParser<ArtistReleases>();
 			var release =  xmlParser.Parse(response).Releases.First();

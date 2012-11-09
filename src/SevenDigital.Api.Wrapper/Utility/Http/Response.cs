@@ -1,20 +1,29 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
+using System.Collections.Generic;
 
 namespace SevenDigital.Api.Wrapper.Utility.Http
 {
 	[Serializable]
 	public class Response
 	{
-		public Dictionary<string, string> Headers { get; set; }
-		public string Body { get; set; }
+		public HttpStatusCode StatusCode { get; private set; }
+		public IDictionary<string, string> Headers { get; private set; }
+		public string Body { get; private set; }
 
-		public HttpStatusCode StatusCode { get; set; }
-
-		public Response() 
+		public Response(HttpStatusCode statusCode, IDictionary<string, string> headers, string body)
 		{
-			Headers = new Dictionary<string, string>();
+			StatusCode = statusCode;
+			Headers = headers;
+			Body = body;
 		}
+
+		public Response(HttpStatusCode statusCode, string body)
+		{
+			StatusCode = statusCode;
+			Headers = new Dictionary<string, string>();
+			Body = body;
+		}
+
 	}
 }

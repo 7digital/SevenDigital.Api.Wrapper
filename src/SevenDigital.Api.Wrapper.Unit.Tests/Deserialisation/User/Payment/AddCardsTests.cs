@@ -26,11 +26,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Deserialisation.User.Payment
 				"</cards>" +
 				"</response>";
 
-		private readonly Response response = new Response
-			{
-				StatusCode = HttpStatusCode.OK,
-				Body = responseXml
-			};
+		private readonly Response response = new Response( HttpStatusCode.OK, responseXml);
 
 		[Test]
 		public void can_deserialise_response_user_cards()

@@ -1,4 +1,5 @@
 _ReSharper*
+_TeamCity*
 *.user
 *.suo
 *.pidb

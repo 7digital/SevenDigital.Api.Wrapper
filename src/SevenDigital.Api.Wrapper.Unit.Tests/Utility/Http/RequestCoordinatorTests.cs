@@ -33,11 +33,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		public void Should_fire_resolve_with_correct_values()
 		{
 			A.CallTo(() => _httpClient.Get(A<GetRequest>.Ignored))
-				.Returns(new Response
-					{
-						Body = SERVICE_STATUS,
-						StatusCode = HttpStatusCode.OK
-					});
+				.Returns(new Response(HttpStatusCode.OK, SERVICE_STATUS));
 
 			const string expectedMethod = "GET";
 			var expectedHeaders = new Dictionary<string, string>();
@@ -57,11 +53,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		public void Should_fire_resolve_with_url_encoded_parameters()
 		{
 			A.CallTo(() => _httpClient.Get(A<GetRequest>.Ignored))
-				.Returns(new Response
-					{
-						Body = SERVICE_STATUS,
-						StatusCode = HttpStatusCode.OK
-					});
+				.Returns(new Response(HttpStatusCode.OK, SERVICE_STATUS));
 
 			const string unEncodedParameterValue = "Alive & Amplified";
 
@@ -109,11 +101,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		[Test]
 		public void Should_return_xmlnode_if_valid_xml_received_using_async()
 		{
-			var fakeClient = new FakeHttpClient(new Response
-				{
-					StatusCode = HttpStatusCode.OK,
-					Body = SERVICE_STATUS
-				});
+			var fakeClient = new FakeHttpClient(new Response(HttpStatusCode.OK, SERVICE_STATUS));
 
 			var endpointResolver = new RequestCoordinator(fakeClient, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
 
@@ -186,11 +174,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		private void Given_a_urlresolver_that_returns_valid_xml()
 		{
 			A.CallTo(() => _httpClient.Get(A<GetRequest>.Ignored))
-				.Returns(new Response
-					{
-						StatusCode = HttpStatusCode.OK,
-						Body = SERVICE_STATUS
-					});
+				.Returns(new Response(HttpStatusCode.OK, SERVICE_STATUS));
 		}
 	}
 }
