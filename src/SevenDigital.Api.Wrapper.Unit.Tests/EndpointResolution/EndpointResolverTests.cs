@@ -9,6 +9,23 @@ using SevenDigital.Api.Wrapper.Utility.Http;
 namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 {
 	[TestFixture]
+	public class EndpointInfoTests
+	{
+		[Test]
+		public void ToString_returns_expected()
+		{
+			var endPointInfo = new EndPointInfo
+			{
+				UriPath = "http://api.7digital.com/1.2/artist/releases",
+				Parameters = { { "artistId", "1" }, { "pagesize", "1" }, { "page", "1" } }
+			};
+
+			const string expected = "http://api.7digital.com/1.2/artist/releases?artistId=1&pagesize=1&page=1";
+			Assert.That(endPointInfo.ToString(), Is.EqualTo(expected));
+		}
+	}
+
+	[TestFixture]
 	public class EndpointResolverTests
 	{
 		private RequestCoordinator _requestCoordinator;
