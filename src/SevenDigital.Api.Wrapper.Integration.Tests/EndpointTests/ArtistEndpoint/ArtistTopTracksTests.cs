@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 
@@ -44,7 +45,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 					.Please());
 
 			Assert.That(ex.ResponseBody, Is.Not.Null);
-			Assert.That(ex.ErrorCode, Is.EqualTo(1003));
+			Assert.That(ex.ErrorCode, Is.EqualTo(ErrorCode.ParameterOutOfAllowableRange));
 			Assert.That(ex.Message, Is.EqualTo("Requested page out of range"));
 		}
 	}
