@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SevenDigital.Api.Wrapper.Http
 {
@@ -31,6 +32,17 @@ namespace SevenDigital.Api.Wrapper.Http
 			Parameters = new Dictionary<string,string>();
 			Headers = new Dictionary<string,string>();
 			UseHttps = false;
+		}
+
+		public override string ToString()
+		{
+			var sb = new StringBuilder();
+			sb.AppendFormat("{0}?", UriPath);
+			foreach (var parameter in Parameters)
+			{
+				sb.AppendFormat("{0}={1}&", parameter.Key, parameter.Value);
+			}
+			return sb.ToString().TrimEnd('&');
 		}
 	}
 }
