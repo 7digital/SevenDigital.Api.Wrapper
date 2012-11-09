@@ -7,7 +7,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 {
 	public abstract class ApiErrorException : ApiException
 	{
-		public int ErrorCode { get; set; }
+		public int ErrorCode { get; private set; }
 
 		protected ApiErrorException()
 		{
