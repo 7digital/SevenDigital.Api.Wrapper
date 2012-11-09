@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
+namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 {
 	[Serializable]
 	[XmlRoot("testObject")]

@@ -1,7 +1,7 @@
 using System;
-using SevenDigital.Api.Wrapper.Utility.Http;
+using SevenDigital.Api.Wrapper.Http;
 
-namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
+namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 {
 	public class FakeHttpClient : IHttpClient
 	{

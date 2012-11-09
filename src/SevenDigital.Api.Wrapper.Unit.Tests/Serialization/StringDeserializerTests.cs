@@ -1,9 +1,9 @@
 ﻿using System;
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
-using SevenDigital.Api.Wrapper.Utility.Serialization;
+using SevenDigital.Api.Wrapper.Serialization;
 
-namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Serialization
+namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 {
 	[TestFixture]
 	public class StringDeserializerTests

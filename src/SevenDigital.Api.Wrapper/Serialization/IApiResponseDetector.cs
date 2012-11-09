@@ -1,4 +1,4 @@
-namespace SevenDigital.Api.Wrapper.Utility.Serialization
+namespace SevenDigital.Api.Wrapper.Serialization
 {
 	public interface IApiResponseDetector
 	{
