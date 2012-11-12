@@ -308,7 +308,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 		/// <param name="tokenSecret">The token secret, if available. If not available pass null or an empty string</param>
 		/// <param name="httpMethod">The http method used. Must be a valid HTTP method verb (POST,GET,PUT, etc)</param>
 		/// <returns>A base64 string of the hash value</returns>
-		public string GenerateSignature(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, string httpMethod, string timeStamp, string nonce, out string normalizedUrl, out string normalizedRequestParameters, Dictionary<string, string> postParameters)
+		public string GenerateSignature(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, string httpMethod, string timeStamp, string nonce, out string normalizedUrl, out string normalizedRequestParameters, IDictionary<string, string> postParameters)
 		{
 			return GenerateSignature(url, consumerKey, consumerSecret, token, tokenSecret, httpMethod, timeStamp, nonce, SignatureTypes.HMACSHA1, out normalizedUrl, out normalizedRequestParameters, postParameters, OAuthVersion);
 		}

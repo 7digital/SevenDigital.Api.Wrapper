@@ -10,7 +10,7 @@ namespace SevenDigital.Api.Wrapper.Http
 		private readonly IDictionary<string, string> _headers;
 		private readonly IDictionary<string, string> _parameters;
 
-		public PostRequest(string url, Dictionary<string, string> headers, IDictionary<string, string> parameters)
+		public PostRequest(string url, IDictionary<string, string> headers, IDictionary<string, string> parameters)
 		{
 			_url = url;
 			_headers = headers;

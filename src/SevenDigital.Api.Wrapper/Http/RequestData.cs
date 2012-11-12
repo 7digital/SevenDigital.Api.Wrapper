@@ -9,9 +9,9 @@ namespace SevenDigital.Api.Wrapper.Http
 
 		public string HttpMethod { get; set; }
 
-		public Dictionary<string,string> Parameters { get; set; }
+		public IDictionary<string,string> Parameters { get; set; }
 
-		public Dictionary<string,string> Headers { get; set; }
+		public IDictionary<string,string> Headers { get; set; }
 
 		public bool UseHttps { get; set; }
 

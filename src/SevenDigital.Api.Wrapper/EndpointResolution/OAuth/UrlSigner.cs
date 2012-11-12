@@ -47,7 +47,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 		}
 
 		public IDictionary<string, string> SignPostRequest(string url, string userToken, string tokenSecret,
-			IOAuthCredentials consumerCredentials, Dictionary<string, string> postParameters)
+			IOAuthCredentials consumerCredentials, IDictionary<string, string> postParameters)
 		{
 			if (string.IsNullOrEmpty(consumerCredentials.ConsumerKey))
 				throw new ArgumentException("ConsumerKey can not be null or empty");
