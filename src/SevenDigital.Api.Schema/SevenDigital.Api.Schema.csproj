@@ -138,6 +138,7 @@
     <Compile Include="TrackEndpoint\TrackSearch.cs" />
     <Compile Include="TrackEndpoint\TrackSearchResult.cs" />
     <Compile Include="TrackEndpoint\TrackType.cs" />
+    <Compile Include="Translations\Translations.cs" />
     <Compile Include="User\Payment\Card.cs" />
     <Compile Include="User\Payment\Cards.cs" />
     <Compile Include="User\Payment\AddCard.cs" />
