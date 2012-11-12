@@ -5,10 +5,10 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
 	public interface IRequestCoordinator
 	{
-		Response HitEndpoint(EndPointInfo endPointInfo);
-		void HitEndpointAsync(EndPointInfo endPointInfo, Action<Response> callback);
+		Response HitEndpoint(RequestData requestData);
+		void HitEndpointAsync(RequestData requestData, Action<Response> callback);
 
-		string ConstructEndpoint(EndPointInfo endPointInfo);
+		string ConstructEndpoint(RequestData requestData);
 		IHttpClient HttpClient { get; set; }
 	}
 }

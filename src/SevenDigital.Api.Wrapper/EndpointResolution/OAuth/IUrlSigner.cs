@@ -7,6 +7,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 	{
 		Uri SignUrl(string urlWithParameters, string userToken, string tokenSecret, IOAuthCredentials consumerCredentials);
 		string SignGetUrl(string urlWithParameters, string userToken, string tokenSecret, IOAuthCredentials consumerCredentials);
-		IDictionary<string, string> SignPostRequest(string url, string userToken, string tokenSecret, IOAuthCredentials consumerCredentials, Dictionary<string, string> postParameters);
+		IDictionary<string, string> SignPostRequest(string url, string userToken, string tokenSecret, IOAuthCredentials consumerCredentials, IDictionary<string, string> postParameters);
 	}
 }

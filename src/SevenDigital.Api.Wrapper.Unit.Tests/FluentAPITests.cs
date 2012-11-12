@@ -22,12 +22,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		public void Should_fire_requestcoordinator_with_correct_endpoint_on_resolve()
 		{
 			var requestCoordinator = A.Fake<IRequestCoordinator>();
-			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(stubResponse);
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).Returns(stubResponse);
 
 			new FluentApi<Status>(requestCoordinator).Please();
 
 			Expression<Func<Response>> callWithEndpointStatus =
-				() => requestCoordinator.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.UriPath == "status"));
+				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.UriPath == "status"));
 
 			A.CallTo(callWithEndpointStatus).MustHaveHappened(Repeated.Exactly.Once);
 		}
@@ -36,12 +36,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		public void Should_fire_requestcoordinator_with_correct_methodname_on_resolve()
 		{
 			var requestCoordinator = A.Fake<IRequestCoordinator>();
-			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(stubResponse);
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).Returns(stubResponse);
 
 			new FluentApi<Status>(requestCoordinator).WithMethod("POST").Please();
 
 			Expression<Func<Response>> callWithMethodPost =
-				() => requestCoordinator.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.HttpMethod == "POST"));
+				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.HttpMethod == "POST"));
 
 			A.CallTo(callWithMethodPost).MustHaveHappened(Repeated.Exactly.Once);
 		}
@@ -50,12 +50,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		public void Should_fire_requestcoordinator_with_correct_parameters_on_resolve()
 		{
 			var requestCoordinator = A.Fake<IRequestCoordinator>();
-			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(stubResponse);
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).Returns(stubResponse);
 
 			new FluentApi<Status>(requestCoordinator).WithParameter("artistId", "123").Please();
 
 			Expression<Func<Response>> callWithArtistId123 =
-				() => requestCoordinator.HitEndpoint(A<EndPointInfo>.That.Matches(x => x.Parameters["artistId"] == "123"));
+				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.Parameters["artistId"] == "123"));
 
 			A.CallTo(callWithArtistId123).MustHaveHappened();
 
@@ -93,22 +93,22 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 		public class FakeRequestCoordinator : IRequestCoordinator
 		{
-			public Response HitEndpoint(EndPointInfo endPointInfo)
+			public Response HitEndpoint(RequestData requestData)
 			{
 				throw new NotImplementedException();
 			}
 
-			public Response HitEndpointAndGetResponse(EndPointInfo endPointInfo)
+			public Response HitEndpointAndGetResponse(RequestData requestData)
 			{
 				throw new NotImplementedException();
 			}
 
-			public void HitEndpointAsync(EndPointInfo endPointInfo, Action<Response> callback)
+			public void HitEndpointAsync(RequestData requestData, Action<Response> callback)
 			{
 				callback(StubPayload);
 			}
 
-			public string ConstructEndpoint(EndPointInfo endPointInfo)
+			public string ConstructEndpoint(RequestData requestData)
 			{
 				throw new NotImplementedException();
 			}
