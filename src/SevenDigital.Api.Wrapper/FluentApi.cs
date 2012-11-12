@@ -13,7 +13,7 @@ namespace SevenDigital.Api.Wrapper
 {
 	public class FluentApi<T> : IFluentApi<T> where T : class
 	{
-		private readonly EndPointInfo _endPointInfo = new EndPointInfo();
+		private readonly RequestData _requestData = new RequestData();
 		private readonly IRequestCoordinator _requestCoordinator;
 		private readonly IResponseParser<T> _parser;
 
@@ -32,7 +32,7 @@ namespace SevenDigital.Api.Wrapper
 				throw new ArgumentException(string.Format("The Type {0} cannot be used in this way, it has no ApiEndpointAttribute", typeof(T)));
 			}
 
-			_endPointInfo.UriPath = attribute.EndpointUri;
+			_requestData.UriPath = attribute.EndpointUri;
 
 
 			OAuthSignedAttribute isSigned = typeof(T).GetCustomAttributes(true)
@@ -40,14 +40,14 @@ namespace SevenDigital.Api.Wrapper
 				.FirstOrDefault();
 
 			if (isSigned != null)
-				_endPointInfo.IsSigned = true;
+				_requestData.IsSigned = true;
 
 			RequireSecureAttribute isSecure = typeof(T).GetCustomAttributes(true)
 				.OfType<RequireSecureAttribute>()
 				.FirstOrDefault();
 
 			if (isSecure != null)
-				_endPointInfo.UseHttps = true;
+				_requestData.UseHttps = true;
 
 			HttpPostAttribute isHttpPost = typeof(T).GetCustomAttributes(true)
 				.OfType<HttpPostAttribute>()
@@ -55,7 +55,7 @@ namespace SevenDigital.Api.Wrapper
 
 			if (isHttpPost != null)
 			{
-				_endPointInfo.HttpMethod = "POST";
+				_requestData.HttpMethod = "POST";
 			}
 
 		}
@@ -71,7 +71,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public IFluentApi<T> WithEndpoint(string endpoint)
 		{
-			_endPointInfo.UriPath = endpoint;
+			_requestData.UriPath = endpoint;
 			return this;
 		}
 
@@ -83,26 +83,26 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual IFluentApi<T> WithMethod(string methodName)
 		{
-			_endPointInfo.HttpMethod = methodName;
+			_requestData.HttpMethod = methodName;
 			return this;
 		}
 
 		public virtual IFluentApi<T> WithParameter(string parameterName, string parameterValue)
 		{
-			_endPointInfo.Parameters[parameterName] = parameterValue;
+			_requestData.Parameters[parameterName] = parameterValue;
 			return this;
 		}
 
 		public virtual IFluentApi<T> ClearParameters()
 		{
-			_endPointInfo.Parameters.Clear();
+			_requestData.Parameters.Clear();
 			return this;
 		}
 
 		public virtual IFluentApi<T> ForUser(string token, string secret)
 		{
-			_endPointInfo.UserToken = token;
-			_endPointInfo.TokenSecret = secret;
+			_requestData.UserToken = token;
+			_requestData.TokenSecret = secret;
 			return this;
 		}
 
@@ -116,7 +116,7 @@ namespace SevenDigital.Api.Wrapper
 		{
 			try
 			{
-				var response = _requestCoordinator.HitEndpoint(_endPointInfo);
+				var response = _requestCoordinator.HitEndpoint(_requestData);
 				return _parser.Parse(response);
 			}
 			catch (ApiException apiXmlException)
@@ -128,12 +128,12 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual string EndpointUrl
 		{
-			get { return _requestCoordinator.ConstructEndpoint(_endPointInfo); }
+			get { return _requestCoordinator.ConstructEndpoint(_requestData); }
 		}
 
 		public virtual void PleaseAsync(Action<T> callback)
 		{
-			_requestCoordinator.HitEndpointAsync(_endPointInfo, PleaseAsyncEnd(callback));
+			_requestCoordinator.HitEndpointAsync(_requestData, PleaseAsyncEnd(callback));
 		}
 
 		internal Action<Response> PleaseAsyncEnd(Action<T> callback)
@@ -147,7 +147,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public IDictionary<string, string> Parameters
 		{
-			get { return _endPointInfo.Parameters; }
+			get { return _requestData.Parameters; }
 		}
 	}
 }

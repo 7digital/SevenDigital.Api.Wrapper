@@ -83,7 +83,7 @@
     <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />
     <Compile Include="EndpointResolution\OAuth\OAuthBase.cs" />
     <Compile Include="EndpointResolution\OAuth\UrlSigner.cs" />
-    <Compile Include="EndpointResolution\EndPointInfo.cs" />
+    <Compile Include="Http\RequestData.cs" />
     <Compile Include="FluentApi.cs" />
     <Compile Include="IFluentApi.cs" />
     <Compile Include="EndpointResolution\DictionaryExtensions.cs" />
