@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Schema.ArtistEndpoint;
@@ -54,6 +55,19 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 
 			Console.WriteLine("Artist Search on \"{0}\" returns: {1} items", searchValue, artistSearch.TotalItems);
 			Console.WriteLine();
+
+			// -- artist/search parallel
+			var artistSearchTemplate = Api<ArtistSearch>.Create;
+
+			Parallel.For(1, 10, i =>
+				{
+					var result = artistSearchTemplate.NewInstance()
+						.WithQuery("keane")
+						.WithPageNumber(i)
+						.WithPageSize(1)
+						.Please();
+				Console.WriteLine(i + " >> " + result.Results.First().Artist.Name);
+			});
 
 			// -- release/search
 			var releaseSearch = Api<ReleaseSearch>.Create
