@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization;
 using SevenDigital.Api.Wrapper.Http;
@@ -10,6 +11,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		public string Uri { get; internal set; }
 		public HttpStatusCode StatusCode { get; private set; }
 		public string ResponseBody { get; private set; }
+		public IDictionary<string, string> Headers { get; private set; }
 
 		protected ApiException()
 		{
@@ -29,6 +31,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 			: base(message, innerException)
 		{
 			ResponseBody = response.Body;
+			Headers = response.Headers;
 			StatusCode = response.StatusCode;
 		}
 
@@ -36,6 +39,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 			: base(message)
 		{
 			ResponseBody = response.Body;
+			Headers = response.Headers;
 			StatusCode = response.StatusCode;
 		}
 
