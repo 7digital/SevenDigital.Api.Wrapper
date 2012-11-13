@@ -8,8 +8,8 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
 	public abstract class RequestHandler
 	{
-		public abstract Response HitEndpoint(EndPointInfo endPointInfo);
-		public abstract void HitEndpointAsync(EndPointInfo endPointInfo, Action<Response> action);
+		public abstract Response HitEndpoint(RequestData requestData);
+		public abstract void HitEndpointAsync(RequestData requestData, Action<Response> action);
 		protected abstract string AdditionalParameters(Dictionary<string, string> newDictionary);
 
 		private readonly IApiUri _apiUri;
@@ -21,13 +21,13 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		public IHttpClient HttpClient { get; set; }
 
-		public virtual string ConstructEndpoint(EndPointInfo endPointInfo)
+		public virtual string ConstructEndpoint(RequestData requestData)
 		{
-			var apiUri = endPointInfo.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
+			var apiUri = requestData.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
 
-			var newDictionary = endPointInfo.Parameters.ToDictionary(entry => entry.Key, entry => entry.Value);
+			var newDictionary = requestData.Parameters.ToDictionary(entry => entry.Key, entry => entry.Value);
 
-			var uriString = string.Format("{0}/{1}", apiUri, SubstituteRouteParameters(endPointInfo.UriPath, newDictionary));
+			var uriString = string.Format("{0}/{1}", apiUri, SubstituteRouteParameters(requestData.UriPath, newDictionary));
 
 			uriString = uriString + AdditionalParameters(newDictionary);
 			return uriString;

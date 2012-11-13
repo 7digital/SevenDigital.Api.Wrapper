@@ -1,18 +1,17 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace SevenDigital.Api.Wrapper.EndpointResolution
+namespace SevenDigital.Api.Wrapper.Http
 {
-	public class EndPointInfo
+	public class RequestData
 	{
 		public string UriPath { get; set; }
 
 		public string HttpMethod { get; set; }
 
-		public Dictionary<string,string> Parameters { get; set; }
+		public IDictionary<string,string> Parameters { get; set; }
 
-		public Dictionary<string,string> Headers { get; set; }
+		public IDictionary<string,string> Headers { get; set; }
 
 		public bool UseHttps { get; set; }
 
@@ -25,7 +24,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		public bool IsSigned { get; set; }
 
-		public EndPointInfo()
+		public RequestData()
 		{
 			UriPath = string.Empty;
 			HttpMethod = "GET";

@@ -16,32 +16,32 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			_urlSigner = urlSigner;
 		}
 
-		public override Response HitEndpoint(EndPointInfo endPointInfo)
+		public override Response HitEndpoint(RequestData requestData)
 		{
-			var postRequest = BuildPostRequest(endPointInfo);
+			var postRequest = BuildPostRequest(requestData);
 			return HttpClient.Post(postRequest);
 		}
-		public override void HitEndpointAsync(EndPointInfo endPointInfo, Action<Response> action)
+		public override void HitEndpointAsync(RequestData requestData, Action<Response> action)
 		{
-			var postRequest = BuildPostRequest(endPointInfo);
+			var postRequest = BuildPostRequest(requestData);
 			HttpClient.PostAsync(postRequest,response => action(response));
 		}
 
-		private PostRequest BuildPostRequest(EndPointInfo endPointInfo)
+		private PostRequest BuildPostRequest(RequestData requestData)
 		{
-			var uri = ConstructEndpoint(endPointInfo);
-			var signedParams = SignHttpPostParams(uri, endPointInfo);
-			var postRequest = new PostRequest(uri, endPointInfo.Headers, signedParams);
+			var uri = ConstructEndpoint(requestData);
+			var signedParams = SignHttpPostParams(uri, requestData);
+			var postRequest = new PostRequest(uri, requestData.Headers, signedParams);
 			return postRequest;
 		}
 
-		private IDictionary<string, string> SignHttpPostParams(string uri, EndPointInfo endPointInfo)
+		private IDictionary<string, string> SignHttpPostParams(string uri, RequestData requestData)
 		{
-			if (endPointInfo.IsSigned)
+			if (requestData.IsSigned)
 			{
-				return _urlSigner.SignPostRequest(uri, endPointInfo.UserToken, endPointInfo.TokenSecret, _oAuthCredentials, endPointInfo.Parameters);
+				return _urlSigner.SignPostRequest(uri, requestData.UserToken, requestData.TokenSecret, _oAuthCredentials, requestData.Parameters);
 			}
-			return endPointInfo.Parameters;
+			return requestData.Parameters;
 		}
 
 		protected override string AdditionalParameters(Dictionary<string, string> newDictionary)
