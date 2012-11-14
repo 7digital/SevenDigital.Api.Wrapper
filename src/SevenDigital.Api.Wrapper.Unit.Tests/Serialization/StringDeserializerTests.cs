@@ -1,7 +1,8 @@
-﻿using System;
+﻿
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.Serialization;
+using SevenDigital.Api.Wrapper.Serialization.Exceptions;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 {
@@ -45,7 +46,15 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 		{
 			var deserializer = new StringDeserializer<Status>();
 
-			Assert.Throws<InvalidOperationException>(() => deserializer.Deserialize(TestObjectXmlResponse));
+			Assert.Throws<UnexpectedXmlContentException>(() => deserializer.Deserialize(TestObjectXmlResponse));
+		}
+
+		[Test]
+		public void should_throw_exception_when_deserialize_into_wrong_type_such_as_one_that_is_not_wrapped_in_a_response_tag()
+		{
+			var deserializer = new StringDeserializer<Status>();
+
+			Assert.Throws<UnexpectedXmlContentException>(() => deserializer.Deserialize(TestObjectXmlResponse.Replace("response", "rexponse")));
 		}
 	}
 }

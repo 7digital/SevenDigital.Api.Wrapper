@@ -52,6 +52,7 @@
     <Compile Include="Exceptions\InvalidResourceException.cs" />
     <Compile Include="Exceptions\OAuthException.cs" />
     <Compile Include="Exceptions\RemoteApiException.cs" />
+    <Compile Include="Exceptions\UnexpectedXmlResponseException.cs" />
     <Compile Include="Exceptions\UnrecognisedErrorException.cs" />
     <Compile Include="Exceptions\UnrecognisedStatusException.cs" />
     <Compile Include="Exceptions\MissingDependencyException.cs" />
@@ -97,10 +98,13 @@
     <Compile Include="Http\Response.cs" />
     <Compile Include="Serialization\ApiResponseDetector.cs" />
     <Compile Include="Serialization\ExceptionFactory.cs" />
+    <Compile Include="Serialization\Exceptions\NonXmlContentException.cs" />
+    <Compile Include="Serialization\Exceptions\UnexpectedXmlContentException.cs" />
     <Compile Include="Serialization\IApiResponseDetector.cs" />
     <Compile Include="Serialization\ResponseParser.cs" />
     <Compile Include="Serialization\IResponseParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\Exceptions\SerializationException.cs" />
     <Compile Include="Serialization\StringDeserializer.cs" />
   </ItemGroup>
   <ItemGroup>
