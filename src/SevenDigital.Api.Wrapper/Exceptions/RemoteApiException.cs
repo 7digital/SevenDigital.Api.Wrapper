@@ -23,11 +23,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public RemoteApiException(string message, Exception innerException)
-			: base(message, innerException)
-		{
-		}
-
 		protected RemoteApiException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
