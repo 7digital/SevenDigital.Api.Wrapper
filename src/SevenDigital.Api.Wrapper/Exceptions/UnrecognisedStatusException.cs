@@ -24,11 +24,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public UnrecognisedStatusException(string message, Exception innerException)
-			: base(message, innerException)
-		{
-		}
-
 		protected UnrecognisedStatusException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{

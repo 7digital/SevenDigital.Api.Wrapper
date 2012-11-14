@@ -25,11 +25,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 			ErrorCode = errorCode;
 		}
 
-		protected ApiErrorException(string message, Exception innerException)
-			: base(message, innerException)
-		{
-		}
-
 		protected ApiErrorException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{

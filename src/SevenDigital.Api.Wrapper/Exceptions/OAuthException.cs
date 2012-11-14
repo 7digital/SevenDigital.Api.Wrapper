@@ -22,11 +22,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public OAuthException(string message, Exception innerException)
-			: base(message, innerException)
-		{
-		}
-
 		protected OAuthException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
