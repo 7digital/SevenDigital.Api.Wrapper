@@ -23,11 +23,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public UserCardException(string message, Exception innerException)
-			: base(message, innerException)
-		{
-		}
-
 		protected UserCardException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{

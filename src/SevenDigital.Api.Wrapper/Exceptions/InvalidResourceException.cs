@@ -23,11 +23,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public InvalidResourceException(string message, Exception innerException)
-			: base(message, innerException)
-		{
-		}
-
 		protected InvalidResourceException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{

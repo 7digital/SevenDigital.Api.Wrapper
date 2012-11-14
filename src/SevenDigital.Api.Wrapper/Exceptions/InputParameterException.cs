@@ -23,11 +23,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public InputParameterException(string message, Exception innerException)
-			: base(message, innerException)
-		{
-		}
-
 		protected InputParameterException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{

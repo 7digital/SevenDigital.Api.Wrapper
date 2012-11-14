@@ -24,11 +24,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public UnrecognisedErrorException(string message, Exception innerException)
-			: base(message, innerException)
-		{
-		}
-
 		public UnrecognisedErrorException(string message, Exception innerException, Response response)
 			: base(message, innerException, response)
 		{

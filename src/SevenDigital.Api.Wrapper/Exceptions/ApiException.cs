@@ -22,11 +22,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		protected ApiException(string message, Exception innerException)
-			: base(message, innerException)
-		{
-		}
-
 		protected ApiException(string message, Exception innerException, Response response)
 			: base(message, innerException)
 		{
