@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="ApiUri.cs" />
     <Compile Include="AppSettingsCredentials.cs" />
+    <Compile Include="AttributeManagement\AttributeRequestDataBuilderTests.cs" />
     <Compile Include="BasketEndpoint\BasketEndpointTests.cs" />
     <Compile Include="Deserialisation\Payment\CardTypesTests.cs" />
     <Compile Include="Deserialisation\User\Payment\Cards_unit_tests.cs" />
