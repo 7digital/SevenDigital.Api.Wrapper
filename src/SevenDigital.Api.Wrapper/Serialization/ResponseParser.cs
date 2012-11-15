@@ -4,6 +4,7 @@ using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
+using SevenDigital.Api.Wrapper.Serialization.Exceptions;
 
 namespace SevenDigital.Api.Wrapper.Serialization
 {
@@ -91,7 +92,11 @@ namespace SevenDigital.Api.Wrapper.Serialization
 				var deserializer = new StringDeserializer<T>();
 				return deserializer.Deserialize(response.Body);
 			}
-			catch (Exception ex)
+			catch (UnexpectedXmlContentException e)
+			{
+				throw new UnexpectedXmlResponseException(e, response);
+			}
+			catch (NonXmlContentException ex)
 			{
 				throw new NonXmlResponseException(NonXmlResponseException.DEFAULT_ERROR_MESSAGE, ex, response);
 			}

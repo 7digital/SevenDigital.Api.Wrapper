@@ -235,6 +235,23 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 		}
 
 		[Test]
+		public void Should_throw_non_xml_response_exception_for_content_that_appears_XML_but_is_not()
+		{
+			const string badXml = @"<?xml version=""1.0"" encoding=""utf-8"" ?><response status=""ok"">LOL!</hah>";
+
+			var response = new Response(HttpStatusCode.OK, badXml);
+
+			var xmlParser = new ResponseParser<TestObject>();
+
+			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response));
+
+			Assert.That(ex, Is.Not.Null);
+			Assert.That(ex.Message, Is.EqualTo("Error deserializing xml response"));
+			Assert.That(ex.ResponseBody, Is.EqualTo(badXml));
+			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
+		}
+
+		[Test]
 		public void Should_handle_plaintext_oauth_fail()
 		{
 			const string ErrorText = "OAuth authentication error: Not authorised - no user credentials provided";
