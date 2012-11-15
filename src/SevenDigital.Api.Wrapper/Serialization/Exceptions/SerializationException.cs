@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace SevenDigital.Api.Wrapper.Serialization.Exceptions
 {
@@ -6,6 +7,11 @@ namespace SevenDigital.Api.Wrapper.Serialization.Exceptions
 	{
 		internal SerializationException(string msg, Exception innerException)
 			: base(msg, innerException)
+		{
+		}
+
+		protected SerializationException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
 		{
 		}
 	}
