@@ -17,8 +17,8 @@ namespace SevenDigital.Api.Wrapper
 
 		public FluentApi(IRequestCoordinator requestCoordinator)
 		{
-			var attributeValidation = new AttributeValidation<T>();
-			_requestData = attributeValidation.Validate();
+			var attributeValidation = new AttributeRequestDataBuilder<T>();
+			_requestData = attributeValidation.BuildRequestData();
 
 			_requestCoordinator = requestCoordinator;
 

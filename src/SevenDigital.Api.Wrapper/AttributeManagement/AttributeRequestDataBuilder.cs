@@ -6,9 +6,9 @@ using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.AttributeManagement
 {
-	public class AttributeValidation<T>
+	public class AttributeRequestDataBuilder<T>
 	{
-		public RequestData Validate()
+		public RequestData BuildRequestData()
 		{
 			var requestData = new RequestData();
 
