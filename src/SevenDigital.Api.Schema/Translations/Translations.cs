@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Attributes;
 
 namespace SevenDigital.Api.Schema.Translations
 {
 	[ApiEndpoint("translations")]
-	[DataContract(Name="translations")]
+	[XmlRoot("translations")]
 	[Serializable]
 	public class Translations : HasPaging
 	{
 		[XmlElement("translation")]
-		[DataMember(Name="translation")]
 		public List<Translation> TranslationItems { get; set; }
 	}
 
