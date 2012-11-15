@@ -21,4 +21,19 @@ namespace SevenDigital.Api.Schema.Basket
 		[XmlElement("amountDue")]
 		public AmountDue AmountDue { get; set; }
 	}
+
+	[ApiEndpoint("basket/addItem")]
+	[XmlRoot("basket")]
+	public class BasketAddItem : Basket
+	{}
+
+	[ApiEndpoint("basket/create")]
+	[XmlRoot("basket")]
+	public class BasketCreate : Basket
+	{}
+
+	[ApiEndpoint("basket/removeItem")]
+	[XmlRoot("basket")]
+	public class BasketRemoveItem : Basket
+	{}
 }

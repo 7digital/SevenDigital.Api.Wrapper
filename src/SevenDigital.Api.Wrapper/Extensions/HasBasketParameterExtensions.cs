@@ -8,7 +8,6 @@ namespace SevenDigital.Api.Wrapper
 		public static IFluentApi<T> Create<T>(this IFluentApi<T> api) where T : HasBasketParameter 
 		{
 			api.ClearParameters();
-			api.WithEndpoint("basket/create");
 			return api;
 		}
 
@@ -20,8 +19,6 @@ namespace SevenDigital.Api.Wrapper
 		public static IFluentApi<T> GetBasket<T>(this IFluentApi<T> api, string basketId) where T : HasBasketParameter 
 		{
 			api.ClearParameters();
-
-			api.WithEndpoint("basket");
 			api.WithParameter("basketId", basketId);
 
 			return api;
@@ -35,7 +32,6 @@ namespace SevenDigital.Api.Wrapper
 		public static IFluentApi<T> AddItem<T>(this IFluentApi<T> api, string basketId, int releaseId) where T : HasBasketParameter 
 		{
 			api.ClearParameters();
-			api.WithEndpoint("basket/additem");
 
 			api.WithParameter("basketId", basketId);
 			api.WithParameter("releaseId", releaseId.ToString());
@@ -51,7 +47,6 @@ namespace SevenDigital.Api.Wrapper
 
 		public static IFluentApi<T> AddItem<T>(this IFluentApi<T> api, string basketId, int releaseId, int itemId) where T : HasBasketParameter 
 		{
-			api.WithEndpoint("basket/additem");
 			api.WithParameter("basketId", basketId);
 			api.WithParameter("releaseId", releaseId.ToString());
 			api.WithParameter("trackId", itemId.ToString());
@@ -65,7 +60,6 @@ namespace SevenDigital.Api.Wrapper
 		
 		public static IFluentApi<T> RemoveItem<T>(this IFluentApi<T> api, string basketId, int itemId) where T : HasBasketParameter 
 		{
-			api.WithEndpoint("basket/removeitem");
 			api.WithParameter("basketId", basketId);
 			api.WithParameter("itemId", itemId.ToString());
 			return api;
