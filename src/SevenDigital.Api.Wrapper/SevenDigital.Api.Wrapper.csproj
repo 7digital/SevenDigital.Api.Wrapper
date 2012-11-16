@@ -80,6 +80,7 @@
     <Compile Include="Extensions\HasUserDeliverItemParameterExtensions.cs" />
     <Compile Include="Extensions\LockerSortColumn.cs" />
     <Compile Include="Extensions\SortOrder.cs" />
+    <Compile Include="IApiEndpoint.cs" />
     <Compile Include="IApiUri.cs" />
     <Compile Include="IOAuthCredentials.cs" />
     <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />
