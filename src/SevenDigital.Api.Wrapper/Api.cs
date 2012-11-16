@@ -15,7 +15,7 @@ namespace SevenDigital.Api.Wrapper
 		}
 	}
 
-	public static class Api 
+	public static class Api
 	{
 		public static IFluentApi<ArtistSearch> ArtistSearch 
 		{
