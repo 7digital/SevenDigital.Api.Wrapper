@@ -24,7 +24,7 @@ namespace SevenDigital.Api.Schema.Basket
 
 	[ApiEndpoint("basket/addItem")]
 	[XmlRoot("basket")]
-	public class AddItemToBasket : Basket
+	public class AddItemToBasket : Basket, HasReleaseIdParameter, HasTrackIdParameter
 	{}
 
 	[ApiEndpoint("basket/create")]
@@ -34,6 +34,6 @@ namespace SevenDigital.Api.Schema.Basket
 
 	[ApiEndpoint("basket/removeItem")]
 	[XmlRoot("basket")]
-	public class RemoveItemFromBasket : Basket
+	public class RemoveItemFromBasket : Basket, HasBasketItemParameter
 	{}
 }
