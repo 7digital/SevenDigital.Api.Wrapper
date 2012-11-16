@@ -11,7 +11,6 @@ namespace SevenDigital.Api.Wrapper
 		IFluentApi<T> WithParameter(string key, string value);
 		IFluentApi<T> ClearParameters();
 		IFluentApi<T> ForUser(string token, string secret);
-		IFluentApi<T> WithEndpoint(string endpoint);
 		IFluentApi<T> UsingClient(IHttpClient httpClient);
 
 		T Please();

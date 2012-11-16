@@ -61,6 +61,7 @@
     <Compile Include="Exceptions\UserCardException.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\HasAddCardParameterExtensions.cs" />
+    <Compile Include="Extensions\HasBasketItemParameterExtensions.cs" />
     <Compile Include="Extensions\HasCardIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasIpAddressParameter.cs" />
     <Compile Include="Extensions\HasLockerSortExtensions.cs" />
