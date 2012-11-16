@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Schema.OAuth;
@@ -6,17 +7,19 @@ using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.AttributeManagement
 {
-	public class AttributeRequestDataBuilder<T>
+	public class AttributeRequestDataBuilder
 	{
-		public RequestData BuildRequestData()
+		public static RequestData BuildRequestData<T>()
 		{
 			var requestData = new RequestData();
 
-			requestData.UriPath = ParseApiEndpointAttribute();
-			requestData.IsSigned = ParseOAuthSignedAttribute();
-			requestData.UseHttps = ParseRequireSecureAttribute();
+			var customAttributes = typeof(T).GetCustomAttributes(true);
 
-			if (ParseHttpPostAttribute() != null)
+			requestData.UriPath = ParseApiEndpointAttribute<T>(customAttributes);
+			requestData.IsSigned = ParseOAuthSignedAttribute(customAttributes);
+			requestData.UseHttps = ParseRequireSecureAttribute(customAttributes);
+
+			if (ParseHttpPostAttribute(customAttributes) != null)
 			{
 				requestData.HttpMethod = "POST";
 			}
@@ -24,41 +27,41 @@ namespace SevenDigital.Api.Wrapper.AttributeManagement
 			return requestData;
 		}
 
-		private static string ParseApiEndpointAttribute()
+		private static string ParseApiEndpointAttribute<T>(IEnumerable<object> customAttributes)
 		{
-			var attribute = typeof (T).GetCustomAttributes(true)
+			var attribute = customAttributes
 				.OfType<ApiEndpointAttribute>()
 				.FirstOrDefault();
 
 			if (attribute == null)
 			{
-				throw new ArgumentException(string.Format("The Type {0} cannot be used in this way, it has no ApiEndpointAttribute", typeof (T)));
+				throw new ArgumentException(string.Format("Theis Type {0} cannot be used in this way, it has no ApiEndpointAttribute", typeof (T)));
 			}
 
 			return attribute.EndpointUri;
 		}
 
-		private static bool ParseOAuthSignedAttribute()
+		private static bool ParseOAuthSignedAttribute(IEnumerable<object> customAttributes)
 		{
-			var isSigned = typeof(T).GetCustomAttributes(true)
+			var isSigned = customAttributes
 				.OfType<OAuthSignedAttribute>()
 				.FirstOrDefault();
 
 			return isSigned != null;
 		}
 
-		private static bool ParseRequireSecureAttribute()
+		private static bool ParseRequireSecureAttribute(IEnumerable<object> customAttributes)
 		{
-			var isSecure = typeof(T).GetCustomAttributes(true)
+			var isSecure = customAttributes
 				.OfType<RequireSecureAttribute>()
 				.FirstOrDefault();
 
 			return isSecure != null;
 		}
 
-		private static string ParseHttpPostAttribute()
+		private static string ParseHttpPostAttribute(IEnumerable<object> customAttributes)
 		{
-			var isHttpPost = typeof(T).GetCustomAttributes(true)
+			var isHttpPost = customAttributes
 				.OfType<HttpPostAttribute>()
 				.FirstOrDefault();
 

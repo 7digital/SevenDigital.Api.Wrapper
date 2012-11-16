@@ -11,8 +11,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.AttributeManagement
 		[Test]
 		public void Sets_correct_uri_based_on_apiEndpoint()
 		{
-			var attributeValidation = new AttributeRequestDataBuilder<StubEndpoint>();
-			var requestData = attributeValidation.BuildRequestData();
+			var requestData = AttributeRequestDataBuilder.BuildRequestData<StubEndpoint>();
 
 			Assert.That(requestData.UriPath, Is.EqualTo("me/endpoint"));
 		}
@@ -20,8 +19,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.AttributeManagement
 		[Test]
 		public void Sets_IsSigned_if_OAuthSigned_specified()
 		{
-			var attributeValidation = new AttributeRequestDataBuilder<StubSecureEndpoint>();
-			var requestData = attributeValidation.BuildRequestData();
+			var requestData = AttributeRequestDataBuilder.BuildRequestData<StubSecureEndpoint>();
 
 			Assert.That(requestData.IsSigned);
 		}
@@ -29,8 +27,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.AttributeManagement
 		[Test]
 		public void Sets_IsSigned_false_if_OAuthSigned_not_specified()
 		{
-			var attributeValidation = new AttributeRequestDataBuilder<StubEndpoint>();
-			var requestData = attributeValidation.BuildRequestData();
+			var requestData = AttributeRequestDataBuilder.BuildRequestData<StubEndpoint>();
 
 			Assert.That(requestData.IsSigned, Is.False);
 		}
@@ -38,8 +35,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.AttributeManagement
 		[Test]
 		public void Sets_UseHttps_if_RequireSecure_specified()
 		{
-			var attributeValidation = new AttributeRequestDataBuilder<StubSecureEndpoint>();
-			var requestData = attributeValidation.BuildRequestData();
+			var requestData = AttributeRequestDataBuilder.BuildRequestData<StubSecureEndpoint>();
 
 			Assert.That(requestData.UseHttps);
 		}
@@ -47,8 +43,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.AttributeManagement
 		[Test]
 		public void Sets_UseHttps_false_if_RequireSecure_not_specified()
 		{
-			var attributeValidation = new AttributeRequestDataBuilder<StubEndpoint>();
-			var requestData = attributeValidation.BuildRequestData();
+			var requestData = AttributeRequestDataBuilder.BuildRequestData<StubEndpoint>();
 
 			Assert.That(requestData.UseHttps, Is.False);
 		}
@@ -56,8 +51,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.AttributeManagement
 		[Test]
 		public void Sets_HttpMethod_to_POST_if_HttpPost_specified()
 		{
-			var attributeValidation = new AttributeRequestDataBuilder<StubPostEndpoint>();
-			var requestData = attributeValidation.BuildRequestData();
+			var requestData = AttributeRequestDataBuilder.BuildRequestData<StubPostEndpoint>();
 
 			Assert.That(requestData.HttpMethod, Is.EqualTo("POST"));
 		}
@@ -65,8 +59,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.AttributeManagement
 		[Test]
 		public void HttpMethod_defaults_to_GET_if_HttpPost_not_specified()
 		{
-			var attributeValidation = new AttributeRequestDataBuilder<StubEndpoint>();
-			var requestData = attributeValidation.BuildRequestData();
+			var requestData = AttributeRequestDataBuilder.BuildRequestData<StubEndpoint>();
 
 			Assert.That(requestData.HttpMethod, Is.EqualTo("GET"));
 		}
