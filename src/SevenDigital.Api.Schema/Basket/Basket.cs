@@ -24,16 +24,16 @@ namespace SevenDigital.Api.Schema.Basket
 
 	[ApiEndpoint("basket/addItem")]
 	[XmlRoot("basket")]
-	public class BasketAddItem : Basket
+	public class AddItemToBasket : Basket
 	{}
 
 	[ApiEndpoint("basket/create")]
 	[XmlRoot("basket")]
-	public class BasketCreate : Basket
+	public class CreateBasket : Basket
 	{}
 
 	[ApiEndpoint("basket/removeItem")]
 	[XmlRoot("basket")]
-	public class BasketRemoveItem : Basket
+	public class RemoveItemFromBasket : Basket
 	{}
 }
