@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
+using SevenDigital.Api.Wrapper.EndpointResolution;
+using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Schema.LockerEndpoint;
+using SevenDigital.Api.Wrapper.Http;
 
-namespace SevenDigital.Api.Wrapper.ExampleUsage 
+namespace SevenDigital.Api.Wrapper.ExampleUsage
 {
-	class Program 
+	class Program
 	{
-		static void Main(string[] args) 
+		static void Main(string[] args)
 		{
 			string s = args[0];
 
@@ -34,7 +38,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 
 			Console.WriteLine("Top Track: {0}", artistTopTracks.Tracks.FirstOrDefault().Title);
 			Console.WriteLine();
-			
+
 			// -- artist/browse
 			const string searchValue = "Radio";
 			var artistBrowse = Api<ArtistBrowse>
@@ -55,6 +59,21 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			Console.WriteLine("Artist Search on \"{0}\" returns: {1} items", searchValue, artistSearch.TotalItems);
 			Console.WriteLine();
 
+			// -- artist/search parallel 
+
+			var requestor = new FluentApiRequestor<ArtistSearch>(() => new FluentApi<ArtistSearch>(new RequestCoordinator(new GzipHttpClient(), new UrlSigner(), new AppSettingsCredentials(), new ApiUri())));
+
+			Parallel.For(1, 10, i =>
+			{
+				var result = requestor.Request(x =>
+				{
+					x.WithQuery("keane");
+					x.WithPageNumber(i);
+					x.WithPageSize(1);
+				});
+				Console.WriteLine(i + " >> " + result.Results.First().Artist.Name);
+			});
+
 			// -- release/search
 			var releaseSearch = Api<ReleaseSearch>.Create
 				.WithQuery(searchValue)
@@ -74,29 +93,30 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 				.WithQuery(searchValue)
 				.WithPageNumber(1)
 				.WithPageSize(10)
-				.PleaseAsync(x => {
+				.PleaseAsync(x =>
+				{
 					Console.WriteLine("Async Release search on \"{0}\" returns: {1} items", "Radio", x.TotalItems);
 					Console.WriteLine();
-				 });
+				});
 
-			try 
+			try
 			{
 				// -- Deliberate error response
 				Console.WriteLine("Trying artist/details without artistId parameter...");
 				Api<Artist>.Create.Please();
-			} 
-			catch (ApiException ex) 
+			}
+			catch (ApiException ex)
 			{
 				Console.WriteLine("{0} : {1}", ex, ex.Message);
 			}
 
-			try 
+			try
 			{
 				// -- Deliberate unauthorized response
 				Console.WriteLine("Trying user/locker without any credentials...");
 				Api<Locker>.Create.Please();
-			} 
-			catch (ApiException ex) 
+			}
+			catch (ApiException ex)
 			{
 				Console.WriteLine("{0} : {1}", ex, ex.Message);
 			}
