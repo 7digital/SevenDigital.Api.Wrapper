@@ -34,13 +34,6 @@ namespace SevenDigital.Api.Wrapper
 				EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance)) 
 			{ }
 
-
-		public IFluentApi<T> WithEndpoint(string endpoint)
-		{
-			_requestData.UriPath = endpoint;
-			return this;
-		}
-
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
 		{
 			_requestCoordinator.HttpClient = httpClient;
