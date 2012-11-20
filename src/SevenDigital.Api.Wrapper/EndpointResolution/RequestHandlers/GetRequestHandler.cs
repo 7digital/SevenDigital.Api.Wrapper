@@ -16,31 +16,31 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			_urlSigner = urlSigner;
 		}
 
-		public override Response HitEndpoint(RequestData requestData)
+		public override Response HitEndpoint(EndpointContext endpointContext, RequestContext requestContext)
 		{
-			var getRequest = BuildGetRequest(requestData);
+			var getRequest = BuildGetRequest(endpointContext, requestContext);
 			return HttpClient.Get(getRequest);
 		}
 
-		private GetRequest BuildGetRequest(RequestData requestData)
+		private GetRequest BuildGetRequest(EndpointContext endpointContext, RequestContext requestContext)
 		{
-			var uri = ConstructEndpoint(requestData);
-			var signedUrl = SignHttpGetUrl(uri, requestData);
-			var getRequest = new GetRequest(signedUrl, requestData.Headers);
+			var uri = ConstructEndpoint(endpointContext, requestContext);
+			var signedUrl = SignHttpGetUrl(uri, endpointContext);
+			var getRequest = new GetRequest(signedUrl, requestContext.Headers);
 			return getRequest;
 		}
 
-		public override void HitEndpointAsync(RequestData requestData, Action<Response> action)
+		public override void HitEndpointAsync(EndpointContext endpointContext, RequestContext requestContext, Action<Response> action)
 		{
-			var getRequest = BuildGetRequest(requestData);
+			var getRequest = BuildGetRequest(endpointContext, requestContext);
 			HttpClient.GetAsync(getRequest, response => action(response));
 		}
 
-		private string SignHttpGetUrl(string uri, RequestData requestData)
+		private string SignHttpGetUrl(string uri, EndpointContext endpointContext)
 		{
-			if (requestData.IsSigned)
+			if (endpointContext.IsSigned)
 			{
-				return _urlSigner.SignGetUrl(uri, requestData.UserToken, requestData.TokenSecret, _oAuthCredentials);
+				return _urlSigner.SignGetUrl(uri, endpointContext.UserToken, endpointContext.TokenSecret, _oAuthCredentials);
 			}
 			return uri;
 		}

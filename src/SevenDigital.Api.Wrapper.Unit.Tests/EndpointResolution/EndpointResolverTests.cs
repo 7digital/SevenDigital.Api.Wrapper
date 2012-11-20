@@ -29,16 +29,19 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		[Test]
 		public void should_substitue_route_parameters()
 		{
-			var requestData = new RequestData
+			var endpointContext = new EndpointContext
 			{
 				UriPath = "something/{route}",
+			};
+			var requestData = new RequestContext
+			{
 				Parameters = new Dictionary<string, string>
 					{
 						{"route","routevalue"}
 					}
 			};
 
-			var result = _requestCoordinator.ConstructEndpoint(requestData);
+			var result = _requestCoordinator.ConstructEndpoint(endpointContext, requestData);
 
 			Assert.That(result,Is.StringContaining("something/routevalue"));
 		}
@@ -46,9 +49,13 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		[Test]
 		public void should_substitue_multiple_route_parameters()
 		{
-			var requestData = new RequestData
+			var endpointContext = new EndpointContext
 			{
 				UriPath = "something/{firstRoute}/{secondRoute}/thrid/{thirdRoute}",
+			};
+
+			var requestData = new RequestContext
+			{
 				Parameters = new Dictionary<string, string>
 					{
 						{"firstRoute" , "firstValue"},
@@ -58,7 +65,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 					}
 			};
 
-			var result = _requestCoordinator.ConstructEndpoint(requestData);
+			var result = _requestCoordinator.ConstructEndpoint(endpointContext, requestData);
 
 			Assert.That(result, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
 		}
@@ -66,9 +73,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		[Test]
 		public void routes_should_be_case_insensitive()
 		{
-			var requestData = new RequestData
+			var endpointContext = new EndpointContext
 			{
 				UriPath = "something/{firstRoUte}/{secOndrouTe}/thrid/{tHirdRoute}",
+			};
+			var requestData = new RequestContext
+			{
 				Parameters = new Dictionary<string, string>
 					{
 						{"firstRoute" , "firstValue"},
@@ -78,7 +88,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 					}
 			};
 
-			var result = _requestCoordinator.ConstructEndpoint(requestData);
+			var result = _requestCoordinator.ConstructEndpoint(endpointContext, requestData);
 
 			Assert.That(result, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
 		}
@@ -86,16 +96,19 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		[Test]
 		public void should_handle_dashes_and_numbers()
 		{
-			var requestData = new RequestData
+			var endpointContext = new EndpointContext
 			{
 				UriPath = "something/{route-66}",
+			};
+			var requestData = new RequestContext
+			{
 				Parameters = new Dictionary<string, string>
 					{
 						{"route-66","routevalue"}
 					}
 			};
 
-			var result = _requestCoordinator.ConstructEndpoint(requestData);
+			var result = _requestCoordinator.ConstructEndpoint(endpointContext, requestData);
 
 			Assert.That(result, Is.StringContaining("something/routevalue"));
 		}
@@ -103,16 +116,19 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		[Test]
 		public void should_remove_parameters_that_match()
 		{
-			var requestData = new RequestData
+			var endpointContext = new EndpointContext
 			{
 				UriPath = "something/{route-66}",
+			};
+			var requestData = new RequestContext
+			{
 				Parameters = new Dictionary<string, string>
 					{
 						{"route-66","routevalue"}
 					}
 			};
 
-			var result = _requestCoordinator.ConstructEndpoint(requestData);
+			var result = _requestCoordinator.ConstructEndpoint(endpointContext, requestData);
 
 			Assert.That(result, Is.Not.StringContaining("route-66=routevalue"));
 		}

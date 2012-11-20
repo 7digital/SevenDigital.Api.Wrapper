@@ -16,32 +16,32 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			_urlSigner = urlSigner;
 		}
 
-		public override Response HitEndpoint(RequestData requestData)
+		public override Response HitEndpoint(EndpointContext endpointContext, RequestContext requestContext)
 		{
-			var postRequest = BuildPostRequest(requestData);
+			var postRequest = BuildPostRequest(endpointContext, requestContext);
 			return HttpClient.Post(postRequest);
 		}
-		public override void HitEndpointAsync(RequestData requestData, Action<Response> action)
+		public override void HitEndpointAsync(EndpointContext endpointContext, RequestContext requestContext, Action<Response> action)
 		{
-			var postRequest = BuildPostRequest(requestData);
+			var postRequest = BuildPostRequest(endpointContext, requestContext);
 			HttpClient.PostAsync(postRequest,response => action(response));
 		}
 
-		private PostRequest BuildPostRequest(RequestData requestData)
+		private PostRequest BuildPostRequest(EndpointContext endpointContext, RequestContext requestContext)
 		{
-			var uri = ConstructEndpoint(requestData);
-			var signedParams = SignHttpPostParams(uri, requestData);
-			var postRequest = new PostRequest(uri, requestData.Headers, signedParams);
+			var uri = ConstructEndpoint(endpointContext, requestContext);
+			var signedParams = SignHttpPostParams(uri, endpointContext, requestContext);
+			var postRequest = new PostRequest(uri, requestContext.Headers, signedParams);
 			return postRequest;
 		}
 
-		private IDictionary<string, string> SignHttpPostParams(string uri, RequestData requestData)
+		private IDictionary<string, string> SignHttpPostParams(string uri, EndpointContext endpointContext, RequestContext requestContext)
 		{
-			if (requestData.IsSigned)
+			if (endpointContext.IsSigned)
 			{
-				return _urlSigner.SignPostRequest(uri, requestData.UserToken, requestData.TokenSecret, _oAuthCredentials, requestData.Parameters);
+				return _urlSigner.SignPostRequest(uri, endpointContext.UserToken, endpointContext.TokenSecret, _oAuthCredentials, requestContext.Parameters);
 			}
-			return requestData.Parameters;
+			return requestContext.Parameters;
 		}
 
 		protected override string AdditionalParameters(Dictionary<string, string> newDictionary)

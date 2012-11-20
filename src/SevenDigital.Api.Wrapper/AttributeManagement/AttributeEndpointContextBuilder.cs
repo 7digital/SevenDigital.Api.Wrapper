@@ -6,22 +6,22 @@ using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.AttributeManagement
 {
-	public class AttributeRequestDataBuilder<T>
+	public class AttributeEndpointContextBuilder<T>
 	{
-		public RequestData BuildRequestData()
+		public EndpointContext BuildRequestData()
 		{
-			var requestData = new RequestData();
+			var endpointContext = new EndpointContext();
 
-			requestData.UriPath = ParseApiEndpointAttribute();
-			requestData.IsSigned = ParseOAuthSignedAttribute();
-			requestData.UseHttps = ParseRequireSecureAttribute();
+			endpointContext.UriPath = ParseApiEndpointAttribute();
+			endpointContext.IsSigned = ParseOAuthSignedAttribute();
+			endpointContext.UseHttps = ParseRequireSecureAttribute();
 
 			if (ParseHttpPostAttribute() != null)
 			{
-				requestData.HttpMethod = "POST";
+				endpointContext.HttpMethod = "POST";
 			}
 
-			return requestData;
+			return endpointContext;
 		}
 
 		private static string ParseApiEndpointAttribute()
