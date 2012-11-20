@@ -4,7 +4,7 @@ namespace SevenDigital.Api.Wrapper
 {
 	public static class HasIpAddressParameterExtensions
 	{
-		public static IFluentApi<T> WithIpAddress<T>(this IFluentApi<T> api, string ipAddress) where T : HasIpAddressParameter
+		public static IApiRequest<T> WithIpAddress<T>(this IApiRequest<T> api, string ipAddress) where T : HasIpAddressParameter
 		{
 			api.WithParameter("ipaddress", ipAddress);
 			return api;

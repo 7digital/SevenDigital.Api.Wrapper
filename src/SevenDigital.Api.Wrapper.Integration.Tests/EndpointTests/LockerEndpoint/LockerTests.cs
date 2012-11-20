@@ -22,7 +22,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 		public void Should_get_a_users_locker_with_correct_access_credentials()
 		{
 			var locker = Api<Locker>.Create
-				.ForUser(_token, _tokenSecret)
+				.ForUser(_token, _tokenSecret).MakeRequest()
 				.Please();
 
 			Assert.That(locker.Response.LockerReleases.Count, Is.GreaterThan(0));
@@ -32,8 +32,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 		public void Should_get_specific_users_release()
 		{
 			var locker = Api<Locker>.Create
+				.ForUser(_token, _tokenSecret).MakeRequest()
 				.ForReleaseId(343418)
-				.ForUser(_token, _tokenSecret)
 				.Please();
 
 			Assert.That(locker.Response.LockerReleases.Count, Is.EqualTo(1));
@@ -43,9 +43,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 		public void Should_get_specific_users_track()
 		{
 			var locker = Api<Locker>.Create
+				.ForUser(_token, _tokenSecret).MakeRequest()
 				.ForReleaseId(343418)
 				.ForTrackId(3846716)
-				.ForUser(_token, _tokenSecret)
 				.Please();
 
 			Assert.That(locker.Response.LockerReleases.FirstOrDefault().LockerTracks.Count, Is.EqualTo(1));

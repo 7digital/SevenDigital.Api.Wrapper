@@ -22,12 +22,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		public void Should_fire_requestcoordinator_with_correct_endpoint_on_resolve()
 		{
 			var requestCoordinator = A.Fake<IRequestCoordinator>();
-			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).Returns(stubResponse);
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndpointContext>.Ignored, A<RequestContext>.Ignored)).Returns(stubResponse);
 
-			new FluentApi<Status>(requestCoordinator).Please();
+			new FluentApi<Status>(requestCoordinator).MakeRequest().Please();
 
 			Expression<Func<Response>> callWithEndpointStatus =
-				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.UriPath == "status"));
+				() => requestCoordinator.HitEndpoint(A<EndpointContext>.That.Matches(x => x.UriPath == "status"), A<RequestContext>.Ignored);
 
 			A.CallTo(callWithEndpointStatus).MustHaveHappened(Repeated.Exactly.Once);
 		}
@@ -36,12 +36,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		public void Should_fire_requestcoordinator_with_correct_methodname_on_resolve()
 		{
 			var requestCoordinator = A.Fake<IRequestCoordinator>();
-			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).Returns(stubResponse);
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndpointContext>.Ignored, A<RequestContext>.Ignored)).Returns(stubResponse);
 
-			new FluentApi<Status>(requestCoordinator).WithMethod("POST").Please();
+			new FluentApi<Status>(requestCoordinator).WithMethod("POST").MakeRequest().Please();
 
 			Expression<Func<Response>> callWithMethodPost =
-				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.HttpMethod == "POST"));
+				() => requestCoordinator.HitEndpoint(A<EndpointContext>.That.Matches(x => x.HttpMethod == "POST"), A<RequestContext>.Ignored);
 
 			A.CallTo(callWithMethodPost).MustHaveHappened(Repeated.Exactly.Once);
 		}
@@ -50,12 +50,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		public void Should_fire_requestcoordinator_with_correct_parameters_on_resolve()
 		{
 			var requestCoordinator = A.Fake<IRequestCoordinator>();
-			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).Returns(stubResponse);
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndpointContext>.Ignored, A<RequestContext>.Ignored)).Returns(stubResponse);
 
-			new FluentApi<Status>(requestCoordinator).WithParameter("artistId", "123").Please();
+			new FluentApi<Status>(requestCoordinator).MakeRequest().WithParameter("artistId", "123").Please();
 
 			Expression<Func<Response>> callWithArtistId123 =
-				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.Parameters["artistId"] == "123"));
+				() => requestCoordinator.HitEndpoint(A<EndpointContext>.Ignored, A<RequestContext>.That.Matches(x => x.Parameters["artistId"] == "123"));
 
 			A.CallTo(callWithArtistId123).MustHaveHappened();
 
@@ -78,6 +78,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var reset = new AutoResetEvent(false);
 
 			new FluentApi<Status>(requestCoordinator)
+				.MakeRequest()
 				.PleaseAsync(
 				status =>
 				{
@@ -93,22 +94,22 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 		public class FakeRequestCoordinator : IRequestCoordinator
 		{
-			public Response HitEndpoint(RequestData requestData)
+			public Response HitEndpoint(EndpointContext endpointContext, RequestContext requestContext)
 			{
 				throw new NotImplementedException();
 			}
 
-			public Response HitEndpointAndGetResponse(RequestData requestData)
+			public Response HitEndpointAndGetResponse(RequestContext requestContext)
 			{
 				throw new NotImplementedException();
 			}
 
-			public void HitEndpointAsync(RequestData requestData, Action<Response> callback)
+			public void HitEndpointAsync(EndpointContext endpointContext, RequestContext requestContext, Action<Response> callback)
 			{
 				callback(StubPayload);
 			}
 
-			public string ConstructEndpoint(RequestData requestData)
+			public string ConstructEndpoint(EndpointContext endpointContext, RequestContext requestContext)
 			{
 				throw new NotImplementedException();
 			}

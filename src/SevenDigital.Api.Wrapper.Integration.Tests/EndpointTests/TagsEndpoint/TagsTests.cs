@@ -11,8 +11,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		public void Can_hit_endpoint() 
 		{
 
-			Tags tags = Api<Tags>.Create
-				.Please();
+			Tags tags = Api<Tags>.Create.MakeRequest().Please();
 
 			Assert.That(tags, Is.Not.Null);
 			Assert.That(tags.TagList.Count, Is.GreaterThan(0));
@@ -24,6 +23,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		public void Can_hit_endpoint_with_paging() 
 		{
 			Tags artistBrowse = Api<Tags>.Create
+				.MakeRequest()
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
 				.Please();

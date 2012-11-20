@@ -12,6 +12,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		{
 			var artist = Api<Artist>
 				.Create
+				.MakeRequest()
 				.WithArtistId(1)
 				.Please();
 
@@ -31,6 +32,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 
 			   Api<Artist>
 				.Create
+				.MakeRequest()
 				.WithArtistId(1)
 				.PleaseAsync(payload =>
 					{

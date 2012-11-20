@@ -21,14 +21,14 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			_apiUri = apiUri;
 		}
 
-		public string ConstructEndpoint(RequestData requestData)
+		public string ConstructEndpoint(EndpointContext endpointContext, RequestContext requestContext)
 		{
-			return ConstructBuilder(requestData).ConstructEndpoint(requestData);
+			return ConstructBuilder(endpointContext).ConstructEndpoint(endpointContext, requestContext);
 		}
 
-		private RequestHandler ConstructBuilder(RequestData requestData)
+		private RequestHandler ConstructBuilder(EndpointContext endpointContext)
 		{
-			switch (requestData.HttpMethod.ToUpperInvariant())
+			switch (endpointContext.HttpMethod.ToUpperInvariant())
 			{
 				case "GET":
 					return new GetRequestHandler(_apiUri, _oAuthCredentials, _urlSigner);
@@ -39,18 +39,18 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			}
 		}
 
-		public virtual Response HitEndpoint(RequestData requestData)
+		public virtual Response HitEndpoint(EndpointContext endpointContext, RequestContext requestContext)
 		{
-			var builder = ConstructBuilder(requestData);
+			var builder = ConstructBuilder(endpointContext);
 			builder.HttpClient = HttpClient;
-			return builder.HitEndpoint(requestData);
+			return builder.HitEndpoint(endpointContext, requestContext);
 		}
 
-		public virtual void HitEndpointAsync(RequestData requestData, Action<Response> callback)
+		public virtual void HitEndpointAsync(EndpointContext endpointContext, RequestContext requestContext, Action<Response> callback)
 		{
-			var builder = ConstructBuilder(requestData);
+			var builder = ConstructBuilder(endpointContext);
 			builder.HttpClient = HttpClient;
-			builder.HitEndpointAsync(requestData, callback);
+			builder.HitEndpointAsync(endpointContext, requestContext, callback);
 		}
 	}
 }

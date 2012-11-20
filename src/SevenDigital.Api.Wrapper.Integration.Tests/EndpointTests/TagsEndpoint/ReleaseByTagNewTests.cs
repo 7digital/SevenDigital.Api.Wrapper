@@ -12,7 +12,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		public void Can_hit_endpoint()
 		{
 
-			ReleaseByTagNew tags = Api<ReleaseByTagNew>.Create
+			ReleaseByTagNew tags = Api<ReleaseByTagNew>.Create.MakeRequest()
 				.WithParameter("tags", "rock")
 				.Please();
 
@@ -26,7 +26,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		public void Can_hit_endpoint_with_paging()
 		{
 
-			ReleaseByTagNew artistBrowse = Api<ReleaseByTagNew>.Create
+			ReleaseByTagNew artistBrowse = Api<ReleaseByTagNew>.Create.MakeRequest()
 				.WithParameter("tags", "rock")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")

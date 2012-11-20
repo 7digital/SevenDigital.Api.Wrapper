@@ -13,6 +13,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		public void Can_hit_endpoint()
 		{
 			ArtistTopTracks artist = new FluentApi<ArtistTopTracks>()
+				.MakeRequest()
 				.WithParameter("artistId", "1")
 				.WithParameter("country", "GB")
 				.Please();
@@ -26,6 +27,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		{
 			var artist = Api<ArtistTopTracks>
 				.Create
+				.MakeRequest()
 				.WithArtistId(1)
 				.WithParameter("country", "GB")
 				.Please();
@@ -39,6 +41,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		{
 			var ex = Assert.Throws<InputParameterException>(() =>
 				new FluentApi<ArtistTopTracks>()
+					.MakeRequest()
 					.WithParameter("artistId", "1")
 					.WithParameter("page", "2")
 					.WithParameter("pageSize", "10")

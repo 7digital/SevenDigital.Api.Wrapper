@@ -5,7 +5,7 @@ namespace SevenDigital.Api.Wrapper
 {
 	public static class HasAddCardParameterExtensions
 	{
-		public static IFluentApi<T> WithCard<T>(this IFluentApi<T> api, AddCardParameters card) where T : HasAddCardParameter
+		public static IApiRequest<T> WithCard<T>(this IApiRequest<T> api, AddCardParameters card) where T : HasAddCardParameter
 		{
 			api.WithParameter("cardNumber", card.Number);
 			api.WithParameter("cardType", card.Type);

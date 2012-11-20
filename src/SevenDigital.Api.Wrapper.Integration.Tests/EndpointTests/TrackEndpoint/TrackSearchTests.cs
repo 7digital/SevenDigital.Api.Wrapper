@@ -12,6 +12,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		public void Can_hit_endpoint()
 		{
 			TrackSearch release = Api<TrackSearch>.Create
+				.MakeRequest()
 				.WithParameter("q", "Happy")
 				.Please();
 
@@ -24,6 +25,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		public void Can_hit_endpoint_with_paging()
 		{
 			TrackSearch artistBrowse = Api<TrackSearch>.Create
+				.MakeRequest()
 				.WithParameter("q","Happy")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")

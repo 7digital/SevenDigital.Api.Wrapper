@@ -13,7 +13,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 		{
 			try 
 			{
-				OAuthRequestToken oAuthRequestToken = Api<OAuthRequestToken>.Create.Please();
+				OAuthRequestToken oAuthRequestToken = Api<OAuthRequestToken>.Create.MakeRequest().Please();
 				Assert.That(oAuthRequestToken.Secret, Is.Not.Empty);
 				Assert.That(oAuthRequestToken.Token, Is.Not.Empty);
 			} 

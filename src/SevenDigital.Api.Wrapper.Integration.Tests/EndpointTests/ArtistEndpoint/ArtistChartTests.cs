@@ -16,6 +16,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 
 		    var artist = Api<ArtistChart>
 							.Create
+							.MakeRequest()
 							.WithToDate(chartDate)
 							.WithPeriod(ChartPeriod.Week)
 							.WithPageSize(20)
