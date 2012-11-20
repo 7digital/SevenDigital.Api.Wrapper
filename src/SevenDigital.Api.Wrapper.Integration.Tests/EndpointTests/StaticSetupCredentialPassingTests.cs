@@ -10,7 +10,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 		[Test]
 		public void Can_hit_endpoint_if_I_pass_credentials_into_static_method()
 		{
-			Status status = Api<Status>.CreateWithCreds(new AppSettingsCredentials(), new ApiUri()).Please();
+			Status status = Api<Status>.CreateWithCreds(new AppSettingsCredentials(), new ApiUri()).MakeRequest().Please();
 
 			Assert.That(status, Is.Not.Null);
 			Assert.That(status.ServerTime.Day, Is.EqualTo(DateTime.Now.Day));

@@ -4,7 +4,7 @@ namespace SevenDigital.Api.Wrapper
 {
 	public static class HasBasketItemParameterExtensions
 	{
-		public static IFluentApi<T> BasketItemId<T>(this IFluentApi<T> api, int basketItemId) where T : HasBasketItemParameter
+		public static IApiRequest<T> BasketItemId<T>(this IApiRequest<T> api, int basketItemId) where T : HasBasketItemParameter
 		{
 			api.WithParameter("itemId", basketItemId.ToString());
 			return api;

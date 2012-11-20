@@ -4,13 +4,13 @@ namespace SevenDigital.Api.Wrapper
 {
 	public static class HasPagingExtensions
 	{
-		public static IFluentApi<T> WithPageNumber<T>(this IFluentApi<T> api, int pageNumber) where T : IHasPaging
+		public static IApiRequest<T> WithPageNumber<T>(this IApiRequest<T> api, int pageNumber) where T : IHasPaging
 		{
 			api.WithParameter("page", pageNumber.ToString());
 			return api;
 		}
 
-		public static IFluentApi<T> WithPageSize<T>(this IFluentApi<T> api, int pageSize) where T : IHasPaging
+		public static IApiRequest<T> WithPageSize<T>(this IApiRequest<T> api, int pageSize) where T : IHasPaging
 		{
 			api.WithParameter("pageSize", pageSize.ToString());
 			return api;

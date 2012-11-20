@@ -8,12 +8,11 @@ namespace SevenDigital.Api.Wrapper
 	public interface IFluentApi<T> : IApiEndpoint
 	// ReSharper restore TypeParameterCanBeVariant
 	{
-		IFluentApi<T> WithParameter(string key, string value);
-		IFluentApi<T> ClearParameters();
+		IApiRequest<T> MakeRequest();
 		IFluentApi<T> ForUser(string token, string secret);
 		IFluentApi<T> UsingClient(IHttpClient httpClient);
 
-		T Please();
-		void PleaseAsync(Action<T> callback);
+		T Please(RequestContext requestContext);
+		void PleaseAsync(RequestContext requestContext, Action<T> callback);
 	}
 }

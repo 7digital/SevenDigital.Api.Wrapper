@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			ReleaseByDate release = Api<ReleaseByDate>.Create
+			ReleaseByDate release = Api<ReleaseByDate>.Create.MakeRequest()
 				.WithParameter("toDate", DateTime.Now.ToString("yyyyMMdd"))
 				.WithParameter("country", "GB")
 				.Please();
@@ -23,7 +23,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			ReleaseByDate artistBrowse = Api<ReleaseByDate>.Create
+			ReleaseByDate artistBrowse = Api<ReleaseByDate>.Create.MakeRequest()
 				.WithParameter("fromDate", "20090610")
 				.WithParameter("toDate", "20110101")
 				.WithParameter("page", "2")

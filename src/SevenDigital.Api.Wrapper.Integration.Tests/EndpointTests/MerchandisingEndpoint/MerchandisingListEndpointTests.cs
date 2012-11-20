@@ -12,6 +12,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Merchandising
 		{
 			var merchList = Api<MerchandisingList>
 				.Create
+				.MakeRequest()
 				.WithKey("tabAlbums")
 				.WithParameter("shopId", "34")
 				.Please();

@@ -4,7 +4,7 @@ namespace SevenDigital.Api.Wrapper
 {
 	public static class HasArtistIdParameterExtensions
 	{
-		public static IFluentApi<T> WithArtistId<T>(this IFluentApi<T> api, int artistId) where T : HasArtistIdParameter
+		public static IApiRequest<T> WithArtistId<T>(this IApiRequest<T> api, int artistId) where T : HasArtistIdParameter
 		{
 			api.WithParameter("artistId", artistId.ToString());
 			return api;

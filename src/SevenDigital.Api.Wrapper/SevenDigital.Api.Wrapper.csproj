@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api.cs" />
+    <Compile Include="ApiRequest.cs" />
     <Compile Include="AttributeManagement\AttributeEndpointContextBuilder.cs" />
     <Compile Include="EndpointResolution\AppDomainAssemblyResolver.cs" />
     <Compile Include="EndpointResolution\EssentialDependencyCheck.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Extensions\SortOrder.cs" />
     <Compile Include="Http\EndpointContext.cs" />
     <Compile Include="IApiEndpoint.cs" />
+    <Compile Include="IApiRequest.cs" />
     <Compile Include="IApiUri.cs" />
     <Compile Include="IOAuthCredentials.cs" />
     <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />

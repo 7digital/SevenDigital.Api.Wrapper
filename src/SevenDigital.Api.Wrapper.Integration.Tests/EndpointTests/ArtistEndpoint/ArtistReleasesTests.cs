@@ -13,6 +13,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		{
 			var artist = Api<ArtistReleases>
 				.Create
+				.MakeRequest()
 				.WithArtistId(1)
 				.Please();
 
@@ -26,6 +27,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		{
 			var artistBrowse = Api<ArtistReleases>
 				.Create
+				.MakeRequest()
 				.WithPageNumber(2)
 				.WithPageSize(20)
 				.WithParameter("artistId","1")

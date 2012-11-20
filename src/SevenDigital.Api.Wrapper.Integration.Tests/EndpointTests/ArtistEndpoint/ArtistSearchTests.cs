@@ -11,6 +11,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		public void Can_hit_endpoint()
 		{
 			ArtistSearch artist = new FluentApi<ArtistSearch>()
+				.MakeRequest()
 				.WithParameter("q", "pink")
 				.WithParameter("country", "GB")
 				.Please();
@@ -23,6 +24,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		{
 			var artist = Api<ArtistSearch>
 				.Create
+				.MakeRequest()
 				.WithQuery("radiohe")
 				.WithParameter("sort","popularity+desc")
 				.Please();
@@ -37,6 +39,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 
 			ArtistSearch artistSearch = Api<ArtistSearch>
 				.Create
+				.MakeRequest()
 				.WithQuery("pink")
 				.WithParameter("country", "GB")
 				.Please();
@@ -49,6 +52,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		public void Can_hit_endpoint_with_paging()
 		{
 			ArtistSearch artistBrowse = Api<ArtistSearch>.Create
+				.MakeRequest()
 				.WithParameter("q", "pink")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
@@ -63,6 +67,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		public void Can_get_multiple_results()
 		{
 			ArtistSearch artistSearch = Api<ArtistSearch>.Create
+				.MakeRequest()
 				.WithParameter("q", "pink")
 				.WithParameter("page", "1")
 				.WithParameter("pageSize", "20")
@@ -75,6 +80,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		public void Can_get_multiple_results_with_new_FluentApi_overload() 
 		{
 			var artistSearch = new FluentApi<ArtistSearch>(new AppSettingsCredentials(), new ApiUri())
+				.MakeRequest()
 				.ForShop(34)
 				.WithQuery("pink")
 				.WithPageNumber(1)

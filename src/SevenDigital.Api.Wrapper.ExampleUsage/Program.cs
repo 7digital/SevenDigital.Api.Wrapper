@@ -17,7 +17,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			Console.WriteLine("Using creds: {0} - {1}", appSettingsCredentials.ConsumerKey, appSettingsCredentials.ConsumerSecret);
 
 			// -- artist/details
-			var artist = Api<Artist>.Create
+			var artist = Api<Artist>.Create.MakeRequest()
 				.WithArtistId(Convert.ToInt32(s))
 				.Please();
 
@@ -29,6 +29,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			// -- artist/toptracks
 			var artistTopTracks = Api<ArtistTopTracks>
 				.Create
+				.MakeRequest()
 				.WithArtistId(Convert.ToInt32(s))
 				.Please();
 
@@ -39,6 +40,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			const string searchValue = "Radio";
 			var artistBrowse = Api<ArtistBrowse>
 				.Create
+				.MakeRequest()
 				.WithLetter(searchValue)
 				.Please();
 
@@ -47,6 +49,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 
 			// -- artist/search
 			var artistSearch = Api<ArtistSearch>.Create
+				.MakeRequest()
 				.WithQuery(searchValue)
 				.WithPageNumber(1)
 				.WithPageSize(10)
@@ -57,6 +60,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 
 			// -- release/search
 			var releaseSearch = Api<ReleaseSearch>.Create
+				.MakeRequest()
 				.WithQuery(searchValue)
 				.WithPageNumber(1)
 				.WithPageSize(10)
@@ -66,11 +70,14 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			Console.WriteLine();
 
 			// -- Debug uri
-			string currentUri = Api<ReleaseSearch>.Create.WithQuery("Test").EndpointUrl;
+			var releaseSearchEndpoint = Api<ReleaseSearch>.Create;
+			var releaseSearchRequest = releaseSearchEndpoint.MakeRequest().WithQuery("Test");
+			string currentUri = releaseSearchEndpoint.EndpointUrl(releaseSearchRequest.RequestContext);
 			Console.WriteLine("Release search hits: {0}", currentUri);
 
 			// -- async get (async post not implemented yet)
 			Api<ReleaseSearch>.Create
+				.MakeRequest()
 				.WithQuery(searchValue)
 				.WithPageNumber(1)
 				.WithPageSize(10)
@@ -83,7 +90,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			{
 				// -- Deliberate error response
 				Console.WriteLine("Trying artist/details without artistId parameter...");
-				Api<Artist>.Create.Please();
+				Api<Artist>.Create.MakeRequest().Please();
 			} 
 			catch (ApiException ex) 
 			{
@@ -94,7 +101,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			{
 				// -- Deliberate unauthorized response
 				Console.WriteLine("Trying user/locker without any credentials...");
-				Api<Locker>.Create.Please();
+				Api<Locker>.Create.MakeRequest().Please();
 			} 
 			catch (ApiException ex) 
 			{

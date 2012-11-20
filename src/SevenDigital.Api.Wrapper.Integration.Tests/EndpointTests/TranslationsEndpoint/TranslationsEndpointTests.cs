@@ -12,6 +12,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TranslationsE
 		{
 			var translations = Api<Translations>
 				.Create
+				.MakeRequest()
 				.Please();
 
 			Assert.That(translations, Is.Not.Null);
@@ -24,6 +25,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TranslationsE
 		{
 			var translations = Api<Translations>
 				.Create
+				.MakeRequest()
 				.WithPageSize(1)
 				.WithPageNumber(2)
 				.Please();

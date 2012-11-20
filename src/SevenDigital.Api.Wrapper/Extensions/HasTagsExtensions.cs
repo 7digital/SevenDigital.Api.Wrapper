@@ -5,7 +5,7 @@ namespace SevenDigital.Api.Wrapper.Extensions
 {
 	public static class HasTagsExtensions
 	{
-		public static IFluentApi<T> WithTags<T>(this IFluentApi<T> api, params string[] tags) where T : HasTags
+		public static IApiRequest<T> WithTags<T>(this IApiRequest<T> api, params string[] tags) where T : HasTags
 		{
 			api.WithParameter("tags", String.Join(",",tags));
 			return api;

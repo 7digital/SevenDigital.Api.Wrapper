@@ -11,6 +11,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		public void Can_hit_endpoint()
 		{
 			Release release = Api<Release>.Create
+				.MakeRequest()
 				.WithParameter("releaseId", "155408")
 				.WithParameter("country", "GB")
 				.Please();

@@ -10,6 +10,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		public void Can_hit_endpoint_with_redirect_false()
 		{
 			TrackPreview track = Api<TrackPreview>.Create
+				.MakeRequest()
 				.WithParameter("trackid", "123")
 				.WithParameter("redirect", "false")
 				.Please();

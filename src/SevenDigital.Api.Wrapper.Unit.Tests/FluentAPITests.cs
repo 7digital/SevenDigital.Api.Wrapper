@@ -24,7 +24,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var requestCoordinator = A.Fake<IRequestCoordinator>();
 			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndpointContext>.Ignored, A<RequestContext>.Ignored)).Returns(stubResponse);
 
-			new FluentApi<Status>(requestCoordinator).Please();
+			new FluentApi<Status>(requestCoordinator).MakeRequest().Please();
 
 			Expression<Func<Response>> callWithEndpointStatus =
 				() => requestCoordinator.HitEndpoint(A<EndpointContext>.That.Matches(x => x.UriPath == "status"), A<RequestContext>.Ignored);
@@ -38,7 +38,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var requestCoordinator = A.Fake<IRequestCoordinator>();
 			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndpointContext>.Ignored, A<RequestContext>.Ignored)).Returns(stubResponse);
 
-			new FluentApi<Status>(requestCoordinator).WithMethod("POST").Please();
+			new FluentApi<Status>(requestCoordinator).WithMethod("POST").MakeRequest().Please();
 
 			Expression<Func<Response>> callWithMethodPost =
 				() => requestCoordinator.HitEndpoint(A<EndpointContext>.That.Matches(x => x.HttpMethod == "POST"), A<RequestContext>.Ignored);
@@ -52,7 +52,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var requestCoordinator = A.Fake<IRequestCoordinator>();
 			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndpointContext>.Ignored, A<RequestContext>.Ignored)).Returns(stubResponse);
 
-			new FluentApi<Status>(requestCoordinator).WithParameter("artistId", "123").Please();
+			new FluentApi<Status>(requestCoordinator).MakeRequest().WithParameter("artistId", "123").Please();
 
 			Expression<Func<Response>> callWithArtistId123 =
 				() => requestCoordinator.HitEndpoint(A<EndpointContext>.Ignored, A<RequestContext>.That.Matches(x => x.Parameters["artistId"] == "123"));
@@ -78,6 +78,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var reset = new AutoResetEvent(false);
 
 			new FluentApi<Status>(requestCoordinator)
+				.MakeRequest()
 				.PleaseAsync(
 				status =>
 				{

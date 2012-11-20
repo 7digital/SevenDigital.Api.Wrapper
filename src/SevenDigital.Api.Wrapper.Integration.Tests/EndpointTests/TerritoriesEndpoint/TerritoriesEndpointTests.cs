@@ -12,6 +12,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		{
 			var countryForIp = Api<GeoIpLookup>
 				.Create
+				.MakeRequest()
 				.WithIpAddress("84.45.95.241")
 				.WithParameter("shopId", "34")
 				.Please();
@@ -25,6 +26,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		{
 			var restrictions = Api<GeoRestrictions>
 				.Create
+				.MakeRequest()
 				.WithIpAddress("84.45.95.241")
 				.WithParameter("shopId", "34")
 				.Please();
@@ -38,6 +40,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		{
 			var restrictions = Api<GeoRestrictions>
 				.Create
+				.MakeRequest()
 				.WithIpAddress("1.2.3.4")
 				.WithParameter("shopId", "34")
 				.Please();
@@ -51,6 +54,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		{
 			var restrictions = Api<GeoRestrictions>
 				.Create
+				.MakeRequest()
 				.WithIpAddress("84.45.95.241")
 				.Please();
 
@@ -63,6 +67,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		{
 			var countries = Api<Countries>
 				.Create
+				.MakeRequest()
 				.Please();
 
 			Assert.That(countries, Is.Not.Null);
@@ -75,6 +80,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		{
 			var countries = Api<Countries>
 				.Create
+				.MakeRequest()
 				.Please();
 
 			var gb = countries.CountryItems.First(c => c.Code == "GB");
@@ -89,6 +95,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		{
 			var countries = Api<Countries>
 				.Create
+				.MakeRequest()
 				.Please();
 
 			var gb = countries.CountryItems.First(c => c.Code == "GB");

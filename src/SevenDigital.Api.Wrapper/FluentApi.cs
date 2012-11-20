@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using SevenDigital.Api.Wrapper.AttributeManagement;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
@@ -12,7 +11,6 @@ namespace SevenDigital.Api.Wrapper
 	public class FluentApi<T> : IFluentApi<T> where T : class
 	{
 		private readonly EndpointContext _endpointContext;
-		private readonly RequestContext _requestContext;
 		private readonly IRequestCoordinator _requestCoordinator;
 		private readonly IResponseParser<T> _parser;
 
@@ -20,7 +18,6 @@ namespace SevenDigital.Api.Wrapper
 		{
 			var attributeValidation = new AttributeEndpointContextBuilder<T>();
 			_endpointContext = attributeValidation.BuildRequestData();
-			_requestContext = new RequestContext();
 			_requestCoordinator = requestCoordinator;
 
 			_parser = new ResponseParser<T>();
@@ -34,6 +31,12 @@ namespace SevenDigital.Api.Wrapper
 				EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance)) 
 			{ }
 
+		public IApiRequest<T> MakeRequest()
+		{
+			var apiRequest = new ApiRequest<T>(this);
+			return apiRequest;
+		}
+
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
 		{
 			_requestCoordinator.HttpClient = httpClient;
@@ -46,18 +49,6 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public virtual IFluentApi<T> WithParameter(string parameterName, string parameterValue)
-		{
-			_requestContext.Parameters[parameterName] = parameterValue;
-			return this;
-		}
-
-		public virtual IFluentApi<T> ClearParameters()
-		{
-			_requestContext.Parameters.Clear();
-			return this;
-		}
-
 		public virtual IFluentApi<T> ForUser(string token, string secret)
 		{
 			_endpointContext.UserToken = token;
@@ -65,48 +56,37 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public virtual IFluentApi<T> ForShop(int shopId)
-		{
-			WithParameter("shopId", shopId.ToString());
-			return this;
-		}
-
-		public virtual T Please()
+		public virtual T Please(RequestContext requestContext)
 		{
 			try
 			{
-				var response = _requestCoordinator.HitEndpoint(_endpointContext, _requestContext);
+				var response = _requestCoordinator.HitEndpoint(_endpointContext, requestContext);
 				return _parser.Parse(response);
 			}
 			catch (ApiException apiXmlException)
 			{
-				apiXmlException.Uri = EndpointUrl;
+				apiXmlException.Uri = EndpointUrl(requestContext);
 				throw;
 			}
 		}
 
-		public virtual string EndpointUrl
+		public virtual string EndpointUrl(RequestContext requestContext)
 		{
-			get { return _requestCoordinator.ConstructEndpoint(_endpointContext, _requestContext); }
+			return _requestCoordinator.ConstructEndpoint(_endpointContext, requestContext);
 		}
 
-		public virtual void PleaseAsync(Action<T> callback)
+		public virtual void PleaseAsync(RequestContext requestContext, Action<T> callback)
 		{
-			_requestCoordinator.HitEndpointAsync(_endpointContext, _requestContext, PleaseAsyncEnd(callback));
+			_requestCoordinator.HitEndpointAsync(_endpointContext, requestContext, PleaseAsyncEnd(callback));
 		}
 
-		internal Action<Response> PleaseAsyncEnd(Action<T> callback)
+		internal Action<Response> PleaseAsyncEnd( Action<T> callback)
 		{
 			return output =>
 			{
-				T entity = _parser.Parse(output);
+				var entity = _parser.Parse(output);
 				callback(entity);
 			};
-		}
-
-		public IDictionary<string, string> Parameters
-		{
-			get { return _requestContext.Parameters; }
 		}
 	}
 }
