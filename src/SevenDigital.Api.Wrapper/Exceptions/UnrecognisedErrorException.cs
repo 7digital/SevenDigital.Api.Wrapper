@@ -9,11 +9,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 	{
 		public const string DEFAULT_ERROR_MESSAGE = "Error parsing error XML";
 
-		public UnrecognisedErrorException()
-			: base(DEFAULT_ERROR_MESSAGE)
-		{
-		}
-
 		public UnrecognisedErrorException(Exception innerException, Response response)
 			: base(DEFAULT_ERROR_MESSAGE, innerException, response)
 		{

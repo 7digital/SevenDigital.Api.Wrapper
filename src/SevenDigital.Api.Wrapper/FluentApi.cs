@@ -24,7 +24,6 @@ namespace SevenDigital.Api.Wrapper
 			_requestCoordinator = requestCoordinator;
 
 			_parser = new ResponseParser<T>();
-
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)

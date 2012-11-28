@@ -9,18 +9,8 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 	{
 		public const string DEFAULT_ERROR_MESSAGE = "Error deserializing xml response";
 
-		public NonXmlResponseException()
-			: base(DEFAULT_ERROR_MESSAGE)
-		{
-		}
-
 		public NonXmlResponseException(Response response)
 			: base(DEFAULT_ERROR_MESSAGE, response)
-		{
-		}
-
-		public NonXmlResponseException(string message)
-			: base(message)
 		{
 		}
 

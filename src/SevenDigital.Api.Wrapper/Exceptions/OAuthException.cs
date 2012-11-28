@@ -7,16 +7,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 	[Serializable]
 	public class OAuthException : ApiResponseException
 	{
-		public OAuthException()
-			: base()
-		{
-		}
-
-		public OAuthException(string message)
-			: base(message)
-		{
-		}
-
 		public OAuthException(Response response) 
 			: base (response.Body, response)
 		{
