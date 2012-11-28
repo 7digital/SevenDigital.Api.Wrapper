@@ -88,7 +88,7 @@ namespace SevenDigital.Api.Wrapper
 			{
 				return _parser.Parse(response);
 			}
-			catch (ApiException apiXmlException)
+			catch (ApiResponseException apiXmlException)
 			{
 				apiXmlException.Uri = EndpointUrl;
 				throw;

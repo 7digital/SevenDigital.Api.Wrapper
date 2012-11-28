@@ -85,7 +85,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 				Console.WriteLine("Trying artist/details without artistId parameter...");
 				Api<Artist>.Create.Please();
 			} 
-			catch (ApiException ex) 
+			catch (ApiResponseException ex)
 			{
 				Console.WriteLine("{0} : {1}", ex, ex.Message);
 			}
@@ -96,7 +96,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 				Console.WriteLine("Trying user/locker without any credentials...");
 				Api<Locker>.Create.Please();
 			} 
-			catch (ApiException ex) 
+			catch (ApiResponseException ex)
 			{
 				Console.WriteLine("{0} : {1}", ex, ex.Message);
 			}

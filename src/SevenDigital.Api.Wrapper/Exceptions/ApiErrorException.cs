@@ -5,7 +5,7 @@ using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
-	public abstract class ApiErrorException : ApiException
+	public abstract class ApiErrorException : ApiResponseException
 	{
 		public ErrorCode ErrorCode { get; private set; }
 
