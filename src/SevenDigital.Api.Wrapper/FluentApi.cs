@@ -1,29 +1,24 @@
-using System;
+
 using System.Collections.Generic;
 using SevenDigital.Api.Wrapper.AttributeManagement;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
-using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
-using SevenDigital.Api.Wrapper.Serialization;
 
 namespace SevenDigital.Api.Wrapper
 {
 	public class FluentApi<T> : IFluentApi<T> where T : class
 	{
-		private readonly RequestData _requestData;
+		private readonly EndpointContext _endpointContext;
+		private readonly RequestContext _requestContext;
 		private readonly IRequestCoordinator _requestCoordinator;
-		private readonly IResponseParser<T> _parser;
 
 		public FluentApi(IRequestCoordinator requestCoordinator)
 		{
-			var attributeValidation = new AttributeRequestDataBuilder<T>();
-			_requestData = attributeValidation.BuildRequestData();
-
+			var attributeValidation = new AttributeEndpointContextBuilder<T>();
+			_endpointContext = attributeValidation.BuildRequestData();
+			_requestContext = new RequestContext();
 			_requestCoordinator = requestCoordinator;
-
-			_parser = new ResponseParser<T>();
-
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
@@ -42,26 +37,26 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual IFluentApi<T> WithMethod(string methodName)
 		{
-			_requestData.HttpMethod = methodName;
+			_endpointContext.HttpMethod = methodName;
 			return this;
 		}
 
 		public virtual IFluentApi<T> WithParameter(string parameterName, string parameterValue)
 		{
-			_requestData.Parameters[parameterName] = parameterValue;
+			_requestContext.Parameters[parameterName] = parameterValue;
 			return this;
 		}
 
 		public virtual IFluentApi<T> ClearParameters()
 		{
-			_requestData.Parameters.Clear();
+			_requestContext.Parameters.Clear();
 			return this;
 		}
 
 		public virtual IFluentApi<T> ForUser(string token, string secret)
 		{
-			_requestData.UserToken = token;
-			_requestData.TokenSecret = secret;
+			_endpointContext.UserToken = token;
+			_endpointContext.TokenSecret = secret;
 			return this;
 		}
 
@@ -71,42 +66,19 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public virtual T Please()
-		{
-			try
-			{
-				var response = _requestCoordinator.HitEndpoint(_requestData);
-				return _parser.Parse(response);
-			}
-			catch (ApiException apiXmlException)
-			{
-				apiXmlException.Uri = EndpointUrl;
-				throw;
-			}
-		}
-
 		public virtual string EndpointUrl
 		{
-			get { return _requestCoordinator.ConstructEndpoint(_requestData); }
+			get { return _requestCoordinator.ConstructEndpoint(_endpointContext, _requestContext); }
 		}
 
-		public virtual void PleaseAsync(Action<T> callback)
+		public Request<T> Seal()
 		{
-			_requestCoordinator.HitEndpointAsync(_requestData, PleaseAsyncEnd(callback));
-		}
-
-		internal Action<Response> PleaseAsyncEnd(Action<T> callback)
-		{
-			return output =>
-			{
-				T entity = _parser.Parse(output);
-				callback(entity);
-			};
+			return new Request<T>(_requestCoordinator, _endpointContext, _requestContext);
 		}
 
 		public IDictionary<string, string> Parameters
 		{
-			get { return _requestData.Parameters; }
+			get { return _requestContext.Parameters; }
 		}
 	}
 }
