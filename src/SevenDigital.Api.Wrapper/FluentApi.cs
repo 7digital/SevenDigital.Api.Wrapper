@@ -1,11 +1,9 @@
-using System;
+
 using System.Collections.Generic;
 using SevenDigital.Api.Wrapper.AttributeManagement;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
-using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
-using SevenDigital.Api.Wrapper.Serialization;
 
 namespace SevenDigital.Api.Wrapper
 {
@@ -14,7 +12,6 @@ namespace SevenDigital.Api.Wrapper
 		private readonly EndpointContext _endpointContext;
 		private readonly RequestContext _requestContext;
 		private readonly IRequestCoordinator _requestCoordinator;
-		private readonly IResponseParser<T> _parser;
 
 		public FluentApi(IRequestCoordinator requestCoordinator)
 		{
@@ -22,8 +19,6 @@ namespace SevenDigital.Api.Wrapper
 			_endpointContext = attributeValidation.BuildRequestData();
 			_requestContext = new RequestContext();
 			_requestCoordinator = requestCoordinator;
-
-			_parser = new ResponseParser<T>();
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
@@ -71,37 +66,14 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public virtual T Please()
-		{
-			try
-			{
-				var response = _requestCoordinator.HitEndpoint(_endpointContext, _requestContext);
-				return _parser.Parse(response);
-			}
-			catch (ApiException apiXmlException)
-			{
-				apiXmlException.Uri = EndpointUrl;
-				throw;
-			}
-		}
-
 		public virtual string EndpointUrl
 		{
 			get { return _requestCoordinator.ConstructEndpoint(_endpointContext, _requestContext); }
 		}
 
-		public virtual void PleaseAsync(Action<T> callback)
+		public Request<T> Seal()
 		{
-			_requestCoordinator.HitEndpointAsync(_endpointContext, _requestContext, PleaseAsyncEnd(callback));
-		}
-
-		internal Action<Response> PleaseAsyncEnd(Action<T> callback)
-		{
-			return output =>
-			{
-				T entity = _parser.Parse(output);
-				callback(entity);
-			};
+			return new Request<T>(_requestCoordinator, _endpointContext, _requestContext);
 		}
 
 		public IDictionary<string, string> Parameters

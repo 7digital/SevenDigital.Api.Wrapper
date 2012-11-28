@@ -18,5 +18,15 @@ namespace SevenDigital.Api.Wrapper.Http
 			UriPath = string.Empty;
 			HttpMethod = "GET";
 		}
+
+		public EndpointContext(EndpointContext context)
+		{
+			UriPath = context.UriPath;
+			HttpMethod = context.HttpMethod;
+			UseHttps = context.UseHttps;
+			UserToken = context.UserToken;
+			TokenSecret = context.TokenSecret;
+			IsSigned = context.IsSigned;
+		}
 	}
 }

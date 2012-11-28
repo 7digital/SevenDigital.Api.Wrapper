@@ -13,5 +13,11 @@ namespace SevenDigital.Api.Wrapper.Http
 			Parameters = new Dictionary<string,string>();
 			Headers = new Dictionary<string,string>();
 		}
+
+		public RequestContext(RequestContext context)
+		{
+			Parameters = new Dictionary<string, string>(context.Parameters);
+			Headers = new Dictionary<string, string>(context.Headers);
+		}
 	}
 }
