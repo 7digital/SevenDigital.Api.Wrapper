@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api.cs" />
-    <Compile Include="AttributeManagement\AttributeRequestDataBuilder.cs" />
+    <Compile Include="AttributeManagement\AttributeEndpointContextBuilder.cs" />
     <Compile Include="EndpointResolution\AppDomainAssemblyResolver.cs" />
     <Compile Include="EndpointResolution\EssentialDependencyCheck.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\GetRequestHandler.cs" />
@@ -81,13 +81,14 @@
     <Compile Include="Extensions\HasUserDeliverItemParameterExtensions.cs" />
     <Compile Include="Extensions\LockerSortColumn.cs" />
     <Compile Include="Extensions\SortOrder.cs" />
+    <Compile Include="Http\EndpointContext.cs" />
     <Compile Include="IApiEndpoint.cs" />
     <Compile Include="IApiUri.cs" />
     <Compile Include="IOAuthCredentials.cs" />
     <Compile Include="EndpointResolution\OAuth\IUrlSigner.cs" />
     <Compile Include="EndpointResolution\OAuth\OAuthBase.cs" />
     <Compile Include="EndpointResolution\OAuth\UrlSigner.cs" />
-    <Compile Include="Http\RequestData.cs" />
+    <Compile Include="Http\RequestContext.cs" />
     <Compile Include="FluentApi.cs" />
     <Compile Include="IFluentApi.cs" />
     <Compile Include="EndpointResolution\DictionaryExtensions.cs" />
