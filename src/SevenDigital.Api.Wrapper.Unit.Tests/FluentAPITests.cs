@@ -6,6 +6,7 @@ using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Schema;
 using System.Threading;
+using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Unit.Tests.Http;
 
@@ -58,8 +59,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.Parameters["artistId"] == "123"));
 
 			A.CallTo(callWithArtistId123).MustHaveHappened();
-
 		}
+
 		[Test]
 		public void Should_use_custom_http_client()
 		{
@@ -89,7 +90,21 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			Assert.That(result, Is.True, "Method");
 		}
 
-		
+		[Test]
+		public void Should_wrap_webexception_under_api_exception_to_be_able_to_know_the_URL()
+		{
+			const string url = "http://foo.bar.baz/status";
+
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).Throws<WebException>();
+			A.CallTo(() => requestCoordinator.ConstructEndpoint(A<RequestData>.Ignored)).Returns(url);
+
+			var ex = Assert.Throws<ApiWebException>(() => new FluentApi<Status>(requestCoordinator).Please());
+
+			Assert.That(ex.InnerException, Is.Not.Null);
+			Assert.That(ex.Uri, Is.EqualTo(url));
+			Assert.That(ex.InnerException.GetType(), Is.EqualTo(typeof(WebException)));
+		}
 
 		public class FakeRequestCoordinator : IRequestCoordinator
 		{
@@ -122,5 +137,4 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			public Response StubPayload { get; set; }
 		}
 	}
-
 }

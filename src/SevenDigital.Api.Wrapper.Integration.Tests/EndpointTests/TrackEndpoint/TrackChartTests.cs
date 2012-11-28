@@ -12,7 +12,6 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public void Can_hit_endpoint()
 		{
-
 			TrackChart release = Api<TrackChart>.Create
 				.WithParameter("fromDate", "20110101")
 				.WithParameter("toDate", "20110301")
