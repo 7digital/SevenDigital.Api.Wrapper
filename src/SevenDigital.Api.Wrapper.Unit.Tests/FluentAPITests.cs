@@ -89,7 +89,21 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			Assert.That(result, Is.True, "Method");
 		}
 
-		
+		[Test]
+		public void Should_wrap_webexception_under_api_exception_to_be_able_to_know_the_URL()
+		{
+			const string url = "http://foo.bar.baz/status";
+
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).Throws<WebException>();
+			A.CallTo(() => requestCoordinator.ConstructEndpoint(A<RequestData>.Ignored)).Returns(url);
+
+			var ex = Assert.Throws<ApiWebException>(() => new FluentApi<Status>(requestCoordinator).Please());
+
+			Assert.That(ex.InnerException, Is.Not.Null);
+			Assert.That(ex.Uri, Is.EqualTo(url));
+			Assert.That(ex.InnerException.GetType(), Is.EqualTo(typeof(WebException)));
+		}
 
 		public class FakeRequestCoordinator : IRequestCoordinator
 		{
