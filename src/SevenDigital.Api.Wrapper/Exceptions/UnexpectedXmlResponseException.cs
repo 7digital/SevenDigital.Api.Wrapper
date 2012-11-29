@@ -5,7 +5,7 @@ using SevenDigital.Api.Wrapper.Http;
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
 	[Serializable]
-	public class UnexpectedXmlResponseException : ApiException
+	public class UnexpectedXmlResponseException : ApiResponseException
 	{
 		const string DEFAULT_ERROR_MESSAGE = "Error deserializing XML content in API response";
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using SevenDigital.Api.Wrapper.AttributeManagement;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
@@ -23,7 +24,6 @@ namespace SevenDigital.Api.Wrapper
 			_requestCoordinator = requestCoordinator;
 
 			_parser = new ResponseParser<T>();
-
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
@@ -73,12 +73,21 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual T Please()
 		{
+			Response response;
 			try
 			{
-				var response = _requestCoordinator.HitEndpoint(_requestData);
+				response = _requestCoordinator.HitEndpoint(_requestData);
+			}
+			catch (WebException webException)
+			{
+				throw new ApiWebException(webException.Message, EndpointUrl, webException);
+			}
+
+			try
+			{
 				return _parser.Parse(response);
 			}
-			catch (ApiException apiXmlException)
+			catch (ApiResponseException apiXmlException)
 			{
 				apiXmlException.Uri = EndpointUrl;
 				throw;

@@ -8,16 +8,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 	[Serializable]
 	public class InputParameterException : ApiErrorException
 	{
-		public InputParameterException()
-			: base()
-		{
-		}
-
-		public InputParameterException(string message, ErrorCode errorCode)
-			: base(message, errorCode)
-		{
-		}
-
 		public InputParameterException(string message, Response response, ErrorCode errorCode)
 			: base(message, response, errorCode)
 		{

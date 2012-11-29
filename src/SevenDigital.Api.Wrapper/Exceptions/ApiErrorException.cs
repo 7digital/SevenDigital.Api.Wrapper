@@ -1,23 +1,13 @@
-﻿using System;
+﻿
 using System.Runtime.Serialization;
 using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
-	public abstract class ApiErrorException : ApiException
+	public abstract class ApiErrorException : ApiResponseException
 	{
 		public ErrorCode ErrorCode { get; private set; }
-
-		protected ApiErrorException()
-		{
-		}
-
-		protected ApiErrorException(string message, ErrorCode errorCode)
-			: base(message)
-		{
-			ErrorCode = errorCode;
-		}
 
 		protected ApiErrorException(string message, Response response, ErrorCode errorCode)
 			: base(message, response)
