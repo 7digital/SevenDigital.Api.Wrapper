@@ -1,5 +1,6 @@
-﻿
+﻿using System;
 using System.Runtime.Serialization;
+using System.Security.Permissions;
 using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.Http;
 
@@ -15,9 +16,24 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 			ErrorCode = errorCode;
 		}
 
+		[SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
 		protected ApiErrorException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
+			ErrorCode = (ErrorCode)info.GetValue("ErrorCode", typeof(ErrorCode));
+		}
+
+		[SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+		public override void GetObjectData(SerializationInfo info, StreamingContext context)
+		{
+			if (info == null)
+			{
+				throw new ArgumentNullException("info");
+			}
+
+			info.AddValue("ErrorCode", ErrorCode);
+
+			base.GetObjectData(info, context);
 		}
 	}
 }

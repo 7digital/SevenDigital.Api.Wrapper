@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization;
+using System.Security.Permissions;
 using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
@@ -28,9 +29,28 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 			StatusCode = response.StatusCode;
 		}
 
+		[SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
 		protected ApiResponseException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
+			StatusCode = (HttpStatusCode) info.GetValue("StatusCode", typeof (HttpStatusCode));
+			ResponseBody = info.GetString("ResponseBody");
+			Headers = (IDictionary<string, string>) info.GetValue("Headers", typeof (IDictionary<string, string>));
+		}
+
+		[SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+		public override void GetObjectData(SerializationInfo info, StreamingContext context)
+		{
+			if (info == null)
+			{
+				throw new ArgumentNullException("info");
+			}
+
+			info.AddValue("StatusCode", StatusCode);
+			info.AddValue("ResponseBody", ResponseBody);
+			info.AddValue("Headers", Headers);
+
+			base.GetObjectData(info, context);
 		}
 	}
 }
