@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Serialization;
+using System.Security.Permissions;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
@@ -22,9 +23,24 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
+		[SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
 		protected ApiException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
+			Uri = info.GetString("Uri");
+		}
+
+		[SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+		public override void GetObjectData(SerializationInfo info, StreamingContext context)
+		{
+			if (info == null)
+			{
+				throw new ArgumentNullException("info");
+			}
+
+			info.AddValue("Uri", Uri);
+
+			base.GetObjectData(info, context);
 		}
 	}
 }
