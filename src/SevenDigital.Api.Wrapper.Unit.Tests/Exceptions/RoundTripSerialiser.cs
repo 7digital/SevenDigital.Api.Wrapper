@@ -7,14 +7,16 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Exceptions
 	{
 		public T RoundTrip<T>(T exception)
 		{
+			T outputException;
+
 			var binaryFormatter = new BinaryFormatter();
 			using (var stream = new MemoryStream())
 			{
 				binaryFormatter.Serialize(stream, exception);
 				stream.Seek(0, 0);
-				exception = (T)binaryFormatter.Deserialize(stream);
+				outputException = (T)binaryFormatter.Deserialize(stream);
 			}
-			return exception;
+			return outputException;
 		}
 	}
 }
