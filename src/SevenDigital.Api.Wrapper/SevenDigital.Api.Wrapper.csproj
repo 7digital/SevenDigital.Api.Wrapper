@@ -99,7 +99,7 @@
     <Compile Include="Http\GzipHttpClient.cs" />
     <Compile Include="Http\PostRequest.cs" />
     <Compile Include="Http\GetRequest.cs" />
-    <Compile Include="Http\HttpClient.cs" />
+    <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Http\IHttpClient.cs" />
     <Compile Include="Http\Response.cs" />
     <Compile Include="Serialization\ApiResponseDetector.cs" />
