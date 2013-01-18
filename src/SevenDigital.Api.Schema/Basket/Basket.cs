@@ -24,12 +24,12 @@ namespace SevenDigital.Api.Schema.Basket
 
 	[ApiEndpoint("basket/addItem")]
 	[XmlRoot("basket")]
-	public class AddItemToBasket : Basket, HasReleaseIdParameter, HasTrackIdParameter
+	public class AddItemToBasket : Basket, HasReleaseIdParameter, HasTrackIdParameter, HasAffiliatePartnerParameter
 	{}
 
 	[ApiEndpoint("basket/create")]
 	[XmlRoot("basket")]
-	public class CreateBasket : Basket
+	public class CreateBasket : Basket, HasAffiliatePartnerParameter
 	{}
 
 	[ApiEndpoint("basket/removeItem")]
