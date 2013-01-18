@@ -49,6 +49,8 @@
     <Compile Include="EndpointResolution\RequestHandlers\RequestHandler.cs" />
     <Compile Include="Exceptions\ApiErrorException.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
+    <Compile Include="Exceptions\ApiResponseException.cs" />
+    <Compile Include="Exceptions\ApiWebException.cs" />
     <Compile Include="Exceptions\InputParameterException.cs" />
     <Compile Include="Exceptions\InvalidResourceException.cs" />
     <Compile Include="Exceptions\OAuthException.cs" />

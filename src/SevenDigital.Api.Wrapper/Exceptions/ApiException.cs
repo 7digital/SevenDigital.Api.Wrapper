@@ -1,46 +1,46 @@
 using System;
-using System.Collections.Generic;
-using System.Net;
 using System.Runtime.Serialization;
-using SevenDigital.Api.Wrapper.Http;
+using System.Security.Permissions;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
 	public abstract class ApiException : Exception
 	{
 		public string Uri { get; internal set; }
-		public HttpStatusCode StatusCode { get; private set; }
-		public string ResponseBody { get; private set; }
-		public IDictionary<string, string> Headers { get; private set; }
 
-		protected ApiException()
+		protected ApiException (string msg, string uri, Exception innerException)
+			: base (msg, innerException)
+		{
+			Uri = uri;
+		}
+
+		protected ApiException(string msg) : base(msg)
 		{
 		}
 
-		protected ApiException(string message)
-			: base(message)
+		protected ApiException(string msg, Exception innerException)
+			: base(msg, innerException)
 		{
 		}
 
-		protected ApiException(string message, Exception innerException, Response response)
-			: base(message, innerException)
-		{
-			ResponseBody = response.Body;
-			Headers = response.Headers;
-			StatusCode = response.StatusCode;
-		}
-
-		protected ApiException(string message, Response response)
-			: base(message)
-		{
-			ResponseBody = response.Body;
-			Headers = response.Headers;
-			StatusCode = response.StatusCode;
-		}
-
+		[SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
 		protected ApiException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
+			Uri = info.GetString("Uri");
+		}
+
+		[SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+		public override void GetObjectData(SerializationInfo info, StreamingContext context)
+		{
+			if (info == null)
+			{
+				throw new ArgumentNullException("info");
+			}
+
+			info.AddValue("Uri", Uri);
+
+			base.GetObjectData(info, context);
 		}
 	}
 }
