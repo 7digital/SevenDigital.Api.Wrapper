@@ -61,6 +61,7 @@
     <Compile Include="Exceptions\MissingDependencyException.cs" />
     <Compile Include="Exceptions\NonXmlResponseException.cs" />
     <Compile Include="Exceptions\UserCardException.cs" />
+    <Compile Include="Extensions\AffiliatePartnerExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\HasAddCardParameterExtensions.cs" />
     <Compile Include="Extensions\HasBasketItemParameterExtensions.cs" />

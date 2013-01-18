@@ -53,6 +53,7 @@
     <Compile Include="Chart\TrackChartItem.cs" />
     <Compile Include="ErrorCode.cs" />
     <Compile Include="ITypeGenerator.cs" />
+    <Compile Include="ParameterDefinitions\Get\HasAffiliatePartnerParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasArtistIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasBasketItemParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasBasketParameter.cs" />
