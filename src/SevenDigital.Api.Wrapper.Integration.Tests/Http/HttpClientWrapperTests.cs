@@ -8,7 +8,7 @@ using SevenDigital.Api.Wrapper.Http;
 namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 {
 	[TestFixture]
-	public class HttpClientTests
+	public class HttpClientWrapperTests
 	{
 		private const string ApiUrl = "http://api.7digital.com/1.2";
 		private readonly TimeSpan AsyncTimeout = new TimeSpan(0, 0, 0, 20);
@@ -26,7 +26,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			string url = string.Format("{0}/status?oauth_consumer_key={1}", ApiUrl, consumerKey);
 			var request = new GetRequest(url,  new Dictionary<string, string>());
 
-			var response = new HttpClient().Get(request);
+			var response = new HttpClientWrapper().Get(request);
 			AssertResponse(response, HttpStatusCode.OK);
 		}
 
@@ -45,7 +45,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 				autoResetEvent.Set();
 			};
 
-			new HttpClient().GetAsync(request, callback);
+			new HttpClientWrapper().GetAsync(request, callback);
 
 			var signalled = autoResetEvent.WaitOne(AsyncTimeout);
 			Assert.That(signalled, Is.True, "event was not signalled");
@@ -59,7 +59,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", ApiUrl, consumerKey);
 			var request = new GetRequest(url, new Dictionary<string, string>());
 
-			var response = new HttpClient().Get(request);
+			var response = new HttpClientWrapper().Get(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 
@@ -78,7 +78,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 				autoResetEvent.Set();
 			};
 
-			new HttpClient().GetAsync(request, callback);
+			new HttpClientWrapper().GetAsync(request, callback);
 
 			var signalled = autoResetEvent.WaitOne(AsyncTimeout);
 			Assert.That(signalled, Is.True, "event was not signalled");
@@ -92,7 +92,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			string url = string.Format("{0}/status", ApiUrl);
 			var request = new GetRequest(url, new Dictionary<string, string>());
 
-			var response = new HttpClient().Get(request);
+			var response = new HttpClientWrapper().Get(request);
 			AssertResponse(response, HttpStatusCode.Unauthorized);
 		}
 
@@ -105,7 +105,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			var apiUrl = "http://hanging-web-app.7digital.local";
 			var request = new GetRequest(apiUrl, new Dictionary<string, string>());
 
-			var response = new HttpClient().Get(request);
+			var response = new HttpClientWrapper().Get(request);
 			AssertResponse(response, HttpStatusCode.OK);
 		}
 
@@ -121,7 +121,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 
 			var request = new PostRequest(url, new Dictionary<string, string>(), parameters);
 
-			var response = new HttpClient().Post(request);
+			var response = new HttpClientWrapper().Post(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 
@@ -145,7 +145,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 				autoResetEvent.Set();
 			};
 
-			new HttpClient().PostAsync(request, callback);
+			new HttpClientWrapper().PostAsync(request, callback);
 
 			var signalled = autoResetEvent.WaitOne(AsyncTimeout);
 			Assert.That(signalled, Is.True, "event was not signalled");

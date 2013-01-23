@@ -7,7 +7,7 @@ using SevenDigital.Api.Wrapper.EndpointResolution;
 
 namespace SevenDigital.Api.Wrapper.Http
 {
-	public class HttpClient : IHttpClient
+	public class HttpClientWrapper : IHttpClient
 	{
 		public Response Get(GetRequest request)
 		{
