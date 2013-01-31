@@ -77,7 +77,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 
 			if (!string.IsNullOrEmpty(userToken))
 			{
-				parameters.Add(OAuthBase.OAuthTokenKey, userToken);
+				parameters.Add(OAuthBase.OAuthTokenKey, OAuthBase.UrlEncode(userToken));
 			}
 
 			return parameters;
