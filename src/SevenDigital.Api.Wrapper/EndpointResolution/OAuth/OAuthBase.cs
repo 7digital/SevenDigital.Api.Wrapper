@@ -366,8 +366,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 		/// <returns></returns>
 		public virtual string GenerateNonce()
 		{
-			// Just a simple implementation of a random number between 123400 and 9999999
-			return random.Next(123400, 9999999).ToString();
+			return NonceGenerator.ThreadSafeNonce();
 		}
 	}
 }
