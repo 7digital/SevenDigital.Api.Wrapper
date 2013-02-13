@@ -4,9 +4,10 @@ del *.nupkg
 
 nuget pack SevenDigital.Api.Wrapper.nuspec 
 
-rem uncomment this to push to http://nuget.org
 rem remember to set the 7digital api key first
-rem NuGet Push SevenDigital.Api.Wrapper.nupkg
+rem uncomment the next line to push to http://nuget.org
+rem remember to set the version number - or automate incrementing this?
+rem NuGet Push SevenDigital.Api.Wrapper.2.0.2.nupkg
 
 echo "done"
 
