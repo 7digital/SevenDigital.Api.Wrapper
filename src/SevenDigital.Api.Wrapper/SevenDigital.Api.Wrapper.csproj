@@ -44,6 +44,7 @@
     <Compile Include="AttributeManagement\AttributeRequestDataBuilder.cs" />
     <Compile Include="EndpointResolution\AppDomainAssemblyResolver.cs" />
     <Compile Include="EndpointResolution\EssentialDependencyCheck.cs" />
+    <Compile Include="EndpointResolution\OAuth\NonceGenerator.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\GetRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\PostRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\RequestHandler.cs" />

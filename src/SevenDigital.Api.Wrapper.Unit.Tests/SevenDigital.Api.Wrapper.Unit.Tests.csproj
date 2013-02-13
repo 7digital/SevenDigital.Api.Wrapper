@@ -63,6 +63,7 @@
     <Compile Include="Deserialisation\User\Payment\AddCardsTests.cs" />
     <Compile Include="Deserialisation\User\Payment\DeleteCardTests.cs" />
     <Compile Include="EndpointResolution\EndpointResolverTests.cs" />
+    <Compile Include="EndpointResolution\OAuth\NonceFactoryConcurrenyTests.cs" />
     <Compile Include="EndpointResolution\OAuth\UrlSignerTests.cs" />
     <Compile Include="Exceptions\ApiWebExceptionTests.cs" />
     <Compile Include="Exceptions\ExceptionFactoryTests.cs" />
