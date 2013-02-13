@@ -5,10 +5,12 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 {
 	public static class NonceGenerator
 	{
+		private static readonly RNGCryptoServiceProvider _rngCryptoServiceProvider = new RNGCryptoServiceProvider();
+
 		public static string ThreadSafeNonce()
 		{
 			var data = new byte[4];
-			new RNGCryptoServiceProvider().GetBytes(data);
+			_rngCryptoServiceProvider.GetBytes(data);
 			return Math.Abs(BitConverter.ToInt32(data, 0)).ToString();
 		}
 
