@@ -20,15 +20,15 @@ function UpdateVersionNumber([int] $newVersionNumber)
 {
    $newVersionNumber > lastVersion.txt
 
-  # write changed version number back to git
+  # write changed version number back to git - uncomment following lines when we use it for real
   # git add lastVersion.txt
-  # git commit -m "automated package build and version number increment"
+  # git commit -m "automated package build and version number increment to $newVersionNumber"
   # git push
 }
 
 $nextVersionNumber = GetNextVersionNumber
 $fullVersion = "2.0.$nextVersionNumber"
-write-output "Next package version: $fullVersion";
+write-output "Next package version: $fullVersion"
 
 # make the nuspec file with the target version number
 $nuspecTemplate = ReadLinesFromFile "SevenDigital.Api.Wrapper.nuspec.template"
@@ -47,4 +47,4 @@ write-output "could have run: $pushCommand"
 CleanupBuildArtifacts
 UpdateVersionNumber $nextVersionNumber
 
-write-output "Done";
+write-output "Done"
