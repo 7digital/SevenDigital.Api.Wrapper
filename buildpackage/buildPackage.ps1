@@ -40,9 +40,8 @@ nuget pack SevenDigital.Api.Wrapper.nuspec
 $pushCommand = "NuGet Push SevenDigital.Api.Wrapper.#version#.nupkg".Replace("#version#", $fullVersion)
 
 # push to nuget:
-# & $pushCommand
-#write-output "Pushed package version $nextVersion";
-write-output "could have run: $pushCommand"
+Invoke-Expression $pushCommand
+write-output "Pushed package version $nextVersion";
 
 CleanupBuildArtifacts
 UpdateVersionNumber $nextVersionNumber
