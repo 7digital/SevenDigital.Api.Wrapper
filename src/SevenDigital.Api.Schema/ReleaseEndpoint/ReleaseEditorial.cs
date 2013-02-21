@@ -11,16 +11,13 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 	public class ReleaseEditorial : HasReleaseIdParameter
 	{
 		[XmlElement("review")]
-		public Review Review { get; set; }
-
-		[XmlElement("staffRecommendation")]
-		public Review StaffRecommendation { get; set; }
+		public TextItem Review { get; set; }
 
 		[XmlElement("promotionalText")]
-		public string PromotionalText { get; set; }
+		public TextItem PromotionalText { get; set; }
 	}
 
-	public class Review
+	public class TextItem
 	{
 		[XmlElement("text")]
 		public string Text { get; set; }
