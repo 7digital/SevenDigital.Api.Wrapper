@@ -12,7 +12,30 @@ namespace SevenDigital.Api.Wrapper.Http
 		public Response Get(GetRequest request)
 		{
 			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
+			return ReadWebResponse(webRequest);
+		}
 
+		public void GetAsync(GetRequest request, Action<Response> callback)
+		{
+			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
+			webRequest.BeginGetResponse(iar => callback(ReadWebResponseAsync(iar)), webRequest);
+		}
+
+		public Response Post(PostRequest request)
+		{
+			var webRequest = MakePostRequest(request);
+			return ReadWebResponse(webRequest);
+		}
+
+		public void PostAsync(PostRequest request, Action<Response> callback)
+		{
+			var webRequest = MakePostRequest(request);
+
+			webRequest.BeginGetResponse(iar => callback(ReadWebResponseAsync(iar)), webRequest);
+		}
+
+		private Response ReadWebResponse(HttpWebRequest webRequest)
+		{
 			WebResponse webResponse;
 			try
 			{
@@ -30,13 +53,7 @@ namespace SevenDigital.Api.Wrapper.Http
 			return MakeResponse(webResponse);
 		}
 
-		public void GetAsync(GetRequest request, Action<Response> callback)
-		{
-			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
-			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
-		}
-
-		private Response GetAsyncResponse(IAsyncResult iar)
+		private Response ReadWebResponseAsync(IAsyncResult iar)
 		{
 			var webRequest = (WebRequest)iar.AsyncState;
 
@@ -57,33 +74,6 @@ namespace SevenDigital.Api.Wrapper.Http
 			return MakeResponse(webResponse);
 		}
 
-		public Response Post(PostRequest request)
-		{
-			var webRequest = MakePostRequest(request);
-
-			WebResponse webResponse;
-			try
-			{
-				webResponse = webRequest.GetResponse();
-			}
-			catch (WebException ex)
-			{
-				if (ex.Response == null)
-				{
-					throw;
-				}
-				webResponse = ex.Response;
-			}
-
-			return MakeResponse(webResponse);
-		}
-
-		public void PostAsync(PostRequest request, Action<Response> callback)
-		{
-			var webRequest = MakePostRequest(request);
-
-			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
-		}
 
 		private static HttpWebRequest MakeWebRequest(string url, string method, IDictionary<string, string> headers)
 		{
