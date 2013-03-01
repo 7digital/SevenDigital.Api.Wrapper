@@ -12,22 +12,7 @@ namespace SevenDigital.Api.Wrapper.Http
 		public Response Get(GetRequest request)
 		{
 			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
-
-			WebResponse webResponse;
-			try
-			{
-				webResponse = webRequest.GetResponse();
-			}
-			catch (WebException ex)
-			{
-				if (ex.Response == null)
-				{
-					throw;
-				}
-				webResponse = ex.Response;
-			}
-
-			return MakeResponse(webResponse);
+			return ReadWebResponse(webRequest);
 		}
 
 		public void GetAsync(GetRequest request, Action<Response> callback)
@@ -60,7 +45,18 @@ namespace SevenDigital.Api.Wrapper.Http
 		public Response Post(PostRequest request)
 		{
 			var webRequest = MakePostRequest(request);
+			return ReadWebResponse(webRequest);
+		}
 
+		public void PostAsync(PostRequest request, Action<Response> callback)
+		{
+			var webRequest = MakePostRequest(request);
+
+			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
+		}
+
+		private Response ReadWebResponse(HttpWebRequest webRequest)
+		{
 			WebResponse webResponse;
 			try
 			{
@@ -78,12 +74,6 @@ namespace SevenDigital.Api.Wrapper.Http
 			return MakeResponse(webResponse);
 		}
 
-		public void PostAsync(PostRequest request, Action<Response> callback)
-		{
-			var webRequest = MakePostRequest(request);
-
-			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
-		}
 
 		private static HttpWebRequest MakeWebRequest(string url, string method, IDictionary<string, string> headers)
 		{
@@ -100,18 +90,25 @@ namespace SevenDigital.Api.Wrapper.Http
 
 		private Response MakeResponse(WebResponse webResponse)
 		{
-			string output;
-			using (var sr = new StreamReader(webResponse.GetResponseStream()))
+			Response response;
+			try
 			{
-				output = sr.ReadToEnd();
+				string output;
+				using (var sr = new StreamReader(webResponse.GetResponseStream()))
+				{
+					output = sr.ReadToEnd();
+				}
+
+				var statusCode = ReadStatusCode(webResponse);
+				var headers = MapHeaders(webResponse.Headers);
+
+				response = new Response(statusCode, headers, output);
 			}
-
-			var statusCode = ReadStatusCode(webResponse);
-			var headers = MapHeaders(webResponse.Headers);
-
-			var response = new Response(statusCode, headers, output);
-
-			webResponse.Close();
+			finally
+			{
+				var disposable = webResponse as IDisposable;
+				disposable.Dispose();
+			}
 
 			return response;
 		}
