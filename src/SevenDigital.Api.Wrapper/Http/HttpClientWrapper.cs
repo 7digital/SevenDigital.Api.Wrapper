@@ -50,7 +50,14 @@ namespace SevenDigital.Api.Wrapper.Http
 				webResponse = ex.Response;
 			}
 
-			return MakeResponse(webResponse);
+			try
+			{
+				return MakeResponse(webResponse);
+			}
+			finally
+			{
+				TryDispose(webResponse);
+			}
 		}
 
 		private Response ReadWebResponseAsync(IAsyncResult iar)
@@ -71,9 +78,24 @@ namespace SevenDigital.Api.Wrapper.Http
 				webResponse = ex.Response;
 			}
 
-			return MakeResponse(webResponse);
+			try
+			{
+				return MakeResponse(webResponse);
+			}
+			finally
+			{
+				TryDispose(webResponse);
+			}
 		}
 
+		private void TryDispose(object o)
+		{
+			var disposable = o as IDisposable;
+			if (disposable != null)
+			{
+				disposable.Dispose();
+			}
+		}
 
 		private static HttpWebRequest MakeWebRequest(string url, string method, IDictionary<string, string> headers)
 		{
@@ -99,11 +121,7 @@ namespace SevenDigital.Api.Wrapper.Http
 			var statusCode = ReadStatusCode(webResponse);
 			var headers = MapHeaders(webResponse.Headers);
 
-			var response = new Response(statusCode, headers, output);
-
-			webResponse.Close();
-
-			return response;
+			return new Response(statusCode, headers, output);
 		}
 
 		private static HttpWebRequest MakePostRequest(PostRequest request)
@@ -136,7 +154,7 @@ namespace SevenDigital.Api.Wrapper.Http
 
 		private static HttpStatusCode ReadStatusCode(WebResponse webResponse)
 		{
-			HttpWebResponse httpResponse = webResponse as HttpWebResponse;
+			var httpResponse = webResponse as HttpWebResponse;
 			if (httpResponse == null)
 			{
 				return HttpStatusCode.NoContent;
