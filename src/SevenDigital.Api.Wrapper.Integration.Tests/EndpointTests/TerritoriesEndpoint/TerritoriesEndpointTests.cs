@@ -34,6 +34,19 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		}
 
 		[Test]
+		public void Should_resolve_country_code()
+		{
+			var restrictions = Api<GeoRestrictions>
+				.Create
+				.WithIpAddress("109.68.64.0")
+				.WithParameter("shopId", "34")
+				.Please();
+
+			Assert.That(restrictions, Is.Not.Null);
+			Assert.That(restrictions.CountryCode, Is.EqualTo("GB"));
+		}
+
+		[Test]
 		public void Can_hit_fluent_endpoint_for_checkout_restrictions_with_checkout_not_allowed()
 		{
 			var restrictions = Api<GeoRestrictions>

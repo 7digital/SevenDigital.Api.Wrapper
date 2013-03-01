@@ -10,5 +10,8 @@ namespace SevenDigital.Api.Schema.Territories
 	{
 		[XmlElement("allowCheckout")]
 		public bool AllowCheckout { get; set; }
+
+		[XmlElement("countryCode")]
+		public string CountryCode { get; set; }
 	}
 }
