@@ -20,7 +20,7 @@ function UpdateVersionNumber([int] $newVersionNumber)
 {
    $newVersionNumber > lastVersion.txt
 
-  # write changed version number back to git - uncomment following lines when we use it for real
+  # write changed version number back to git
   git add lastVersion.txt
   git commit -m "automated package build and version number increment to $newVersionNumber"
   git push
