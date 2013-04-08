@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
@@ -36,11 +35,21 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.OAuth
 			Assert.That(signedUrl.Query.Contains("oauth_signature"));
 		}
 
+		[Test]
+		public void Make_sure_oath_token_is_encoded_when_POSTing()
+		{
+			var url = "http://www.example.com/post";
+
+			var signedUrl = new UrlSigner().SignPostRequest(url, "token==", "secret==", GetOAuthCredentials(), new Dictionary<string, string>{{"one", "1"}});
+
+			Assert.That(signedUrl["oauth_token"], Is.EqualTo("token%3D%3D"));
+		}
+
 		private IOAuthCredentials GetOAuthCredentials()
 		{
 			var oAuthCredentials = A.Fake<IOAuthCredentials>();
 			A.CallTo(() => oAuthCredentials.ConsumerKey).Returns(_consumerKey);
-			A.CallTo(() => oAuthCredentials.ConsumerKey).Returns(_consumerSecret);
+			A.CallTo(() => oAuthCredentials.ConsumerSecret).Returns(_consumerSecret);
 			return oAuthCredentials;
 		}
 	}

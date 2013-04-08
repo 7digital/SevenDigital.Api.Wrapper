@@ -113,6 +113,7 @@
     <Compile Include="ReleaseEndpoint\Release.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseByDate.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseChart.cs" />
+    <Compile Include="ReleaseEndpoint\ReleaseEditorial.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseRecommend.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseSearch.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseSearchResult.cs" />

@@ -12,22 +12,10 @@ namespace SevenDigital.Api.Wrapper.Http
 		public Response Get(GetRequest request)
 		{
 			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
-
-			WebResponse webResponse;
-			try
+			using (var webResponse = GetWebResponse(webRequest))
 			{
-				webResponse = webRequest.GetResponse();
+				return MakeResponse(webResponse);
 			}
-			catch (WebException ex)
-			{
-				if (ex.Response == null)
-				{
-					throw;
-				}
-				webResponse = ex.Response;
-			}
-
-			return MakeResponse(webResponse);
 		}
 
 		public void GetAsync(GetRequest request, Action<Response> callback)
@@ -36,46 +24,22 @@ namespace SevenDigital.Api.Wrapper.Http
 			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
 		}
 
+
 		private Response GetAsyncResponse(IAsyncResult iar)
 		{
-			var webRequest = (WebRequest)iar.AsyncState;
-
-			WebResponse webResponse;
-			try
+			using (var webResponse = GetWebResponseAsync(iar))
 			{
-				webResponse = webRequest.EndGetResponse(iar);
+				return MakeResponse(webResponse);
 			}
-			catch (WebException ex)
-			{
-				if (ex.Response == null)
-				{
-					throw;
-				}
-				webResponse = ex.Response;
-			}
-
-			return MakeResponse(webResponse);
 		}
 
 		public Response Post(PostRequest request)
 		{
 			var webRequest = MakePostRequest(request);
-
-			WebResponse webResponse;
-			try
+			using (var webResponse = GetWebResponse(webRequest))
 			{
-				webResponse = webRequest.GetResponse();
+				return MakeResponse(webResponse);
 			}
-			catch (WebException ex)
-			{
-				if (ex.Response == null)
-				{
-					throw;
-				}
-				webResponse = ex.Response;
-			}
-
-			return MakeResponse(webResponse);
 		}
 
 		public void PostAsync(PostRequest request, Action<Response> callback)
@@ -84,6 +48,42 @@ namespace SevenDigital.Api.Wrapper.Http
 
 			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
 		}
+
+		private WebResponse GetWebResponse(WebRequest webRequest)
+		{
+			try
+			{
+				return webRequest.GetResponse();
+			}
+			catch (WebException ex)
+			{
+				if (ex.Response == null)
+				{
+					throw;
+				}
+				
+				return ex.Response;
+			}
+		}
+
+		private static WebResponse GetWebResponseAsync(IAsyncResult iar)
+		{
+			var webRequest = (WebRequest)iar.AsyncState;
+
+			try
+			{
+				return webRequest.EndGetResponse(iar);
+			}
+			catch (WebException ex)
+			{
+				if (ex.Response == null)
+				{
+					throw;
+				}
+				return ex.Response;
+			}
+		}
+
 
 		private static HttpWebRequest MakeWebRequest(string url, string method, IDictionary<string, string> headers)
 		{
@@ -109,11 +109,7 @@ namespace SevenDigital.Api.Wrapper.Http
 			var statusCode = ReadStatusCode(webResponse);
 			var headers = MapHeaders(webResponse.Headers);
 
-			var response = new Response(statusCode, headers, output);
-
-			webResponse.Close();
-
-			return response;
+			return new Response(statusCode, headers, output);
 		}
 
 		private static HttpWebRequest MakePostRequest(PostRequest request)
@@ -146,7 +142,7 @@ namespace SevenDigital.Api.Wrapper.Http
 
 		private static HttpStatusCode ReadStatusCode(WebResponse webResponse)
 		{
-			HttpWebResponse httpResponse = webResponse as HttpWebResponse;
+			var httpResponse = webResponse as HttpWebResponse;
 			if (httpResponse == null)
 			{
 				return HttpStatusCode.NoContent;

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SevenDigital.Api.Wrapper</id>
+    <version>#version#</version>
+    <authors>7digital</authors>
+    <owners>7digital</owners>
+    <projectUrl>https://github.com/7digital/SevenDigital.Api.Wrapper</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A .Net 7digital Music Api wrapper.</description>
+    <copyright>Copyright 7digital Media Ltd. 2013</copyright>
+    <tags>7digital sevendigital music api</tags>
+    <dependencies>
+    </dependencies>
+  </metadata>
+  <files>
+	<file src="..\src\SevenDigital.Api.Wrapper\bin\Debug\SevenDigital.Api.Wrapper.dll" target="lib\net40" /> 
+	<file src="..\src\SevenDigital.Api.Wrapper\bin\Debug\SevenDigital.Api.Wrapper.pdb" target="lib\net40" /> 
+	<file src="..\src\SevenDigital.Api.Wrapper\bin\Debug\SevenDigital.Api.Schema.dll" target="lib\net40" /> 
+	<file src="..\src\SevenDigital.Api.Wrapper\bin\Debug\SevenDigital.Api.Schema.pdb" target="lib\net40" /> 
+  </files>
+</package>
