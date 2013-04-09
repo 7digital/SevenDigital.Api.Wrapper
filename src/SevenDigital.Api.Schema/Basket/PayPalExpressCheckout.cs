@@ -1,5 +1,6 @@
 using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Attributes;
+using SevenDigital.Api.Schema.OAuth;
 using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 
 namespace SevenDigital.Api.Schema.Basket
@@ -10,5 +11,15 @@ namespace SevenDigital.Api.Schema.Basket
 	{
 		[XmlElement("url")]
 		public string Url { get; set; }
+	}
+
+
+	[OAuthSigned]
+	[ApiEndpoint("basket/completepaypalpurchase")]
+	[XmlRoot("purchase")]
+	public class CompletePayPalExpressCheckout : HasBasketParameter
+	{
+		[XmlAttribute("id")]
+		public string PurchaseId { get; set; }
 	}
 }
