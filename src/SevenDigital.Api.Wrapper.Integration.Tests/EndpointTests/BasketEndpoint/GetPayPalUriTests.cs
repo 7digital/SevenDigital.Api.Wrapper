@@ -17,7 +17,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 			AddReleaseToBasket();
 		}
 
-		[Test]
+		[Test,Ignore]
 		public void Should_get_paypal_url_for_basket()
 		{
 			PayPalExpressCheckout response = Api<PayPalExpressCheckout>
