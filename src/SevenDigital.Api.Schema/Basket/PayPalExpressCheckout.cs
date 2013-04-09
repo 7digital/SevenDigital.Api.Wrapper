@@ -15,6 +15,7 @@ namespace SevenDigital.Api.Schema.Basket
 
 
 	[OAuthSigned]
+	[HttpPost]
 	[ApiEndpoint("basket/completepaypalpurchase")]
 	[XmlRoot("purchase")]
 	public class CompletePayPalExpressCheckout : HasBasketParameter
