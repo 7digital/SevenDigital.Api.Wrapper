@@ -1,7 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Basket;
-using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoint
 {
@@ -21,17 +20,17 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 		[Test]
 		public void Should_get_paypal_url_for_basket()
 		{
-			var response = Api<PayPalRedirectUrl>
+			PayPalExpressCheckout response = Api<PayPalExpressCheckout>
 				.Create
 				.UseBasketId(new Guid(_basketId))
-				.WithParameter("successUrl","http://www.google.com")	
-				.WithParameter("cancelUrl","http://www.google.com")
+				.WithParameter("successUrl", "http://www.google.com")
+				.WithParameter("cancelUrl", "http://www.google.com")
 				.Please();
 
-			Assert.That(response,Is.Not.Null);
+			Assert.That(response, Is.Not.Null);
+			Assert.That(response.Url.Contains("paypal"), " Paypal Redirect Url {0} does not contain 'paypal'", response.Url);
+			Assert.That(response.Url.Contains("token="), " Paypal Redirect Url {0} does not contain 'token='", response.Url);
 		}
-
-
 
 		private void CreateBasket()
 		{
