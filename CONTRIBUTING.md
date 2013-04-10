@@ -18,6 +18,23 @@
 You should never work on master, and you should never send a pull request from
 master - always from a branch. The reasons for this are detailed below.
 
+### Merging Pull Requests (Notes for 7digital people with push access)
+
+Please try not merge your own pull requests without another team casting their
+eye over the request.  Ideally someone from at least 2 teams will review the
+request.  This will hopeully ensure we catch any obvious issues before they
+make their way into our respective projects and will stimulate a thorough
+discussion of any larger refactorings.
+
+There is an internal 7digital api-wrapper google group you can join that will
+send you notifications of any changes to the project. We welcome you to join and
+pariticipate in discussions and reviews of our pull requests. :)
+
+Usually someone will review your changes within a couple of hours. If not, prod
+Greg, someone from the web or locker teams and we will have a look as soon as
+we can.
+
+
 ### Guidelines for creating a pull request and notes on style
 
 Following these guidelines will make it much easier for us to appraise and
