@@ -48,6 +48,7 @@
     <Compile Include="Basket\AmountDue.cs" />
     <Compile Include="Basket\Discount.cs" />
     <Compile Include="Basket\DiscountType.cs" />
+    <Compile Include="Basket\PayPalExpressCheckout.cs" />
     <Compile Include="Chart\IChart.cs" />
     <Compile Include="Chart\ReleaseChartItem.cs" />
     <Compile Include="Chart\TrackChartItem.cs" />

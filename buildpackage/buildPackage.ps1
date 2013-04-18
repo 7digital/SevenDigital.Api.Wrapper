@@ -1,3 +1,8 @@
+function BuildSolution
+{
+  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ..\SevenDigital.Api.Wrapper.sln /t:build /p:Configuration=Debug
+}
+
 function ReadLinesFromFile([string] $fileName)
 {
  [string]::join([environment]::newline, (get-content -path $fileName))
@@ -20,11 +25,13 @@ function UpdateVersionNumber([int] $newVersionNumber)
 {
    $newVersionNumber > lastVersion.txt
 
-  # write changed version number back to git - uncomment following lines when we use it for real
-  # git add lastVersion.txt
-  # git commit -m "automated package build and version number increment to $newVersionNumber"
-  # git push
+  # write changed version number back to git
+  git add lastVersion.txt
+  git commit -m "automated package build and version number increment to $newVersionNumber"
+  git push
 }
+
+BuildSolution
 
 $nextVersionNumber = GetNextVersionNumber
 $fullVersion = "2.0.$nextVersionNumber"
@@ -41,7 +48,7 @@ $pushCommand = "NuGet Push SevenDigital.Api.Wrapper.#version#.nupkg".Replace("#v
 
 # push to nuget:
 Invoke-Expression $pushCommand
-write-output "Pushed package version $nextVersion";
+write-output "Pushed package version $nextVersion"
 
 CleanupBuildArtifacts
 UpdateVersionNumber $nextVersionNumber

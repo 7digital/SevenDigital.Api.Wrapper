@@ -12,34 +12,48 @@ namespace SevenDigital.Api.Wrapper.Http
 		public Response Get(GetRequest request)
 		{
 			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
-			return ReadWebResponse(webRequest);
+			using (var webResponse = GetWebResponse(webRequest))
+			{
+				return MakeResponse(webResponse);
+			}
 		}
 
 		public void GetAsync(GetRequest request, Action<Response> callback)
 		{
 			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
-			webRequest.BeginGetResponse(iar => callback(ReadWebResponseAsync(iar)), webRequest);
+			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
+		}
+
+
+		private Response GetAsyncResponse(IAsyncResult iar)
+		{
+			using (var webResponse = GetWebResponseAsync(iar))
+			{
+				return MakeResponse(webResponse);
+			}
 		}
 
 		public Response Post(PostRequest request)
 		{
 			var webRequest = MakePostRequest(request);
-			return ReadWebResponse(webRequest);
+			using (var webResponse = GetWebResponse(webRequest))
+			{
+				return MakeResponse(webResponse);
+			}
 		}
 
 		public void PostAsync(PostRequest request, Action<Response> callback)
 		{
 			var webRequest = MakePostRequest(request);
 
-			webRequest.BeginGetResponse(iar => callback(ReadWebResponseAsync(iar)), webRequest);
+			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
 		}
 
-		private Response ReadWebResponse(HttpWebRequest webRequest)
+		private WebResponse GetWebResponse(WebRequest webRequest)
 		{
-			WebResponse webResponse;
 			try
 			{
-				webResponse = webRequest.GetResponse();
+				return webRequest.GetResponse();
 			}
 			catch (WebException ex)
 			{
@@ -47,27 +61,18 @@ namespace SevenDigital.Api.Wrapper.Http
 				{
 					throw;
 				}
-				webResponse = ex.Response;
-			}
-
-			try
-			{
-				return MakeResponse(webResponse);
-			}
-			finally
-			{
-				TryDispose(webResponse);
+				
+				return ex.Response;
 			}
 		}
 
-		private Response ReadWebResponseAsync(IAsyncResult iar)
+		private static WebResponse GetWebResponseAsync(IAsyncResult iar)
 		{
 			var webRequest = (WebRequest)iar.AsyncState;
 
-			WebResponse webResponse;
 			try
 			{
-				webResponse = webRequest.EndGetResponse(iar);
+				return webRequest.EndGetResponse(iar);
 			}
 			catch (WebException ex)
 			{
@@ -75,27 +80,10 @@ namespace SevenDigital.Api.Wrapper.Http
 				{
 					throw;
 				}
-				webResponse = ex.Response;
-			}
-
-			try
-			{
-				return MakeResponse(webResponse);
-			}
-			finally
-			{
-				TryDispose(webResponse);
+				return ex.Response;
 			}
 		}
 
-		private void TryDispose(object o)
-		{
-			var disposable = o as IDisposable;
-			if (disposable != null)
-			{
-				disposable.Dispose();
-			}
-		}
 
 		private static HttpWebRequest MakeWebRequest(string url, string method, IDictionary<string, string> headers)
 		{
