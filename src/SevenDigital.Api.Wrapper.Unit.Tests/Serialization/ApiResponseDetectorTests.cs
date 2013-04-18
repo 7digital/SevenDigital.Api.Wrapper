@@ -92,30 +92,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 		}
 
 		[Test]
-		public void Should_detect_500_as_server_error()
-		{
-			var result = _apiResponseDetector.IsServerError(500);
-
-			Assert.That(result, Is.True);
-		}
-
-		[Test]
-		public void Should_detect_502_as_server_error()
-		{
-			var result = _apiResponseDetector.IsServerError(502);
-
-			Assert.That(result, Is.True);
-		}
-
-		[Test]
-		public void Should_not_detect_200_as_server_error()
-		{
-			var result = _apiResponseDetector.IsServerError(200);
-
-			Assert.That(result, Is.False);
-		}
-
-		[Test]
 		public void Should_detect_oauth_error()
 		{
 			var result = _apiResponseDetector.IsOAuthError(OAUTH_ERROR);
