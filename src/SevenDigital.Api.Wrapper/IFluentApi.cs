@@ -13,7 +13,8 @@ namespace SevenDigital.Api.Wrapper
 		IFluentApi<T> ForUser(string token, string secret);
 		IFluentApi<T> UsingClient(IHttpClient httpClient);
 
-		T Please();
+        IFluentApi<T> WithCheckXmlValidity();
+        T Please();
 		void PleaseAsync(Action<T> callback);
 	}
 }

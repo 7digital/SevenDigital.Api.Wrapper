@@ -15,6 +15,7 @@ namespace SevenDigital.Api.Wrapper
 		private readonly RequestData _requestData;
 		private readonly IRequestCoordinator _requestCoordinator;
 		private readonly IResponseParser<T> _parser;
+	    private bool _checkXmlValidity; 
 
 		public FluentApi(IRequestCoordinator requestCoordinator)
 		{
@@ -40,7 +41,13 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public virtual IFluentApi<T> WithMethod(string methodName)
+	    public IFluentApi<T> WithCheckXmlValidity()
+	    {
+	        _checkXmlValidity = true;
+	        return this;
+	    }
+
+	    public virtual IFluentApi<T> WithMethod(string methodName)
 		{
 			_requestData.HttpMethod = methodName;
 			return this;
@@ -85,7 +92,7 @@ namespace SevenDigital.Api.Wrapper
 
 			try
 			{
-				return _parser.Parse(response);
+				return _parser.Parse(response, _checkXmlValidity);
 			}
 			catch (ApiResponseException apiXmlException)
 			{
@@ -108,7 +115,7 @@ namespace SevenDigital.Api.Wrapper
 		{
 			return output =>
 			{
-				T entity = _parser.Parse(output);
+				T entity = _parser.Parse(output, _checkXmlValidity);
 				callback(entity);
 			};
 		}

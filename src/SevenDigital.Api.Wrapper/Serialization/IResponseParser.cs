@@ -4,6 +4,6 @@ namespace SevenDigital.Api.Wrapper.Serialization
 {
 	public interface IResponseParser<out T>
 	{
-		T Parse(Response response);
+		T Parse(Response response, bool checkXmlValidity);
 	}
 }

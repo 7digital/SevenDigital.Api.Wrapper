@@ -22,13 +22,13 @@ namespace SevenDigital.Api.Wrapper.Serialization
 			_apiResponseDetector = apiResponseDetector;
 		}
 
-		public T Parse(Response response)
+		public T Parse(Response response, bool checkXmlValidity)
 		{
-			DetectErrorResponsesAndThrow(response);
+			DetectErrorResponsesAndThrow(response, checkXmlValidity);
 			return ParseResponse(response);
 		}
 
-		private void DetectErrorResponsesAndThrow(Response response)
+		private void DetectErrorResponsesAndThrow(Response response, bool checkXmlValidity)
 		{
 			if (response == null)
 				throw new ArgumentNullException("response");
@@ -39,6 +39,9 @@ namespace SevenDigital.Api.Wrapper.Serialization
 			if (!_apiResponseDetector.IsXml(response.Body))
 				DetectAndThrowForNonXmlResponses(response);
 
+			if (checkXmlValidity && !_apiResponseDetector.IsXmlParsed(response.Body))
+				throw new NonXmlResponseException(response);
+			
 			if (!_apiResponseDetector.IsApiOkResponse(response.Body) && !_apiResponseDetector.IsApiErrorResponse(response.Body))
 				throw new UnrecognisedStatusException(response);
 

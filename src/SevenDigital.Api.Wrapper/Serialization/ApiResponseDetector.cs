@@ -1,4 +1,6 @@
 using System;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace SevenDigital.Api.Wrapper.Serialization
 {
@@ -20,6 +22,20 @@ namespace SevenDigital.Api.Wrapper.Serialization
 			return responseBody.StartsWith("<?xml");
 		}
 
+		public bool IsXmlParsed(string responseBody)
+		{
+			try
+			{
+				XDocument.Parse(responseBody);
+			}
+			catch (XmlException)
+			{
+				return false;
+			}
+
+			return true;
+		}
+
 		public bool IsApiOkResponse(string responseBody)
 		{
 			var startOfBody = StartOfMessage(responseBody);
@@ -36,7 +52,7 @@ namespace SevenDigital.Api.Wrapper.Serialization
 		{
 			return httpStatusCode >= 500;
 		}
-
+         
 		public bool IsOAuthError(string responseBody)
 		{
 			return responseBody.StartsWith("OAuth");

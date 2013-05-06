@@ -33,7 +33,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Deserialisation.User.Payment
 		{
 			var xmlParser = new ResponseParser<Cards>();
 
-			var deserializedCards = xmlParser.Parse(response);
+            var deserializedCards = xmlParser.Parse(response, false);
 
 			var firstCard = deserializedCards.UserCards[0];
 			Assert.That(deserializedCards.UserCards.Count(), Is.EqualTo(1));

@@ -10,6 +10,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 		private const string OK_RESPONSE = "<?xml><response status=\"ok\"></response>";
 		private const string ERROR_RESPONSE = "<?xml><response status=\"error\"></response>";
 		private const string OAUTH_ERROR = "OAuth authentication error: Access to resource denied";
+        private const string ALMOST_XML = "<?xml><response status=\"ok\"></respon~~~foobar";
 
 		private IApiResponseDetector _apiResponseDetector;
 
@@ -43,7 +44,31 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 			Assert.That(result, Is.False);
 		}
 
-		[Test]
+        [Test]
+        public void Almost_xml_passes_basic_check()
+        {
+            var result = _apiResponseDetector.IsXml(ALMOST_XML);
+
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void Should_detect_almost_xml_as_error_on_parse()
+        {
+            var result = _apiResponseDetector.IsXmlParsed(ALMOST_XML);
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void Should_detect_xml_as_corrext_on_parse()
+        {
+            var result = _apiResponseDetector.IsXmlParsed(OK_RESPONSE);
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
 		public void Should_detect_ok_response()
 		{
 			var result = _apiResponseDetector.IsApiOkResponse(OK_RESPONSE);

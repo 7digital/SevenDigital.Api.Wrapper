@@ -19,7 +19,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Deserialisation.Payment
 		{
 			var xmlParser = new ResponseParser<PaymentCardTypes>();
 
-			var result = xmlParser.Parse(stubResponse);
+            var result = xmlParser.Parse(stubResponse, false);
 
 			Assert.That(result.CardTypes.Count(),Is.EqualTo(4));
 			var lastCard = result.CardTypes.Last();
