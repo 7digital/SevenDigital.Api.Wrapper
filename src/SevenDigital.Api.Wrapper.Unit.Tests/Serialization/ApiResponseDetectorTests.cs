@@ -1,4 +1,9 @@
-﻿using NUnit.Framework;
+﻿using System.Net;
+
+using NUnit.Framework;
+
+using SevenDigital.Api.Wrapper.Exceptions;
+using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Serialization;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
@@ -7,10 +12,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 	public class ApiResponseDetectorTests
 	{
 		private const string DUMMY_HTML = "<html><head><title>Hello world</title></head><body><h1>Hello, test</h1></body></html>";
-		private const string OK_RESPONSE = "<?xml><response status=\"ok\"></response>";
-		private const string ERROR_RESPONSE = "<?xml><response status=\"error\"></response>";
+		private const string OK_RESPONSE = "<?xml version=\"1.0\"?><response status=\"ok\"></response>";
+		private const string ERROR_RESPONSE = "<?xml version=\"1.0\"?><response status=\"error\"></response>";
 		private const string OAUTH_ERROR = "OAuth authentication error: Access to resource denied";
-        private const string ALMOST_XML = "<?xml><response status=\"ok\"></respon~~~foobar";
+		private const string ALMOST_XML = "<?xml version=\"1.0\"?><response status=\"ok\"></respon~~~foobar";
 
 		private IApiResponseDetector _apiResponseDetector;
 
@@ -44,31 +49,47 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 			Assert.That(result, Is.False);
 		}
 
-        [Test]
-        public void Almost_xml_passes_basic_check()
-        {
-            var result = _apiResponseDetector.IsXml(ALMOST_XML);
+		[Test]
+		public void Almost_xml_passes_basic_check()
+		{
+			var result = _apiResponseDetector.IsXml(ALMOST_XML);
 
-            Assert.That(result, Is.True);
-        }
+			Assert.That(result, Is.True);
+		}
 
-        [Test]
-        public void Should_detect_almost_xml_as_error_on_parse()
-        {
-            var result = _apiResponseDetector.IsXmlParsed(ALMOST_XML);
+		[Test]
+		public void Should_detect_almost_xml_as_error_on_parse()
+		{
+			var response = new Response(HttpStatusCode.OK, ALMOST_XML);
 
-            Assert.That(result, Is.False);
-        }
+			Assert.Throws<NonXmlResponseException>(() => _apiResponseDetector.TestXmlParse(response));
+		}
 
-        [Test]
-        public void Should_detect_xml_as_corrext_on_parse()
-        {
-            var result = _apiResponseDetector.IsXmlParsed(OK_RESPONSE);
+		[Test]
+		public void Should_detect_plain_text_as_error_on_parse()
+		{
+			var response = new Response(HttpStatusCode.OK, "Hello, world");
 
-            Assert.That(result, Is.False);
-        }
+			Assert.Throws<NonXmlResponseException>(() => _apiResponseDetector.TestXmlParse(response));
+		}
 
-        [Test]
+		[Test]
+		public void Should_detect_ok_xml_as_corrext_on_parse()
+		{
+			var response = new Response(HttpStatusCode.OK, OK_RESPONSE);
+
+			Assert.DoesNotThrow(() => _apiResponseDetector.TestXmlParse(response));
+		}
+
+		[Test]
+		public void Should_detect_well_formed_error_xml_as_corrext_on_parse()
+		{
+			var response = new Response(HttpStatusCode.OK, ERROR_RESPONSE);
+
+			Assert.DoesNotThrow(() => _apiResponseDetector.TestXmlParse(response));
+		}
+
+		[Test]
 		public void Should_detect_ok_response()
 		{
 			var result = _apiResponseDetector.IsApiOkResponse(OK_RESPONSE);

@@ -31,22 +31,34 @@ namespace SevenDigital.Api.Wrapper.Serialization
 		private void DetectErrorResponsesAndThrow(Response response, bool checkXmlValidity)
 		{
 			if (response == null)
+			{
 				throw new ArgumentNullException("response");
+			}
 
 			if (string.IsNullOrEmpty(response.Body))
+			{
 				throw new NonXmlResponseException(response);
+			}
 
 			if (!_apiResponseDetector.IsXml(response.Body))
+			{
 				DetectAndThrowForNonXmlResponses(response);
+			}
 
-			if (checkXmlValidity && !_apiResponseDetector.IsXmlParsed(response.Body))
-				throw new NonXmlResponseException(response);
+			if (checkXmlValidity)
+			{
+				_apiResponseDetector.TestXmlParse(response);
+			}
 			
 			if (!_apiResponseDetector.IsApiOkResponse(response.Body) && !_apiResponseDetector.IsApiErrorResponse(response.Body))
+			{
 				throw new UnrecognisedStatusException(response);
+			}
 
 			if (_apiResponseDetector.IsApiOkResponse(response.Body) && !_apiResponseDetector.IsApiErrorResponse(response.Body))
+			{
 				return;
+			}
 
 			var error = ParseError(response);
 			throw ExceptionFactory.CreateApiErrorException(error, response);
@@ -101,7 +113,7 @@ namespace SevenDigital.Api.Wrapper.Serialization
 			}
 			catch (NonXmlContentException ex)
 			{
-				throw new NonXmlResponseException(NonXmlResponseException.DEFAULT_ERROR_MESSAGE, ex, response);
+				throw new NonXmlResponseException(ex, response);
 			}
 		}
 	}

@@ -14,8 +14,8 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		{
 		}
 
-		public NonXmlResponseException(string message, Exception innerException, Response response)
-			: base(message, innerException, response)
+		public NonXmlResponseException(Exception innerException, Response response)
+			: base(DEFAULT_ERROR_MESSAGE, innerException, response)
 		{
 		}
 

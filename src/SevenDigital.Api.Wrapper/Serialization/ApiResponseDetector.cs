@@ -2,6 +2,9 @@ using System;
 using System.Xml;
 using System.Xml.Linq;
 
+using SevenDigital.Api.Wrapper.Exceptions;
+using SevenDigital.Api.Wrapper.Http;
+
 namespace SevenDigital.Api.Wrapper.Serialization
 {
 	public class ApiResponseDetector : IApiResponseDetector
@@ -22,18 +25,16 @@ namespace SevenDigital.Api.Wrapper.Serialization
 			return responseBody.StartsWith("<?xml");
 		}
 
-		public bool IsXmlParsed(string responseBody)
+		public void TestXmlParse(Response response)
 		{
 			try
 			{
-				XDocument.Parse(responseBody);
+				XDocument.Parse(response.Body);
 			}
-			catch (XmlException)
+			catch (XmlException xmlEx)
 			{
-				return false;
+				throw new NonXmlResponseException(xmlEx, response);
 			}
-
-			return true;
 		}
 
 		public bool IsApiOkResponse(string responseBody)
