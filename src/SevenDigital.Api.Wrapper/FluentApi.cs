@@ -15,7 +15,8 @@ namespace SevenDigital.Api.Wrapper
 		private readonly RequestData _requestData;
 		private readonly IRequestCoordinator _requestCoordinator;
 		private readonly IResponseParser<T> _parser;
-	    private bool _checkXmlValidity; 
+		private ICache _cache = new NullCache();
+		private bool _checkXmlValidity; 
 
 		public FluentApi(IRequestCoordinator requestCoordinator)
 		{
@@ -41,15 +42,21 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-	    public IFluentApi<T> WithCheckXmlValidity()
-	    {
-	        _checkXmlValidity = true;
-	        return this;
-	    }
+		public IFluentApi<T> WithCheckXmlValidity()
+		{
+			_checkXmlValidity = true;
+			return this;
+		}
 
-	    public virtual IFluentApi<T> WithMethod(string methodName)
+		public virtual IFluentApi<T> WithMethod(string methodName)
 		{
 			_requestData.HttpMethod = methodName;
+			return this;
+		}
+
+		public virtual IFluentApi<T> WithCache(ICache cache)
+		{
+			_cache = cache;
 			return this;
 		}
 
@@ -80,6 +87,14 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual T Please()
 		{
+			string cachedResponse;
+			var foundInCache = _cache.TryGet(EndpointUrl, out cachedResponse);
+			if (foundInCache)
+			{
+				var responseFromCache = new Response(HttpStatusCode.OK, cachedResponse);
+				return _parser.Parse(responseFromCache, false);
+			}
+
 			Response response;
 			try
 			{
@@ -92,7 +107,11 @@ namespace SevenDigital.Api.Wrapper
 
 			try
 			{
-				return _parser.Parse(response, _checkXmlValidity);
+				var result = _parser.Parse(response, _checkXmlValidity);
+
+				// set to cache only after it has passed validity checks
+				_cache.Set(EndpointUrl, response.Body);
+				return result;
 			}
 			catch (ApiResponseException apiXmlException)
 			{

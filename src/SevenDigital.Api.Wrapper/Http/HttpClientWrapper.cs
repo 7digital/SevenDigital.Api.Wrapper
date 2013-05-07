@@ -24,7 +24,6 @@ namespace SevenDigital.Api.Wrapper.Http
 			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
 		}
 
-
 		private Response GetAsyncResponse(IAsyncResult iar)
 		{
 			using (var webResponse = GetWebResponseAsync(iar))
@@ -83,7 +82,6 @@ namespace SevenDigital.Api.Wrapper.Http
 				return ex.Response;
 			}
 		}
-
 
 		private static HttpWebRequest MakeWebRequest(string url, string method, IDictionary<string, string> headers)
 		{
