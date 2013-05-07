@@ -16,7 +16,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 		{
 			var apiXmlDeserializer = new ResponseParser<TestObject>();
 
-			Assert.Throws<ArgumentNullException>(() => apiXmlDeserializer.Parse(null));
+			Assert.Throws<ArgumentNullException>(() => apiXmlDeserializer.Parse(null, false));
 		}
 
 		[Test]
@@ -29,9 +29,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			Assert.DoesNotThrow(() => xmlParser.Parse(stubResponse));
+            Assert.DoesNotThrow(() => xmlParser.Parse(stubResponse, false));
 
-			TestObject testObject = xmlParser.Parse(stubResponse);
+            TestObject testObject = xmlParser.Parse(stubResponse, false);
 
 			Assert.That(testObject.Id, Is.EqualTo(1));
 		}
@@ -44,7 +44,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<InputParameterException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<InputParameterException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
@@ -60,7 +60,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<InputParameterException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<InputParameterException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
@@ -76,7 +76,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<InvalidResourceException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<InvalidResourceException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
@@ -92,7 +92,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<UserCardException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<UserCardException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
@@ -108,7 +108,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<RemoteApiException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<RemoteApiException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
@@ -124,7 +124,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
@@ -140,7 +140,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(response.Body));
@@ -155,7 +155,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlSerializer = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Parse(response));
+            var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Parse(response, false));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.Null);
 		}
@@ -168,7 +168,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlSerializer = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Parse(response));
+            var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Parse(response, false));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.Empty);
 		}
@@ -181,7 +181,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse(response, false));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(response.Body));
 			Assert.That(ex.Message, Is.EqualTo(UnrecognisedErrorException.DEFAULT_ERROR_MESSAGE));
@@ -195,7 +195,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse(response, false));
 			Assert.That(ex.ResponseBody, Is.EqualTo(response.Body));
 			Assert.That(ex.Message, Is.EqualTo(UnrecognisedErrorException.DEFAULT_ERROR_MESSAGE));
 		}
@@ -209,7 +209,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo("Error deserializing xml response"));
@@ -226,7 +226,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo("Error deserializing xml response"));
@@ -243,7 +243,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestObject>();
 
-			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo("Error deserializing xml response"));
@@ -258,7 +258,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 			var response = new Response(HttpStatusCode.Unauthorized, ErrorText);
 
 			var xmlParser = new ResponseParser<TestObject>();
-			var ex = Assert.Throws<OAuthException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<OAuthException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo(ErrorText));
@@ -273,7 +273,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 			var response = new Response(HttpStatusCode.OK, ErrorText);
 
 			var xmlParser = new ResponseParser<TestObject>();
-			var ex = Assert.Throws<OAuthException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<OAuthException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo(ErrorText));
@@ -289,7 +289,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestEmptyObject>();
 
-			var ex = Assert.Throws<UnrecognisedStatusException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<UnrecognisedStatusException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo(UnrecognisedStatusException.DEFAULT_ERROR_MESSAGE));
@@ -305,7 +305,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 
 			var xmlParser = new ResponseParser<TestEmptyObject>();
 
-			var ex = Assert.Throws<UnrecognisedStatusException>(() => xmlParser.Parse(response));
+            var ex = Assert.Throws<UnrecognisedStatusException>(() => xmlParser.Parse(response, false));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo(UnrecognisedStatusException.DEFAULT_ERROR_MESSAGE));

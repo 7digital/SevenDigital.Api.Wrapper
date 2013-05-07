@@ -19,7 +19,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.ReleaseEndpoint
 			var response = new Response(HttpStatusCode.OK, responseXml);
 
 			var xmlParser = new ResponseParser<ArtistReleases>();
-			var release =  xmlParser.Parse(response).Releases.First();
+            var release = xmlParser.Parse(response, false).Releases.First();
 
 			Assert.That(release.Type,Is.EqualTo(ReleaseType.Unknown));
 		}

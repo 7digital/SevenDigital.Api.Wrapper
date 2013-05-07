@@ -22,28 +22,43 @@ namespace SevenDigital.Api.Wrapper.Serialization
 			_apiResponseDetector = apiResponseDetector;
 		}
 
-		public T Parse(Response response)
+		public T Parse(Response response, bool checkXmlValidity)
 		{
-			DetectErrorResponsesAndThrow(response);
+			DetectErrorResponsesAndThrow(response, checkXmlValidity);
 			return ParseResponse(response);
 		}
 
-		private void DetectErrorResponsesAndThrow(Response response)
+		private void DetectErrorResponsesAndThrow(Response response, bool checkXmlValidity)
 		{
 			if (response == null)
+			{
 				throw new ArgumentNullException("response");
+			}
 
 			if (string.IsNullOrEmpty(response.Body))
+			{
 				throw new NonXmlResponseException(response);
+			}
 
 			if (!_apiResponseDetector.IsXml(response.Body))
+			{
 				DetectAndThrowForNonXmlResponses(response);
+			}
 
+			if (checkXmlValidity)
+			{
+				_apiResponseDetector.TestXmlParse(response);
+			}
+			
 			if (!_apiResponseDetector.IsApiOkResponse(response.Body) && !_apiResponseDetector.IsApiErrorResponse(response.Body))
+			{
 				throw new UnrecognisedStatusException(response);
+			}
 
 			if (_apiResponseDetector.IsApiOkResponse(response.Body) && !_apiResponseDetector.IsApiErrorResponse(response.Body))
+			{
 				return;
+			}
 
 			var error = ParseError(response);
 			throw ExceptionFactory.CreateApiErrorException(error, response);
@@ -98,7 +113,7 @@ namespace SevenDigital.Api.Wrapper.Serialization
 			}
 			catch (NonXmlContentException ex)
 			{
-				throw new NonXmlResponseException(NonXmlResponseException.DEFAULT_ERROR_MESSAGE, ex, response);
+				throw new NonXmlResponseException(ex, response);
 			}
 		}
 	}

@@ -1,4 +1,9 @@
 using System;
+using System.Xml;
+using System.Xml.Linq;
+
+using SevenDigital.Api.Wrapper.Exceptions;
+using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Serialization
 {
@@ -20,6 +25,18 @@ namespace SevenDigital.Api.Wrapper.Serialization
 			return responseBody.StartsWith("<?xml");
 		}
 
+		public void TestXmlParse(Response response)
+		{
+			try
+			{
+				XDocument.Parse(response.Body);
+			}
+			catch (XmlException xmlEx)
+			{
+				throw new NonXmlResponseException(xmlEx, response);
+			}
+		}
+
 		public bool IsApiOkResponse(string responseBody)
 		{
 			var startOfBody = StartOfMessage(responseBody);
@@ -36,7 +53,7 @@ namespace SevenDigital.Api.Wrapper.Serialization
 		{
 			return httpStatusCode >= 500;
 		}
-
+         
 		public bool IsOAuthError(string responseBody)
 		{
 			return responseBody.StartsWith("OAuth");
