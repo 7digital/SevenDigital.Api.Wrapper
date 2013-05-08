@@ -85,6 +85,8 @@
     <Compile Include="Extensions\HasUserDeliverItemParameterExtensions.cs" />
     <Compile Include="Extensions\LockerSortColumn.cs" />
     <Compile Include="Extensions\SortOrder.cs" />
+    <Compile Include="Http\IResponseCache.cs" />
+    <Compile Include="Http\NullResponseCache.cs" />
     <Compile Include="IApiEndpoint.cs" />
     <Compile Include="IApiUri.cs" />
     <Compile Include="IOAuthCredentials.cs" />
