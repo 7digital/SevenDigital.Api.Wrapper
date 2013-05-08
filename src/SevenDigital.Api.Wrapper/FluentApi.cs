@@ -100,7 +100,10 @@ namespace SevenDigital.Api.Wrapper
 				var result = _parser.Parse(response);
 
 				// set to cache only after all validation and parsing has suceeded
-				_responseCache.Set(_requestData, response);
+				if (!foundInCache)
+				{
+					_responseCache.Set(_requestData, response);
+				}
 				return result;
 			}
 			catch (ApiResponseException apiXmlException)
