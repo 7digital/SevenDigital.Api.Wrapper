@@ -212,7 +212,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response));
 
 			Assert.That(ex, Is.Not.Null);
-			Assert.That(ex.Message, Is.EqualTo("Error deserializing xml response"));
+			Assert.That(ex.Message, Is.EqualTo("Response is not xml"));
 			Assert.That(ex.ResponseBody, Is.EqualTo(badXml));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 		}
@@ -229,7 +229,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response));
 
 			Assert.That(ex, Is.Not.Null);
-			Assert.That(ex.Message, Is.EqualTo("Error deserializing xml response"));
+			Assert.That(ex.Message, Is.EqualTo("Response is not xml"));
 			Assert.That(ex.ResponseBody, Is.EqualTo(badXml));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 		}
@@ -246,7 +246,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response));
 
 			Assert.That(ex, Is.Not.Null);
-			Assert.That(ex.Message, Is.EqualTo("Error deserializing xml response"));
+			Assert.That(ex.Message, Is.EqualTo("Response is not xml"));
 			Assert.That(ex.ResponseBody, Is.EqualTo(badXml));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 		}
