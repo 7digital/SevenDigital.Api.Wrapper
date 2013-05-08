@@ -15,6 +15,7 @@ namespace SevenDigital.Api.Wrapper
 		private readonly RequestData _requestData;
 		private readonly IRequestCoordinator _requestCoordinator;
 		private readonly IResponseParser<T> _parser;
+		private IResponseCache _responseCache = new NullResponseCache();
 
 		public FluentApi(IRequestCoordinator requestCoordinator)
 		{
@@ -37,6 +38,12 @@ namespace SevenDigital.Api.Wrapper
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
 		{
 			_requestCoordinator.HttpClient = httpClient;
+			return this;
+		}
+
+		public IFluentApi<T> UsingCache(IResponseCache responseCache)
+		{
+			_responseCache = responseCache;
 			return this;
 		}
 
@@ -74,18 +81,30 @@ namespace SevenDigital.Api.Wrapper
 		public virtual T Please()
 		{
 			Response response;
-			try
+
+			bool foundInCache = _responseCache.TryGet(_requestData, out response);
+			if (! foundInCache)
 			{
-				response = _requestCoordinator.HitEndpoint(_requestData);
-			}
-			catch (WebException webException)
-			{
-				throw new ApiWebException(webException.Message, EndpointUrl, webException);
+				try
+				{
+					response = _requestCoordinator.HitEndpoint(_requestData);
+				}
+				catch (WebException webException)
+				{
+					throw new ApiWebException(webException.Message, EndpointUrl, webException);
+				}
 			}
 
 			try
 			{
-				return _parser.Parse(response);
+				var result = _parser.Parse(response);
+
+				// set to cache only after all validation and parsing has suceeded
+				if (!foundInCache)
+				{
+					_responseCache.Set(_requestData, response);
+				}
+				return result;
 			}
 			catch (ApiResponseException apiXmlException)
 			{
