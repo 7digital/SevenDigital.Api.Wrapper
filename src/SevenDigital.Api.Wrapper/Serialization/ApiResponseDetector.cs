@@ -32,11 +32,6 @@ namespace SevenDigital.Api.Wrapper.Serialization
 			return startOfBody.Contains("<response") && startOfBody.Contains("status=\"error\"");
 		}
 
-		public bool IsServerError(int httpStatusCode)
-		{
-			return httpStatusCode >= 500;
-		}
-
 		public bool IsOAuthError(string responseBody)
 		{
 			return responseBody.StartsWith("OAuth");
