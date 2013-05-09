@@ -62,6 +62,20 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
+		public void Should_fire_requestcoordinator_with_correct_headers_on_resolve()
+		{
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).Returns(stubResponse);
+
+			new FluentApi<Status>(requestCoordinator).WithHeader("customHeader", "myHeaderValue").Please();
+
+			Expression<Func<Response>> hitEndpointWithCustomHeader =
+				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.Headers["customHeader"] == "myHeaderValue"));
+
+			A.CallTo(hitEndpointWithCustomHeader).MustHaveHappened();
+		}
+
+		[Test]
 		public void Should_use_custom_http_client()
 		{
 			var fakeRequestCoordinator = A.Fake<IRequestCoordinator>();
