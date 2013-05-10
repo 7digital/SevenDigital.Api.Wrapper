@@ -59,6 +59,12 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
+		public virtual IFluentApi<T> WithHeader(string headerName, string headerValue)
+		{
+			_requestData.Headers[headerName] = headerValue;
+			return this;
+		}
+
 		public virtual IFluentApi<T> ClearParameters()
 		{
 			_requestData.Parameters.Clear();
