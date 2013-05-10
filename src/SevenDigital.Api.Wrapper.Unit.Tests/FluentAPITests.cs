@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Net;
 using FakeItEasy;
@@ -106,35 +107,130 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			Assert.That(ex.InnerException.GetType(), Is.EqualTo(typeof(WebException)));
 		}
 
-		public class FakeRequestCoordinator : IRequestCoordinator
+		[Test]
+		public void Should_read_cache()
 		{
-			public Response HitEndpoint(RequestData requestData)
-			{
-				throw new NotImplementedException();
-			}
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			var cache = new FakeCache();
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored))
+				.Returns(stubResponse);
 
-			public Response HitEndpointAndGetResponse(RequestData requestData)
-			{
-				throw new NotImplementedException();
-			}
+			new FluentApi<Status>(requestCoordinator).UsingCache(cache).Please();
 
-			public void HitEndpointAsync(RequestData requestData, Action<Response> callback)
-			{
-				callback(StubPayload);
-			}
+			Assert.That(cache.TryGetCount, Is.EqualTo(1));
+		}
 
-			public string ConstructEndpoint(RequestData requestData)
-			{
-				throw new NotImplementedException();
-			}
+		[Test]
+		public void Should_write_to_cache_on_success()
+		{
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			var cache = new FakeCache();
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored))
+				.Returns(stubResponse);
 
-			public IHttpClient HttpClient
-			{
-				get { throw new NotImplementedException(); }
-				set { throw new NotImplementedException(); }
-			}
+			new FluentApi<Status>(requestCoordinator).UsingCache(cache).Please();
 
-			public Response StubPayload { get; set; }
+			Assert.That(cache.SetCount, Is.EqualTo(1));
+			Assert.That(cache.CachedResponses.Count, Is.EqualTo(1));
+			Assert.That(cache.CachedResponses[0], Is.EqualTo(stubResponse));
+		}
+
+		[Test]
+		public void Should_return_value_from_cache()
+		{
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			var cache = new FakeCache();
+			cache.StubResponse = stubResponse;
+
+			var status =new FluentApi<Status>(requestCoordinator).UsingCache(cache).Please();
+
+			Assert.That(cache.TryGetCount, Is.EqualTo(1));
+			Assert.That(status, Is.Not.Null);
+		}
+
+		[Test]
+		public void Should_not_hit_endpoint_when_value_is_found_in_cache()
+		{
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			var cache = new FakeCache();
+			cache.StubResponse = stubResponse;
+
+			new FluentApi<Status>(requestCoordinator).UsingCache(cache).Please();
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).MustNotHaveHappened();
+		}
+
+		[Test]
+		public void Should_not_write_to_cache_on_failure()
+		{
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			var cache = new FakeCache();
+			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).Throws<WebException>();
+			A.CallTo(() => requestCoordinator.ConstructEndpoint(A<RequestData>.Ignored)).Returns("http://foo.com/bar");
+
+			var api = new FluentApi<Status>(requestCoordinator).UsingCache(cache);
+
+			Assert.Throws<ApiWebException>(() => api.Please());
+
+			Assert.That(cache.SetCount, Is.EqualTo(0));
+			Assert.That(cache.CachedResponses.Count, Is.EqualTo(0));
+		}
+	}
+
+	internal class FakeRequestCoordinator : IRequestCoordinator
+	{
+		public Response HitEndpoint(RequestData requestData)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Response HitEndpointAndGetResponse(RequestData requestData)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void HitEndpointAsync(RequestData requestData, Action<Response> callback)
+		{
+			callback(StubPayload);
+		}
+
+		public string ConstructEndpoint(RequestData requestData)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IHttpClient HttpClient
+		{
+			get { throw new NotImplementedException(); }
+			set { throw new NotImplementedException(); }
+		}
+
+		public Response StubPayload { get; set; }
+	}
+
+	internal class FakeCache: IResponseCache
+	{
+		public int SetCount { get; set; }
+		public int TryGetCount { get; set; }
+		public IList<Response> CachedResponses { get; set; }
+
+		public Response StubResponse { get; set; }
+
+		internal FakeCache()
+		{
+			CachedResponses = new List<Response>();
+		}
+
+		public void Set(RequestData key, Response value)
+		{
+			SetCount++;
+			CachedResponses.Add(value);
+		}
+
+		public bool TryGet(RequestData key, out Response value)
+		{
+			TryGetCount++;
+			value = StubResponse;
+			return (StubResponse != null);
 		}
 	}
 }
