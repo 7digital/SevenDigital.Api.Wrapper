@@ -37,12 +37,22 @@ namespace SevenDigital.Api.Wrapper
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
 		{
+			if (httpClient == null)
+			{
+				throw new ArgumentNullException("httpClient");
+			}
+
 			_requestCoordinator.HttpClient = httpClient;
 			return this;
 		}
 
 		public IFluentApi<T> UsingCache(IResponseCache responseCache)
 		{
+			if (responseCache == null)
+			{
+				throw new ArgumentNullException("responseCache");
+			}
+
 			_responseCache = responseCache;
 			return this;
 		}
