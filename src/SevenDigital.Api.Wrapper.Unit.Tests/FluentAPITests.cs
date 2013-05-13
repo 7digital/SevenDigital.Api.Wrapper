@@ -74,6 +74,15 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
+		public void Should_throw_exception_when_null_client_is_used()
+		{
+			var fakeRequestCoordinator = A.Fake<IRequestCoordinator>();
+			var api = new FluentApi<Status>(fakeRequestCoordinator);
+
+			Assert.Throws<ArgumentNullException>(() => api.UsingClient(null));
+		}
+
+		[Test]
 		public void should_put_payload_in_action_result()
 		{
 			var requestCoordinator = new FakeRequestCoordinator { StubPayload = stubResponse };
@@ -105,6 +114,15 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			Assert.That(ex.InnerException, Is.Not.Null);
 			Assert.That(ex.Uri, Is.EqualTo(url));
 			Assert.That(ex.InnerException.GetType(), Is.EqualTo(typeof(WebException)));
+		}
+
+		[Test]
+		public void Should_throw_exception_when_null_cache_is_used()
+		{
+			var fakeRequestCoordinator = A.Fake<IRequestCoordinator>();
+			var api = new FluentApi<Status>(fakeRequestCoordinator);
+
+			Assert.Throws<ArgumentNullException>(() => api.UsingCache(null));
 		}
 
 		[Test]
