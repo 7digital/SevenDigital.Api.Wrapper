@@ -17,6 +17,7 @@
 		UserHasNoCardDetails = 3002,
 		PaymentFailed = 3003,
 		PriceSuppliedDoesNotMatch = 3004,
+		VoucherNotApplied = 3012,
 		PaymentProviderConnectionError = 3100,
 		PaymentFailedError = 3101,
 		PaymentDeclinedError = 3102,
