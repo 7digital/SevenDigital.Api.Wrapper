@@ -13,6 +13,9 @@ namespace SevenDigital.Api.Schema.User
 	[XmlRoot("purchase")]
 	public class UserDeliverItem : HasReleaseIdParameter, HasTrackIdParameter, HasUserDeliverItemParameter
 	{
+		[XmlAttribute("id")]
+		public string Id { get; set; }
+
 		[XmlElement("purchaseDate")]
 		public DateTime PurchaseDate { get; set; }
 

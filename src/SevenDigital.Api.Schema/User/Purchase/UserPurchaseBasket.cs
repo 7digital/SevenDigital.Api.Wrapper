@@ -13,6 +13,9 @@ namespace SevenDigital.Api.Schema.User.Purchase
 	[XmlRoot("purchase")]
 	public class UserPurchaseBasket
 	{
+		[XmlAttribute("id")]
+		public string Id { get; set; }
+
 		[XmlElement("purchaseDate")]
 		public DateTime PurchaseDate { get; set; }
 
