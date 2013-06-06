@@ -36,4 +36,12 @@ namespace SevenDigital.Api.Schema.Basket
 	[XmlRoot("basket")]
 	public class RemoveItemFromBasket : Basket, HasBasketItemParameter
 	{}
+
+	[HttpPost]
+	[RequireSecure]
+	[ApiEndpoint("basket/applyvoucher")]
+	[XmlRoot("basket")]
+	public class ApplyVoucher : Basket
+	{
+	}
 }
