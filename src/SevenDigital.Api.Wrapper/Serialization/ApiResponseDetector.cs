@@ -17,7 +17,7 @@ namespace SevenDigital.Api.Wrapper.Serialization
 
 		public bool IsXml(string responseBody)
 		{
-			return responseBody.StartsWith("<?xml");
+			return responseBody.Trim().StartsWith("<?xml");
 		}
 
 		public bool IsApiOkResponse(string responseBody)
