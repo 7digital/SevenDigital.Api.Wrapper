@@ -40,7 +40,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 			var ex = Assert.Throws<InputParameterException>(() =>
 				new FluentApi<ArtistTopTracks>()
 					.WithParameter("artistId", "1")
-					.WithParameter("page", "2")
+					.WithParameter("page", "100")
 					.WithParameter("pageSize", "10")
 					.Please());
 
