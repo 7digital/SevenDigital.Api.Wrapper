@@ -63,5 +63,8 @@ namespace SevenDigital.Api.Schema.ReleaseEndpoint
 
 		[XmlElement("licensor")]
 		public Licensor Licensor { get; set; }
+
+		[XmlElement("trackCount")]
+		public int? TrackCount { get; set; }
 	}
 }
