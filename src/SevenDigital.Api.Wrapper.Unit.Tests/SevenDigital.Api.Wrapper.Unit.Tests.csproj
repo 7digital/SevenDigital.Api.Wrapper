@@ -65,6 +65,7 @@
     <Compile Include="EndpointResolution\EndpointResolverTests.cs" />
     <Compile Include="EndpointResolution\OAuth\NonceFactoryConcurrenyTests.cs" />
     <Compile Include="EndpointResolution\OAuth\UrlSignerTests.cs" />
+    <Compile Include="EndpointResolution\OAuth\OAuthSignatureGeneratorTests.cs" />
     <Compile Include="Exceptions\ApiWebExceptionTests.cs" />
     <Compile Include="Exceptions\ExceptionFactoryTests.cs" />
     <Compile Include="Exceptions\InputParameterExceptionTests.cs" />

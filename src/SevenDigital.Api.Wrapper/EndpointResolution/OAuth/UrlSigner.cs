@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
+using SevenDigital.Api.Schema.OAuth;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 {
 	public class UrlSigner : IUrlSigner
 	{
-		private readonly OAuthBase _oAuthBase;
-		
-		public UrlSigner()
+		private readonly ISignatureGenerator _signatureGenerator;
+
+		public UrlSigner(ISignatureGenerator signatureGenerator)
 		{
-			_oAuthBase = new OAuthBase();
+			_signatureGenerator = signatureGenerator;
 		}
 
 		/// <summary>
@@ -20,25 +21,14 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 		/// </summary>
 		public string SignGetUrl(string urlWithParameters, string userToken, string tokenSecret, IOAuthCredentials consumerCredentials)
 		{
-			var timeStamp = _oAuthBase.GenerateTimeStamp();
-			var nonce = _oAuthBase.GenerateNonce();
-
-			string normalizedRequestParameters;
-			string normalizedUrl;
-			var signature = _oAuthBase.GenerateSignature(new Uri(urlWithParameters),
-				consumerCredentials.ConsumerKey,
-				consumerCredentials.ConsumerSecret,
-				userToken,
-				tokenSecret,
-				"GET",
-				timeStamp,
-				nonce,
-				out normalizedUrl,
-				out normalizedRequestParameters,
-				new Dictionary<string, string>());
-
-			var encodedSignature = OAuthBase.UrlEncode(signature);
-			return string.Format("{0}?{1}&oauth_signature={2}", normalizedUrl, normalizedRequestParameters, encodedSignature);
+			var oAuthSignatureInfo = new OAuthSignatureInfo
+			{
+				FullUrlToSign = urlWithParameters,
+				ConsumerCredentials = consumerCredentials,
+				HttpMethod = "GET",
+				UserAccessToken = new OAuthAccessToken { Token = userToken, Secret = tokenSecret}
+			};
+			return _signatureGenerator.Sign(oAuthSignatureInfo);
 		}
 
 		public Uri SignUrl(string urlWithParameters, string userToken, string tokenSecret, IOAuthCredentials consumerCredentials)
@@ -46,8 +36,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 			return new Uri(SignGetUrl(urlWithParameters, userToken, tokenSecret, consumerCredentials));
 		}
 
-		public IDictionary<string, string> SignPostRequest(string url, string userToken, string tokenSecret,
-			IOAuthCredentials consumerCredentials, IDictionary<string, string> postParameters)
+		public IDictionary<string, string> SignPostRequest(string url, string userToken, string tokenSecret, IOAuthCredentials consumerCredentials, IDictionary<string, string> postParameters)
 		{
 			if (string.IsNullOrEmpty(consumerCredentials.ConsumerKey))
 				throw new ArgumentException("ConsumerKey can not be null or empty");
@@ -55,32 +44,15 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 			if (string.IsNullOrEmpty(consumerCredentials.ConsumerSecret))
 				throw new ArgumentException("ConsumerSecret can not be null or empty");
 
-			var timestamp = _oAuthBase.GenerateTimeStamp();
-			var nonce = _oAuthBase.GenerateNonce();
-
-			string normalizedRequestParameters;
-			string normalizedUrl;
-			
-			var signature = _oAuthBase.GenerateSignature(new Uri(url), consumerCredentials.ConsumerKey, 
-				consumerCredentials.ConsumerSecret, userToken, tokenSecret, "POST", timestamp, nonce,
-				out normalizedUrl, out normalizedRequestParameters, postParameters);
-
-			var parameters = new Dictionary<string, string>(postParameters)
+			var oAuthSignatureInfo = new OAuthSignatureInfo
 			{
-				{ OAuthBase.OAuthVersionKey, OAuthBase.OAuthVersion },
-				{ OAuthBase.OAuthNonceKey, nonce },
-				{ OAuthBase.OAuthTimestampKey, timestamp },
-				{ OAuthBase.OAuthSignatureMethodKey, OAuthBase.HMACSHA1SignatureType },
-				{ OAuthBase.OAuthConsumerKeyKey, consumerCredentials.ConsumerKey },
-				{ OAuthBase.OAuthSignatureKey, OAuthBase.UrlEncode(signature) }
+				FullUrlToSign = url,
+				ConsumerCredentials = consumerCredentials,
+				HttpMethod = "POST",
+				UserAccessToken = new OAuthAccessToken { Token = userToken, Secret = tokenSecret },
+				PostData = postParameters
 			};
-
-			if (!string.IsNullOrEmpty(userToken))
-			{
-				parameters.Add(OAuthBase.OAuthTokenKey, OAuthBase.UrlEncode(userToken));
-			}
-
-			return parameters;
+			return _signatureGenerator.SignWithPostData(oAuthSignatureInfo);
 		}
 	}
 
