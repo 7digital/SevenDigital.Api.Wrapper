@@ -45,6 +45,9 @@
     <Compile Include="EndpointResolution\AppDomainAssemblyResolver.cs" />
     <Compile Include="EndpointResolution\EssentialDependencyCheck.cs" />
     <Compile Include="EndpointResolution\OAuth\NonceGenerator.cs" />
+    <Compile Include="EndpointResolution\OAuth\OAuthSignatureGenerator.cs" />
+    <Compile Include="EndpointResolution\OAuth\OAuthSignatureInfo.cs" />
+    <Compile Include="EndpointResolution\OAuth\SignedRequest.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\GetRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\PostRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\RequestHandler.cs" />
