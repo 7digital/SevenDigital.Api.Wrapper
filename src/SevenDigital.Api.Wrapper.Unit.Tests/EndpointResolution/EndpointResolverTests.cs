@@ -23,7 +23,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 			A.CallTo(() => apiUri.Uri)
 				.Returns("http://uri/");
 
-			_requestCoordinator = new RequestCoordinator(httpClient, new UrlSigner(), new AppSettingsCredentials(), apiUri);
+			_requestCoordinator = new RequestCoordinator(httpClient, new UrlSigner(new OAuthSignatureGenerator()), new AppSettingsCredentials(), apiUri);
 		}
 
 		[Test]
