@@ -5,6 +5,12 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 {
 	public class OAuthSignatureInfo
 	{
+		public OAuthSignatureInfo()
+		{
+			HttpMethod = "GET";
+			PostData = new Dictionary<string, string>();
+		}
+
 		public string FullUrlToSign { get; set; }
 		public OAuthAccessToken UserAccessToken { get; set; }
 		public IOAuthCredentials ConsumerCredentials { get; set; }
