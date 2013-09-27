@@ -18,6 +18,9 @@ namespace SevenDigital.Api.Schema.LockerEndpoint
 		[XmlElement("purchaseDate")]
 		public DateTime PurchaseDate { get; set; }
 
+		[XmlElement("purchaseId")]
+		public int PurchaseId { get; set; }
+
 		[XmlArray("downloadUrls")]
 		[XmlArrayItem("downloadUrl")]
 		public List<DownloadUrl> DownloadUrls { get; set; }
