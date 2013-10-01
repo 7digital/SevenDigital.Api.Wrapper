@@ -11,8 +11,14 @@ namespace SevenDigital.Api.Wrapper.Serialization
 				return string.Empty;
 			}
 
-			var maxLength = Math.Min(responseBody.Length, 512);
-			return responseBody.Substring(0, maxLength);
+			var start = responseBody.IndexOf("<response", StringComparison.Ordinal);
+			if (start == -1)
+			{
+				return string.Empty;
+			}
+
+			var end = responseBody.IndexOf(">", start, StringComparison.Ordinal);
+			return responseBody.Substring(start, end - start);
 		}
 
 		public bool IsXml(string responseBody)
@@ -23,13 +29,13 @@ namespace SevenDigital.Api.Wrapper.Serialization
 		public bool IsApiOkResponse(string responseBody)
 		{
 			var startOfBody = StartOfMessage(responseBody);
-			return startOfBody.Contains("<response") && startOfBody.Contains("status=\"ok\"");
+			return startOfBody.Contains("status=\"ok\"");
 		}
 
 		public bool IsApiErrorResponse(string responseBody)
 		{
 			var startOfBody = StartOfMessage(responseBody);
-			return startOfBody.Contains("<response") && startOfBody.Contains("status=\"error\"");
+			return startOfBody.Contains("status=\"error\"");
 		}
 
 		public bool IsOAuthError(string responseBody)
