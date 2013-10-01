@@ -9,6 +9,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 		private const string DUMMY_HTML = "<html><head><title>Hello world</title></head><body><h1>Hello, test</h1></body></html>";
 		private const string OK_RESPONSE = "<?xml><response status=\"ok\"></response>";
 		private const string ERROR_RESPONSE = "<?xml><response status=\"error\"></response>";
+		private const string OK_RESPONSE_WITH_ERROR_STATUS_IN_CHILD = "<?xml><response status=\"ok\"><child status=\"error\" /></response>";
 		private const string OAUTH_ERROR = "OAuth authentication error: Access to resource denied";
 
 		private IApiResponseDetector _apiResponseDetector;
@@ -55,6 +56,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 		public void Should_not_detect_error_as_ok_response()
 		{
 			var result = _apiResponseDetector.IsApiOkResponse(ERROR_RESPONSE);
+
+			Assert.That(result, Is.False);
+		}
+
+		[Test]
+		public void Should_not_detect_an_error_status_in_a_child_node()
+		{
+			var result = _apiResponseDetector.IsApiErrorResponse(OK_RESPONSE_WITH_ERROR_STATUS_IN_CHILD);
 
 			Assert.That(result, Is.False);
 		}
