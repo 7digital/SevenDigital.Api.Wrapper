@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Serialization;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
@@ -25,6 +26,13 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Serialization
 		{
 			var result = _apiResponseDetector.IsXml("<?xml><tag></tag>");
 
+			Assert.That(result, Is.True);
+		}
+
+		[Test]
+		public void Should_detect_as_xml_if_whitespace_preceeds_xml_response()
+		{
+			var result = _apiResponseDetector.IsXml(Environment.NewLine + " <?xml><tag></tag>");
 			Assert.That(result, Is.True);
 		}
 
