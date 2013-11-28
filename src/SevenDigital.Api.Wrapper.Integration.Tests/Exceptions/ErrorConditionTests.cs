@@ -18,7 +18,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 			var apiXmlException = Assert.Throws<InputParameterException>(() => Api<Artist>.Create.Please());
 
 			Assert.That(apiXmlException.ErrorCode, Is.EqualTo(ErrorCode.RequiredParameterMissing));
-			Assert.That(apiXmlException.Message, Is.EqualTo("Missing parameter artistId."));
+			Assert.That(apiXmlException.Message, Is.EqualTo("Missing parameter artistId"));
 		}
 
 		[Test]
