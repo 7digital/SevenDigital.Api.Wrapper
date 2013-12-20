@@ -5,7 +5,7 @@ using System.Xml;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
-using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
+using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;
 using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
@@ -19,14 +19,15 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		private readonly string _consumerKey = new AppSettingsCredentials().ConsumerKey;
 		private IHttpClient _httpClient;
 		private RequestCoordinator _requestCoordinator;
-		private IUrlSigner _urlSigner;
+		private IEnumerable<RequestHandler> _allRequestHandlers;
 
 		[SetUp]
 		public void Setup()
 		{
 			_httpClient = A.Fake<IHttpClient>();
-			_urlSigner = A.Fake<IUrlSigner>();
-			_requestCoordinator = new RequestCoordinator(_httpClient, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
+			_allRequestHandlers = RequestHandlerFactory.AllRequestHandlers(EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
+			//_allRequestHandlers = new List<RequestHandler>(){A.Fake<RequestHandler>()};
+			_requestCoordinator = new RequestCoordinator(_httpClient, _allRequestHandlers);
 		}
 
 		[Test]
@@ -102,7 +103,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		{
 			var fakeClient = new FakeHttpClient(new Response(HttpStatusCode.OK, SERVICE_STATUS));
 
-			var endpointResolver = new RequestCoordinator(fakeClient, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
+			var endpointResolver = new RequestCoordinator(fakeClient, _allRequestHandlers);
 
 			var reset = new AutoResetEvent(false);
 
@@ -132,9 +133,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			var apiUri = A.Fake<IApiUri>();
 
 			A.CallTo(() => apiUri.Uri).Returns(expectedApiUri);
-
-			IOAuthCredentials oAuthCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
-			var endpointResolver = new RequestCoordinator(_httpClient, _urlSigner, oAuthCredentials, apiUri);
+			var endpointResolver = new RequestCoordinator(_httpClient, RequestHandlerFactory.AllRequestHandlers(EssentialDependencyCheck<IOAuthCredentials>.Instance, apiUri));
 
 			var requestData = new RequestData
 				{
@@ -147,9 +146,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 
 			A.CallTo(() => apiUri.Uri).MustHaveHappened(Repeated.Exactly.Once);
 
-			A.CallTo(() => _httpClient.Get(
-				A<GetRequest>.That.Matches(x => x.Url.ToString().Contains(expectedApiUri))))
-				.MustHaveHappened(Repeated.Exactly.Once);
+			A.CallTo(() => _httpClient.Get(A<GetRequest>.That.Matches(x => x.Url.ToString().Contains(expectedApiUri)))).MustHaveHappened(Repeated.Exactly.Once);
 		}
 
 		[Test]

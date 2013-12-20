@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SevenDigital.Api.Schema.OAuth;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Http;
 
@@ -8,12 +9,18 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 	public class PostRequestHandler : RequestHandler
 	{
 		private readonly IOAuthCredentials _oAuthCredentials;
-		private readonly IUrlSigner _urlSigner;
+		private readonly ISignatureGenerator _signatureGenerator;
 
-		public PostRequestHandler(IApiUri apiUri, IOAuthCredentials oAuthCredentials, IUrlSigner urlSigner) : base(apiUri)
+		public PostRequestHandler(IApiUri apiUri, IOAuthCredentials oAuthCredentials, ISignatureGenerator signatureGenerator)
+			: base(apiUri)
 		{
 			_oAuthCredentials = oAuthCredentials;
-			_urlSigner = urlSigner;
+			_signatureGenerator = signatureGenerator;
+		}
+
+		public override bool HandlesMethod(string method)
+		{
+			return method == "POST";
 		}
 
 		public override Response HitEndpoint(RequestData requestData)
@@ -21,6 +28,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			var postRequest = BuildPostRequest(requestData);
 			return HttpClient.Post(postRequest);
 		}
+
 		public override void HitEndpointAsync(RequestData requestData, Action<Response> action)
 		{
 			var postRequest = BuildPostRequest(requestData);
@@ -37,11 +45,20 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		private IDictionary<string, string> SignHttpPostParams(string uri, RequestData requestData)
 		{
-			if (requestData.IsSigned)
+			if (!requestData.IsSigned)
 			{
-				return _urlSigner.SignPostRequest(uri, requestData.UserToken, requestData.TokenSecret, _oAuthCredentials, requestData.Parameters);
+				return requestData.Parameters;
 			}
-			return requestData.Parameters;
+			var oAuthSignatureInfo = new OAuthSignatureInfo
+			{
+				FullUrlToSign = uri,
+				ConsumerCredentials = _oAuthCredentials,
+				HttpMethod = "POST",
+				UserAccessToken = new OAuthAccessToken { Token = requestData.UserToken, Secret = requestData.TokenSecret },
+				PostData = requestData.Parameters
+			};
+
+			return _signatureGenerator.SignWithPostData(oAuthSignatureInfo);
 		}
 
 		protected override string AdditionalParameters(Dictionary<string, string> newDictionary)

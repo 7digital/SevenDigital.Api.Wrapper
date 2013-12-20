@@ -54,7 +54,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 
 			string normalizedRequestParameters;
 			string normalizedUrl;
-
+			
 			var signature = _oAuthBase.GenerateSignature(new Uri(oAuthSignatureInfo.FullUrlToSign),
 			                                             oAuthSignatureInfo.ConsumerCredentials.ConsumerKey,
 			                                             oAuthSignatureInfo.ConsumerCredentials.ConsumerSecret,
