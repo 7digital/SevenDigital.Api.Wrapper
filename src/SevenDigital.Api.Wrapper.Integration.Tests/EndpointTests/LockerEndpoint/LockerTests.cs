@@ -32,7 +32,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 		public void Should_get_specific_users_release()
 		{
 			var locker = Api<Locker>.Create
-				.ForReleaseId(343418)
+				.ForReleaseId(2830094)
 				.ForUser(_token, _tokenSecret)
 				.Please();
 
@@ -43,8 +43,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 		public void Should_get_specific_users_track()
 		{
 			var locker = Api<Locker>.Create
-				.ForReleaseId(343418)
-				.ForTrackId(3846716)
+				.ForReleaseId(2830094)
+				.ForTrackId(30317180)
 				.ForUser(_token, _tokenSecret)
 				.Please();
 

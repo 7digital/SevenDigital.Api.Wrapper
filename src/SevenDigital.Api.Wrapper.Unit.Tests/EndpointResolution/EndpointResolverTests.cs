@@ -3,7 +3,7 @@ using System.Net;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
-using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
+using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;
 using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
@@ -22,8 +22,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 			var apiUri = A.Fake<IApiUri>();
 			A.CallTo(() => apiUri.Uri)
 				.Returns("http://uri/");
-
-			_requestCoordinator = new RequestCoordinator(httpClient, new UrlSigner(new OAuthSignatureGenerator()), new AppSettingsCredentials(), apiUri);
+			var allRequestHandlers = RequestHandlerFactory.AllRequestHandlers(new AppSettingsCredentials(), apiUri);
+			//var allRequestHandlers = new List<RequestHandler>(){A.Fake<RequestHandler>()};
+			_requestCoordinator = new RequestCoordinator(httpClient, allRequestHandlers);
 		}
 
 		[Test]

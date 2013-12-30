@@ -19,6 +19,8 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			_apiUri = apiUri;
 		}
 
+		public abstract bool HandlesMethod(string method);
+
 		public IHttpClient HttpClient { get; set; }
 
 		public virtual string ConstructEndpoint(RequestData requestData)
