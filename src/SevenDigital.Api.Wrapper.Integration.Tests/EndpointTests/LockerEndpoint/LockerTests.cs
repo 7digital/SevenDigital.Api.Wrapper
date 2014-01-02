@@ -1,4 +1,3 @@
-using System.Configuration;
 using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.LockerEndpoint;
@@ -8,13 +7,13 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 	[TestFixture]
 	public class LockerTests
 	{
-		private readonly string _token = ConfigurationManager.AppSettings["Integration.Tests.AccessToken"];
-		private readonly string _tokenSecret = ConfigurationManager.AppSettings["Integration.Tests.AccessTokenSecret"];
+		private readonly string _token = TestDataFromEnvironmentOrAppSettings.AccessToken;
+		private readonly string _tokenSecret = TestDataFromEnvironmentOrAppSettings.AccessTokenSecret;
 
 		[SetUp]
-		public void RunOnce() 
+		public void RunOnce()
 		{
-			if(string.IsNullOrEmpty(_token) || string.IsNullOrEmpty(_tokenSecret))
+			if (string.IsNullOrEmpty(_token) || string.IsNullOrEmpty(_tokenSecret))
 				Assert.Ignore("these tests need an access token and secret to run");
 		}
 

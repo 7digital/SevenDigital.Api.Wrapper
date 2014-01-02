@@ -88,6 +88,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Http\GzipHttpClientTests.cs" />
     <Compile Include="Http\HttpClientWrapperTests.cs" />
+    <Compile Include="TestDataFromEnvironmentOrAppSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">
