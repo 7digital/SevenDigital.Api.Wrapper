@@ -19,34 +19,37 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 
 		public string ConstructEndpoint(RequestData requestData)
 		{
-			return ConstructBuilder(requestData).ConstructEndpoint(requestData);
+			var requestHandler = FindRequestHandler(requestData.HttpMethod);
+			return requestHandler.ConstructEndpoint(requestData);
 		}
 
-		private RequestHandler ConstructBuilder(RequestData requestData)
+		private RequestHandler FindRequestHandler(string httpMethod)
 		{
-			var upperInvariant = requestData.HttpMethod.ToUpperInvariant();
+			var upperHttpMethodName = httpMethod.ToUpperInvariant();
 			foreach (var requestHandler in _requestHandlers)
 			{
-				if (requestHandler.HandlesMethod(upperInvariant))
+				if (requestHandler.HandlesMethod(upperHttpMethodName))
 				{
 					return requestHandler;
 				}
 			}
-			throw new NotImplementedException("No RequestHandlers supplied that can deal with this method");
+
+			string errorMessage = string.Format("No RequestHandler supplied for method '{0}'", upperHttpMethodName);
+			throw new NotImplementedException(errorMessage);
 		}
 
 		public virtual Response HitEndpoint(RequestData requestData)
 		{
-			var builder = ConstructBuilder(requestData);
-			builder.HttpClient = HttpClient;
-			return builder.HitEndpoint(requestData);
+			var requestHandler = FindRequestHandler(requestData.HttpMethod);
+			requestHandler.HttpClient = HttpClient;
+			return requestHandler.HitEndpoint(requestData);
 		}
 
 		public virtual void HitEndpointAsync(RequestData requestData, Action<Response> callback)
 		{
-			var builder = ConstructBuilder(requestData);
-			builder.HttpClient = HttpClient;
-			builder.HitEndpointAsync(requestData, callback);
+			var requestHandler = FindRequestHandler(requestData.HttpMethod);
+			requestHandler.HttpClient = HttpClient;
+			requestHandler.HitEndpointAsync(requestData, callback);
 		}
 	}
 }
