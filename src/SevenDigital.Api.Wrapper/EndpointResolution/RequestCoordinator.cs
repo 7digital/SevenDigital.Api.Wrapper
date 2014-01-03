@@ -17,10 +17,10 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			_requestHandlers = requestHandlers;
 		}
 
-		public string ConstructEndpoint(RequestData requestData)
+		public string GetDebugUri(RequestData requestData)
 		{
 			var requestHandler = FindRequestHandler(requestData.HttpMethod);
-			return requestHandler.ConstructEndpoint(requestData);
+			return requestHandler.GetDebugUri(requestData);
 		}
 
 		private RequestHandler FindRequestHandler(string httpMethod)

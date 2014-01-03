@@ -31,7 +31,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		}
 
 		[Test]
-		public void Should_fire_resolve_with_correct_values()
+		public void Should_fire_resolve_with_correct_url_and_consumer()
 		{
 			A.CallTo(() => _httpClient.Get(A<GetRequest>.Ignored))
 				.Returns(new Response(HttpStatusCode.OK, SERVICE_STATUS));
@@ -40,7 +40,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			var expectedHeaders = new Dictionary<string, string>();
 			var expected = string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey);
 
-			var requestData = new RequestData { UriPath = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
+			var requestData = new RequestData { Endpoint = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
 
 			_requestCoordinator.HitEndpoint(requestData);
 
@@ -57,17 +57,18 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 
 			const string unEncodedParameterValue = "Alive & Amplified";
 
-			const string expectedParameterValue = "Alive%20%26%20Amplified";
-			var expectedHeaders = new Dictionary<string, string>();
-			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
-			var expected = string.Format("{0}/test?oauth_consumer_key={1}&q={2}", API_URL, _consumerKey, expectedParameterValue);
+			const string encodedParameter = "q=Alive%20%26%20Amplified";
 
-			var requestData = new RequestData { UriPath = "test", HttpMethod = "GET", Headers = expectedHeaders, Parameters = testParameters };
+			var expectedHeaders = new Dictionary<string, string>();
+			
+			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
+
+			var requestData = new RequestData { Endpoint = "test", HttpMethod = "GET", Headers = expectedHeaders, Parameters = testParameters };
 
 			_requestCoordinator.HitEndpoint(requestData);
 
 			A.CallTo(() => _httpClient
-					.Get(A<GetRequest>.That.Matches(y => y.Url == expected)))
+					.Get(A<GetRequest>.That.Matches(y => y.Url.Contains(encodedParameter))))
 					.MustHaveHappened();
 		}
 
@@ -76,13 +77,13 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		{
 			var endPointState = new RequestData
 				{
-					UriPath = "{slug}", 
+					Endpoint = "{slug}", 
 					HttpMethod = "GET", 
 					Parameters = new Dictionary<string, string> { { "slug", "something" } }
 				};
-			var result = _requestCoordinator.ConstructEndpoint(endPointState);
+			var result = _requestCoordinator.GetDebugUri(endPointState);
 
-			Assert.That(result, Is.EqualTo(_requestCoordinator.ConstructEndpoint(endPointState)));
+			Assert.That(result, Is.EqualTo(_requestCoordinator.GetDebugUri(endPointState)));
 		}
 
 		[Test]
@@ -137,7 +138,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 
 			var requestData = new RequestData
 				{
-					UriPath = "test", 
+					Endpoint = "test", 
 					HttpMethod = "GET", 
 					Headers = new Dictionary<string, string>()
 				};
@@ -150,19 +151,29 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		}
 
 		[Test]
-		public void Construct_url_should_combine_url_and_query_params_for_get_requests()
+		public void Debug_uri_should_combine_url_and_consumer_key_for_get_requests()
 		{
 			const string uriPath = "something";
-			var result = _requestCoordinator.ConstructEndpoint(new RequestData { UriPath = uriPath });
+			var result = _requestCoordinator.GetDebugUri(new RequestData { Endpoint = uriPath });
 
 			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath + "?oauth_consumer_key=" + _consumerKey));
 		}
 
 		[Test]
-		public void Construct_url_should_combine_url_and_not_query_params_for_post_requests()
+		public void Debug_uri_should_combine_url_and_and_consumer_key_and_query_params_for_get_requests()
 		{
 			const string uriPath = "something";
-			var result = _requestCoordinator.ConstructEndpoint(new RequestData { UriPath = uriPath,HttpMethod = "POST" });
+			var parameters = new Dictionary<string, string> { { "foo", "bar" } };
+			var result = _requestCoordinator.GetDebugUri(new RequestData { Endpoint = uriPath, Parameters = parameters });
+
+			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath + "?oauth_consumer_key=" + _consumerKey + "&foo=bar"));
+		}
+
+		[Test]
+		public void Debug_uri_should_combine_url_and_not_query_params_for_post_requests()
+		{
+			const string uriPath = "something";
+			var result = _requestCoordinator.GetDebugUri(new RequestData { Endpoint = uriPath,HttpMethod = "POST" });
 
 			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath ));
 		}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using OAuth;
 using SevenDigital.Api.Schema.OAuth;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Http;
@@ -34,6 +35,16 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			HttpClient.GetAsync(getRequest, response => action(response));
 		}
 
+		public override string GetDebugUri(RequestData requestData)
+		{
+			var apiRequest = ConstructEndpoint(requestData);
+
+			return string.Format("{0}?oauth_consumer_key={1}&{2}", 
+								apiRequest.AbsoluteUrl, 
+								_oAuthCredentials.ConsumerKey,
+								apiRequest.Parameters.ToQueryString(true)).TrimEnd('&');
+		}
+
 		private GetRequest BuildGetRequest(RequestData requestData)
 		{
 			var uri = ConstructEndpoint(requestData);
@@ -42,26 +53,31 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			return getRequest;
 		}
 
-		private string SignHttpGetUrl(string uri, RequestData requestData)
+		private string SignHttpGetUrl(ApiRequest apiRequest, RequestData requestData)
 		{
-			if (!requestData.IsSigned)
+			if (!requestData.RequiresSignature)
 			{
-				return uri;
+				apiRequest.Parameters.Add("oauth_consumer_key", _oAuthCredentials.ConsumerKey);
+				return apiRequest.FullUrl;
 			}
-			
-			var oAuthSignatureInfo = new OAuthSignatureInfo
-			{
-				FullUrlToSign = uri,
-				ConsumerCredentials = _oAuthCredentials,
-				HttpMethod = "GET",
-				UserAccessToken = new OAuthAccessToken { Token = requestData.UserToken, Secret = requestData.TokenSecret }
-			};
-			return _signatureGenerator.Sign(oAuthSignatureInfo);
-		}
 
-		protected override string AdditionalParameters(Dictionary<string, string> newDictionary)
-		{
-			return string.Format("?oauth_consumer_key={0}&{1}", _oAuthCredentials.ConsumerKey, newDictionary.ToQueryString(true)).TrimEnd('&');
+			var oauthRequest = new OAuthRequest
+				{
+					Type = OAuthRequestType.ProtectedResource,
+					RequestUrl = apiRequest.AbsoluteUrl,
+					Method = "GET",
+					ConsumerKey = _oAuthCredentials.ConsumerKey,
+					ConsumerSecret = _oAuthCredentials.ConsumerSecret,
+				};
+
+			if (!string.IsNullOrEmpty(requestData.UserToken))
+			{
+				oauthRequest.Token = requestData.UserToken;
+				oauthRequest.TokenSecret = requestData.TokenSecret;
+			}
+
+			return apiRequest.AbsoluteUrl + "?" + oauthRequest.GetAuthorizationQuery(apiRequest.Parameters) +
+					apiRequest.Parameters.ToQueryString(true);
 		}
 	}
 }

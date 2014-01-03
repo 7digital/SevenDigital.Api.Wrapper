@@ -20,8 +20,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		public void Setup()
 		{
 			_apiUri = A.Fake<IApiUri>();
-			A.CallTo(() => _apiUri.Uri).Returns("http://testuri.com/");
-			A.CallTo(() => _apiUri.SecureUri).Returns("https://securetesturi.com/");
+			A.CallTo(() => _apiUri.Uri).Returns("http://testuri.com");
+			A.CallTo(() => _apiUri.SecureUri).Returns("https://securetesturi.com");
 
 			_oAuthCredentials = A.Fake<IOAuthCredentials>();
 			A.CallTo(() => _oAuthCredentials.ConsumerKey).Returns("testkey");
@@ -36,25 +36,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		}
 
 		[Test]
-		public void Should_return_uri_when_ConstructEndpoint_is_called()
-		{
-			var data = GetRequest();
-			
-			var endpoint = _handler.ConstructEndpoint(data);
-
-			Assert.That(endpoint, Is.Not.Empty);
-			Assert.That(endpoint, Is.StringContaining("testpath"));
-		}
-
-		[Test]
-		public void Should_use_non_secure_api_uri_by_default()
+		public void Should_construct_api_absolute_path_from_base_uri_and_specified_endpoint()
 		{
 			var data = GetRequest();
 
-			_handler.ConstructEndpoint(data);
-
-			A.CallTo(() => _apiUri.Uri).MustHaveHappened();
-			A.CallTo(() => _apiUri.SecureUri).MustNotHaveHappened();
+			 _handler.HitEndpoint(data);
+			 A.CallTo(() => _httpClient.Get(A<GetRequest>.That.Matches(p => p.Url.StartsWith("http://testuri.com/testpath")))).MustHaveHappened();
 		}
 
 		[Test]
@@ -63,51 +50,44 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			var data = GetRequest();
 			data.UseHttps = true;
 
-			_handler.ConstructEndpoint(data);
+			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _apiUri.Uri).MustNotHaveHappened();
-			A.CallTo(() => _apiUri.SecureUri).MustHaveHappened();
+			A.CallTo(() => _httpClient.Get(A<GetRequest>.That.Matches(p => p.Url.StartsWith("https://securetesturi.com/testpath")))).MustHaveHappened();
 		}
 
 		[Test]
-		public void Should_put_consumer_key_on_constructed_endpoint()
+		public void Should_not_sign_request_that_does_not_require_it()
 		{
 			var data = GetRequest();
-
-			_handler.ConstructEndpoint(data);
-
-			A.CallTo(() => _oAuthCredentials.ConsumerKey).MustHaveHappened();
-			A.CallTo(() => _oAuthCredentials.ConsumerSecret).MustNotHaveHappened();
-		}
-
-		[Test]
-		public void Should_not_sign_constructed_endpoint()
-		{
-			var data = GetRequest();
-
-			_handler.ConstructEndpoint(data);
-
-			A.CallTo(() => _signatureGenerator.Sign(A<OAuthSignatureInfo>.Ignored)).MustNotHaveHappened();
-		}
-
-		[Test]
-		public void Should_sign_request_when_hit_endpoint()
-		{
-			var data = GetRequest();
+			data.RequiresSignature = false;
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _signatureGenerator.Sign(A<OAuthSignatureInfo>.Ignored)).MustHaveHappened();
+			A.CallTo(() => _httpClient.Get(A<GetRequest>.That.Matches(p => p.Url.Contains("oauth_signature")))).MustNotHaveHappened();
 		}
 
 		[Test]
-		public void Should_use_http_client_to_hit_endpoint()
+		public void Should_sign_request_when_required()
 		{
 			var data = GetRequest();
+			data.RequiresSignature = true;
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Get(A<GetRequest>.Ignored)).MustHaveHappened();
+			A.CallTo(() => _httpClient.Get(A<GetRequest>.That.Matches(p => p.Url.Contains("oauth_signature")))).MustHaveHappened();
+		}
+
+		[Test]
+		public void Should_sign_request_with_oauth_token_if_provided()
+		{
+			var data = GetRequest();
+			data.RequiresSignature = true;
+			data.UserToken = "tokenKey";
+			data.TokenSecret = "tokenSecret";
+
+			_handler.HitEndpoint(data);
+
+			A.CallTo(() => _httpClient.Get(A<GetRequest>.That.Matches(p => p.Url.Contains("oauth_token=tokenKey")))).MustHaveHappened();
 		}
 
 		private static RequestData GetRequest()
@@ -115,9 +95,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			return new RequestData
 			{
 				HttpMethod = "GET",
-				UriPath = "testpath",
+				Endpoint = "testpath",
 				UseHttps = false,
-				IsSigned = true
 			};
 		}
 	}
