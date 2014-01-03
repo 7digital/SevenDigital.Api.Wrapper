@@ -124,7 +124,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual string EndpointUrl
 		{
-			get { return _requestCoordinator.ConstructEndpoint(_requestData); }
+			get { return _requestCoordinator.GetDebugUri(_requestData); }
 		}
 
 		public virtual void PleaseAsync(Action<T> callback)

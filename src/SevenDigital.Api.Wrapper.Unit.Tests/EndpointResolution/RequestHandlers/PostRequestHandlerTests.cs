@@ -20,8 +20,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		public void Setup()
 		{
 			_apiUri = A.Fake<IApiUri>();
-			A.CallTo(() => _apiUri.Uri).Returns("http://testuri.com/");
-			A.CallTo(() => _apiUri.SecureUri).Returns("https://securetesturi.com/");
+			A.CallTo(() => _apiUri.Uri).Returns("http://testuri.com");
+			A.CallTo(() => _apiUri.SecureUri).Returns("https://securetesturi.com");
 
 			_oAuthCredentials = A.Fake<IOAuthCredentials>();
 			A.CallTo(() => _oAuthCredentials.ConsumerKey).Returns("testkey");
@@ -39,11 +39,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		public void Should_return_uri_when_ConstructEndpoint_is_called()
 		{
 			var data = PostRequest();
+			data.RequiresSignature = false;
+			_handler.HitEndpoint(data);
 
-			var endpoint = _handler.ConstructEndpoint(data);
-
-			Assert.That(endpoint, Is.Not.Empty);
-			Assert.That(endpoint, Is.StringContaining("testpath"));
+			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Url.StartsWith("http://testuri.com/testpath")))).MustHaveHappened();
 		}
 
 		[Test]
@@ -51,7 +50,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		{
 			var data = PostRequest();
 
-			_handler.ConstructEndpoint(data);
+			_handler.HitEndpoint(data);
 
 			A.CallTo(() => _apiUri.Uri).MustHaveHappened();
 			A.CallTo(() => _apiUri.SecureUri).MustNotHaveHappened();
@@ -63,7 +62,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			var data = PostRequest();
 			data.UseHttps = true;
 
-			_handler.ConstructEndpoint(data);
+			_handler.HitEndpoint(data);
 
 			A.CallTo(() => _apiUri.Uri).MustNotHaveHappened();
 			A.CallTo(() => _apiUri.SecureUri).MustHaveHappened();
@@ -74,7 +73,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		{
 			var data = PostRequest();
 
-			_handler.ConstructEndpoint(data);
+			_handler.HitEndpoint(data);
 
 			A.CallTo(() => _oAuthCredentials.ConsumerKey).MustNotHaveHappened();
 			A.CallTo(() => _oAuthCredentials.ConsumerSecret).MustNotHaveHappened();
@@ -85,7 +84,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		{
 			var data = PostRequest();
 
-			_handler.ConstructEndpoint(data);
+			_handler.HitEndpoint(data);
 
 			A.CallTo(() => _signatureGenerator.Sign(A<OAuthSignatureInfo>.Ignored)).MustNotHaveHappened();
 		}
@@ -115,9 +114,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			return new RequestData
 			{
 				HttpMethod = "POST",
-				UriPath = "testpath",
+				Endpoint = "testpath",
 				UseHttps = false,
-				IsSigned = true
+				RequiresSignature = true
 			};
 		}
 	}

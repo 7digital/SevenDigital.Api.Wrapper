@@ -35,17 +35,23 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			HttpClient.PostAsync(postRequest,response => action(response));
 		}
 
+		public override string GetDebugUri(RequestData requestData)
+		{
+			var apiRequest = MakeApiRequest(requestData);
+			return apiRequest.AbsoluteUrl;
+		}
+
 		private PostRequest BuildPostRequest(RequestData requestData)
 		{
-			var uri = ConstructEndpoint(requestData);
-			var signedParams = SignHttpPostParams(uri, requestData);
-			var postRequest = new PostRequest(uri, requestData.Headers, signedParams);
+			var apiRequest = MakeApiRequest(requestData);
+			var signedParams = SignHttpPostParams(apiRequest.AbsoluteUrl, requestData);
+			var postRequest = new PostRequest(apiRequest.AbsoluteUrl, requestData.Headers, signedParams);
 			return postRequest;
 		}
 
 		private IDictionary<string, string> SignHttpPostParams(string uri, RequestData requestData)
 		{
-			if (!requestData.IsSigned)
+			if (!requestData.RequiresSignature)
 			{
 				return requestData.Parameters;
 			}
@@ -59,11 +65,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			};
 
 			return _signatureGenerator.SignWithPostData(oAuthSignatureInfo);
-		}
-
-		protected override string AdditionalParameters(Dictionary<string, string> newDictionary)
-		{
-			return String.Empty;
 		}
 	}
 }

@@ -29,7 +29,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			new FluentApi<Status>(requestCoordinator).Please();
 
 			Expression<Func<Response>> callWithEndpointStatus =
-				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.UriPath == "status"));
+				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.Endpoint == "status"));
 
 			A.CallTo(callWithEndpointStatus).MustHaveHappened(Repeated.Exactly.Once);
 		}
@@ -107,7 +107,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			var requestCoordinator = A.Fake<IRequestCoordinator>();
 			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).Throws<WebException>();
-			A.CallTo(() => requestCoordinator.ConstructEndpoint(A<RequestData>.Ignored)).Returns(url);
+			A.CallTo(() => requestCoordinator.GetDebugUri(A<RequestData>.Ignored)).Returns(url);
 
 			var ex = Assert.Throws<ApiWebException>(() => new FluentApi<Status>(requestCoordinator).Please());
 
@@ -183,7 +183,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var requestCoordinator = A.Fake<IRequestCoordinator>();
 			var cache = new FakeCache();
 			A.CallTo(() => requestCoordinator.HitEndpoint(A<RequestData>.Ignored)).Throws<WebException>();
-			A.CallTo(() => requestCoordinator.ConstructEndpoint(A<RequestData>.Ignored)).Returns("http://foo.com/bar");
+			A.CallTo(() => requestCoordinator.GetDebugUri(A<RequestData>.Ignored)).Returns("http://foo.com/bar");
 
 			var api = new FluentApi<Status>(requestCoordinator).UsingCache(cache);
 
@@ -211,7 +211,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			callback(StubPayload);
 		}
 
-		public string ConstructEndpoint(RequestData requestData)
+		public string GetDebugUri(RequestData requestData)
 		{
 			throw new NotImplementedException();
 		}

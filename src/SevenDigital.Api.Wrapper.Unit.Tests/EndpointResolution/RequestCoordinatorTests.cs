@@ -31,14 +31,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		{
 			var requestData = new RequestData
 			{
-				UriPath = "something/{route}",
+				Endpoint = "something/{route}",
 				Parameters = new Dictionary<string, string>
 					{
 						{"route","routevalue"}
 					}
 			};
 
-			var result = _requestCoordinator.ConstructEndpoint(requestData);
+			var result = _requestCoordinator.GetDebugUri(requestData);
 
 			Assert.That(result,Is.StringContaining("something/routevalue"));
 		}
@@ -48,7 +48,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		{
 			var requestData = new RequestData
 			{
-				UriPath = "something/{firstRoute}/{secondRoute}/thrid/{thirdRoute}",
+				Endpoint = "something/{firstRoute}/{secondRoute}/thrid/{thirdRoute}",
 				Parameters = new Dictionary<string, string>
 					{
 						{"firstRoute" , "firstValue"},
@@ -58,7 +58,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 					}
 			};
 
-			var result = _requestCoordinator.ConstructEndpoint(requestData);
+			var result = _requestCoordinator.GetDebugUri(requestData);
 
 			Assert.That(result, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
 		}
@@ -68,7 +68,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		{
 			var requestData = new RequestData
 			{
-				UriPath = "something/{firstRoUte}/{secOndrouTe}/thrid/{tHirdRoute}",
+				Endpoint = "something/{firstRoUte}/{secOndrouTe}/thrid/{tHirdRoute}",
 				Parameters = new Dictionary<string, string>
 					{
 						{"firstRoute" , "firstValue"},
@@ -78,7 +78,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 					}
 			};
 
-			var result = _requestCoordinator.ConstructEndpoint(requestData);
+			var result = _requestCoordinator.GetDebugUri(requestData);
 
 			Assert.That(result, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
 		}
@@ -88,14 +88,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		{
 			var requestData = new RequestData
 			{
-				UriPath = "something/{route-66}",
+				Endpoint = "something/{route-66}",
 				Parameters = new Dictionary<string, string>
 					{
 						{"route-66","routevalue"}
 					}
 			};
 
-			var result = _requestCoordinator.ConstructEndpoint(requestData);
+			var result = _requestCoordinator.GetDebugUri(requestData);
 
 			Assert.That(result, Is.StringContaining("something/routevalue"));
 		}
@@ -105,14 +105,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 		{
 			var requestData = new RequestData
 			{
-				UriPath = "something/{route-66}",
+				Endpoint = "something/{route-66}",
 				Parameters = new Dictionary<string, string>
 					{
 						{"route-66","routevalue"}
 					}
 			};
 
-			var result = _requestCoordinator.ConstructEndpoint(requestData);
+			var result = _requestCoordinator.GetDebugUri(requestData);
 
 			Assert.That(result, Is.Not.StringContaining("route-66=routevalue"));
 		}

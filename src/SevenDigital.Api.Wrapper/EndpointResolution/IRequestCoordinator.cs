@@ -8,7 +8,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 		Response HitEndpoint(RequestData requestData);
 		void HitEndpointAsync(RequestData requestData, Action<Response> callback);
 
-		string ConstructEndpoint(RequestData requestData);
+		string GetDebugUri(RequestData requestData);
 		IHttpClient HttpClient { get; set; }
 	}
 }
