@@ -166,7 +166,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			var parameters = new Dictionary<string, string> { { "foo", "bar" } };
 			var result = _requestCoordinator.GetDebugUri(new RequestData { Endpoint = uriPath, Parameters = parameters });
 
-			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath + "?oauth_consumer_key=" + _consumerKey + "&foo=bar"));
+			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath + "?foo=bar&oauth_consumer_key=" + _consumerKey ));
 		}
 
 		[Test]

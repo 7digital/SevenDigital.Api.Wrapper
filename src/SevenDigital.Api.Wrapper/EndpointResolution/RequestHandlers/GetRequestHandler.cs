@@ -39,10 +39,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		{
 			var apiRequest = ConstructEndpoint(requestData);
 
-			return string.Format("{0}?oauth_consumer_key={1}&{2}", 
-								apiRequest.AbsoluteUrl, 
-								_oAuthCredentials.ConsumerKey,
-								apiRequest.Parameters.ToQueryString(true)).TrimEnd('&');
+			apiRequest.Parameters.Add("oauth_consumer_key", _oAuthCredentials.ConsumerKey);
+
+			return apiRequest.FullUrl;
 		}
 
 		private GetRequest BuildGetRequest(RequestData requestData)
