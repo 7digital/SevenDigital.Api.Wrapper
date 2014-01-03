@@ -37,13 +37,13 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		public override string GetDebugUri(RequestData requestData)
 		{
-			var apiRequest = ConstructEndpoint(requestData);
+			var apiRequest = MakeApiRequest(requestData);
 			return apiRequest.AbsoluteUrl;
 		}
 
 		private PostRequest BuildPostRequest(RequestData requestData)
 		{
-			var apiRequest = ConstructEndpoint(requestData);
+			var apiRequest = MakeApiRequest(requestData);
 			var signedParams = SignHttpPostParams(apiRequest.AbsoluteUrl, requestData);
 			var postRequest = new PostRequest(apiRequest.AbsoluteUrl, requestData.Headers, signedParams);
 			return postRequest;

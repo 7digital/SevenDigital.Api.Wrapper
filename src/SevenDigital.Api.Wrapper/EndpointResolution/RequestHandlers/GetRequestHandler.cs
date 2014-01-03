@@ -37,7 +37,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		public override string GetDebugUri(RequestData requestData)
 		{
-			var apiRequest = ConstructEndpoint(requestData);
+			var apiRequest = MakeApiRequest(requestData);
 
 			apiRequest.Parameters.Add("oauth_consumer_key", _oAuthCredentials.ConsumerKey);
 
@@ -46,8 +46,8 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		private GetRequest BuildGetRequest(RequestData requestData)
 		{
-			var uri = ConstructEndpoint(requestData);
-			var signedUrl = SignHttpGetUrl(uri, requestData);
+			var apiRequest = MakeApiRequest(requestData);
+			var signedUrl = SignHttpGetUrl(apiRequest, requestData);
 			var getRequest = new GetRequest(signedUrl, requestData.Headers);
 			return getRequest;
 		}

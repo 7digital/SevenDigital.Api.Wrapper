@@ -23,7 +23,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		public IHttpClient HttpClient { get; set; }
 
-		protected ApiRequest ConstructEndpoint(RequestData requestData)
+		protected ApiRequest MakeApiRequest(RequestData requestData)
 		{
 			var apiBaseUri = requestData.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
 
