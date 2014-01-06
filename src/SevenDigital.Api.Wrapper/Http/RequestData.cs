@@ -5,7 +5,7 @@ namespace SevenDigital.Api.Wrapper.Http
 {
 	public class RequestData
 	{
-		public string UriPath { get; set; }
+		public string Endpoint { get; set; }
 
 		public string HttpMethod { get; set; }
 
@@ -22,15 +22,16 @@ namespace SevenDigital.Api.Wrapper.Http
 		[Obsolete("Use TokenSecret")]
 		public string UserSecret { get { return TokenSecret; } set { TokenSecret = value; } }
 
-		public bool IsSigned { get; set; }
+		public bool RequiresSignature { get; set; }
 
 		public RequestData()
 		{
-			UriPath = string.Empty;
+			Endpoint = string.Empty;
 			HttpMethod = "GET";
 			Parameters = new Dictionary<string,string>();
 			Headers = new Dictionary<string,string>();
 			UseHttps = false;
+			RequiresSignature = false;
 		}
 	}
 }

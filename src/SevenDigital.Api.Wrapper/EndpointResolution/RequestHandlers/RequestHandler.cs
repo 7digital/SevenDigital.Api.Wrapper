@@ -29,7 +29,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 			var newDictionary = requestData.Parameters.ToDictionary(entry => entry.Key, entry => entry.Value);
 
-			var uriString = string.Format("{0}/{1}", apiUri, SubstituteRouteParameters(requestData.UriPath, newDictionary));
+			var uriString = string.Format("{0}/{1}", apiUri, SubstituteRouteParameters(requestData.Endpoint, newDictionary));
 
 			uriString = uriString + AdditionalParameters(newDictionary);
 			return uriString;

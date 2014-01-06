@@ -12,8 +12,8 @@ namespace SevenDigital.Api.Wrapper.AttributeManagement
 		{
 			var requestData = new RequestData();
 
-			requestData.UriPath = ParseApiEndpointAttribute();
-			requestData.IsSigned = ParseOAuthSignedAttribute();
+			requestData.Endpoint = ParseApiEndpointAttribute();
+			requestData.RequiresSignature = ParseOAuthSignedAttribute();
 			requestData.UseHttps = ParseRequireSecureAttribute();
 
 			if (ParseHttpPostAttribute() != null)
