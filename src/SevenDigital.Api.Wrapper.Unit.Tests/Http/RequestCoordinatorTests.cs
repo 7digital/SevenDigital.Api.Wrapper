@@ -60,7 +60,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			const string expectedParameterValue = "Alive%20%26%20Amplified";
 			var expectedHeaders = new Dictionary<string, string>();
 			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
-			var expected = string.Format("{0}/test?oauth_consumer_key={1}&q={2}", API_URL, _consumerKey, expectedParameterValue);
+			var expected = string.Format("{0}/test?q={2}&oauth_consumer_key={1}", API_URL, _consumerKey, expectedParameterValue);
 
 			var requestData = new RequestData { Endpoint = "test", HttpMethod = "GET", Headers = expectedHeaders, Parameters = testParameters };
 

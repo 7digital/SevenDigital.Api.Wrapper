@@ -27,7 +27,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			A.CallTo(() => _oAuthCredentials.ConsumerKey).Returns("testkey");
 			A.CallTo(() => _oAuthCredentials.ConsumerSecret).Returns("testsecret");
 
-			_signatureGenerator = A.Fake<ISignatureGenerator>();
+			_signatureGenerator = new OAuthSignatureGenerator();
 
 			_httpClient = A.Fake<IHttpClient>();
 
@@ -67,24 +67,54 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		}
 
 		[Test]
+		public void Should_put_oauth_consumer_key_in_parameters()
+		{
+			var data = PostRequest();
+			_handler.HitEndpoint(data);
+			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Parameters.ContainsKey("oauth_consumer_key")))).MustHaveHappened();
+		}
+
+		[Test]
+		public void Should_put_oauth_signature_in_parameters()
+		{
+			var data = PostRequest();
+			data.RequiresSignature = true;
+
+			_handler.HitEndpoint(data);
+			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Parameters.ContainsKey("oauth_signature")))).MustHaveHappened();
+		}
+
+		[Test]
 		public void Should_not_sign_constructed_endpoint()
 		{
 			var data = PostRequest();
 
 			_handler.HitEndpoint(data);
-
-			A.CallTo(() => _signatureGenerator.Sign(A<OAuthSignatureInfo>.Ignored)).MustNotHaveHappened();
+			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Parameters.ContainsKey("oauth_signature")))).MustNotHaveHappened();
 		}
 
 		[Test]
-		public void Should_sign_request_when_hit_endpoint()
+		public void Should_sign_request_if_required()
 		{
 			var data = PostRequest();
 			data.RequiresSignature = true;
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _signatureGenerator.SignWithPostData(A<OAuthSignatureInfo>.Ignored)).MustHaveHappened();
+			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Parameters.ContainsKey("oauth_signature")))).MustHaveHappened();
+		}
+
+		[Test]
+		public void Should_include_oauth_token_if_required()
+		{
+			var data = PostRequest();
+			data.RequiresSignature = true;
+			data.UserToken = "foo";
+			data.TokenSecret = "secret";
+
+			_handler.HitEndpoint(data);
+
+			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Parameters["oauth_token"] == "foo"))).MustHaveHappened();
 		}
 
 		[Test]
@@ -103,8 +133,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			{
 				HttpMethod = "POST",
 				Endpoint = "testpath",
-				UseHttps = false,
-				RequiresSignature = false
 			};
 		}
 	}

@@ -36,22 +36,23 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		private GetRequest BuildGetRequest(RequestData requestData)
 		{
-			var uri = ConstructEndpoint(requestData);
-			var signedUrl = SignHttpGetUrl(uri, requestData);
+			var apiRequest = MakeApiRequest(requestData);
+			var signedUrl = SignHttpGetUrl(apiRequest, requestData);
 			var getRequest = new GetRequest(signedUrl, requestData.Headers);
 			return getRequest;
 		}
 
-		private string SignHttpGetUrl(string uri, RequestData requestData)
+		private string SignHttpGetUrl(ApiRequest apiRequest, RequestData requestData)
 		{
 			if (!requestData.RequiresSignature)
 			{
-				return uri;
+				apiRequest.Parameters.Add("oauth_consumer_key", _oAuthCredentials.ConsumerKey);
+				return apiRequest.FullUri;
 			}
 			
 			var oAuthSignatureInfo = new OAuthSignatureInfo
 			{
-				FullUrlToSign = uri,
+				FullUrlToSign = apiRequest.FullUri,
 				ConsumerCredentials = _oAuthCredentials,
 				HttpMethod = "GET",
 				UserAccessToken = new OAuthAccessToken { Token = requestData.UserToken, Secret = requestData.TokenSecret }
@@ -59,9 +60,11 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			return _signatureGenerator.Sign(oAuthSignatureInfo);
 		}
 
-		protected override string AdditionalParameters(Dictionary<string, string> newDictionary)
+		public override string GetDebugUri(RequestData requestData)
 		{
-			return string.Format("?oauth_consumer_key={0}&{1}", _oAuthCredentials.ConsumerKey, newDictionary.ToQueryString(true)).TrimEnd('&');
+			var apiRequest = MakeApiRequest(requestData);
+			apiRequest.Parameters.Add("oauth_consumer_key", _oAuthCredentials.ConsumerKey);
+			return apiRequest.FullUri;
 		}
 	}
 }

@@ -54,6 +54,7 @@
     <Compile Include="EndpointResolution\OAuth\OAuthSignatureInfo.cs" />
     <Compile Include="EndpointResolution\OAuth\SignedRequest.cs" />
     <Compile Include="EndpointResolution\RequestHandlerFactory.cs" />
+    <Compile Include="EndpointResolution\RequestHandlers\ApiRequest.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\GetRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\PostRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\RequestHandler.cs" />

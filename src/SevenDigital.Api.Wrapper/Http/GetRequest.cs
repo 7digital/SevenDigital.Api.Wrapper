@@ -24,5 +24,10 @@ namespace SevenDigital.Api.Wrapper.Http
 		{
 			get { return _headers; }
 		}
+
+		public override string ToString()
+		{
+			return _url;
+		}
 	}
 }

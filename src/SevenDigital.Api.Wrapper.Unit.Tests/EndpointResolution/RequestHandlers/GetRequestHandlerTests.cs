@@ -1,4 +1,6 @@
-﻿using FakeItEasy;
+﻿using System;
+using FakeItEasy;
+using FakeItEasy.Configuration;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;
@@ -15,6 +17,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		private IHttpClient _httpClient;
 
 		private GetRequestHandler _handler;
+		private RequestData _requestData;
 
 		[SetUp]
 		public void Setup()
@@ -27,76 +30,96 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			A.CallTo(() => _oAuthCredentials.ConsumerKey).Returns("testkey");
 			A.CallTo(() => _oAuthCredentials.ConsumerSecret).Returns("testsecret");
 
-			_signatureGenerator = A.Fake<ISignatureGenerator>();
+			_signatureGenerator = new OAuthSignatureGenerator();
 
 			_httpClient = A.Fake<IHttpClient>();
 
 			_handler = new GetRequestHandler(_apiUri, _oAuthCredentials, _signatureGenerator);
 			_handler.HttpClient = _httpClient;
+			_requestData = new RequestData
+				{
+					HttpMethod = "GET",
+					Endpoint = "testpath",
+				};
 		}
 
 		[Test]
 		public void Should_use_non_secure_api_uri_by_default()
 		{
-			var data = GetRequest();
+			_handler.HitEndpoint(_requestData);
 
-			_handler.HitEndpoint(data);
-
-			A.CallTo(() => _httpClient.Get(A<GetRequest>.That.Matches(r => r.Url.StartsWith("http://example.com/testpath")))).MustHaveHappened();
+			ARequestToAUriMatching(uri => uri.GetLeftPart(UriPartial.Path) == "http://example.com/testpath").MustHaveHappened();
 		}
 
 		[Test]
 		public void Should_use_secure_uri_when_requested()
 		{
-			var data = GetRequest();
-			data.UseHttps = true;
+			_requestData.UseHttps = true;
 
-			_handler.HitEndpoint(data);
-
-			A.CallTo(() => _httpClient.Get(A<GetRequest>.That.Matches(r => r.Url.StartsWith("https://example.com/testpath")))).MustHaveHappened();
+			_handler.HitEndpoint(_requestData);
+			
+			ARequestToAUriMatching(uri => uri.GetLeftPart(UriPartial.Path) == "https://example.com/testpath").MustHaveHappened();
 		}
 
 		[Test]
 		public void Should_put_consumer_key_on_constructed_endpoint()
 		{
-			var data = GetRequest();
+			_handler.HitEndpoint(_requestData);
 
-			_handler.HitEndpoint(data);
+			ARequestToAUriMatching(uri => uri.AbsoluteUri == "http://example.com/testpath?oauth_consumer_key=testkey").MustHaveHappened();
+		}
 
-			A.CallTo(() => _oAuthCredentials.ConsumerKey).MustHaveHappened();
-			A.CallTo(() => _oAuthCredentials.ConsumerSecret).MustNotHaveHappened();
+		[Test]
+		public void Should_include_parameters_in_querystring()
+		{
+			_requestData.Parameters.Add("foo", "bar");
+			
+			_handler.HitEndpoint(_requestData);
+
+			ARequestToAUriMatching(uri => uri.Query.Contains("foo=bar")).MustHaveHappened();
+		}
+
+		[Test]
+		public void Should_substitute_route_parameters_for_supplied_values()
+		{
+			_requestData.Parameters.Add("foo", "bar");
+			_requestData.Endpoint = "test/{foo}/baz";
+
+			_handler.HitEndpoint(_requestData);
+
+			ARequestToAUriMatching(uri => uri.AbsolutePath == "/test/bar/baz").MustHaveHappened();
 		}
 
 		[Test]
 		public void Should_not_sign_url_if_not_required()
 		{
-			var data = GetRequest();
+			_handler.HitEndpoint(_requestData);
 
-			_handler.HitEndpoint(data);
-
-			A.CallTo(() => _signatureGenerator.Sign(A<OAuthSignatureInfo>.Ignored)).MustNotHaveHappened();
+			ARequestToAUriMatching(uri => uri.Query.Contains("oauth_signature")).MustNotHaveHappened();
 		}
 
 		[Test]
 		public void Should_sign_url_if_required()
 		{
-			var data = GetRequest();
-			data.RequiresSignature = true;
+			_requestData.RequiresSignature = true;
 
-			_handler.HitEndpoint(data);
-
-			A.CallTo(() => _signatureGenerator.Sign(A<OAuthSignatureInfo>.Ignored)).MustHaveHappened();
+			_handler.HitEndpoint(_requestData);
+			ARequestToAUriMatching(uri => uri.Query.Contains("oauth_signature")).MustHaveHappened();
 		}
 
-		private static RequestData GetRequest()
+		[Test]
+		public void Should_include_oauth_token_if_required()
 		{
-			return new RequestData
-			{
-				HttpMethod = "GET",
-				Endpoint = "testpath",
-				UseHttps = false,
-				RequiresSignature = false
-			};
+			_requestData.RequiresSignature = true;
+			_requestData.UserToken = "foo";
+			_requestData.TokenSecret = "bar";
+			_handler.HitEndpoint(_requestData);
+			ARequestToAUriMatching(uri => uri.Query.Contains("oauth_token=foo")).MustHaveHappened();
+		}
+
+		private IAssertConfiguration ARequestToAUriMatching(Func<Uri, bool> predicate)
+		{
+			return A.CallTo(() => _httpClient.Get(A<GetRequest>.That.Matches(g => predicate(new Uri(g.Url)))));
 		}
 	}
 }
