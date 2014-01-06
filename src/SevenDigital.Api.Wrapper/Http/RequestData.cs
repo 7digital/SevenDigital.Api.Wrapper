@@ -5,7 +5,7 @@ namespace SevenDigital.Api.Wrapper.Http
 {
 	public class RequestData
 	{
-		public string UriPath { get; set; }
+		public string Endpoint { get; set; }
 
 		public string HttpMethod { get; set; }
 
@@ -26,7 +26,7 @@ namespace SevenDigital.Api.Wrapper.Http
 
 		public RequestData()
 		{
-			UriPath = string.Empty;
+			Endpoint = string.Empty;
 			HttpMethod = "GET";
 			Parameters = new Dictionary<string,string>();
 			Headers = new Dictionary<string,string>();

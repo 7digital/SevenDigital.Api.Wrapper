@@ -12,7 +12,7 @@ namespace SevenDigital.Api.Wrapper.AttributeManagement
 		{
 			var requestData = new RequestData();
 
-			requestData.UriPath = ParseApiEndpointAttribute();
+			requestData.Endpoint = ParseApiEndpointAttribute();
 			requestData.IsSigned = ParseOAuthSignedAttribute();
 			requestData.UseHttps = ParseRequireSecureAttribute();
 

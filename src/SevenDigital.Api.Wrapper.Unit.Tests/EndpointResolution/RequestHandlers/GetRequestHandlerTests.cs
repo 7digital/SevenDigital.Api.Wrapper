@@ -115,7 +115,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			return new RequestData
 			{
 				HttpMethod = "GET",
-				UriPath = "testpath",
+				Endpoint = "testpath",
 				UseHttps = false,
 				IsSigned = true
 			};
