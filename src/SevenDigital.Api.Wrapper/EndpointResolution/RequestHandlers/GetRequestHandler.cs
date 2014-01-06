@@ -44,7 +44,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		private string SignHttpGetUrl(string uri, RequestData requestData)
 		{
-			if (!requestData.IsSigned)
+			if (!requestData.RequiresSignature)
 			{
 				return uri;
 			}
