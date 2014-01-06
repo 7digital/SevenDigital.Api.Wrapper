@@ -45,7 +45,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		private IDictionary<string, string> SignHttpPostParams(string uri, RequestData requestData)
 		{
-			if (!requestData.IsSigned)
+			if (!requestData.RequiresSignature)
 			{
 				return requestData.Parameters;
 			}

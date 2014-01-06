@@ -22,7 +22,7 @@ namespace SevenDigital.Api.Wrapper.Http
 		[Obsolete("Use TokenSecret")]
 		public string UserSecret { get { return TokenSecret; } set { TokenSecret = value; } }
 
-		public bool IsSigned { get; set; }
+		public bool RequiresSignature { get; set; }
 
 		public RequestData()
 		{

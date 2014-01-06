@@ -117,7 +117,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 				HttpMethod = "GET",
 				Endpoint = "testpath",
 				UseHttps = false,
-				IsSigned = true
+				RequiresSignature = true
 			};
 		}
 	}
