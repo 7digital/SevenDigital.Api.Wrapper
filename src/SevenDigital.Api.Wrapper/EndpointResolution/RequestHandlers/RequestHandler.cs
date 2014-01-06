@@ -23,7 +23,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		public IHttpClient HttpClient { get; set; }
 
-		public virtual string ConstructEndpoint(RequestData requestData)
+		protected string ConstructEndpoint(RequestData requestData)
 		{
 			var apiUri = requestData.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
 
@@ -48,6 +48,11 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			}
 
 			return endpointUri.ToLower();
+		}
+
+		public string GetDebugUri(RequestData requestData)
+		{
+			return ConstructEndpoint(requestData);
 		}
 	}
 }
