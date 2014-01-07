@@ -1,6 +1,5 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;
 using SevenDigital.Api.Wrapper.Http;
 
@@ -11,7 +10,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 	{
 		private IApiUri _apiUri;
 		private IOAuthCredentials _oAuthCredentials;
-		private ISignatureGenerator _signatureGenerator;
 		private IHttpClient _httpClient;
 
 		private PostRequestHandler _handler;
@@ -27,11 +25,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			A.CallTo(() => _oAuthCredentials.ConsumerKey).Returns("testkey");
 			A.CallTo(() => _oAuthCredentials.ConsumerSecret).Returns("testsecret");
 
-			_signatureGenerator = new OAuthSignatureGenerator();
-
 			_httpClient = A.Fake<IHttpClient>();
 
-			_handler = new PostRequestHandler(_apiUri, _oAuthCredentials, _signatureGenerator);
+			_handler = new PostRequestHandler(_apiUri, _oAuthCredentials);
 			_handler.HttpClient = _httpClient;
 		}
 

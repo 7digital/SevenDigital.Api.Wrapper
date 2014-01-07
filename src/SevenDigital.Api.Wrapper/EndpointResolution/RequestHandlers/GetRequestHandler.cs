@@ -1,5 +1,4 @@
 using System;
-using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Http;
 using OAuth;
 
@@ -8,12 +7,10 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 	public class GetRequestHandler : RequestHandler
 	{
 		private readonly IOAuthCredentials _oAuthCredentials;
-		private readonly ISignatureGenerator _signatureGenerator;
 
-		public GetRequestHandler(IApiUri apiUri, IOAuthCredentials oAuthCredentials, ISignatureGenerator signatureGenerator) : base(apiUri)
+		public GetRequestHandler(IApiUri apiUri, IOAuthCredentials oAuthCredentials) : base(apiUri)
 		{
 			_oAuthCredentials = oAuthCredentials;
-			_signatureGenerator = signatureGenerator;
 		}
 
 		public override bool HandlesMethod(string method)
