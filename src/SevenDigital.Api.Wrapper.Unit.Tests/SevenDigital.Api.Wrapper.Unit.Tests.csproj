@@ -84,7 +84,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReleaseEndpoint\ReleaseEndpointTests.cs" />
     <Compile Include="Http\FakeHttpClient.cs" />
-    <Compile Include="Http\NameValueExtensionsTests.cs" />
     <Compile Include="Http\RequestCoordinatorTests.cs" />
     <Compile Include="Http\DictionaryExtensionsTests.cs" />
     <Compile Include="Serialization\ApiResponseDetectorTests.cs" />
