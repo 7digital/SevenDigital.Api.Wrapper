@@ -71,7 +71,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		{
 			var data = PostRequest();
 			_handler.HitEndpoint(data);
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Parameters.ContainsKey("oauth_consumer_key")))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Body.Contains("oauth_consumer_key=testkey")))).MustHaveHappened();
 		}
 
 		[Test]
@@ -81,7 +81,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			data.RequiresSignature = true;
 
 			_handler.HitEndpoint(data);
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Parameters.ContainsKey("oauth_signature")))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Body.Contains("oauth_signature=")))).MustHaveHappened();
 		}
 
 		[Test]
@@ -90,7 +90,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			var data = PostRequest();
 
 			_handler.HitEndpoint(data);
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Parameters.ContainsKey("oauth_signature")))).MustNotHaveHappened();
+			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Body.Contains("oauth_signature=")))).MustNotHaveHappened();
 		}
 
 		[Test]
@@ -101,7 +101,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Parameters.ContainsKey("oauth_signature")))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Body.Contains("oauth_signature")))).MustHaveHappened();
 		}
 
 		[Test]
@@ -114,7 +114,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Parameters["oauth_token"] == "foo"))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Body.Contains("oauth_token=foo")))).MustHaveHappened();
 		}
 
 		[Test]

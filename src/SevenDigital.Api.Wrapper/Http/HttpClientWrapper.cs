@@ -117,9 +117,8 @@ namespace SevenDigital.Api.Wrapper.Http
 		{
 			var webRequest = MakeWebRequest(request.Url, "POST", request.Headers);
 			webRequest.ContentType = "application/x-www-form-urlencoded";
-
-			var postData = request.Parameters.ToQueryStringNoUrlEncode();
-			var postBytes = Encoding.UTF8.GetBytes(postData);
+			
+			var postBytes = Encoding.UTF8.GetBytes(request.Body);
 			webRequest.ContentLength = postBytes.Length;
 
 			using (Stream dataStream = webRequest.GetRequestStream())
