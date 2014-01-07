@@ -51,6 +51,5 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 			return endpointUri.ToLower();
 		}
-
 	}
 }
