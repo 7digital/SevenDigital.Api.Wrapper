@@ -24,6 +24,11 @@ namespace SevenDigital.Api.Wrapper.Http
 
 		public bool RequiresSignature { get; set; }
 
+		public bool HasToken
+		{
+			get { return UserToken != null; }
+		}
+
 		public RequestData()
 		{
 			Endpoint = string.Empty;

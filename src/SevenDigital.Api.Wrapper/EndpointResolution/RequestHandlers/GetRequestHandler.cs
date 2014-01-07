@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
-using SevenDigital.Api.Schema.OAuth;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Http;
+using OAuth;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
@@ -49,15 +48,31 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 				apiRequest.Parameters.Add("oauth_consumer_key", _oAuthCredentials.ConsumerKey);
 				return apiRequest.FullUri;
 			}
-			
-			var oAuthSignatureInfo = new OAuthSignatureInfo
+
+			var oauthRequest = new OAuthRequest
+				{
+					Type = OAuthRequestType.ProtectedResource,
+					RequestUrl = apiRequest.AbsoluteUrl,
+					Method = "GET",
+					ConsumerKey = _oAuthCredentials.ConsumerKey,
+					ConsumerSecret = _oAuthCredentials.ConsumerSecret
+				};
+
+			AddTokenIfRequired(oauthRequest, requestData);
+
+			return apiRequest.AbsoluteUrl 
+				+ "?" 
+				+ oauthRequest.GetAuthorizationQuery(apiRequest.Parameters) 
+				+ apiRequest.Parameters.ToQueryString();
+		}
+
+		private void AddTokenIfRequired(OAuthRequest oauthRequest, RequestData requestData)
+		{
+			if (requestData.HasToken)
 			{
-				FullUrlToSign = apiRequest.FullUri,
-				ConsumerCredentials = _oAuthCredentials,
-				HttpMethod = "GET",
-				UserAccessToken = new OAuthAccessToken { Token = requestData.UserToken, Secret = requestData.TokenSecret }
-			};
-			return _signatureGenerator.Sign(oAuthSignatureInfo);
+				oauthRequest.Token = requestData.UserToken;
+				oauthRequest.TokenSecret = requestData.TokenSecret;
+			}
 		}
 
 		public override string GetDebugUri(RequestData requestData)
