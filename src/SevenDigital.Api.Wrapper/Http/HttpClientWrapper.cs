@@ -90,6 +90,7 @@ namespace SevenDigital.Api.Wrapper.Http
 			var webRequest = (HttpWebRequest)WebRequest.Create(url);
 			webRequest.Method = method;
 			webRequest.UserAgent = "7digital .Net Api Wrapper";
+			webRequest.Accept = "application/xml";
 
 			foreach (var header in headers)
 			{

@@ -22,5 +22,25 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 				Assert.Fail(new StreamReader(ex.Response.GetResponseStream()).ReadToEnd());
 			}
 		}
+
+		[Test]
+		public void Should_allow_POSTing_to_request_token_endpoint()
+		{
+			try
+			{
+				var api = (FluentApi<OAuthRequestToken>) Api<OAuthRequestToken>.Create;
+
+				api.WithMethod("POST");
+
+				var requestToken = api.Please();
+
+				Assert.That(requestToken.Secret, Is.Not.Empty);
+				Assert.That(requestToken.Token, Is.Not.Empty);
+			}
+			catch (WebException ex)
+			{
+				Assert.Fail(new StreamReader(ex.Response.GetResponseStream()).ReadToEnd());
+			}
+		}
 	}
 }

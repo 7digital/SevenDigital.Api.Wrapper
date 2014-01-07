@@ -95,6 +95,7 @@ namespace SevenDigital.Api.Wrapper.Http
 			httpWebRequest.Method = method;
 			httpWebRequest.UserAgent = "7digital .Net Api Wrapper";
 			httpWebRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip");
+			httpWebRequest.Accept = "application/xml";
 
 			foreach (var header in headers)
 			{
