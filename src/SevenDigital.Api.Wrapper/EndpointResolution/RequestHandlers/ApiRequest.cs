@@ -13,7 +13,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			get
 			{
 				if(Parameters.Any())
-					return AbsoluteUrl + "?" + Parameters.ToQueryString(true);
+					return AbsoluteUrl + "?" + Parameters.ToQueryString();
 
 				return AbsoluteUrl;
 			}

@@ -6,7 +6,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
 	public static class DictionaryExtensions
 	{
-		public static string ToQueryString(this IDictionary<string,string> collection)
+		public static string ToQueryStringNoUrlEncode(this IDictionary<string,string> collection)
 		{
 			var sb = new StringBuilder();
 			foreach (var key in collection.Keys)
@@ -16,15 +16,12 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			return sb.ToString().TrimEnd('&');
 		}
 
-		public static string ToQueryString(this IDictionary<string, string> collection, bool shouldUrlEncode)
+		public static string ToQueryString(this IDictionary<string, string> collection)
 		{
 			var sb = new StringBuilder();
 			foreach (var key in collection.Keys)
 			{
-				var parameter = shouldUrlEncode
-					? Uri.EscapeDataString(collection[key]) 
-					: collection[key];
-
+				var parameter = Uri.EscapeDataString(collection[key]);
 				sb.AppendFormat("{0}={1}&", key, parameter);
 			}
 			return sb.ToString().TrimEnd('&');
