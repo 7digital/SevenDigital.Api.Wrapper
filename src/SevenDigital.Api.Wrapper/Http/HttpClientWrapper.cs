@@ -90,6 +90,7 @@ namespace SevenDigital.Api.Wrapper.Http
 			var webRequest = (HttpWebRequest)WebRequest.Create(url);
 			webRequest.Method = method;
 			webRequest.UserAgent = "7digital .Net Api Wrapper";
+			webRequest.Accept = "application/xml";
 
 			foreach (var header in headers)
 			{
@@ -116,9 +117,8 @@ namespace SevenDigital.Api.Wrapper.Http
 		{
 			var webRequest = MakeWebRequest(request.Url, "POST", request.Headers);
 			webRequest.ContentType = "application/x-www-form-urlencoded";
-
-			var postData = request.Parameters.ToQueryString();
-			var postBytes = Encoding.UTF8.GetBytes(postData);
+			
+			var postBytes = Encoding.UTF8.GetBytes(request.Body);
 			webRequest.ContentLength = postBytes.Length;
 
 			using (Stream dataStream = webRequest.GetRequestStream())

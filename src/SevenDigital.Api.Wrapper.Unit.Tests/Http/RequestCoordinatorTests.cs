@@ -40,7 +40,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			var expectedHeaders = new Dictionary<string, string>();
 			var expected = string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey);
 
-			var requestData = new RequestData { UriPath = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
+			var requestData = new RequestData { Endpoint = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
 
 			_requestCoordinator.HitEndpoint(requestData);
 
@@ -60,9 +60,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			const string expectedParameterValue = "Alive%20%26%20Amplified";
 			var expectedHeaders = new Dictionary<string, string>();
 			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
-			var expected = string.Format("{0}/test?oauth_consumer_key={1}&q={2}", API_URL, _consumerKey, expectedParameterValue);
+			var expected = string.Format("{0}/test?q={2}&oauth_consumer_key={1}", API_URL, _consumerKey, expectedParameterValue);
 
-			var requestData = new RequestData { UriPath = "test", HttpMethod = "GET", Headers = expectedHeaders, Parameters = testParameters };
+			var requestData = new RequestData { Endpoint = "test", HttpMethod = "GET", Headers = expectedHeaders, Parameters = testParameters };
 
 			_requestCoordinator.HitEndpoint(requestData);
 
@@ -76,7 +76,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		{
 			var endPointState = new RequestData
 				{
-					UriPath = "{slug}", 
+					Endpoint = "{slug}", 
 					HttpMethod = "GET", 
 					Parameters = new Dictionary<string, string> { { "slug", "something" } }
 				};
@@ -137,7 +137,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 
 			var requestData = new RequestData
 				{
-					UriPath = "test", 
+					Endpoint = "test", 
 					HttpMethod = "GET", 
 					Headers = new Dictionary<string, string>()
 				};
@@ -153,7 +153,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		public void Construct_url_should_combine_url_and_query_params_for_get_requests()
 		{
 			const string uriPath = "something";
-			var result = _requestCoordinator.ConstructEndpoint(new RequestData { UriPath = uriPath });
+			var result = _requestCoordinator.ConstructEndpoint(new RequestData { Endpoint = uriPath });
 
 			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath + "?oauth_consumer_key=" + _consumerKey));
 		}
@@ -162,7 +162,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		public void Construct_url_should_combine_url_and_not_query_params_for_post_requests()
 		{
 			const string uriPath = "something";
-			var result = _requestCoordinator.ConstructEndpoint(new RequestData { UriPath = uriPath,HttpMethod = "POST" });
+			var result = _requestCoordinator.ConstructEndpoint(new RequestData { Endpoint = uriPath,HttpMethod = "POST" });
 
 			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath ));
 		}

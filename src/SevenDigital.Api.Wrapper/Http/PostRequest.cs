@@ -8,13 +8,13 @@ namespace SevenDigital.Api.Wrapper.Http
 	{
 		private readonly string _url;
 		private readonly IDictionary<string, string> _headers;
-		private readonly IDictionary<string, string> _parameters;
+		private readonly string _body;
 
-		public PostRequest(string url, IDictionary<string, string> headers, IDictionary<string, string> parameters)
+		public PostRequest(string url, IDictionary<string, string> headers, string body)
 		{
 			_url = url;
 			_headers = headers;
-			_parameters = parameters;
+			_body = body;
 		}
 
 		public string Url
@@ -27,9 +27,9 @@ namespace SevenDigital.Api.Wrapper.Http
 			get { return _headers; }
 		}
 
-		public IDictionary<string, string> Parameters
+		public string Body
 		{
-			get { return _parameters; }
+			get { return _body; }
 		}
 	}
 }

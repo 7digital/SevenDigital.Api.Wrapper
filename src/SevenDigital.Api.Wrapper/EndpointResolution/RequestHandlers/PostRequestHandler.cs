@@ -1,21 +1,18 @@
 using System;
 using System.Collections.Generic;
-using SevenDigital.Api.Schema.OAuth;
-using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Http;
+using OAuth;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
 	public class PostRequestHandler : RequestHandler
 	{
 		private readonly IOAuthCredentials _oAuthCredentials;
-		private readonly ISignatureGenerator _signatureGenerator;
 
-		public PostRequestHandler(IApiUri apiUri, IOAuthCredentials oAuthCredentials, ISignatureGenerator signatureGenerator)
+		public PostRequestHandler(IApiUri apiUri, IOAuthCredentials oAuthCredentials)
 			: base(apiUri)
 		{
 			_oAuthCredentials = oAuthCredentials;
-			_signatureGenerator = signatureGenerator;
 		}
 
 		public override bool HandlesMethod(string method)
@@ -37,33 +34,50 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		private PostRequest BuildPostRequest(RequestData requestData)
 		{
-			var uri = ConstructEndpoint(requestData);
-			var signedParams = SignHttpPostParams(uri, requestData);
-			var postRequest = new PostRequest(uri, requestData.Headers, signedParams);
+			var apiRequest = MakeApiRequest(requestData);
+			var requestBody = SignHttpPostParams(apiRequest, requestData);
+			var postRequest = new PostRequest(apiRequest.AbsoluteUrl, requestData.Headers, requestBody);
 			return postRequest;
 		}
 
-		private IDictionary<string, string> SignHttpPostParams(string uri, RequestData requestData)
+		private string SignHttpPostParams(ApiRequest apiRequest, RequestData requestData)
 		{
-			if (!requestData.IsSigned)
+			if (!requestData.RequiresSignature)
 			{
-				return requestData.Parameters;
-			}
-			var oAuthSignatureInfo = new OAuthSignatureInfo
-			{
-				FullUrlToSign = uri,
-				ConsumerCredentials = _oAuthCredentials,
-				HttpMethod = "POST",
-				UserAccessToken = new OAuthAccessToken { Token = requestData.UserToken, Secret = requestData.TokenSecret },
-				PostData = requestData.Parameters
-			};
+				var @params = new Dictionary<string, string>(apiRequest.Parameters)
+					{
+						{"oauth_consumer_key", _oAuthCredentials.ConsumerKey}
+					};
 
-			return _signatureGenerator.SignWithPostData(oAuthSignatureInfo);
+				return @params.ToQueryString();
+			}
+
+			var oauthRequest = new OAuthRequest
+				{
+					Type = OAuthRequestType.ProtectedResource,
+					RequestUrl = apiRequest.AbsoluteUrl,
+					Method = "POST",
+					ConsumerKey = _oAuthCredentials.ConsumerKey,
+					ConsumerSecret = _oAuthCredentials.ConsumerSecret
+				};
+
+			AddTokenIfRequired(oauthRequest, requestData);
+
+			return oauthRequest.GetAuthorizationQuery(apiRequest.Parameters) + apiRequest.Parameters.ToQueryString();
 		}
 
-		protected override string AdditionalParameters(Dictionary<string, string> newDictionary)
+		private void AddTokenIfRequired(OAuthRequest oauthRequest, RequestData requestData)
 		{
-			return String.Empty;
+			if (requestData.HasToken)
+			{
+				oauthRequest.Token = requestData.UserToken;
+				oauthRequest.TokenSecret = requestData.TokenSecret;
+			}
+		}
+
+		public override string GetDebugUri(RequestData requestData)
+		{
+			return MakeApiRequest(requestData).FullUri;
 		}
 	}
 }

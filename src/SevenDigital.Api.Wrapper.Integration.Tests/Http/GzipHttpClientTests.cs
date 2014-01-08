@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading;
 using System.Xml;
 using NUnit.Framework;
+using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
@@ -145,7 +146,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			                 	{"foo", "bar"}
 			                 };
 
-			var request = new PostRequest(url, new Dictionary<string, string>(), parameters);
+			var request = new PostRequest(url, new Dictionary<string, string>(), parameters.ToQueryString());
 
 			var response = new GzipHttpClient().Post(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
@@ -160,7 +161,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			                 	{"foo", "bar"}
 			                 };
 
-			var request = new PostRequest(url, new Dictionary<string, string>(), parameters);
+			var request = new PostRequest(url, new Dictionary<string, string>(), parameters.ToQueryString());
 
 			var autoResetEvent = new AutoResetEvent(false);
 			Response response = null;

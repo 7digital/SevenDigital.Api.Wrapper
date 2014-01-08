@@ -10,7 +10,8 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 	{
 		public abstract Response HitEndpoint(RequestData requestData);
 		public abstract void HitEndpointAsync(RequestData requestData, Action<Response> action);
-		protected abstract string AdditionalParameters(Dictionary<string, string> newDictionary);
+		public abstract string GetDebugUri(RequestData requestData);
+		public abstract bool HandlesMethod(string method);
 
 		private readonly IApiUri _apiUri;
 
@@ -18,24 +19,25 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		{
 			_apiUri = apiUri;
 		}
-
-		public abstract bool HandlesMethod(string method);
-
+		
 		public IHttpClient HttpClient { get; set; }
 
-		public virtual string ConstructEndpoint(RequestData requestData)
+		protected ApiRequest MakeApiRequest(RequestData requestData)
 		{
-			var apiUri = requestData.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
+			var apiBaseUrl = requestData.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
 
-			var newDictionary = requestData.Parameters.ToDictionary(entry => entry.Key, entry => entry.Value);
+			var withoutRouteParameters = new Dictionary<string, string>(requestData.Parameters);
 
-			var uriString = string.Format("{0}/{1}", apiUri, SubstituteRouteParameters(requestData.UriPath, newDictionary));
+			var pathWithRouteParamsSubstituted = SubstituteRouteParameters(requestData.Endpoint, withoutRouteParameters);
 
-			uriString = uriString + AdditionalParameters(newDictionary);
-			return uriString;
+			return new ApiRequest
+				{
+					AbsoluteUrl = string.Format("{0}/{1}", apiBaseUrl, pathWithRouteParamsSubstituted),
+					Parameters = withoutRouteParameters
+				};
 		}
 		
-		private static string SubstituteRouteParameters(string endpointUri, Dictionary<string, string> parameters)
+		private static string SubstituteRouteParameters(string endpointUri, IDictionary<string, string> parameters)
 		{
 			var regex = new Regex("{(.*?)}");
 			var result = regex.Matches(endpointUri);
