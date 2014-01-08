@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			var sb = new StringBuilder();
 			foreach (var key in collection.Keys)
 			{
-				var parameter = OAuthTools.UrlEncodeRelaxed(collection[key]);
+				var parameter = OAuthTools.UrlEncodeStrict(collection[key]);
 				sb.AppendFormat("{0}={1}&", key, parameter);
 			}
 			return sb.ToString().TrimEnd('&');
