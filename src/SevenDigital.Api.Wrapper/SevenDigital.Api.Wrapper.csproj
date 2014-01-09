@@ -49,6 +49,7 @@
     <Compile Include="AttributeManagement\AttributeRequestDataBuilder.cs" />
     <Compile Include="EndpointResolution\AppDomainAssemblyResolver.cs" />
     <Compile Include="EndpointResolution\EssentialDependencyCheck.cs" />
+    <Compile Include="Http\HttpMethod.cs" />
     <Compile Include="EndpointResolution\RequestHandlerFactory.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\ApiRequest.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\GetRequestHandler.cs" />

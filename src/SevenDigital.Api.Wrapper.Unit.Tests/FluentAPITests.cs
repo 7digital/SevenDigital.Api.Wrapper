@@ -43,9 +43,29 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			new FluentApi<Status>(requestCoordinator).WithMethod("POST").Please();
 
 			Expression<Func<Response>> callWithMethodPost =
-				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.HttpMethod == "POST"));
+				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.HttpMethod == HttpMethod.Post));
 
 			A.CallTo(callWithMethodPost).MustHaveHappened(Repeated.Exactly.Once);
+		}
+
+		[Test]
+		public void Should_recongise_standard_http_methods()
+		{
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			var api = new FluentApi<Status>(requestCoordinator);
+
+			api.WithMethod("GET");
+			api.WithMethod("POST");
+			api.WithMethod("PUT");
+			api.WithMethod("DELETE");
+		}
+
+		[Test]
+		public void Should_fail_when_http_method_is_unrecognised()
+		{
+			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			var api = new FluentApi<Status>(requestCoordinator);
+			Assert.Throws<ArgumentException>(() => api.WithMethod("FOO"));
 		}
 
 		[Test]

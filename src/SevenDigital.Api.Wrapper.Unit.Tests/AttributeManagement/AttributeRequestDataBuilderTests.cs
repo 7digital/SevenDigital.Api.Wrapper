@@ -2,6 +2,7 @@
 using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Schema.OAuth;
 using SevenDigital.Api.Wrapper.AttributeManagement;
+using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.AttributeManagement
 {
@@ -59,7 +60,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.AttributeManagement
 			var attributeValidation = new AttributeRequestDataBuilder<StubPostEndpoint>();
 			var requestData = attributeValidation.BuildRequestData();
 
-			Assert.That(requestData.HttpMethod, Is.EqualTo("POST"));
+			Assert.That(requestData.HttpMethod, Is.EqualTo(HttpMethod.Post));
 		}
 
 		[Test]
@@ -68,7 +69,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.AttributeManagement
 			var attributeValidation = new AttributeRequestDataBuilder<StubEndpoint>();
 			var requestData = attributeValidation.BuildRequestData();
 
-			Assert.That(requestData.HttpMethod, Is.EqualTo("GET"));
+			Assert.That(requestData.HttpMethod, Is.EqualTo(HttpMethod.Get));
 		}
 	}
 

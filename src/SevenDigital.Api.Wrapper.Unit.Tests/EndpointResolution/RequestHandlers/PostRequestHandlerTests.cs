@@ -127,7 +127,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		{
 			return new RequestData
 			{
-				HttpMethod = "POST",
+				HttpMethod = HttpMethod.Post,
 				Endpoint = "testpath",
 			};
 		}

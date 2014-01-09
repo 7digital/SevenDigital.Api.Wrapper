@@ -7,7 +7,7 @@ namespace SevenDigital.Api.Wrapper.Http
 	{
 		public string Endpoint { get; set; }
 
-		public string HttpMethod { get; set; }
+		public HttpMethod HttpMethod { get; set; }
 
 		public IDictionary<string,string> Parameters { get; set; }
 
@@ -32,7 +32,7 @@ namespace SevenDigital.Api.Wrapper.Http
 		public RequestData()
 		{
 			Endpoint = string.Empty;
-			HttpMethod = "GET";
+			HttpMethod = HttpMethod.Get;
 			Parameters = new Dictionary<string,string>();
 			Headers = new Dictionary<string,string>();
 			UseHttps = false;

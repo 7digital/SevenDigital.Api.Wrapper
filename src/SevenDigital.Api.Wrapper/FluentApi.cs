@@ -58,7 +58,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual IFluentApi<T> WithMethod(string methodName)
 		{
-			_requestData.HttpMethod = methodName;
+			_requestData.HttpMethod =  HttpMethodHelpers.Parse(methodName);
 			return this;
 		}
 
@@ -83,6 +83,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual IFluentApi<T> ForShop(int shopId)
 		{
+			WithParameter("shopId", shopId.ToString());
 			WithParameter("shopId", shopId.ToString());
 			return this;
 		}

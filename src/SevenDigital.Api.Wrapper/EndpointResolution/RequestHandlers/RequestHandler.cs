@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		public abstract Response HitEndpoint(RequestData requestData);
 		public abstract void HitEndpointAsync(RequestData requestData, Action<Response> action);
 		public abstract string GetDebugUri(RequestData requestData);
-		public abstract bool HandlesMethod(string method);
+		public abstract bool HandlesMethod(HttpMethod method);
 
 		private readonly IApiUri _apiUri;
 
