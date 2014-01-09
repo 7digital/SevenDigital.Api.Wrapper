@@ -18,7 +18,7 @@ namespace SevenDigital.Api.Wrapper.AttributeManagement
 
 			if (ParseHttpPostAttribute() != null)
 			{
-				requestData.HttpMethod = "POST";
+				requestData.HttpMethod = HttpMethod.Post;
 			}
 
 			return requestData;

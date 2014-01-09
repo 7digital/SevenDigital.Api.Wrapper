@@ -13,9 +13,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			_oAuthCredentials = oAuthCredentials;
 		}
 
-		public override bool HandlesMethod(string method)
+		public override bool HandlesMethod(HttpMethod method)
 		{
-			return method == "GET";
+			return method == HttpMethod.Get;
 		}
 
 		public override Response HitEndpoint(RequestData requestData)

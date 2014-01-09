@@ -58,7 +58,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual IFluentApi<T> WithMethod(string methodName)
 		{
-			_requestData.HttpMethod = methodName;
+			_requestData.HttpMethod =  (HttpMethod)Enum.Parse(typeof(HttpMethod), methodName, true);
 			return this;
 		}
 

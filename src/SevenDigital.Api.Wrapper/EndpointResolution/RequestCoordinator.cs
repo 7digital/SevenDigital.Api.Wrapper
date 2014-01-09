@@ -23,18 +23,17 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			return requestHandler.GetDebugUri(requestData);
 		}
 
-		private RequestHandler FindRequestHandler(string httpMethod)
+		private RequestHandler FindRequestHandler(HttpMethod httpMethod)
 		{
-			var upperHttpMethodName = httpMethod.ToUpperInvariant();
 			foreach (var requestHandler in _requestHandlers)
 			{
-				if (requestHandler.HandlesMethod(upperHttpMethodName))
+				if (requestHandler.HandlesMethod(httpMethod))
 				{
 					return requestHandler;
 				}
 			}
 
-			string errorMessage = string.Format("No RequestHandler supplied for method '{0}'", upperHttpMethodName);
+			string errorMessage = string.Format("No RequestHandler supplied for method '{0}'", httpMethod);
 			throw new NotImplementedException(errorMessage);
 		}
 

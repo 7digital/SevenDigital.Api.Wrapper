@@ -36,7 +36,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			A.CallTo(() => _httpClient.Get(A<GetRequest>.Ignored))
 				.Returns(new Response(HttpStatusCode.OK, SERVICE_STATUS));
 
-			const string expectedMethod = "GET";
+			const HttpMethod expectedMethod = HttpMethod.Get;
 			var expectedHeaders = new Dictionary<string, string>();
 			var expected = string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey);
 
@@ -62,7 +62,13 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
 			var expected = string.Format("{0}/test?q={2}&oauth_consumer_key={1}", API_URL, _consumerKey, expectedParameterValue);
 
-			var requestData = new RequestData { Endpoint = "test", HttpMethod = "GET", Headers = expectedHeaders, Parameters = testParameters };
+			var requestData = new RequestData
+				{
+					Endpoint = "test", 
+					HttpMethod = HttpMethod.Get, 
+					Headers = expectedHeaders, 
+					Parameters = testParameters
+				};
 
 			_requestCoordinator.HitEndpoint(requestData);
 
@@ -77,7 +83,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			var endPointState = new RequestData
 				{
 					Endpoint = "{slug}", 
-					HttpMethod = "GET", 
+					HttpMethod = HttpMethod.Get, 
 					Parameters = new Dictionary<string, string> { { "slug", "something" } }
 				};
 			var result = _requestCoordinator.ConstructEndpoint(endPointState);
@@ -138,7 +144,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			var requestData = new RequestData
 				{
 					Endpoint = "test", 
-					HttpMethod = "GET", 
+					HttpMethod = HttpMethod.Get, 
 					Headers = new Dictionary<string, string>()
 				};
 
@@ -162,7 +168,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		public void Construct_url_should_combine_url_and_not_query_params_for_post_requests()
 		{
 			const string uriPath = "something";
-			var result = _requestCoordinator.ConstructEndpoint(new RequestData { Endpoint = uriPath,HttpMethod = "POST" });
+			var request = new RequestData {Endpoint = uriPath, HttpMethod = HttpMethod.Post};
+			var result = _requestCoordinator.ConstructEndpoint(request);
 
 			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath ));
 		}

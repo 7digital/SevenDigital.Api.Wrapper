@@ -43,7 +43,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			new FluentApi<Status>(requestCoordinator).WithMethod("POST").Please();
 
 			Expression<Func<Response>> callWithMethodPost =
-				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.HttpMethod == "POST"));
+				() => requestCoordinator.HitEndpoint(A<RequestData>.That.Matches(x => x.HttpMethod == HttpMethod.Post));
 
 			A.CallTo(callWithMethodPost).MustHaveHappened(Repeated.Exactly.Once);
 		}

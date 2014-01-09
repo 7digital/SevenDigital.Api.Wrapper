@@ -34,7 +34,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			_handler.HttpClient = _httpClient;
 			_requestData = new RequestData
 				{
-					HttpMethod = "GET",
+					HttpMethod = HttpMethod.Get,
 					Endpoint = "testpath",
 				};
 		}
