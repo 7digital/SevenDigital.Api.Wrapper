@@ -86,7 +86,7 @@
     <Compile Include="EndpointTests\TranslationsEndpoint\TranslationsEndpointTests.cs" />
     <Compile Include="Exceptions\ErrorConditionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Http\GzipHttpClientTests.cs" />
+    <Compile Include="Http\HttpClientMediatorTests.cs" />
     <Compile Include="TestDataFromEnvironmentOrAppSettings.cs" />
   </ItemGroup>
   <ItemGroup>

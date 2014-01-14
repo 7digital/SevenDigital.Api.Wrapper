@@ -103,7 +103,7 @@
     <Compile Include="EndpointResolution\DictionaryExtensions.cs" />
     <Compile Include="EndpointResolution\RequestCoordinator.cs" />
     <Compile Include="EndpointResolution\IRequestCoordinator.cs" />
-    <Compile Include="Http\GzipHttpClient.cs" />
+    <Compile Include="Http\HttpClientMediator.cs" />
     <Compile Include="Http\PostRequest.cs" />
     <Compile Include="Http\GetRequest.cs" />
     <Compile Include="Http\IHttpClient.cs" />
