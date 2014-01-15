@@ -10,7 +10,7 @@ using SevenDigital.Api.Wrapper.Http;
 namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 {
 	[TestFixture]
-	public class GzipHttpClientTests
+	public class HttpClientMediatorTests
 	{
 		private const string API_URL = "http://api.7digital.com/1.2";
 		private readonly TimeSpan _asyncTimeout = new TimeSpan(0, 0, 0, 20);
@@ -28,7 +28,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			var url = string.Format("{0}/status?oauth_consumer_key={1}", API_URL, _consumerKey);
 			var request = new GetRequest(url, new Dictionary<string, string>());
 
-			var response = new GzipHttpClient().Get(request);
+			var response = new HttpClientMediator().Get(request);
 			AssertResponse(response, HttpStatusCode.OK);
 		}
 
@@ -38,7 +38,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			var url = string.Format("{0}/release/details?oauth_consumer_key={1}&releaseId=12345", API_URL, _consumerKey);
 			var request = new GetRequest(url, new Dictionary<string, string>());
 
-			var response = new GzipHttpClient().Get(request);
+			var response = new HttpClientMediator().Get(request);
 			AssertResponse(response, HttpStatusCode.OK);
 			AssertCanParseBody(response);
 		}
@@ -72,7 +72,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			                            	autoResetEvent.Set();
 			                            };
 
-			new GzipHttpClient().GetAsync(request, callback);
+			new HttpClientMediator().GetAsync(request, callback);
 
 			var signalled = autoResetEvent.WaitOne(_asyncTimeout);
 			Assert.That(signalled, Is.True, "event was not signalled");
@@ -86,7 +86,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			var url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", API_URL, _consumerKey);
 			var request = new GetRequest(url, new Dictionary<string, string>());
 
-			var response = new GzipHttpClient().Get(request);
+			var response = new HttpClientMediator().Get(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 
@@ -105,7 +105,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			                            	autoResetEvent.Set();
 			                            };
 
-			new GzipHttpClient().GetAsync(request, callback);
+			new HttpClientMediator().GetAsync(request, callback);
 
 			var signalled = autoResetEvent.WaitOne(_asyncTimeout);
 			Assert.That(signalled, Is.True, "event was not signalled");
@@ -119,7 +119,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			var url = string.Format("{0}/status", API_URL);
 			var request = new GetRequest(url, new Dictionary<string, string>());
 
-			var response = new GzipHttpClient().Get(request);
+			var response = new HttpClientMediator().Get(request);
 			AssertResponse(response, HttpStatusCode.Unauthorized);
 		}
 
@@ -132,7 +132,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			const string apiUrl = "http://hanging-web-app.7digital.local";
 			var request = new GetRequest(apiUrl, new Dictionary<string, string>());
 
-			var response = new GzipHttpClient().Get(request);
+			var response = new HttpClientMediator().Get(request);
 			AssertResponse(response, HttpStatusCode.OK);
 		}
 
@@ -148,7 +148,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 
 			var request = new PostRequest(url, new Dictionary<string, string>(), parameters.ToQueryString());
 
-			var response = new GzipHttpClient().Post(request);
+			var response = new HttpClientMediator().Post(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 
@@ -172,7 +172,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			                            	autoResetEvent.Set();
 			                            };
 
-			new GzipHttpClient().PostAsync(request, callback);
+			new HttpClientMediator().PostAsync(request, callback);
 
 			var signalled = autoResetEvent.WaitOne(_asyncTimeout);
 			Assert.That(signalled, Is.True, "event was not signalled");
