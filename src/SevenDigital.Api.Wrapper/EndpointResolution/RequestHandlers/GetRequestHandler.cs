@@ -1,4 +1,5 @@
 using System;
+using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Http;
 using OAuth;
 
@@ -33,9 +34,25 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		private GetRequest BuildGetRequest(RequestData requestData)
 		{
 			var apiRequest = MakeApiRequest(requestData);
-			var signedUrl = SignHttpGetUrl(apiRequest, requestData);
-			var getRequest = new GetRequest(signedUrl, requestData.Headers);
-			return getRequest;
+			if (!requestData.RequiresSignature)
+			{
+				apiRequest.Parameters.Add("oauth_consumer_key", _oAuthCredentials.ConsumerKey);
+			}
+
+			if (apiRequest.Parameters.Count > 0)
+			{
+				apiRequest.AbsoluteUrl = apiRequest.AbsoluteUrl + "?" + apiRequest.Parameters.ToQueryString();
+			}
+			AddOAuthHeader(requestData, apiRequest);
+
+			return new GetRequest(apiRequest.AbsoluteUrl, requestData.Headers);
+		}
+
+		private void AddOAuthHeader(RequestData requestData, ApiRequest apiRequest)
+		{
+			var oauthHeaderHGenerator = new OAuthHeaderGenerator(_oAuthCredentials);
+			var oauthHeader = oauthHeaderHGenerator.GenerateOAuthSignatureHeader(apiRequest, requestData);
+			requestData.Headers.Add("Authorization", oauthHeader);
 		}
 
 		private string SignHttpGetUrl(ApiRequest apiRequest, RequestData requestData)

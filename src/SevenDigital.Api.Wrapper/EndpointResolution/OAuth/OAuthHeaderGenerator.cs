@@ -29,7 +29,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 				RequestUrl = apiRequest.AbsoluteUrl,
 				Method = requestData.HttpMethod.ToString().ToUpperInvariant(),
 				ConsumerKey = _oAuthCredentials.ConsumerKey,
-				ConsumerSecret = _oAuthCredentials.ConsumerSecret
+				ConsumerSecret = _oAuthCredentials.ConsumerSecret,
+			//	Token = requestData.UserToken,
+			//	TokenSecret = requestData.TokenSecret,
 			};
 
 			return oauthRequest.GetAuthorizationHeader();
