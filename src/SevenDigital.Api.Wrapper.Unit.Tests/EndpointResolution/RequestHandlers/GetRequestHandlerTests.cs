@@ -92,10 +92,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		{
 			_handler.HitEndpoint(_requestData);
 
-
 			ARequestMatching(HasAuthHeader).MustNotHaveHappened();
-			ARequestMatching(request => AuthHeaderContaining(request, "oauth_signature")).MustNotHaveHappened();
-			//ARequestToAUriMatching(uri => uri.Query.Contains("oauth_signature")).MustNotHaveHappened();
 		}
 
 		[Test]
@@ -109,7 +106,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		}
 
 		[Test]
-		[Ignore]
 		public void Should_include_oauth_token_if_required()
 		{
 			_requestData.RequiresSignature = true;
@@ -119,9 +115,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			ARequestMatching(HasAuthHeader).MustHaveHappened();
 
-			ARequestMatching(r => AuthHeaderContaining(r, "oauth_token=foo")).MustHaveHappened();
-
-			//ARequestToAUriMatching(uri => uri.Query.Contains("oauth_token=foo")).MustHaveHappened();
+			ARequestMatching(r => AuthHeaderContaining(r, "oauth_token=\"foo\"")).MustHaveHappened();
 		}
 
 		[Test]
@@ -146,6 +140,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 		private bool HasAuthHeader(GetRequest request)
 		{
+			if (! request.Headers.ContainsKey("Authorization"))
+			{
+				return false;
+			}
+
 			var actualHeader = request.Headers["Authorization"];
 			return (!string.IsNullOrEmpty(actualHeader));
 		}

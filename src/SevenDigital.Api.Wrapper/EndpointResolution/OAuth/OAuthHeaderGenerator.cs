@@ -1,6 +1,4 @@
 using OAuth;
-using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;
-using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 {
@@ -13,26 +11,25 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 			_oAuthCredentials = oAuthCredentials;
 		}
 
-		public string GenerateOAuthSignatureHeader(ApiRequest apiRequest, RequestData requestData)
+		public string GenerateOAuthSignatureHeader(OAuthHeaderData data)
 		{
 			// request body
 			// content-type
 
-			if (!requestData.RequiresSignature)
-			{
-				return string.Empty;
-			}
-
 			var oauthRequest = new OAuthRequest
 			{
 				Type = OAuthRequestType.ProtectedResource,
-				RequestUrl = apiRequest.AbsoluteUrl,
-				Method = requestData.HttpMethod.ToString().ToUpperInvariant(),
+				RequestUrl = data.Url,
+				Method = data.HttpMethod.ToString().ToUpperInvariant(),
 				ConsumerKey = _oAuthCredentials.ConsumerKey,
-				ConsumerSecret = _oAuthCredentials.ConsumerSecret,
-			//	Token = requestData.UserToken,
-			//	TokenSecret = requestData.TokenSecret,
+				ConsumerSecret = _oAuthCredentials.ConsumerSecret
 			};
+
+			if (!string.IsNullOrEmpty(data.UserToken))
+			{
+				oauthRequest.Token = data.UserToken;
+				oauthRequest.TokenSecret = data.TokenSecret;
+			}
 
 			return oauthRequest.GetAuthorizationHeader();
 		}

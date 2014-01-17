@@ -34,6 +34,8 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		private GetRequest BuildGetRequest(RequestData requestData)
 		{
 			var apiRequest = MakeApiRequest(requestData);
+			var fullUrl = apiRequest.AbsoluteUrl;
+
 			if (!requestData.RequiresSignature)
 			{
 				apiRequest.Parameters.Add("oauth_consumer_key", _oAuthCredentials.ConsumerKey);
@@ -41,52 +43,29 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 			if (apiRequest.Parameters.Count > 0)
 			{
-				apiRequest.AbsoluteUrl = apiRequest.AbsoluteUrl + "?" + apiRequest.Parameters.ToQueryString();
+				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
-			AddOAuthHeader(requestData, apiRequest);
 
-			return new GetRequest(apiRequest.AbsoluteUrl, requestData.Headers);
+			if (requestData.RequiresSignature)
+			{
+				AddOAuthHeader(requestData, fullUrl);
+			}
+
+			return new GetRequest(fullUrl, requestData.Headers);
 		}
 
-		private void AddOAuthHeader(RequestData requestData, ApiRequest apiRequest)
+		private void AddOAuthHeader(RequestData requestData, string fullUrl)
 		{
 			var oauthHeaderHGenerator = new OAuthHeaderGenerator(_oAuthCredentials);
-			var oauthHeader = oauthHeaderHGenerator.GenerateOAuthSignatureHeader(apiRequest, requestData);
+			var oAuthHeaderData = new OAuthHeaderData
+				            {
+								Url = fullUrl,
+								HttpMethod = HttpMethod.Get,
+								UserToken = requestData.UserToken,
+								TokenSecret = requestData.TokenSecret
+				            };
+			var oauthHeader = oauthHeaderHGenerator.GenerateOAuthSignatureHeader(oAuthHeaderData);
 			requestData.Headers.Add("Authorization", oauthHeader);
-		}
-
-		private string SignHttpGetUrl(ApiRequest apiRequest, RequestData requestData)
-		{
-			if (!requestData.RequiresSignature)
-			{
-				apiRequest.Parameters.Add("oauth_consumer_key", _oAuthCredentials.ConsumerKey);
-				return apiRequest.FullUri;
-			}
-
-			var oauthRequest = new OAuthRequest
-				{
-					Type = OAuthRequestType.ProtectedResource,
-					RequestUrl = apiRequest.AbsoluteUrl,
-					Method = "GET",
-					ConsumerKey = _oAuthCredentials.ConsumerKey,
-					ConsumerSecret = _oAuthCredentials.ConsumerSecret
-				};
-
-			AddTokenIfRequired(oauthRequest, requestData);
-
-			return apiRequest.AbsoluteUrl 
-				+ "?" 
-				+ oauthRequest.GetAuthorizationQuery(apiRequest.Parameters) 
-				+ apiRequest.Parameters.ToQueryString();
-		}
-
-		private void AddTokenIfRequired(OAuthRequest oauthRequest, RequestData requestData)
-		{
-			if (requestData.HasToken)
-			{
-				oauthRequest.Token = requestData.UserToken;
-				oauthRequest.TokenSecret = requestData.TokenSecret;
-			}
 		}
 
 		public override string GetDebugUri(RequestData requestData)

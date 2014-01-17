@@ -19,36 +19,16 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.OAuth
 		}
 
 		[Test]
-		public void should_return_empty_string_if_endpoint_does_not_require_signature()
-		{
-			var apiRequest = new ApiRequest
-			{
-				AbsoluteUrl = "http://foo.com"
-			};
-			var requestData = new RequestData
-			{
-				RequiresSignature = false
-			};
-
-			var actual = _oAuthHeaderGenerator.GenerateOAuthSignatureHeader(apiRequest, requestData);
-
-			Assert.That(actual, Is.Empty);
-		}
-
-		[Test]
 		[Description("http://oauth.net/core/1.0/#rfc.section.5.4.1")]
 		public void should_return_Authorization_OAuth_headers_as_outlined_in_OAuthspec_if_endpoint_requires_signature_without_usertoken()
 		{
-			var apiRequest = new ApiRequest
-			{
-				AbsoluteUrl = "http://foo.com"
-			};
-			var requestData = new RequestData
-			{
-				RequiresSignature = true
-			};
+			var oAuthHeaderData = new OAuthHeaderData
+				{
+					Url = "http://foo.com"
+				};
 
-			var actual = _oAuthHeaderGenerator.GenerateOAuthSignatureHeader(apiRequest, requestData);
+
+			var actual = _oAuthHeaderGenerator.GenerateOAuthSignatureHeader(oAuthHeaderData);
 
 			Assert.That(actual, Is.Not.Empty);
 			Assert.That(actual, Is.StringStarting("OAuth"));
@@ -60,6 +40,33 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.OAuth
 			Assert.That(actual, Is.StringContaining("oauth_version="));
 		}
 
+		[Test]
+		public void should_not_return_oauth_token_if_Token_not_provided()
+		{
+			var oAuthHeaderData = new OAuthHeaderData
+			{
+				Url = "http://foo.com"
+			};
+
+			var actual = _oAuthHeaderGenerator.GenerateOAuthSignatureHeader(oAuthHeaderData);
+
+			Assert.That(actual, Is.Not.StringContaining("oauth_token="));
+		}
+
+		[Test]
+		public void should_return_oauth_token_if_Token_provided()
+		{
+			var oAuthHeaderData = new OAuthHeaderData
+			{
+				Url = "http://foo.com",
+				UserToken = "TOKEN",
+				TokenSecret = "SECRET"
+			};
+
+			var actual = _oAuthHeaderGenerator.GenerateOAuthSignatureHeader(oAuthHeaderData);
+			Assert.That(actual, Is.StringContaining("oauth_token="));
+
+		}
 
 	}
 
