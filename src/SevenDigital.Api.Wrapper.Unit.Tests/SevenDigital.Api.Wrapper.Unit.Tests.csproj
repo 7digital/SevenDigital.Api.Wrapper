@@ -60,6 +60,7 @@
     <Compile Include="Deserialisation\User\Payment\Cards_unit_tests.cs" />
     <Compile Include="Deserialisation\User\Payment\AddCardsTests.cs" />
     <Compile Include="Deserialisation\User\Payment\DeleteCardTests.cs" />
+    <Compile Include="EndpointResolution\OAuth\OAuthHeaderGeneratorTest.cs" />
     <Compile Include="EndpointResolution\RequestCoordinatorTests.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\GetRequestHandlerTests.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\PostRequestHandlerTests.cs" />
@@ -105,9 +106,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EndpointResolution\OAuth\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
