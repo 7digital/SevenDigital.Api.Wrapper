@@ -16,5 +16,7 @@ namespace SevenDigital.Api.Wrapper
 
 		T Please();
 		void PleaseAsync(Action<T> callback);
+
+		IFluentApi<T> NewInstance();
 	}
 }

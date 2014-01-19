@@ -88,6 +88,11 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
+		public virtual IFluentApi<T> NewInstance()
+		{
+			return new FluentApi<T>(_requestCoordinator);
+		}
+
 		public virtual T Please()
 		{
 			Response response;
