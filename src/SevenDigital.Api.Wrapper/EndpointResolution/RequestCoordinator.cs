@@ -43,12 +43,5 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			requestHandler.HttpClient = HttpClient;
 			return requestHandler.HitEndpoint(requestData);
 		}
-
-		public virtual void HitEndpointAsync(RequestData requestData, Action<Response> callback)
-		{
-			var requestHandler = FindRequestHandler(requestData.HttpMethod);
-			requestHandler.HttpClient = HttpClient;
-			requestHandler.HitEndpointAsync(requestData, callback);
-		}
 	}
 }

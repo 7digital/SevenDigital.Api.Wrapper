@@ -24,12 +24,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			return HttpClient.Get(getRequest);
 		}
 
-		public override void HitEndpointAsync(RequestData requestData, Action<Response> action)
-		{
-			var getRequest = BuildGetRequest(requestData);
-			HttpClient.GetAsync(getRequest, response => action(response));
-		}
-
 		private GetRequest BuildGetRequest(RequestData requestData)
 		{
 			var apiRequest = MakeApiRequest(requestData);

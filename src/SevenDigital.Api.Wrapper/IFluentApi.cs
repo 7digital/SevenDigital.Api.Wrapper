@@ -15,6 +15,5 @@ namespace SevenDigital.Api.Wrapper
 		IFluentApi<T> UsingCache(IResponseCache responseCache);
 
 		T Please();
-		void PleaseAsync(Action<T> callback);
 	}
 }

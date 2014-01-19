@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Threading;
 using System.Xml;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
@@ -13,7 +11,6 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 	public class HttpClientMediatorTests
 	{
 		private const string API_URL = "http://api.7digital.com/1.2";
-		private readonly TimeSpan _asyncTimeout = new TimeSpan(0, 0, 0, 20);
 		private string _consumerKey;
 
 		[SetUp]
@@ -58,58 +55,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		}
 
 		[Test]
-		public void Can_resolve_uri_async()
-		{
-			var url = string.Format("{0}/status?oauth_consumer_key={1}", API_URL, _consumerKey);
-			var request = new GetRequest(url, new Dictionary<string, string>());
-
-			var autoResetEvent = new AutoResetEvent(false);
-			Response response = null;
-
-			Action<Response> callback = callbackResponse =>
-			                            {
-			                            	response = callbackResponse;
-			                            	autoResetEvent.Set();
-			                            };
-
-			new HttpClientMediator().GetAsync(request, callback);
-
-			var signalled = autoResetEvent.WaitOne(_asyncTimeout);
-			Assert.That(signalled, Is.True, "event was not signalled");
-
-			AssertResponse(response, HttpStatusCode.OK);
-		}
-
-		[Test]
 		public void Bad_url_should_return_not_found()
 		{
 			var url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", API_URL, _consumerKey);
 			var request = new GetRequest(url, new Dictionary<string, string>());
 
 			var response = new HttpClientMediator().Get(request);
-			AssertResponse(response, HttpStatusCode.NotFound);
-		}
-
-		[Test]
-		public void Bad_url_should_return_not_found_async()
-		{
-			var url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", API_URL, _consumerKey);
-			var request = new GetRequest(url, new Dictionary<string, string>());
-
-			var autoResetEvent = new AutoResetEvent(false);
-			Response response = null;
-
-			Action<Response> callback = callbackResponse =>
-			                            {
-			                            	response = callbackResponse;
-			                            	autoResetEvent.Set();
-			                            };
-
-			new HttpClientMediator().GetAsync(request, callback);
-
-			var signalled = autoResetEvent.WaitOne(_asyncTimeout);
-			Assert.That(signalled, Is.True, "event was not signalled");
-
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 
@@ -149,34 +100,6 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			var request = new PostRequest(url, new Dictionary<string, string>(), parameters.ToQueryString());
 
 			var response = new HttpClientMediator().Post(request);
-			AssertResponse(response, HttpStatusCode.NotFound);
-		}
-
-		[Test]
-		public void bad_url_post_should_return_not_found_async()
-		{
-			string url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", API_URL, _consumerKey);
-			var parameters = new Dictionary<string, string>
-			                 {
-			                 	{"foo", "bar"}
-			                 };
-
-			var request = new PostRequest(url, new Dictionary<string, string>(), parameters.ToQueryString());
-
-			var autoResetEvent = new AutoResetEvent(false);
-			Response response = null;
-
-			Action<Response> callback = callbackResponse =>
-			                            {
-			                            	response = callbackResponse;
-			                            	autoResetEvent.Set();
-			                            };
-
-			new HttpClientMediator().PostAsync(request, callback);
-
-			var signalled = autoResetEvent.WaitOne(_asyncTimeout);
-			Assert.That(signalled, Is.True, "event was not signalled");
-
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 
