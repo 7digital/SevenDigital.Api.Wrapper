@@ -52,6 +52,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 					.Create
 					.WithParameter("foo", "%! blah") //arbitrary parameter, but should test for errors in signature generation
 					.Please();
+
 				Assert.That(oAuthRequestToken.Secret, Is.Not.Empty);
 				Assert.That(oAuthRequestToken.Token, Is.Not.Empty);
 			}
