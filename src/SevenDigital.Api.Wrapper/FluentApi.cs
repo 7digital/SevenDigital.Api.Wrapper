@@ -128,20 +128,6 @@ namespace SevenDigital.Api.Wrapper
 			get { return _requestCoordinator.ConstructEndpoint(_requestData); }
 		}
 
-		public virtual void PleaseAsync(Action<T> callback)
-		{
-			_requestCoordinator.HitEndpointAsync(_requestData, PleaseAsyncEnd(callback));
-		}
-
-		internal Action<Response> PleaseAsyncEnd(Action<T> callback)
-		{
-			return output =>
-			{
-				T entity = _parser.Parse(output);
-				callback(entity);
-			};
-		}
-
 		public IDictionary<string, string> Parameters
 		{
 			get { return _requestData.Parameters; }

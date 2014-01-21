@@ -103,32 +103,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			Assert.That(hitEndpoint.SelectSingleNode("//serverTime"), Is.Not.Null);
 		}
 
-
-		[Test]
-		public void Should_return_xmlnode_if_valid_xml_received_using_async()
-		{
-			var fakeClient = new FakeHttpClient(new Response(HttpStatusCode.OK, SERVICE_STATUS));
-
-			var endpointResolver = new RequestCoordinator(fakeClient, _allRequestHandlers);
-
-			var reset = new AutoResetEvent(false);
-
-			string response = string.Empty;
-			endpointResolver.HitEndpointAsync(new RequestData(),
-			 s =>
-				{
-					response = s.Body;
-					reset.Set();
-				});
-
-			reset.WaitOne(1000 * 5);
-			var payload = new XmlDocument();
-			payload.LoadXml(response);
-
-			Assert.That(payload.HasChildNodes);
-			Assert.That(payload.SelectSingleNode("//serverTime"), Is.Not.Null);
-		}
-
 		[Test]
 		public void Should_use_api_uri_provided_by_IApiUri_interface()
 		{

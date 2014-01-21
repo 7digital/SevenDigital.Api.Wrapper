@@ -69,22 +69,13 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			string currentUri = Api<ReleaseSearch>.Create.WithQuery("Test").EndpointUrl;
 			Console.WriteLine("Release search hits: {0}", currentUri);
 
-			// -- async get (async post not implemented yet)
-			Api<ReleaseSearch>.Create
-				.WithQuery(searchValue)
-				.WithPageNumber(1)
-				.WithPageSize(10)
-				.PleaseAsync(x => {
-					Console.WriteLine("Async Release search on \"{0}\" returns: {1} items", "Radio", x.TotalItems);
-					Console.WriteLine();
-				 });
-
 			try 
 			{
 				// -- Deliberate error response
 				Console.WriteLine("Trying artist/details without artistId parameter...");
 				Api<Artist>.Create.Please();
 			} 
+
 			catch (ApiResponseException ex)
 			{
 				Console.WriteLine("{0} : {1}", ex, ex.Message);

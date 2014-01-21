@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using SevenDigital.Api.Wrapper.Http;
 using OAuth;
@@ -24,12 +23,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		{
 			var postRequest = BuildPostRequest(requestData);
 			return HttpClient.Post(postRequest);
-		}
-
-		public override void HitEndpointAsync(RequestData requestData, Action<Response> action)
-		{
-			var postRequest = BuildPostRequest(requestData);
-			HttpClient.PostAsync(postRequest,response => action(response));
 		}
 
 		private PostRequest BuildPostRequest(RequestData requestData)

@@ -9,7 +9,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 	public abstract class RequestHandler
 	{
 		public abstract Response HitEndpoint(RequestData requestData);
-		public abstract void HitEndpointAsync(RequestData requestData, Action<Response> action);
 		public abstract string GetDebugUri(RequestData requestData);
 		public abstract bool HandlesMethod(HttpMethod method);
 

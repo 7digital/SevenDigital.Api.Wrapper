@@ -16,24 +16,11 @@ namespace SevenDigital.Api.Wrapper.Http
 			return TryGetResponse(webRequest.GetResponse);
 		}
 
-		public void GetAsync(GetRequest request, Action<Response> callback)
-		{
-			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
-			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
-		}
-
 		public Response Post(PostRequest request)
 		{
 			var webRequest = MakePostRequest(request);
 			
 			return TryGetResponse(webRequest.GetResponse);
-		}
-
-		public void PostAsync(PostRequest request, Action<Response> callback)
-		{
-			var webRequest = MakePostRequest(request);
-
-			webRequest.BeginGetResponse(iar => callback(GetAsyncResponse(iar)), webRequest);
 		}
 
 		public Dictionary<string, string> MapHeaders(WebHeaderCollection headerCollection)
@@ -46,13 +33,6 @@ namespace SevenDigital.Api.Wrapper.Http
 			}
 
 			return headers;
-		}
-
-		private Response GetAsyncResponse(IAsyncResult iar)
-		{
-			var webRequest = (WebRequest)iar.AsyncState;
-
-			return TryGetResponse(() => webRequest.EndGetResponse(iar));
 		}
 
 		private Response TryGetResponse(Func<WebResponse> getResponse)

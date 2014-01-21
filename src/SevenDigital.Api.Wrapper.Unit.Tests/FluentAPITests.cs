@@ -6,7 +6,6 @@ using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Schema;
-using System.Threading;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Unit.Tests.Http;
@@ -100,24 +99,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var api = new FluentApi<Status>(fakeRequestCoordinator);
 
 			Assert.Throws<ArgumentNullException>(() => api.UsingClient(null));
-		}
-
-		[Test]
-		public void should_put_payload_in_action_result()
-		{
-			var requestCoordinator = new FakeRequestCoordinator { StubPayload = stubResponse };
-			var reset = new AutoResetEvent(false);
-
-			new FluentApi<Status>(requestCoordinator)
-				.PleaseAsync(
-				status =>
-				{
-					Assert.That(status, Is.Not.Null);
-					reset.Set();
-				});
-
-			var result = reset.WaitOne(1000 * 60);
-			Assert.That(result, Is.True, "Method");
 		}
 
 		[Test]
@@ -224,11 +205,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		public Response HitEndpointAndGetResponse(RequestData requestData)
 		{
 			throw new NotImplementedException();
-		}
-
-		public void HitEndpointAsync(RequestData requestData, Action<Response> callback)
-		{
-			callback(StubPayload);
 		}
 
 		public string ConstructEndpoint(RequestData requestData)
