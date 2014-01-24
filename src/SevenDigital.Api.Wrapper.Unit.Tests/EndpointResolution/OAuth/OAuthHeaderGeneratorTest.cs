@@ -1,8 +1,5 @@
-﻿using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
-using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;
-using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.OAuth
 {

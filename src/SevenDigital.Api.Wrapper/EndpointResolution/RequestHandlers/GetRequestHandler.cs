@@ -1,7 +1,6 @@
-using System;
+using System.Collections.Generic;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Http;
-using OAuth;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
@@ -42,24 +41,25 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 			if (requestData.RequiresSignature)
 			{
-				AddOAuthHeader(requestData, fullUrl);
+				var oauthHeader = BuildOAuthHeader(requestData, fullUrl, apiRequest.Parameters);
+				requestData.Headers.Add("Authorization", oauthHeader);
 			}
 
 			return new GetRequest(fullUrl, requestData.Headers);
 		}
 
-		private void AddOAuthHeader(RequestData requestData, string fullUrl)
+		private string BuildOAuthHeader(RequestData requestData, string fullUrl, IDictionary<string, string> parameters)
 		{
-			var oauthHeaderHGenerator = new OAuthHeaderGenerator(_oAuthCredentials);
+			var authHeaderGenerator = new OAuthHeaderGenerator(_oAuthCredentials);
 			var oAuthHeaderData = new OAuthHeaderData
-				            {
-								Url = fullUrl,
-								HttpMethod = HttpMethod.Get,
-								UserToken = requestData.UserToken,
-								TokenSecret = requestData.TokenSecret
-				            };
-			var oauthHeader = oauthHeaderHGenerator.GenerateOAuthSignatureHeader(oAuthHeaderData);
-			requestData.Headers.Add("Authorization", oauthHeader);
+			{
+				Url = fullUrl,
+				HttpMethod = HttpMethod.Get,
+				UserToken = requestData.UserToken,
+				TokenSecret = requestData.TokenSecret,
+				RequestParameters = parameters
+			};
+			return authHeaderGenerator.GenerateOAuthSignatureHeader(oAuthHeaderData);
 		}
 
 		public override string GetDebugUri(RequestData requestData)

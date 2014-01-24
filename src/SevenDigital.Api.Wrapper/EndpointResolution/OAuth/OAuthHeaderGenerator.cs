@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using OAuth;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
@@ -31,7 +32,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 				oauthRequest.TokenSecret = data.TokenSecret;
 			}
 
-			return oauthRequest.GetAuthorizationHeader();
+			return oauthRequest.GetAuthorizationHeader(data.RequestParameters);
 		}
 	}
 }
