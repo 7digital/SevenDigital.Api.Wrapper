@@ -18,3 +18,4 @@ build/spec/report.html
 *.docstates
 *.ncrunchsolution
 packages/*/**
+/.nuget/nuget.exe
