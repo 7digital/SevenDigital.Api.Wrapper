@@ -3,7 +3,8 @@
 param(
 	[string]$push = "false",
 	[string]$v = "",
-	[string]$prerelease = "false"
+	[string]$prerelease = "false",
+	[string]$source = ""
 )
 
 # functions
@@ -92,8 +93,12 @@ $nuspecWithVersion > SevenDigital.Api.Wrapper.nuspec
 
 nuget pack SevenDigital.Api.Wrapper.nuspec 
 
-$pushCommand = "NuGet Push SevenDigital.Api.Wrapper.#version#.nupkg".Replace("#version#", $fullVersion)
+$pushCommand = "NuGet Push SevenDigital.Api.Wrapper.#version#.nupkg -NonInteractive".Replace("#version#", $fullVersion)
 
+if ($source -ne "")
+{
+  $pushCommand = $pushCommand + " -source $source"
+}
 
 if ($push -eq "true")
 {
