@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests
 {
@@ -6,11 +7,16 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests
 	{
 		public AppSettingsCredentials()
 		{
-			ConsumerKey = ConfigurationManager.AppSettings["Wrapper.ConsumerKey"];
-			ConsumerSecret = ConfigurationManager.AppSettings["Wrapper.ConsumerSecret"];
+			ConsumerKey = ValueFromEnvOrConfig("WRAPPER_INTEGRATION_TEST_CONSUMER_KEY", "Wrapper.ConsumerKey");
+			ConsumerSecret = ValueFromEnvOrConfig("WRAPPER_INTEGRATION_TEST_CONSUMER_SECRET", "Wrapper.ConsumerSecret");
 		}
 
-		public string ConsumerKey { get; set; }
-		public string ConsumerSecret { get; set; }
+		public string ConsumerKey { get; private set; }
+		public string ConsumerSecret { get; private set; }
+
+		private static string ValueFromEnvOrConfig(string envName, string configName)
+		{
+			return Environment.GetEnvironmentVariable(envName) ?? ConfigurationManager.AppSettings[configName];
+		}
 	}
 }
