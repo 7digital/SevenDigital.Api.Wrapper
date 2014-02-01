@@ -1,4 +1,8 @@
-﻿using FakeItEasy;
+﻿using System;
+
+using FakeItEasy;
+using FakeItEasy.Configuration;
+
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;
 using SevenDigital.Api.Wrapper.Http;
@@ -32,24 +36,26 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		}
 
 		[Test]
-		public void Should_use_non_secure_api_uri_by_default()
+		public void Should_post_to_non_secure_api_uri_by_default()
 		{
 			var data = PostRequest();
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Url.StartsWith("http://example.com/testpath")))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(
+				p => (p.Url.StartsWith("http://example.com/testpath") && p.Method == HttpMethod.Post)))).MustHaveHappened();
 		}
 
 		[Test]
-		public void Should_use_secure_uri_when_requested()
+		public void Should_post_to_secure_uri_when_requested()
 		{
 			var data = PostRequest();
 			data.UseHttps = true;
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Url.StartsWith("https://example.com/testpath")))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(
+				(p => p.Url.StartsWith("https://example.com/testpath") && p.Method == HttpMethod.Post)))).MustHaveHappened();
 		}
 
 		[Test]
@@ -59,7 +65,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Url.Contains("oauth_consumer_key")))).MustNotHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => p.Url.Contains("oauth_consumer_key")))).MustNotHaveHappened();
 		}
 
 		[Test]
@@ -67,7 +73,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		{
 			var data = PostRequest();
 			_handler.HitEndpoint(data);
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Body.Contains("oauth_consumer_key=testkey")))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => p.Body.Contains("oauth_consumer_key=testkey")))).MustHaveHappened();
 		}
 
 		[Test]
@@ -77,7 +83,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			data.RequiresSignature = true;
 
 			_handler.HitEndpoint(data);
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Body.Contains("oauth_signature=")))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => p.Body.Contains("oauth_signature=")))).MustHaveHappened();
 		}
 
 		[Test]
@@ -86,7 +92,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			var data = PostRequest();
 
 			_handler.HitEndpoint(data);
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Body.Contains("oauth_signature=")))).MustNotHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => p.Body.Contains("oauth_signature=")))).MustNotHaveHappened();
 		}
 
 		[Test]
@@ -97,7 +103,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Body.Contains("oauth_signature")))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => p.Body.Contains("oauth_signature")))).MustHaveHappened();
 		}
 
 		[Test]
@@ -110,7 +116,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.That.Matches(p => p.Body.Contains("oauth_token=foo")))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => p.Body.Contains("oauth_token=foo")))).MustHaveHappened();
 		}
 
 		[Test]
@@ -120,7 +126,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Post(A<PostRequest>.Ignored)).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.Ignored)).MustHaveHappened();
 		}
 
 		private static RequestData PostRequest()

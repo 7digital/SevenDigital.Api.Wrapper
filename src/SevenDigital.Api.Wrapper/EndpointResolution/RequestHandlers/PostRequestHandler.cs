@@ -22,15 +22,14 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		public override Response HitEndpoint(RequestData requestData)
 		{
 			var postRequest = BuildPostRequest(requestData);
-			return HttpClient.Post(postRequest);
+			return HttpClient.Send(postRequest);
 		}
 
-		private PostRequest BuildPostRequest(RequestData requestData)
+		private Request BuildPostRequest(RequestData requestData)
 		{
 			var apiRequest = MakeApiRequest(requestData);
 			var requestBody = SignHttpPostParams(apiRequest, requestData);
-			var postRequest = new PostRequest(apiRequest.AbsoluteUrl, requestData.Headers, requestBody);
-			return postRequest;
+			return new Request(HttpMethod.Post, apiRequest.AbsoluteUrl, requestData.Headers, requestBody);
 		}
 
 		private string SignHttpPostParams(ApiRequest apiRequest, RequestData requestData)

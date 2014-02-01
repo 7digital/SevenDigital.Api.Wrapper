@@ -9,30 +9,54 @@ namespace SevenDigital.Api.Wrapper.Http
 {
 	public class HttpClientMediator : IHttpClient
 	{
-		public Response Get(GetRequest request)
+		public Response Send(Request request)
 		{
-			var webRequest = MakeWebRequest(request.Url, "GET", request.Headers);
-			
+			var webRequest = MakeHttpWebRequest(request);
 			return TryGetResponse(webRequest.GetResponse);
 		}
 
-		public Response Post(PostRequest request)
+		private static HttpWebRequest MakeHttpWebRequest(Request request)
 		{
-			var webRequest = MakePostRequest(request);
-			
-			return TryGetResponse(webRequest.GetResponse);
-		}
+			var httpWebRequest = RequestForUrl(request.Url);
 
-		public Dictionary<string, string> MapHeaders(WebHeaderCollection headerCollection)
-		{
-			var headers = new Dictionary<string, string>();
+			httpWebRequest.Method = request.Method.ToString().ToUpperInvariant();
+			httpWebRequest.UserAgent = "7digital .Net Api Wrapper";
+			httpWebRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip");
+			httpWebRequest.Accept = "application/xml";
 
-			for (var i = 0; i < headerCollection.Count; i++)
+			foreach (var header in request.Headers)
 			{
-				headers.Add(headerCollection.GetKey(i), string.Join(",", headerCollection.GetValues(i)));
+				httpWebRequest.Headers.Add(header.Key, header.Value);
 			}
 
-			return headers;
+			if (request.Method == HttpMethod.Post)
+			{
+				httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+
+				var postBytes = Encoding.UTF8.GetBytes(request.Body);
+				httpWebRequest.ContentLength = postBytes.Length;
+
+				using (Stream dataStream = httpWebRequest.GetRequestStream())
+				{
+					dataStream.Write(postBytes, 0, postBytes.Length);
+				}
+			}
+
+			return httpWebRequest;
+		}
+
+		private static HttpWebRequest RequestForUrl(string url)
+		{
+			try
+			{
+				var uri = new Uri(url);
+				var webRequest = WebRequest.Create(uri);
+				return (HttpWebRequest)webRequest;
+			}
+			catch (Exception ex)
+			{
+				throw new InvalidOperationException("Could not create HttpWebRequest for url " + url, ex);
+			}
 		}
 
 		private Response TryGetResponse(Func<WebResponse> getResponse)
@@ -51,36 +75,10 @@ namespace SevenDigital.Api.Wrapper.Http
 				webResponse = ex.Response;
 			}
 
-			using (webResponse) 
+			using (webResponse)
 			{
 				return MakeResponse(webResponse);
 			}
-		}
-
-		private static HttpWebRequest MakeWebRequest(string url, string method, IEnumerable<KeyValuePair<string, string>> headers)
-		{
-			HttpWebRequest httpWebRequest;
-			try 
-			{
-				var uri = new Uri(url);
-				var webRequest = WebRequest.Create(uri);
-				httpWebRequest =  (HttpWebRequest)webRequest;
-			} 
-			catch (Exception ex) 
-			{
-				throw new InvalidOperationException("Could not create HttpWebRequest for url " + url, ex);
-			}
-
-			httpWebRequest.Method = method;
-			httpWebRequest.UserAgent = "7digital .Net Api Wrapper";
-			httpWebRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip");
-			httpWebRequest.Accept = "application/xml";
-
-			foreach (var header in headers)
-			{
-				httpWebRequest.Headers.Add(header.Key, header.Value);
-			}
-			return httpWebRequest;
 		}
 
 		private Response MakeResponse(WebResponse webResponse)
@@ -92,11 +90,23 @@ namespace SevenDigital.Api.Wrapper.Http
 			}
 
 			var statusCode = ReadStatusCode(webResponse);
-			var headers = MapHeaders(webResponse.Headers);
+			var headers = MapResponseHeaders(webResponse.Headers);
 
 			var response = new Response(statusCode, headers, output);
 
 			return response;
+		}
+
+		public Dictionary<string, string> MapResponseHeaders(WebHeaderCollection headerCollection)
+		{
+			var headers = new Dictionary<string, string>();
+
+			for (var i = 0; i < headerCollection.Count; i++)
+			{
+				headers.Add(headerCollection.GetKey(i), string.Join(",", headerCollection.GetValues(i)));
+			}
+
+			return headers;
 		}
 
 		private Stream GetResponseStream(WebResponse webResponse)
@@ -109,21 +119,6 @@ namespace SevenDigital.Api.Wrapper.Http
 			}
 
 			return webResponse.GetResponseStream();
-		}
-
-		private static HttpWebRequest MakePostRequest(PostRequest request)
-		{
-			var webRequest = MakeWebRequest(request.Url, "POST", request.Headers);
-			webRequest.ContentType = "application/x-www-form-urlencoded";
-
-			var postBytes = Encoding.UTF8.GetBytes(request.Body);
-			webRequest.ContentLength = postBytes.Length;
-
-			using (Stream dataStream = webRequest.GetRequestStream())
-			{
-				dataStream.Write(postBytes, 0, postBytes.Length);
-			}
-			return webRequest;
 		}
 
 		private static HttpStatusCode ReadStatusCode(WebResponse webResponse)

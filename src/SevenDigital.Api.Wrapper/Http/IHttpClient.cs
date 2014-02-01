@@ -1,10 +1,7 @@
-﻿using System;
-
-namespace SevenDigital.Api.Wrapper.Http
+﻿namespace SevenDigital.Api.Wrapper.Http
 {
 	public interface IHttpClient
 	{
-		Response Get(GetRequest request);
-		Response Post(PostRequest request);
+		Response Send(Request request);
 	}
 }
