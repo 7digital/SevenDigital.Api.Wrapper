@@ -9,17 +9,20 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests
 		{
 			get
 			{
-				return Environment.GetEnvironmentVariable("WRAPPER_INTEGRATION_TEST_ACCESS_TOKEN") ??
-					ConfigurationManager.AppSettings["Integration.Tests.AccessToken"];
+				return ValueFromEnvOrConfig("WRAPPER_INTEGRATION_TEST_ACCESS_TOKEN", "Integration.Tests.AccessToken");
 			}
 		}
 		public static string AccessTokenSecret
 		{
 			get
 			{
-				return Environment.GetEnvironmentVariable("WRAPPER_INTEGRATION_TEST_ACCESS_TOKEN_SECRET") ??
-					ConfigurationManager.AppSettings["Integration.Tests.AccessTokenSecret"];
+				return ValueFromEnvOrConfig("WRAPPER_INTEGRATION_TEST_ACCESS_TOKEN_SECRET", "Integration.Tests.AccessTokenSecret");
 			}
+		}
+
+		private static string ValueFromEnvOrConfig(string envName, string configName)
+		{
+			return Environment.GetEnvironmentVariable(envName) ?? ConfigurationManager.AppSettings[configName];
 		}
 	}
 }
