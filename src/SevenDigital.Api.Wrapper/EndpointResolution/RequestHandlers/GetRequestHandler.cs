@@ -53,13 +53,13 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		{
 			var authHeaderGenerator = new OAuthHeaderGenerator(_oAuthCredentials);
 			var oAuthHeaderData = new OAuthHeaderData
-			{
-				Url = fullUrl,
-				HttpMethod = HttpMethod.Get,
-				UserToken = requestData.UserToken,
-				TokenSecret = requestData.TokenSecret,
-				RequestParameters = parameters
-			};
+				{
+					Url = fullUrl,
+					HttpMethod = HttpMethod.Get,
+					UserToken = requestData.UserToken,
+					TokenSecret = requestData.TokenSecret,
+					RequestParameters = parameters
+				};
 			return authHeaderGenerator.GenerateOAuthSignatureHeader(oAuthHeaderData);
 		}
 

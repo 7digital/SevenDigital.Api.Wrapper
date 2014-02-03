@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using OAuth;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
@@ -23,7 +22,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.OAuth
 				RequestUrl = data.Url,
 				Method = data.HttpMethod.ToString().ToUpperInvariant(),
 				ConsumerKey = _oAuthCredentials.ConsumerKey,
-				ConsumerSecret = _oAuthCredentials.ConsumerSecret
+				ConsumerSecret = _oAuthCredentials.ConsumerSecret,
 			};
 
 			if (!string.IsNullOrEmpty(data.UserToken))

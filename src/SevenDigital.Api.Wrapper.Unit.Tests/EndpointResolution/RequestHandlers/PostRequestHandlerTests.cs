@@ -1,8 +1,4 @@
-﻿using System;
-
-using FakeItEasy;
-using FakeItEasy.Configuration;
-
+﻿using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;
 using SevenDigital.Api.Wrapper.Http;
@@ -36,26 +32,26 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		}
 
 		[Test]
-		public void Should_post_to_non_secure_api_uri_by_default()
+		public void Should_use_non_secure_api_uri_by_default()
 		{
 			var data = PostRequest();
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(
-				p => (p.Url.StartsWith("http://example.com/testpath") && p.Method == HttpMethod.Post)))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => 
+				(p.Method == HttpMethod.Post) && p.Url.StartsWith("http://example.com/testpath")))).MustHaveHappened();
 		}
 
 		[Test]
-		public void Should_post_to_secure_uri_when_requested()
+		public void Should_use_secure_uri_when_requested()
 		{
 			var data = PostRequest();
 			data.UseHttps = true;
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(
-				(p => p.Url.StartsWith("https://example.com/testpath") && p.Method == HttpMethod.Post)))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p =>
+				(p.Method == HttpMethod.Post) && p.Url.StartsWith("https://example.com/testpath")))).MustHaveHappened();
 		}
 
 		[Test]
@@ -65,25 +61,41 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => p.Url.Contains("oauth_consumer_key")))).MustNotHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p =>
+				(p.Method == HttpMethod.Post) && p.Url.Contains("oauth_consumer_key")))).MustNotHaveHappened();
 		}
 
 		[Test]
-		public void Should_put_oauth_consumer_key_in_parameters()
+		public void Should_put_oauth_consumer_key_in_headers()
 		{
 			var data = PostRequest();
 			_handler.HitEndpoint(data);
-			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => p.Body.Contains("oauth_consumer_key=testkey")))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(
+				p =>  PostHasAuthHeaderContaining(p, "oauth_consumer_key=testkey")))).MustHaveHappened();
 		}
 
 		[Test]
-		public void Should_put_oauth_signature_in_parameters()
+		public void Should_put_oauth_signature_in_headers()
 		{
 			var data = PostRequest();
 			data.RequiresSignature = true;
 
 			_handler.HitEndpoint(data);
-			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => p.Body.Contains("oauth_signature=")))).MustHaveHappened();
+
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(
+				p => PostHasAuthHeaderContaining(p, "oauth_signature=")))).MustHaveHappened();
+		}
+
+
+		[Test]
+		public void Should_not_put_oauth_signature_in_parameters()
+		{
+			var data = PostRequest();
+			data.RequiresSignature = true;
+
+			_handler.HitEndpoint(data);
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p =>
+				(p.Method == HttpMethod.Post) && p.Body.Contains("oauth_signature=")))).MustNotHaveHappened();
 		}
 
 		[Test]
@@ -92,7 +104,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			var data = PostRequest();
 
 			_handler.HitEndpoint(data);
-			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => p.Body.Contains("oauth_signature=")))).MustNotHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p =>
+				(p.Method == HttpMethod.Post) && PostHasAuthHeaderContaining(p, "oauth_signature=")))).MustNotHaveHappened();
 		}
 
 		[Test]
@@ -103,7 +116,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => p.Body.Contains("oauth_signature")))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(
+				p => PostHasAuthHeaderContaining(p, "oauth_signature")))).MustHaveHappened();
 		}
 
 		[Test]
@@ -116,7 +130,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => p.Body.Contains("oauth_token=foo")))).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(
+				p => PostHasAuthHeaderContaining(p, "oauth_token=\"foo\"")))).MustHaveHappened();
 		}
 
 		[Test]
@@ -126,7 +141,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(data);
 
-			A.CallTo(() => _httpClient.Send(A<Request>.Ignored)).MustHaveHappened();
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(p => 
+				p.Method == HttpMethod.Post))).MustHaveHappened();
 		}
 
 		private static RequestData PostRequest()
@@ -136,6 +152,23 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 				HttpMethod = HttpMethod.Post,
 				Endpoint = "testpath",
 			};
+		}
+
+		private static bool PostHasAuthHeaderContaining(Request request, string expectedContent)
+		{
+			if (request.Method != HttpMethod.Post)
+			{
+				return false;
+			}
+
+			if (!request.Headers.ContainsKey("Authorization"))
+			{
+				return false;
+			}
+
+			var headerValue = request.Headers["Authorization"];
+
+			return headerValue.Contains(expectedContent);
 		}
 	}
 }
