@@ -83,9 +83,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		public override string GetDebugUri(RequestData requestData)
 		{
-			var apiRequest = MakeApiRequest(requestData);
-			apiRequest.Parameters.Add("oauth_consumer_key", _oAuthCredentials.ConsumerKey);
-			return apiRequest.FullUri;
+			return BuildRequest(requestData).Url;
 		}
 	}
 }
