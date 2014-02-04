@@ -96,6 +96,7 @@
     <Compile Include="Extensions\SortOrder.cs" />
     <Compile Include="Http\IResponseCache.cs" />
     <Compile Include="Http\NullResponseCache.cs" />
+    <Compile Include="Http\Request.cs" />
     <Compile Include="IApiEndpoint.cs" />
     <Compile Include="IApiUri.cs" />
     <Compile Include="IOAuthCredentials.cs" />
@@ -106,8 +107,6 @@
     <Compile Include="EndpointResolution\RequestCoordinator.cs" />
     <Compile Include="EndpointResolution\IRequestCoordinator.cs" />
     <Compile Include="Http\HttpClientMediator.cs" />
-    <Compile Include="Http\PostRequest.cs" />
-    <Compile Include="Http\GetRequest.cs" />
     <Compile Include="Http\IHttpClient.cs" />
     <Compile Include="Http\Response.cs" />
     <Compile Include="Serialization\ApiResponseDetector.cs" />

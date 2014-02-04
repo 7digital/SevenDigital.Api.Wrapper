@@ -23,9 +23,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		public void Can_resolve_uri()
 		{
 			var url = string.Format("{0}/status?oauth_consumer_key={1}", API_URL, _consumerKey);
-			var request = new GetRequest(url, new Dictionary<string, string>());
+			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), string.Empty);
 
-			var response = new HttpClientMediator().Get(request);
+			var response = new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.OK);
 		}
 
@@ -33,9 +33,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		public void Can_resolve_uri_that_returns_gzip()
 		{
 			var url = string.Format("{0}/release/details?oauth_consumer_key={1}&releaseId=12345", API_URL, _consumerKey);
-			var request = new GetRequest(url, new Dictionary<string, string>());
+			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), string.Empty);
 
-			var response = new HttpClientMediator().Get(request);
+			var response = new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.OK);
 			AssertCanParseBody(response);
 		}
@@ -58,9 +58,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		public void Bad_url_should_return_not_found()
 		{
 			var url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", API_URL, _consumerKey);
-			var request = new GetRequest(url, new Dictionary<string, string>());
+			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), string.Empty);
 
-			var response = new HttpClientMediator().Get(request);
+			var response = new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 
@@ -68,9 +68,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		public void No_key_should_return_unauthorized()
 		{
 			var url = string.Format("{0}/status", API_URL);
-			var request = new GetRequest(url, new Dictionary<string, string>());
+			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), string.Empty);
 
-			var response = new HttpClientMediator().Get(request);
+			var response = new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.Unauthorized);
 		}
 
@@ -81,9 +81,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		public void Can_cope_with_timeouts()
 		{
 			const string apiUrl = "http://hanging-web-app.7digital.local";
-			var request = new GetRequest(apiUrl, new Dictionary<string, string>());
+			var request = new Request(HttpMethod.Post, apiUrl, new Dictionary<string, string>(), string.Empty);
 
-			var response = new HttpClientMediator().Get(request);
+			var response = new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.OK);
 		}
 
@@ -97,9 +97,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			                 	{"foo", "bar"}
 			                 };
 
-			var request = new PostRequest(url, new Dictionary<string, string>(), parameters.ToQueryString());
+			var request = new Request(HttpMethod.Post, url, new Dictionary<string, string>(), parameters.ToQueryString());
 
-			var response = new HttpClientMediator().Post(request);
+			var response = new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 

@@ -1,4 +1,3 @@
-using System;
 using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
@@ -16,14 +15,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			_fakeResponse = fakeResponse;
 		}
 
-		public Response Get(GetRequest request)
+		public Response Send(Request request)
 		{
-			throw new NotImplementedException();
-		}
-
-		public Response Post(PostRequest request)
-		{
-			throw new NotImplementedException();
+			return _fakeResponse;
 		}
 	}
 }

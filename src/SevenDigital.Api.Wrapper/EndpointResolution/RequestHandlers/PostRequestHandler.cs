@@ -22,10 +22,10 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		public override Response HitEndpoint(RequestData requestData)
 		{
 			var postRequest = BuildPostRequest(requestData);
-			return HttpClient.Post(postRequest);
+			return HttpClient.Send(postRequest);
 		}
 
-		private PostRequest BuildPostRequest(RequestData requestData)
+		private Request BuildPostRequest(RequestData requestData)
 		{
 			var apiRequest = MakeApiRequest(requestData);
 
@@ -40,21 +40,20 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			}
 
 			string requestBody = apiRequest.Parameters.ToQueryString();
-			var postRequest = new PostRequest(apiRequest.AbsoluteUrl, requestData.Headers, requestBody);
-			return postRequest;
+			return new Request(HttpMethod.Post, apiRequest.AbsoluteUrl, requestData.Headers, requestBody);
 		}
 
 		private string BuildOAuthHeader(RequestData requestData, string fullUrl, IDictionary<string, string> parameters)
 		{
 			var authHeaderGenerator = new OAuthHeaderGenerator(_oAuthCredentials);
 			var oAuthHeaderData = new OAuthHeaderData
-			{
-				Url = fullUrl,
-				HttpMethod = HttpMethod.Post,
-				UserToken = requestData.UserToken,
-				TokenSecret = requestData.TokenSecret,
-				RequestParameters = parameters
-			};
+				{
+					Url = fullUrl,
+					HttpMethod = HttpMethod.Post,
+					UserToken = requestData.UserToken,
+					TokenSecret = requestData.TokenSecret,
+					RequestParameters = parameters
+				};
 			return authHeaderGenerator.GenerateOAuthSignatureHeader(oAuthHeaderData);
 		}
 

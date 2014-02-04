@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-using System.Threading;
 using System.Xml;
 using FakeItEasy;
 using NUnit.Framework;
@@ -33,7 +32,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		[Test]
 		public void Should_fire_resolve_with_correct_values()
 		{
-			A.CallTo(() => _httpClient.Get(A<GetRequest>.Ignored))
+			A.CallTo(() => _httpClient.Send(A<Request>.Ignored))
 				.Returns(new Response(HttpStatusCode.OK, SERVICE_STATUS));
 
 			const HttpMethod expectedMethod = HttpMethod.Get;
@@ -45,14 +44,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			_requestCoordinator.HitEndpoint(requestData);
 
 			A.CallTo(() => _httpClient
-					.Get(A<GetRequest>.That.Matches(y => y.Url == expected)))
+					.Send(A<Request>.That.Matches(y => y.Url == expected)))
 					.MustHaveHappened();
 		}
 
 		[Test]
 		public void Should_fire_resolve_with_url_encoded_parameters()
 		{
-			A.CallTo(() => _httpClient.Get(A<GetRequest>.Ignored))
+			A.CallTo(() => _httpClient.Send(A<Request>.Ignored))
 				.Returns(new Response(HttpStatusCode.OK, SERVICE_STATUS));
 
 			const string unEncodedParameterValue = "Alive & Amplified";
@@ -73,7 +72,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			_requestCoordinator.HitEndpoint(requestData);
 
 			A.CallTo(() => _httpClient
-					.Get(A<GetRequest>.That.Matches(y => y.Url == expected)))
+					.Send(A<Request>.That.Matches(y => y.Url == expected)))
 					.MustHaveHappened();
 		}
 
@@ -126,7 +125,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 
 			A.CallTo(() => apiUri.Uri).MustHaveHappened(Repeated.Exactly.Once);
 
-			A.CallTo(() => _httpClient.Get(A<GetRequest>.That.Matches(x => x.Url.ToString().Contains(expectedApiUri)))).MustHaveHappened(Repeated.Exactly.Once);
+			A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(x => x.Url.ToString().Contains(expectedApiUri)))).MustHaveHappened(Repeated.Exactly.Once);
 		}
 
 		[Test]
@@ -150,7 +149,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 
 		private void Given_a_urlresolver_that_returns_valid_xml()
 		{
-			A.CallTo(() => _httpClient.Get(A<GetRequest>.Ignored))
+			A.CallTo(() => _httpClient.Send(A<Request>.Ignored))
 				.Returns(new Response(HttpStatusCode.OK, SERVICE_STATUS));
 		}
 	}

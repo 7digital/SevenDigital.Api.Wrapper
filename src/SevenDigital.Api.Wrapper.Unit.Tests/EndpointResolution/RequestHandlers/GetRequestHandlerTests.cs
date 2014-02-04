@@ -44,7 +44,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		{
 			_handler.HitEndpoint(_requestData);
 
-			ARequestToAUriMatching(uri => uri.GetLeftPart(UriPartial.Path) == "http://example.com/testpath").MustHaveHappened();
+			AGetRequestToAUriMatching(uri => uri.GetLeftPart(UriPartial.Path) == "http://example.com/testpath").MustHaveHappened();
 		}
 
 		[Test]
@@ -54,7 +54,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(_requestData);
 			
-			ARequestToAUriMatching(uri => uri.GetLeftPart(UriPartial.Path) == "https://example.com/testpath").MustHaveHappened();
+			AGetRequestToAUriMatching(uri => uri.GetLeftPart(UriPartial.Path) == "https://example.com/testpath").MustHaveHappened();
 		}
 
 		[Test]
@@ -63,7 +63,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			_requestData.RequiresSignature = false;
 			_handler.HitEndpoint(_requestData);
 
-			ARequestToAUriMatching(uri => uri.AbsoluteUri == "http://example.com/testpath?oauth_consumer_key=testkey").MustHaveHappened();
+			AGetRequestToAUriMatching(uri => uri.AbsoluteUri == "http://example.com/testpath?oauth_consumer_key=testkey").MustHaveHappened();
 		}
 
 		[Test]
@@ -73,7 +73,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			
 			_handler.HitEndpoint(_requestData);
 
-			ARequestToAUriMatching(uri => uri.Query.Contains("foo=bar")).MustHaveHappened();
+			AGetRequestToAUriMatching(uri => uri.Query.Contains("foo=bar")).MustHaveHappened();
 		}
 
 		[Test]
@@ -84,7 +84,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(_requestData);
 
-			ARequestToAUriMatching(uri => uri.AbsolutePath == "/test/bar/baz").MustHaveHappened();
+			AGetRequestToAUriMatching(uri => uri.AbsolutePath == "/test/bar/baz").MustHaveHappened();
 		}
 
 		[Test]
@@ -92,7 +92,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		{
 			_handler.HitEndpoint(_requestData);
 
-			ARequestMatching(HasAuthHeader).MustNotHaveHappened();
+			ARequestMatching(GetHasAuthHeader).MustNotHaveHappened();
 		}
 
 		[Test]
@@ -101,8 +101,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			_requestData.RequiresSignature = true;
 
 			_handler.HitEndpoint(_requestData);
-			ARequestMatching(HasAuthHeader).MustHaveHappened();
-			ARequestMatching(request => AuthHeaderContaining(request, "oauth_signature")).MustHaveHappened();
+			ARequestMatching(GetHasAuthHeader).MustHaveHappened();
+			ARequestMatching(request => GetHasAuthHeaderContaining(request, "oauth_signature")).MustHaveHappened();
 		}
 
 		[Test]
@@ -113,9 +113,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			_requestData.TokenSecret = "bar";
 			_handler.HitEndpoint(_requestData);
 
-			ARequestMatching(HasAuthHeader).MustHaveHappened();
+			ARequestMatching(GetHasAuthHeader).MustHaveHappened();
 
-			ARequestMatching(r => AuthHeaderContaining(r, "oauth_token=\"foo\"")).MustHaveHappened();
+			ARequestMatching(r => GetHasAuthHeaderContaining(r, "oauth_token=\"foo\"")).MustHaveHappened();
 		}
 
 		[Test]
@@ -125,22 +125,28 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_handler.HitEndpoint(_requestData);
 
-			ARequestMatching(HasAuthHeader).MustHaveHappened();
+			ARequestMatching(GetHasAuthHeader).MustHaveHappened();
 		}
 
-		private IAssertConfiguration ARequestToAUriMatching(Func<Uri, bool> predicate)
+		private IAssertConfiguration AGetRequestToAUriMatching(Func<Uri, bool> predicate)
 		{
-			return A.CallTo(() => _httpClient.Get(A<GetRequest>.That.Matches(g => predicate(new Uri(g.Url)))));
+			return A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(g => 
+				(g.Method == HttpMethod.Get) && predicate(new Uri(g.Url)))));
 		}
 
-		private IAssertConfiguration ARequestMatching(Func<GetRequest, bool> predicate)
+		private IAssertConfiguration ARequestMatching(Func<Request, bool> predicate)
 		{
-			return A.CallTo(() => _httpClient.Get(A<GetRequest>.That.Matches(g => predicate(g))));
+			return A.CallTo(() => _httpClient.Send(A<Request>.That.Matches(g => predicate(g))));
 		}
 
-		private bool HasAuthHeader(GetRequest request)
+		private bool GetHasAuthHeader(Request request)
 		{
-			if (! request.Headers.ContainsKey("Authorization"))
+			if (request.Method != HttpMethod.Get)
+			{
+				return false;
+			} 
+			
+			if (!request.Headers.ContainsKey("Authorization"))
 			{
 				return false;
 			}
@@ -148,9 +154,19 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			var actualHeader = request.Headers["Authorization"];
 			return (!string.IsNullOrEmpty(actualHeader));
 		}
-		
-		private bool AuthHeaderContaining(GetRequest request, string expectedHeader)
+
+		private bool GetHasAuthHeaderContaining(Request request, string expectedHeader)
 		{
+			if (request.Method != HttpMethod.Get)
+			{
+				return false;
+			}
+
+			if (!request.Headers.ContainsKey("Authorization"))
+			{
+				return false;
+			} 
+
 			var actualHeader = request.Headers["Authorization"];
 			return (! string.IsNullOrEmpty(actualHeader) && actualHeader.Contains(expectedHeader));
 		}
