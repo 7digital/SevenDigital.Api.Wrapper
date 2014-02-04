@@ -17,5 +17,15 @@ namespace SevenDigital.Api.Wrapper.Http
 		{
 			return(HttpMethod)Enum.Parse(typeof (HttpMethod), methodName, true);
 		}
+
+		public static bool HasParams(HttpMethod method)
+		{
+			return (method == HttpMethod.Get) || (method == HttpMethod.Delete);
+		}
+
+		public static bool HasBody(HttpMethod method)
+		{
+			return (method == HttpMethod.Post) || (method == HttpMethod.Put);
+		}
 	}
 }
