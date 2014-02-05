@@ -51,11 +51,10 @@
     <Compile Include="EndpointResolution\EssentialDependencyCheck.cs" />
     <Compile Include="EndpointResolution\OAuth\OAuthHeaderData.cs" />
     <Compile Include="EndpointResolution\OAuth\OAuthHeaderGenerator.cs" />
+    <Compile Include="EndpointResolution\RequestHandlers\AllRequestHandler.cs" />
     <Compile Include="Http\HttpMethod.cs" />
     <Compile Include="EndpointResolution\RequestHandlerFactory.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\ApiRequest.cs" />
-    <Compile Include="EndpointResolution\RequestHandlers\GetRequestHandler.cs" />
-    <Compile Include="EndpointResolution\RequestHandlers\PostRequestHandler.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\RequestHandler.cs" />
     <Compile Include="Exceptions\ApiErrorException.cs" />
     <Compile Include="Exceptions\ApiException.cs" />

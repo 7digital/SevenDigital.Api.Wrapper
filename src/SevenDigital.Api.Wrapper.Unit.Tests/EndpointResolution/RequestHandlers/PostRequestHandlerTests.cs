@@ -12,7 +12,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		private IOAuthCredentials _oAuthCredentials;
 		private IHttpClient _httpClient;
 
-		private PostRequestHandler _handler;
+		private AllRequestHandler _handler;
 
 		[SetUp]
 		public void Setup()
@@ -27,7 +27,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_httpClient = A.Fake<IHttpClient>();
 
-			_handler = new PostRequestHandler(_apiUri, _oAuthCredentials);
+			_handler = new AllRequestHandler(_apiUri, _oAuthCredentials);
 			_handler.HttpClient = _httpClient;
 		}
 

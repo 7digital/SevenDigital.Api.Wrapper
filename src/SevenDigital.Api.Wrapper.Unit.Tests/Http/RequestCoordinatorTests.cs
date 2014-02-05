@@ -132,7 +132,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		public void Construct_url_should_combine_url_and_query_params_for_get_requests()
 		{
 			const string uriPath = "something";
-			var result = _requestCoordinator.ConstructEndpoint(new RequestData { Endpoint = uriPath });
+			var request = new RequestData { HttpMethod = HttpMethod.Get, Endpoint = uriPath };
+			var result = _requestCoordinator.ConstructEndpoint(request);
 
 			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath + "?oauth_consumer_key=" + _consumerKey));
 		}
@@ -141,7 +142,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		public void Construct_url_should_combine_url_and_not_query_params_for_post_requests()
 		{
 			const string uriPath = "something";
-			var request = new RequestData {Endpoint = uriPath, HttpMethod = HttpMethod.Post};
+			var request = new RequestData { HttpMethod = HttpMethod.Post, Endpoint = uriPath };
 			var result = _requestCoordinator.ConstructEndpoint(request);
 
 			Assert.That(result, Is.EqualTo(API_URL + "/" + uriPath ));
