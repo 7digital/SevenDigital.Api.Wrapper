@@ -28,11 +28,11 @@ namespace SevenDigital.Api.Wrapper
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-			: this(new RequestCoordinator(new HttpClientMediator(), new AllRequestHandler(apiUri, oAuthCredentials))) 
+			: this(new RequestCoordinator(new HttpClientMediator(), new RequestHandler(apiUri, oAuthCredentials))) 
 			{}
 
 		public FluentApi()
-			: this(new RequestCoordinator(new HttpClientMediator(), new AllRequestHandler(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance))) 
+			: this(new RequestCoordinator(new HttpClientMediator(), new RequestHandler(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance))) 
 			{}
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)

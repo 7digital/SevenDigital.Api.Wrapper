@@ -18,15 +18,15 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		private readonly string _consumerKey = new AppSettingsCredentials().ConsumerKey;
 		private IHttpClient _httpClient;
 		private RequestCoordinator _requestCoordinator;
-		private RequestHandler _allRequestHandler;
+		private RequestHandler _requestHandler;
 
 		[SetUp]
 		public void Setup()
 		{
 			_httpClient = A.Fake<IHttpClient>();
-			_allRequestHandler = new AllRequestHandler(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance);
+			_requestHandler = new RequestHandler(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance);
 
-			_requestCoordinator = new RequestCoordinator(_httpClient, _allRequestHandler);
+			_requestCoordinator = new RequestCoordinator(_httpClient, _requestHandler);
 		}
 
 		[Test]
@@ -112,8 +112,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 			var apiUri = A.Fake<IApiUri>();
 
 			A.CallTo(() => apiUri.Uri).Returns(expectedApiUri);
-			_allRequestHandler = new AllRequestHandler(apiUri, EssentialDependencyCheck<IOAuthCredentials>.Instance);
-			var endpointResolver = new RequestCoordinator(_httpClient, _allRequestHandler);
+			_requestHandler = new RequestHandler(apiUri, EssentialDependencyCheck<IOAuthCredentials>.Instance);
+			var endpointResolver = new RequestCoordinator(_httpClient, _requestHandler);
 
 			var requestData = new RequestData
 				{

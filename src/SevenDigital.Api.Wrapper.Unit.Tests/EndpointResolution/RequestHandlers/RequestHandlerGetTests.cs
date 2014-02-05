@@ -8,13 +8,13 @@ using SevenDigital.Api.Wrapper.Http;
 namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 {
 	[TestFixture]
-	public class GetRequestHandlerTests
+	public class RequestHandlerGetTests
 	{
 		private IApiUri _apiUri;
 		private IOAuthCredentials _oAuthCredentials;
 		private IHttpClient _httpClient;
 
-		private AllRequestHandler _handler;
+		private RequestHandler _handler;
 		private RequestData _requestData;
 
 		[SetUp]
@@ -30,7 +30,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_httpClient = A.Fake<IHttpClient>();
 
-			_handler = new AllRequestHandler(_apiUri, _oAuthCredentials);
+			_handler = new RequestHandler(_apiUri, _oAuthCredentials);
 			_handler.HttpClient = _httpClient;
 			_requestData = new RequestData
 				{

@@ -1,53 +1,87 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
-	public abstract class RequestHandler
+	public class RequestHandler : IRequestHandler
 	{
-		public abstract Response HitEndpoint(RequestData requestData);
-		public abstract string GetDebugUri(RequestData requestData);
-
 		private readonly IApiUri _apiUri;
+		private readonly IOAuthCredentials _oAuthCredentials;
 
-		protected RequestHandler(IApiUri apiUri)
+		public RequestHandler(IApiUri apiUri, IOAuthCredentials oAuthCredentials)
 		{
 			_apiUri = apiUri;
+			_oAuthCredentials = oAuthCredentials;
 		}
-		
+
 		public IHttpClient HttpClient { get; set; }
 
-		protected ApiRequest MakeApiRequest(RequestData requestData)
+		public Response HitEndpoint(RequestData requestData)
 		{
-			var apiBaseUrl = requestData.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
-
-			var withoutRouteParameters = new Dictionary<string, string>(requestData.Parameters);
-
-			var pathWithRouteParamsSubstituted = SubstituteRouteParameters(requestData.Endpoint, withoutRouteParameters);
-
-			return new ApiRequest
-				{
-					AbsoluteUrl = string.Format("{0}/{1}", apiBaseUrl, pathWithRouteParamsSubstituted),
-					Parameters = withoutRouteParameters
-				};
+			var request = BuildRequest(requestData);
+			return HttpClient.Send(request);
 		}
-		
-		private static string SubstituteRouteParameters(string endpointUri, IDictionary<string, string> parameters)
+
+		private Request BuildRequest(RequestData requestData)
 		{
-			var regex = new Regex("{(.*?)}");
-			var result = regex.Matches(endpointUri);
-			foreach (var match in result)
+			var apiRequest = RouteParamsSubstitutor.SubstituteParamsInRequest(_apiUri, requestData);
+			var fullUrl = apiRequest.AbsoluteUrl;
+			var headers = new Dictionary<string, string>(requestData.Headers);
+
+			if (!requestData.RequiresSignature)
 			{
-				var key = match.ToString().Remove(match.ToString().Length - 1).Remove(0, 1);
-				var entry = parameters.First(x => x.Key.Equals(key, StringComparison.InvariantCultureIgnoreCase));
-				parameters.Remove(entry.Key);
-				endpointUri = endpointUri.Replace(match.ToString(), entry.Value);
+				if (HttpMethodHelpers.HasParams(requestData.HttpMethod))
+				{
+					apiRequest.Parameters.Add("oauth_consumer_key", _oAuthCredentials.ConsumerKey);
+				}
+				else
+				{
+					headers.Add("Authorization", "oauth_consumer_key=" + _oAuthCredentials.ConsumerKey);
+				}
 			}
 
-			return endpointUri.ToLower();
+			if (HttpMethodHelpers.HasParams(requestData.HttpMethod) && (apiRequest.Parameters.Count > 0))
+			{
+				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
+			}
+
+			if (requestData.RequiresSignature)
+			{
+				var oauthHeader = BuildOAuthHeader(requestData, fullUrl, apiRequest.Parameters);
+				headers.Add("Authorization", oauthHeader);
+			}
+
+			string requestBody;
+			if (HttpMethodHelpers.HasBody(requestData.HttpMethod))
+			{
+				requestBody = apiRequest.Parameters.ToQueryString();
+			}
+			else
+			{
+				requestBody = string.Empty;
+			}
+
+			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody);
+		}
+
+		private string BuildOAuthHeader(RequestData requestData, string fullUrl, IDictionary<string, string> parameters)
+		{
+			var authHeaderGenerator = new OAuthHeaderGenerator(_oAuthCredentials);
+			var oAuthHeaderData = new OAuthHeaderData
+				{
+					Url = fullUrl,
+					HttpMethod = requestData.HttpMethod,
+					UserToken = requestData.UserToken,
+					TokenSecret = requestData.TokenSecret,
+					RequestParameters = parameters
+				};
+			return authHeaderGenerator.GenerateOAuthSignatureHeader(oAuthHeaderData);
+		}
+
+		public string GetDebugUri(RequestData requestData)
+		{
+			return BuildRequest(requestData).Url;
 		}
 	}
 }
