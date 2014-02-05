@@ -18,7 +18,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 		private readonly string _consumerKey = new AppSettingsCredentials().ConsumerKey;
 		private IHttpClient _httpClient;
 		private RequestCoordinator _requestCoordinator;
-		private RequestHandler _allRequestHandler;
+		private AllRequestHandler _allRequestHandler;
 
 		[SetUp]
 		public void Setup()

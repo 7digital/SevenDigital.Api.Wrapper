@@ -4,17 +4,20 @@ using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
-	public class AllRequestHandler : RequestHandler
+	public class AllRequestHandler
 	{
+		private readonly IApiUri _apiUri;
 		private readonly IOAuthCredentials _oAuthCredentials;
 
 		public AllRequestHandler(IApiUri apiUri, IOAuthCredentials oAuthCredentials)
-			: base(apiUri)
 		{
+			_apiUri = apiUri;
 			_oAuthCredentials = oAuthCredentials;
 		}
 
-		public override Response HitEndpoint(RequestData requestData)
+		public IHttpClient HttpClient { get; set; }
+
+		public Response HitEndpoint(RequestData requestData)
 		{
 			var request = BuildRequest(requestData);
 			return HttpClient.Send(request);
@@ -22,9 +25,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		private Request BuildRequest(RequestData requestData)
 		{
-			var headers = new Dictionary<string, string>(requestData.Headers);
-			var apiRequest = MakeApiRequest(requestData);
+			var apiRequest = RouteParamsSubstitutor.SubstituteParamsInRequest(_apiUri, requestData);
 			var fullUrl = apiRequest.AbsoluteUrl;
+			var headers = new Dictionary<string, string>(requestData.Headers);
 
 			if (!requestData.RequiresSignature)
 			{
@@ -76,7 +79,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			return authHeaderGenerator.GenerateOAuthSignatureHeader(oAuthHeaderData);
 		}
 
-		public override string GetDebugUri(RequestData requestData)
+		public string GetDebugUri(RequestData requestData)
 		{
 			return BuildRequest(requestData).Url;
 		}

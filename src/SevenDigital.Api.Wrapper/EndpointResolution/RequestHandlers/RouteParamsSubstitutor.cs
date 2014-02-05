@@ -6,35 +6,23 @@ using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
-	public abstract class RequestHandler
+	public class RouteParamsSubstitutor
 	{
-		public abstract Response HitEndpoint(RequestData requestData);
-		public abstract string GetDebugUri(RequestData requestData);
-
-		private readonly IApiUri _apiUri;
-
-		protected RequestHandler(IApiUri apiUri)
+		public static ApiRequest SubstituteParamsInRequest(IApiUri apiUri, RequestData requestData)
 		{
-			_apiUri = apiUri;
-		}
-		
-		public IHttpClient HttpClient { get; set; }
-
-		protected ApiRequest MakeApiRequest(RequestData requestData)
-		{
-			var apiBaseUrl = requestData.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
+			var apiBaseUrl = requestData.UseHttps ? apiUri.SecureUri : apiUri.Uri;
 
 			var withoutRouteParameters = new Dictionary<string, string>(requestData.Parameters);
 
 			var pathWithRouteParamsSubstituted = SubstituteRouteParameters(requestData.Endpoint, withoutRouteParameters);
 
 			return new ApiRequest
-				{
-					AbsoluteUrl = string.Format("{0}/{1}", apiBaseUrl, pathWithRouteParamsSubstituted),
-					Parameters = withoutRouteParameters
-				};
+			{
+				AbsoluteUrl = string.Format("{0}/{1}", apiBaseUrl, pathWithRouteParamsSubstituted),
+				Parameters = withoutRouteParameters
+			};
 		}
-		
+
 		private static string SubstituteRouteParameters(string endpointUri, IDictionary<string, string> parameters)
 		{
 			var regex = new Regex("{(.*?)}");
@@ -49,5 +37,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 			return endpointUri.ToLower();
 		}
+
 	}
 }
