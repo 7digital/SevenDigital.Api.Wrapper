@@ -1,5 +1,4 @@
-﻿using System;
-using SevenDigital.Api.Wrapper.Http;
+﻿using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
