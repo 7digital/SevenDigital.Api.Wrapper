@@ -9,8 +9,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		private readonly IApiUri _apiUri;
 		private readonly IOAuthCredentials _oAuthCredentials;
 
-		public RequestHandler(IApiUri apiUri, IOAuthCredentials oAuthCredentials)
+		public RequestHandler(IHttpClient httpClient, IApiUri apiUri, IOAuthCredentials oAuthCredentials)
 		{
+			HttpClient = httpClient;
 			_apiUri = apiUri;
 			_oAuthCredentials = oAuthCredentials;
 		}

@@ -30,8 +30,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			_httpClient = A.Fake<IHttpClient>();
 
-			_handler = new RequestHandler(_apiUri, _oAuthCredentials);
-			_handler.HttpClient = _httpClient;
+			_handler = new RequestHandler(_httpClient, _apiUri, _oAuthCredentials);
 			_requestData = new RequestData
 				{
 					HttpMethod = HttpMethod.Get,

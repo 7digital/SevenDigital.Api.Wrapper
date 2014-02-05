@@ -26,8 +26,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		public void Setup()
 		{
 			_httpClient = A.Fake<IHttpClient>();
-			_requestHandler = new RequestHandler(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance);
-			_requestHandler.HttpClient = _httpClient;
+			_requestHandler = new RequestHandler(_httpClient, EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance);
 		}
 
 		[Test]
@@ -113,8 +112,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			var apiUri = A.Fake<IApiUri>();
 
 			A.CallTo(() => apiUri.Uri).Returns(expectedApiUri);
-			_requestHandler = new RequestHandler(apiUri, EssentialDependencyCheck<IOAuthCredentials>.Instance);
-			_requestHandler.HttpClient = _httpClient;
+			_requestHandler = new RequestHandler(_httpClient, apiUri, EssentialDependencyCheck<IOAuthCredentials>.Instance);
 
 			var requestData = new RequestData
 				{

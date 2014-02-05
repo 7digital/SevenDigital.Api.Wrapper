@@ -13,26 +13,26 @@ namespace SevenDigital.Api.Wrapper
 	public class FluentApi<T> : IFluentApi<T> where T : class
 	{
 		private readonly RequestData _requestData;
-		private readonly IRequestCoordinator _requestCoordinator;
+		private readonly IRequestHandler _requestHandler;
 		private readonly IResponseParser<T> _parser;
 		private IResponseCache _responseCache = new NullResponseCache();
 
-		public FluentApi(IRequestCoordinator requestCoordinator)
+		public FluentApi(IRequestHandler requestHandler)
 		{
 			var attributeValidation = new AttributeRequestDataBuilder<T>();
 			_requestData = attributeValidation.BuildRequestData();
 
-			_requestCoordinator = requestCoordinator;
+			_requestHandler = requestHandler;
 
 			_parser = new ResponseParser<T>();
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-			: this(new RequestCoordinator(new HttpClientMediator(), new RequestHandler(apiUri, oAuthCredentials))) 
+			: this(new RequestHandler(new HttpClientMediator(), apiUri, oAuthCredentials))
 			{}
 
 		public FluentApi()
-			: this(new RequestCoordinator(new HttpClientMediator(), new RequestHandler(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance))) 
+			: this(new RequestHandler(new HttpClientMediator(), EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance)) 
 			{}
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
@@ -42,7 +42,7 @@ namespace SevenDigital.Api.Wrapper
 				throw new ArgumentNullException("httpClient");
 			}
 
-			_requestCoordinator.HttpClient = httpClient;
+			_requestHandler.HttpClient = httpClient;
 			return this;
 		}
 
@@ -98,7 +98,7 @@ namespace SevenDigital.Api.Wrapper
 			{
 				try
 				{
-					response = _requestCoordinator.HitEndpoint(_requestData);
+					response = _requestHandler.HitEndpoint(_requestData);
 				}
 				catch (WebException webException)
 				{
@@ -126,7 +126,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual string EndpointUrl
 		{
-			get { return _requestCoordinator.ConstructEndpoint(_requestData); }
+			get { return _requestHandler.GetDebugUri(_requestData); }
 		}
 
 		public IDictionary<string, string> Parameters
