@@ -62,8 +62,8 @@
     <Compile Include="Deserialisation\User\Payment\DeleteCardTests.cs" />
     <Compile Include="EndpointResolution\OAuth\OAuthHeaderGeneratorTest.cs" />
     <Compile Include="EndpointResolution\RequestCoordinatorTests.cs" />
-    <Compile Include="EndpointResolution\RequestHandlers\GetRequestHandlerTests.cs" />
-    <Compile Include="EndpointResolution\RequestHandlers\PostRequestHandlerTests.cs" />
+    <Compile Include="EndpointResolution\RequestHandlers\RequestHandlerGetTests.cs" />
+    <Compile Include="EndpointResolution\RequestHandlers\RequestHandlerPostTests.cs" />
     <Compile Include="Exceptions\ApiWebExceptionTests.cs" />
     <Compile Include="Exceptions\ExceptionFactoryTests.cs" />
     <Compile Include="Exceptions\InputParameterExceptionTests.cs" />

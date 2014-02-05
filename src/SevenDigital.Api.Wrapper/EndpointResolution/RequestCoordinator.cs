@@ -5,11 +5,11 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
 	public class RequestCoordinator : IRequestCoordinator
 	{
-		private readonly AllRequestHandler _requestHandler;
+		private readonly RequestHandler _requestHandler;
 
 		public IHttpClient HttpClient { get; set; }
 
-		public RequestCoordinator(IHttpClient httpClient, AllRequestHandler requestHandler)
+		public RequestCoordinator(IHttpClient httpClient, RequestHandler requestHandler)
 		{
 			HttpClient = httpClient;
 			_requestHandler = requestHandler;

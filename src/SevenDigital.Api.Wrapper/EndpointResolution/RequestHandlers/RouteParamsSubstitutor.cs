@@ -6,7 +6,7 @@ using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
-	public class RouteParamsSubstitutor
+	public static class RouteParamsSubstitutor
 	{
 		public static ApiRequest SubstituteParamsInRequest(IApiUri apiUri, RequestData requestData)
 		{
@@ -17,10 +17,10 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			var pathWithRouteParamsSubstituted = SubstituteRouteParameters(requestData.Endpoint, withoutRouteParameters);
 
 			return new ApiRequest
-			{
-				AbsoluteUrl = string.Format("{0}/{1}", apiBaseUrl, pathWithRouteParamsSubstituted),
-				Parameters = withoutRouteParameters
-			};
+				{
+					AbsoluteUrl = string.Format("{0}/{1}", apiBaseUrl, pathWithRouteParamsSubstituted),
+					Parameters = withoutRouteParameters
+				};
 		}
 
 		private static string SubstituteRouteParameters(string endpointUri, IDictionary<string, string> parameters)
