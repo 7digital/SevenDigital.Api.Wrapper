@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Http;
@@ -28,6 +29,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		private Request BuildRequest(RequestData requestData)
 		{
+			var headers = new Dictionary<string, string>(requestData.Headers);
 			var apiRequest = MakeApiRequest(requestData);
 			var fullUrl = apiRequest.AbsoluteUrl;
 
@@ -39,7 +41,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 				}
 				else
 				{
-					requestData.Headers.Add("Authorization", "oauth_consumer_key=" + _oAuthCredentials.ConsumerKey);
+					headers.Add("Authorization", "oauth_consumer_key=" + _oAuthCredentials.ConsumerKey);
 				}
 			}
 
@@ -51,7 +53,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			if (requestData.RequiresSignature)
 			{
 				var oauthHeader = BuildOAuthHeader(requestData, fullUrl, apiRequest.Parameters);
-				requestData.Headers.Add("Authorization", oauthHeader);
+				headers.Add("Authorization", oauthHeader);
 			}
 
 			string requestBody;
@@ -64,7 +66,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 				requestBody = string.Empty;
 			}
 
-			return new Request(requestData.HttpMethod, fullUrl, requestData.Headers, requestBody);
+			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody);
 		}
 
 		private string BuildOAuthHeader(RequestData requestData, string fullUrl, IDictionary<string, string> parameters)
