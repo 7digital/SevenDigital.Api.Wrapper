@@ -4,7 +4,7 @@ using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
-	public class RequestHandler
+	public class RequestHandler : IRequestHandler
 	{
 		private readonly IApiUri _apiUri;
 		private readonly IOAuthCredentials _oAuthCredentials;

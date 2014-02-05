@@ -22,8 +22,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 			var apiUri = A.Fake<IApiUri>();
 			A.CallTo(() => apiUri.Uri)
 				.Returns("http://uri/");
-			var allRequestHandler = new RequestHandler(apiUri, new AppSettingsCredentials());
-			_requestCoordinator = new RequestCoordinator(httpClient, allRequestHandler);
+			var requestHandler = new RequestHandler(apiUri, new AppSettingsCredentials());
+			_requestCoordinator = new RequestCoordinator(httpClient, requestHandler);
 		}
 
 		[Test]
