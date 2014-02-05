@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Http;
 
@@ -14,11 +12,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			: base(apiUri)
 		{
 			_oAuthCredentials = oAuthCredentials;
-		}
-
-		public override bool HandlesMethod(HttpMethod method)
-		{
-			return true;
 		}
 
 		public override Response HitEndpoint(RequestData requestData)

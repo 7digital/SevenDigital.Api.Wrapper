@@ -53,7 +53,6 @@
     <Compile Include="EndpointResolution\OAuth\OAuthHeaderGenerator.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\AllRequestHandler.cs" />
     <Compile Include="Http\HttpMethod.cs" />
-    <Compile Include="EndpointResolution\RequestHandlerFactory.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\ApiRequest.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\RequestHandler.cs" />
     <Compile Include="Exceptions\ApiErrorException.cs" />

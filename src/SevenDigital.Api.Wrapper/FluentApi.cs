@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using SevenDigital.Api.Wrapper.AttributeManagement;
 using SevenDigital.Api.Wrapper.EndpointResolution;
+using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Serialization;
@@ -27,11 +28,11 @@ namespace SevenDigital.Api.Wrapper
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-			: this(new RequestCoordinator(new HttpClientMediator(), RequestHandlerFactory.AllRequestHandlers(oAuthCredentials, apiUri))) 
+			: this(new RequestCoordinator(new HttpClientMediator(), new AllRequestHandler(apiUri, oAuthCredentials))) 
 			{}
 
 		public FluentApi()
-			: this(new RequestCoordinator(new HttpClientMediator(), RequestHandlerFactory.AllRequestHandlers(EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance))) 
+			: this(new RequestCoordinator(new HttpClientMediator(), new AllRequestHandler(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance))) 
 			{}
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
