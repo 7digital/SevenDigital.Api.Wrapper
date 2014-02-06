@@ -31,7 +31,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 					Endpoint = "testpath",
 				};
 
-			var result = RouteParamsSubstitutor.SubstituteParamsInRequest(_apiUri, requestData);
+			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
+			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
 			Assert.That(result, Is.Not.Null);
 			Assert.That(result.AbsoluteUrl, Is.Not.Empty);
@@ -51,7 +52,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 					}
 			};
 
-			var result = RouteParamsSubstitutor.SubstituteParamsInRequest(_apiUri, requestData);
+			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
+			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
 			Assert.That(result.FullUri, Is.StringContaining("something/routevalue"));
 		}
@@ -71,7 +73,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 					}
 			};
 
-			var result = RouteParamsSubstitutor.SubstituteParamsInRequest(_apiUri, requestData);
+			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
+			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
 			Assert.That(result.FullUri, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
 		}
@@ -91,7 +94,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 					}
 			};
 
-			var result = RouteParamsSubstitutor.SubstituteParamsInRequest(_apiUri, requestData);
+			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
+			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
 			Assert.That(result.FullUri, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
 		}
@@ -108,7 +112,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 					}
 			};
 
-			var result = RouteParamsSubstitutor.SubstituteParamsInRequest(_apiUri, requestData);
+			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
+			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
 			Assert.That(result.FullUri, Is.StringContaining("something/routevalue"));
 		}
@@ -126,7 +131,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 					}
 			};
 
-			var result = RouteParamsSubstitutor.SubstituteParamsInRequest(_apiUri, requestData);
+			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
+			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
 			Assert.That(result.Parameters.ContainsKey("route"), Is.False);
 			Assert.That(result.Parameters.ContainsKey("foo"), Is.True);
@@ -147,7 +153,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 					}
 			};
 
-			var result = RouteParamsSubstitutor.SubstituteParamsInRequest(_apiUri, requestData);
+			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
+			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
 			Assert.That(result.Parameters.ContainsKey("firstRoute"), Is.False);
 			Assert.That(result.Parameters.ContainsKey("secondRoute"), Is.False);

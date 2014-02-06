@@ -6,11 +6,18 @@ using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
-	public static class RouteParamsSubstitutor
+	public class RouteParamsSubstitutor
 	{
-		public static ApiRequest SubstituteParamsInRequest(IApiUri apiUri, RequestData requestData)
+		private readonly IApiUri _apiUri;
+
+		public RouteParamsSubstitutor(IApiUri apiUri)
 		{
-			var apiBaseUrl = requestData.UseHttps ? apiUri.SecureUri : apiUri.Uri;
+			_apiUri = apiUri;
+		}
+
+		public ApiRequest SubstituteParamsInRequest(RequestData requestData)
+		{
+			var apiBaseUrl = requestData.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
 
 			var withoutRouteParameters = new Dictionary<string, string>(requestData.Parameters);
 
@@ -37,6 +44,5 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 			return endpointUri.ToLower();
 		}
-
 	}
 }

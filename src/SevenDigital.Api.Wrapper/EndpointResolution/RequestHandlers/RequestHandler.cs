@@ -6,14 +6,14 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
 	public class RequestHandler : IRequestHandler
 	{
-		private readonly IApiUri _apiUri;
 		private readonly IOAuthCredentials _oAuthCredentials;
+		private readonly RouteParamsSubstitutor _routeParamsSubstitutor;
 
 		public RequestHandler(IHttpClient httpClient, IApiUri apiUri, IOAuthCredentials oAuthCredentials)
 		{
 			HttpClient = httpClient;
-			_apiUri = apiUri;
 			_oAuthCredentials = oAuthCredentials;
+			_routeParamsSubstitutor = new RouteParamsSubstitutor(apiUri);
 		}
 
 		public IHttpClient HttpClient { get; set; }
@@ -26,8 +26,9 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		private Request BuildRequest(RequestData requestData)
 		{
-			var apiRequest = RouteParamsSubstitutor.SubstituteParamsInRequest(_apiUri, requestData);
+			var apiRequest = _routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 			var fullUrl = apiRequest.AbsoluteUrl;
+
 			var headers = new Dictionary<string, string>(requestData.Headers);
 
 			if (!requestData.RequiresSignature)
