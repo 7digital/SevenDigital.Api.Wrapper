@@ -103,8 +103,6 @@
     <Compile Include="FluentApi.cs" />
     <Compile Include="IFluentApi.cs" />
     <Compile Include="EndpointResolution\DictionaryExtensions.cs" />
-    <Compile Include="EndpointResolution\RequestCoordinator.cs" />
-    <Compile Include="EndpointResolution\IRequestCoordinator.cs" />
     <Compile Include="Http\HttpClientMediator.cs" />
     <Compile Include="Http\IHttpClient.cs" />
     <Compile Include="Http\Response.cs" />
