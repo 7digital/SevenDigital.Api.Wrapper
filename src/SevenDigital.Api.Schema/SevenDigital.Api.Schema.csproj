@@ -43,7 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiEndpointTypeGenerator.cs" />
+    <Compile Include="Attributes\HttpDeleteAttribute.cs" />
     <Compile Include="Attributes\HttpPostAttribute.cs" />
+    <Compile Include="Attributes\HttpPutAttribute.cs" />
     <Compile Include="Attributes\RequireSecureAttribute.cs" />
     <Compile Include="Basket\AmountDue.cs" />
     <Compile Include="Basket\Discount.cs" />

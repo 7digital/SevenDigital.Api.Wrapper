@@ -64,6 +64,24 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.AttributeManagement
 		}
 
 		[Test]
+		public void Sets_HttpMethod_to_PUT_if_HttpPut_specified()
+		{
+			var attributeValidation = new AttributeRequestDataBuilder<StubPutEndpoint>();
+			var requestData = attributeValidation.BuildRequestData();
+
+			Assert.That(requestData.HttpMethod, Is.EqualTo(HttpMethod.Put));
+		}
+
+		[Test]
+		public void Sets_HttpMethod_to_DELETE_if_HttpDelete_specified()
+		{
+			var attributeValidation = new AttributeRequestDataBuilder<StubDeleteEndpoint>();
+			var requestData = attributeValidation.BuildRequestData();
+
+			Assert.That(requestData.HttpMethod, Is.EqualTo(HttpMethod.Delete));
+		}
+
+		[Test]
 		public void HttpMethod_defaults_to_GET_if_HttpPost_not_specified()
 		{
 			var attributeValidation = new AttributeRequestDataBuilder<StubEndpoint>();
@@ -86,5 +104,15 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.AttributeManagement
 	[ApiEndpoint("me/post/endpoint")]
 	[HttpPost]
 	public class StubPostEndpoint
+	{}
+
+	[ApiEndpoint("me/delete/endpoint")]
+	[HttpDelete]
+	public class StubDeleteEndpoint
+	{}
+
+	[ApiEndpoint("me/put/endpoint")]
+	[HttpPut]
+	public class StubPutEndpoint
 	{}
 }

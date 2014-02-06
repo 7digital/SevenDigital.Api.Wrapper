@@ -15,11 +15,7 @@ namespace SevenDigital.Api.Wrapper.AttributeManagement
 			requestData.Endpoint = ParseApiEndpointAttribute();
 			requestData.RequiresSignature = ParseOAuthSignedAttribute();
 			requestData.UseHttps = ParseRequireSecureAttribute();
-
-			if (ParseHttpPostAttribute() != null)
-			{
-				requestData.HttpMethod = HttpMethod.Post;
-			}
+			requestData.HttpMethod = HttpMethodfromAttributes();
 
 			return requestData;
 		}
@@ -56,13 +52,26 @@ namespace SevenDigital.Api.Wrapper.AttributeManagement
 			return isSecure != null;
 		}
 
-		private static string ParseHttpPostAttribute()
+		private static HttpMethod HttpMethodfromAttributes()
 		{
-			var isHttpPost = typeof(T).GetCustomAttributes(true)
-				.OfType<HttpPostAttribute>()
-				.FirstOrDefault();
+			var attrs = typeof(T).GetCustomAttributes(true);
 
-			return isHttpPost != null ? "POST" : null;
+			if (attrs.OfType<HttpPostAttribute>().Any())
+			{
+				return HttpMethod.Post;
+			}
+
+			if (attrs.OfType<HttpDeleteAttribute>().Any())
+			{
+				return HttpMethod.Delete;
+			}
+
+			if (attrs.OfType<HttpPutAttribute>().Any())
+			{
+				return HttpMethod.Put;
+			}
+
+			return HttpMethod.Get;
 		}
 	}
 }
