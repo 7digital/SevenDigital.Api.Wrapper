@@ -4,12 +4,12 @@ using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
-	public class RequestHandler : IRequestHandler
+	public class RequestBuilder : IRequestBuilder
 	{
 		private readonly IOAuthCredentials _oAuthCredentials;
 		private readonly RouteParamsSubstitutor _routeParamsSubstitutor;
 
-		public RequestHandler(IApiUri apiUri, IOAuthCredentials oAuthCredentials)
+		public RequestBuilder(IApiUri apiUri, IOAuthCredentials oAuthCredentials)
 		{
 			_oAuthCredentials = oAuthCredentials;
 			_routeParamsSubstitutor = new RouteParamsSubstitutor(apiUri);

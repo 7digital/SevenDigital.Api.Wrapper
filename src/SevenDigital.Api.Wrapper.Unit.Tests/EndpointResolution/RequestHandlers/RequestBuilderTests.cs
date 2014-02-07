@@ -1,0 +1,132 @@
+﻿using System.Collections.Generic;
+using FakeItEasy;
+using NUnit.Framework;
+
+using SevenDigital.Api.Wrapper.EndpointResolution;
+using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;
+using SevenDigital.Api.Wrapper.Http;
+
+namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
+{
+	[TestFixture]
+	public class RequestBuilderTests
+	{
+		private const string API_URL = "http://api.7digital.com/1.2";
+
+		private readonly string _consumerKey = new AppSettingsCredentials().ConsumerKey;
+		private RequestBuilder _requestBuilder;
+
+		[SetUp]
+		public void Setup()
+		{
+			_requestBuilder = new RequestBuilder(EssentialDependencyCheck<IApiUri>.Instance, 
+				EssentialDependencyCheck<IOAuthCredentials>.Instance);
+		}
+
+		[Test]
+		public void Should_fire_resolve_with_correct_values()
+		{
+
+			const HttpMethod expectedMethod = HttpMethod.Get;
+			var expectedHeaders = new Dictionary<string, string>();
+			var expectedUrl = string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey);
+
+			var requestData = new RequestData { Endpoint = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
+
+			var request =_requestBuilder.BuildRequest(requestData);
+
+			Assert.That(request.Url, Is.EqualTo(expectedUrl));
+		}
+
+		[Test]
+		public void Should_fire_resolve_with_url_encoded_parameters()
+		{
+			const string unEncodedParameterValue = "Alive & Amplified";
+
+			const string expectedParameterValue = "Alive%20%26%20Amplified";
+			var expectedHeaders = new Dictionary<string, string>();
+			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
+			var expectedUrl = string.Format("{0}/test?q={2}&oauth_consumer_key={1}", API_URL, _consumerKey, expectedParameterValue);
+
+			var requestData = new RequestData
+				{
+					Endpoint = "test", 
+					HttpMethod = HttpMethod.Get, 
+					Headers = expectedHeaders, 
+					Parameters = testParameters
+				};
+
+			var request = _requestBuilder.BuildRequest(requestData);
+
+			Assert.That(request.Url, Is.EqualTo(expectedUrl));
+		}
+
+		[Test]
+		public void Should_not_care_how_many_times_you_create_an_endpoint()
+		{
+			var endPointState = new RequestData
+				{
+					Endpoint = "{slug}", 
+					HttpMethod = HttpMethod.Get, 
+					Parameters = new Dictionary<string, string> { { "slug", "something" } }
+				};
+
+			var result1 = _requestBuilder.BuildRequest(endPointState);
+			var result2 = _requestBuilder.BuildRequest(endPointState);
+
+			Assert.That(result1.Url, Is.EqualTo(result2.Url));
+		}
+
+		[Test]
+		public void Should_use_api_uri_provided_by_IApiUri_interface()
+		{
+			const string expectedApiUri = "http://api.7dizzle";
+
+			var apiUri = A.Fake<IApiUri>();
+			A.CallTo(() => apiUri.Uri).Returns(expectedApiUri);
+			_requestBuilder = new RequestBuilder(apiUri, EssentialDependencyCheck<IOAuthCredentials>.Instance);
+
+			var requestData = new RequestData
+				{
+					Endpoint = "test", 
+					HttpMethod = HttpMethod.Get, 
+					Headers = new Dictionary<string, string>()
+				};
+
+			var response = _requestBuilder.BuildRequest(requestData);
+
+			Assert.That(response.Url, Is.StringContaining(expectedApiUri));
+		}
+
+		[Test]
+		public void Construct_url_should_combine_url_and_query_params_for_get_requests()
+		{
+			const string uriPath = "something";
+			var requestData = new RequestData
+				{
+					HttpMethod = HttpMethod.Get, 
+					Endpoint = uriPath
+				};
+
+			var request = _requestBuilder.BuildRequest(requestData);
+
+			var expectedUrl = API_URL + "/" + uriPath + "?oauth_consumer_key=" + _consumerKey;
+			Assert.That(request.Url, Is.EqualTo(expectedUrl));
+		}
+
+		[Test]
+		public void Construct_url_should_combine_url_and_not_query_params_for_post_requests()
+		{
+			const string uriPath = "something";
+			var requestData = new RequestData
+				{
+					HttpMethod = HttpMethod.Post, 
+					Endpoint = uriPath
+				};
+
+			var request = _requestBuilder.BuildRequest(requestData);
+
+			Assert.That(request.Url, Is.EqualTo(API_URL + "/" + uriPath ));
+		}
+	}
+}

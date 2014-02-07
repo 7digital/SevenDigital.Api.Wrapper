@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 using FakeItEasy;
-
 using NUnit.Framework;
 
 using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;

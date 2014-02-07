@@ -17,7 +17,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Http
 
 		public Response Send(Request request)
 		{
+			SendCount++;
 			return _fakeResponse;
 		}
+
+		public int SendCount { get; set; }
 	}
 }

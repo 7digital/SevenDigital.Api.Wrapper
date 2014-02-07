@@ -13,16 +13,16 @@ namespace SevenDigital.Api.Wrapper
 	public class FluentApi<T> : IFluentApi<T> where T : class
 	{
 		private IHttpClient _httpClient;
-		private readonly IRequestHandler _requestHandler;
+		private readonly IRequestBuilder _requestBuilder;
 
 		private readonly RequestData _requestData;
 		private readonly IResponseParser<T> _parser;
 		private IResponseCache _responseCache = new NullResponseCache();
 
-		public FluentApi(IHttpClient httpClient, IRequestHandler requestHandler) 
+		public FluentApi(IHttpClient httpClient, IRequestBuilder requestBuilder) 
 		{
 			_httpClient = httpClient;
-			_requestHandler = requestHandler;
+			_requestBuilder = requestBuilder;
 
 			var attributeValidation = new AttributeRequestDataBuilder<T>();
 			_requestData = attributeValidation.BuildRequestData();
@@ -30,16 +30,16 @@ namespace SevenDigital.Api.Wrapper
 			_parser = new ResponseParser<T>();
 		}
 
-		public FluentApi(IRequestHandler requestHandler) : this(new HttpClientMediator(), requestHandler)
+		public FluentApi(IRequestBuilder requestBuilder) : this(new HttpClientMediator(), requestBuilder)
 		{
 		}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-			: this(new HttpClientMediator(), new RequestHandler(apiUri, oAuthCredentials))
+			: this(new HttpClientMediator(), new RequestBuilder(apiUri, oAuthCredentials))
 			{}
 
 		public FluentApi()
-			: this(new HttpClientMediator(), new RequestHandler(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance)) 
+			: this(new HttpClientMediator(), new RequestBuilder(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance)) 
 			{}
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
@@ -104,7 +104,7 @@ namespace SevenDigital.Api.Wrapper
 			{
 				try
 				{
-					var request = _requestHandler.BuildRequest(_requestData);
+					var request = _requestBuilder.BuildRequest(_requestData);
 					response = _httpClient.Send(request);
 				}
 				catch (WebException webException)
@@ -135,7 +135,7 @@ namespace SevenDigital.Api.Wrapper
 		{
 			get
 			{
-				var request = _requestHandler.BuildRequest(_requestData);
+				var request = _requestBuilder.BuildRequest(_requestData);
 				return request.Url;
 			}
 		}

@@ -2,7 +2,7 @@
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
-	public interface IRequestHandler
+	public interface IRequestBuilder
 	{
 		Request BuildRequest(RequestData requestData);
 	}
