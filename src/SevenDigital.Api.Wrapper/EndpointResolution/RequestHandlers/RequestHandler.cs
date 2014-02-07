@@ -9,22 +9,13 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 		private readonly IOAuthCredentials _oAuthCredentials;
 		private readonly RouteParamsSubstitutor _routeParamsSubstitutor;
 
-		public RequestHandler(IHttpClient httpClient, IApiUri apiUri, IOAuthCredentials oAuthCredentials)
+		public RequestHandler(IApiUri apiUri, IOAuthCredentials oAuthCredentials)
 		{
-			HttpClient = httpClient;
 			_oAuthCredentials = oAuthCredentials;
 			_routeParamsSubstitutor = new RouteParamsSubstitutor(apiUri);
 		}
 
-		public IHttpClient HttpClient { get; set; }
-
-		public Response HitEndpoint(RequestData requestData)
-		{
-			var request = BuildRequest(requestData);
-			return HttpClient.Send(request);
-		}
-
-		private Request BuildRequest(RequestData requestData)
+		public Request BuildRequest(RequestData requestData)
 		{
 			var apiRequest = _routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 			var fullUrl = apiRequest.AbsoluteUrl;
@@ -79,11 +70,6 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 					RequestParameters = parameters
 				};
 			return authHeaderGenerator.GenerateOAuthSignatureHeader(oAuthHeaderData);
-		}
-
-		public string GetDebugUri(RequestData requestData)
-		{
-			return BuildRequest(requestData).Url;
 		}
 	}
 }

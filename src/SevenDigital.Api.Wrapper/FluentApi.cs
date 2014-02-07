@@ -12,27 +12,34 @@ namespace SevenDigital.Api.Wrapper
 {
 	public class FluentApi<T> : IFluentApi<T> where T : class
 	{
-		private readonly RequestData _requestData;
+		private IHttpClient _httpClient;
 		private readonly IRequestHandler _requestHandler;
+
+		private readonly RequestData _requestData;
 		private readonly IResponseParser<T> _parser;
 		private IResponseCache _responseCache = new NullResponseCache();
 
-		public FluentApi(IRequestHandler requestHandler)
+		public FluentApi(IHttpClient httpClient, IRequestHandler requestHandler) 
 		{
+			_httpClient = httpClient;
+			_requestHandler = requestHandler;
+
 			var attributeValidation = new AttributeRequestDataBuilder<T>();
 			_requestData = attributeValidation.BuildRequestData();
-
-			_requestHandler = requestHandler;
 
 			_parser = new ResponseParser<T>();
 		}
 
+		public FluentApi(IRequestHandler requestHandler) : this(new HttpClientMediator(), requestHandler)
+		{
+		}
+
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-			: this(new RequestHandler(new HttpClientMediator(), apiUri, oAuthCredentials))
+			: this(new HttpClientMediator(), new RequestHandler(apiUri, oAuthCredentials))
 			{}
 
 		public FluentApi()
-			: this(new RequestHandler(new HttpClientMediator(), EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance)) 
+			: this(new HttpClientMediator(), new RequestHandler(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance)) 
 			{}
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
@@ -42,7 +49,7 @@ namespace SevenDigital.Api.Wrapper
 				throw new ArgumentNullException("httpClient");
 			}
 
-			_requestHandler.HttpClient = httpClient;
+			_httpClient = httpClient;
 			return this;
 		}
 
@@ -85,7 +92,6 @@ namespace SevenDigital.Api.Wrapper
 		public virtual IFluentApi<T> ForShop(int shopId)
 		{
 			WithParameter("shopId", shopId.ToString());
-			WithParameter("shopId", shopId.ToString());
 			return this;
 		}
 
@@ -98,7 +104,8 @@ namespace SevenDigital.Api.Wrapper
 			{
 				try
 				{
-					response = _requestHandler.HitEndpoint(_requestData);
+					var request = _requestHandler.BuildRequest(_requestData);
+					response = _httpClient.Send(request);
 				}
 				catch (WebException webException)
 				{
@@ -126,7 +133,11 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual string EndpointUrl
 		{
-			get { return _requestHandler.GetDebugUri(_requestData); }
+			get
+			{
+				var request = _requestHandler.BuildRequest(_requestData);
+				return request.Url;
+			}
 		}
 
 		public IDictionary<string, string> Parameters
