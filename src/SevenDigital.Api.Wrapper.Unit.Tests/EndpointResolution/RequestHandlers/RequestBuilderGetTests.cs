@@ -50,14 +50,20 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		}
 
 		[Test]
-		public void Should_put_consumer_key_on_constructed_endpoint()
+		public void Should_put_consumer_key_in_auth_header_when_unsigned()
 		{
 			var requestData = GetRequestData();
 			requestData.RequiresSignature = false;
 			var request = _builder.BuildRequest(requestData);
 
 			Assert.That(request.Method, Is.EqualTo(HttpMethod.Get));
-			Assert.That(request.Url, Is.StringStarting("http://example.com/testpath?oauth_consumer_key=testkey"));
+			Assert.That(request.Url, Is.StringStarting("http://example.com/testpath"));
+			Assert.That(request.Url, Is.Not.StringContaining("oauth_consumer_key"));
+
+			Assert.That(RequestHasAuthHeader(request), Is.True);
+			Assert.That(RequestHasAuthHeaderContaining(request, "oauth_signature"), Is.False);
+			Assert.That(RequestHasAuthHeaderContaining(request, "oauth_consumer_key="), Is.True);
+
 		}
 
 		[Test]
@@ -93,7 +99,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			Assert.That(request.Method, Is.EqualTo(HttpMethod.Get));
 
-			Assert.That(RequestHasAuthHeader(request), Is.False);
+			Assert.That(RequestHasAuthHeader(request), Is.True);
+			Assert.That(RequestHasAuthHeaderContaining(request, "oauth_signature"), Is.False);
 		}
 
 		[Test]

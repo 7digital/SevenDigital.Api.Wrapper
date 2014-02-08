@@ -24,29 +24,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		}
 
 		[Test]
-		public void Should_fire_resolve_with_correct_values()
-		{
-
-			const HttpMethod expectedMethod = HttpMethod.Get;
-			var expectedHeaders = new Dictionary<string, string>();
-			var expectedUrl = string.Format("{0}/test?oauth_consumer_key={1}", API_URL, _consumerKey);
-
-			var requestData = new RequestData { Endpoint = "test", HttpMethod = expectedMethod, Headers = expectedHeaders };
-
-			var request =_requestBuilder.BuildRequest(requestData);
-
-			Assert.That(request.Url, Is.EqualTo(expectedUrl));
-		}
-
-		[Test]
-		public void Should_fire_resolve_with_url_encoded_parameters()
+		public void Should_make_url_with_url_encoded_parameters()
 		{
 			const string unEncodedParameterValue = "Alive & Amplified";
 
 			const string expectedParameterValue = "Alive%20%26%20Amplified";
 			var expectedHeaders = new Dictionary<string, string>();
 			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
-			var expectedUrl = string.Format("{0}/test?q={2}&oauth_consumer_key={1}", API_URL, _consumerKey, expectedParameterValue);
+			var expectedUrl = string.Format("{0}/test?q={1}", API_URL, expectedParameterValue);
 
 			var requestData = new RequestData
 				{
@@ -96,22 +81,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			var response = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(response.Url, Is.StringContaining(expectedApiUri));
-		}
-
-		[Test]
-		public void Construct_url_should_combine_url_and_query_params_for_get_requests()
-		{
-			const string uriPath = "something";
-			var requestData = new RequestData
-				{
-					HttpMethod = HttpMethod.Get, 
-					Endpoint = uriPath
-				};
-
-			var request = _requestBuilder.BuildRequest(requestData);
-
-			var expectedUrl = API_URL + "/" + uriPath + "?oauth_consumer_key=" + _consumerKey;
-			Assert.That(request.Url, Is.EqualTo(expectedUrl));
 		}
 
 		[Test]

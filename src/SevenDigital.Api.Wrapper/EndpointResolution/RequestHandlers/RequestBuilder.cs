@@ -50,7 +50,7 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 				return BuildOAuthHeader(requestData, fullUrl, apiRequest.Parameters);
 			}
 
-			return _oAuthCredentials.ConsumerKey;
+			return "oauth_consumer_key=" + _oAuthCredentials.ConsumerKey;
 		}
 
 		private string BuildOAuthHeader(RequestData requestData, string fullUrl, IDictionary<string, string> parameters)
