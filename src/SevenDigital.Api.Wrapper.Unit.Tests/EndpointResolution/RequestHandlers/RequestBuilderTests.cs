@@ -12,8 +12,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 	public class RequestBuilderTests
 	{
 		private const string API_URL = "http://api.7digital.com/1.2";
-
-		private readonly string _consumerKey = new AppSettingsCredentials().ConsumerKey;
 		private RequestBuilder _requestBuilder;
 
 		[SetUp]
@@ -27,17 +25,15 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 		public void Should_make_url_with_url_encoded_parameters()
 		{
 			const string unEncodedParameterValue = "Alive & Amplified";
+			const string encodedParameterValue = "Alive%20%26%20Amplified";
 
-			const string expectedParameterValue = "Alive%20%26%20Amplified";
-			var expectedHeaders = new Dictionary<string, string>();
 			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
-			var expectedUrl = string.Format("{0}/test?q={1}", API_URL, expectedParameterValue);
+			var expectedUrl = string.Format("{0}/test?q={1}", API_URL, encodedParameterValue);
 
 			var requestData = new RequestData
 				{
 					Endpoint = "test", 
-					HttpMethod = HttpMethod.Get, 
-					Headers = expectedHeaders, 
+					HttpMethod = HttpMethod.Get,
 					Parameters = testParameters
 				};
 
@@ -81,21 +77,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 			var response = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(response.Url, Is.StringContaining(expectedApiUri));
-		}
-
-		[Test]
-		public void Construct_url_should_combine_url_and_not_query_params_for_post_requests()
-		{
-			const string uriPath = "something";
-			var requestData = new RequestData
-				{
-					HttpMethod = HttpMethod.Post, 
-					Endpoint = uriPath
-				};
-
-			var request = _requestBuilder.BuildRequest(requestData);
-
-			Assert.That(request.Url, Is.EqualTo(API_URL + "/" + uriPath ));
 		}
 	}
 }
