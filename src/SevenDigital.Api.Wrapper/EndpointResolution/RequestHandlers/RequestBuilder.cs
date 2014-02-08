@@ -22,27 +22,12 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 			var headers = new Dictionary<string, string>(requestData.Headers);
 
-			if (!requestData.RequiresSignature)
-			{
-				if (HttpMethodHelpers.HasParams(requestData.HttpMethod))
-				{
-					apiRequest.Parameters.Add("oauth_consumer_key", _oAuthCredentials.ConsumerKey);
-				}
-				else
-				{
-					headers.Add("Authorization", "oauth_consumer_key=" + _oAuthCredentials.ConsumerKey);
-				}
-			}
+			 var oauthHeader = GetAuthorizationHeader(requestData, fullUrl, apiRequest);
+			headers.Add("Authorization", oauthHeader);
 
 			if (HttpMethodHelpers.HasParams(requestData.HttpMethod) && (apiRequest.Parameters.Count > 0))
 			{
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
-			}
-
-			if (requestData.RequiresSignature)
-			{
-				var oauthHeader = BuildOAuthHeader(requestData, fullUrl, apiRequest.Parameters);
-				headers.Add("Authorization", oauthHeader);
 			}
 
 			string requestBody;
@@ -56,6 +41,16 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 			}
 
 			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody);
+		}
+
+		private string GetAuthorizationHeader(RequestData requestData, string fullUrl, ApiRequest apiRequest)
+		{
+			if (requestData.RequiresSignature)
+			{
+				return BuildOAuthHeader(requestData, fullUrl, apiRequest.Parameters);
+			}
+
+			return _oAuthCredentials.ConsumerKey;
 		}
 
 		private string BuildOAuthHeader(RequestData requestData, string fullUrl, IDictionary<string, string> parameters)
