@@ -101,6 +101,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution.RequestHandlers
 
 			Assert.That(RequestHasAuthHeader(request), Is.True);
 			Assert.That(RequestHasAuthHeaderContaining(request, "oauth_signature"), Is.False);
+			Assert.That(RequestHasAuthHeaderContaining(request, "oauth_consumer_key="), Is.True);
+			Assert.That(request.Url, Is.Not.StringContaining("oauth_consumer_key"));
 		}
 
 		[Test]
