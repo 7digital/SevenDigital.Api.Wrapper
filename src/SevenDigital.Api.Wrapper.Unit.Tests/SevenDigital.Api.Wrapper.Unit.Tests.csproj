@@ -60,7 +60,7 @@
     <Compile Include="Deserialisation\User\Payment\Cards_unit_tests.cs" />
     <Compile Include="Deserialisation\User\Payment\AddCardsTests.cs" />
     <Compile Include="Deserialisation\User\Payment\DeleteCardTests.cs" />
-    <Compile Include="EndpointResolution\OAuth\OAuthHeaderGeneratorTest.cs" />
+    <Compile Include="EndpointResolution\RequestHandlers\RequestBuilderOAuthHeaderTests.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\RequestBuilderMethodTests.cs" />
     <Compile Include="EndpointResolution\RequestHandlers\RouteParamsSubstitutorTests.cs" />
     <Compile Include="Exceptions\ApiWebExceptionTests.cs" />
