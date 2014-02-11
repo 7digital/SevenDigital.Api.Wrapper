@@ -54,15 +54,15 @@
   <ItemGroup>
     <Compile Include="ApiUri.cs" />
     <Compile Include="AppSettingsCredentials.cs" />
-    <Compile Include="AttributeManagement\AttributeRequestDataBuilderTests.cs" />
-    <Compile Include="BasketEndpoint\BasketEndpointTests.cs" />
-    <Compile Include="Deserialisation\Payment\CardTypesTests.cs" />
-    <Compile Include="Deserialisation\User\Payment\Cards_unit_tests.cs" />
-    <Compile Include="Deserialisation\User\Payment\AddCardsTests.cs" />
-    <Compile Include="Deserialisation\User\Payment\DeleteCardTests.cs" />
-    <Compile Include="EndpointResolution\RequestHandlers\RequestBuilderOAuthHeaderTests.cs" />
-    <Compile Include="EndpointResolution\RequestHandlers\RequestBuilderMethodTests.cs" />
-    <Compile Include="EndpointResolution\RequestHandlers\RouteParamsSubstitutorTests.cs" />
+    <Compile Include="Environment\AttributeRequestDataBuilderTests.cs" />
+    <Compile Include="Endpoints\Basket\BasketEndpointTests.cs" />
+    <Compile Include="Parsing\Payment\CardTypesTests.cs" />
+    <Compile Include="Parsing\User\Payment\Cards_unit_tests.cs" />
+    <Compile Include="Parsing\User\Payment\AddCardsTests.cs" />
+    <Compile Include="Parsing\User\Payment\DeleteCardTests.cs" />
+    <Compile Include="Requests\RequestBuilderOAuthHeaderTests.cs" />
+    <Compile Include="Requests\RequestBuilderMethodTests.cs" />
+    <Compile Include="Requests\RouteParamsSubstitutorTests.cs" />
     <Compile Include="Exceptions\ApiWebExceptionTests.cs" />
     <Compile Include="Exceptions\ExceptionFactoryTests.cs" />
     <Compile Include="Exceptions\InputParameterExceptionTests.cs" />
@@ -79,14 +79,14 @@
     <Compile Include="FakeCache.cs" />
     <Compile Include="FluentAPITests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReleaseEndpoint\ReleaseEndpointTests.cs" />
+    <Compile Include="Endpoints\Release\ReleaseEndpointTests.cs" />
     <Compile Include="Http\FakeHttpClient.cs" />
-    <Compile Include="EndpointResolution\RequestHandlers\RequestBuilderTests.cs" />
-    <Compile Include="Http\DictionaryExtensionsTests.cs" />
-    <Compile Include="Serialization\ApiResponseDetectorTests.cs" />
-    <Compile Include="Serialization\ResponseParserTests.cs" />
-    <Compile Include="Serialization\StringDeserializerTests.cs" />
-    <Compile Include="Serialization\TestObject.cs" />
+    <Compile Include="Requests\RequestBuilderTests.cs" />
+    <Compile Include="Requests\DictionaryExtensionsTests.cs" />
+    <Compile Include="Responses\Parsing\ApiResponseDetectorTests.cs" />
+    <Compile Include="Responses\Parsing\ResponseParserTests.cs" />
+    <Compile Include="Responses\Parsing\StringDeserializerTests.cs" />
+    <Compile Include="Responses\Parsing\TestObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests
 {
@@ -16,7 +15,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests
 
 		private static string ValueFromEnvOrConfig(string envName, string configName)
 		{
-			return Environment.GetEnvironmentVariable(envName) ?? ConfigurationManager.AppSettings[configName];
+			return System.Environment.GetEnvironmentVariable(envName) ?? ConfigurationManager.AppSettings[configName];
 		}
 	}
 }

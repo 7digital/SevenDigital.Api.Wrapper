@@ -4,6 +4,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Text;
+using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Responses;
 
 namespace SevenDigital.Api.Wrapper.Http
 {

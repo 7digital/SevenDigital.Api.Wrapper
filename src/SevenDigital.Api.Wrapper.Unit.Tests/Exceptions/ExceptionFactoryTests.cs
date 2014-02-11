@@ -3,8 +3,8 @@ using System.Net;
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.Exceptions;
-using SevenDigital.Api.Wrapper.Http;
-using SevenDigital.Api.Wrapper.Serialization;
+using SevenDigital.Api.Wrapper.Responses;
+using SevenDigital.Api.Wrapper.Responses.Parsing;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Exceptions
 {

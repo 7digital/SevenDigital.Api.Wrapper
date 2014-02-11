@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Xml;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.Http;
+using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Responses;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 {

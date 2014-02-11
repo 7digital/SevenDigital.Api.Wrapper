@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
-using SevenDigital.Api.Wrapper.Http;
+using SevenDigital.Api.Wrapper.Responses;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
