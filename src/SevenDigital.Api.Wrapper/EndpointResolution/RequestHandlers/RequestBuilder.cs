@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
+using OAuth;
 using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
@@ -55,16 +55,22 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 
 		private string BuildOAuthHeader(RequestData requestData, string fullUrl, IDictionary<string, string> parameters)
 		{
-			var authHeaderGenerator = new OAuthHeaderGenerator(_oAuthCredentials);
-			var oAuthHeaderData = new OAuthHeaderData
+			var oauthRequest = new OAuthRequest
 				{
-					Url = fullUrl,
-					HttpMethod = requestData.HttpMethod,
-					UserToken = requestData.UserToken,
-					TokenSecret = requestData.TokenSecret,
-					RequestParameters = parameters
+					Type = OAuthRequestType.ProtectedResource,
+					RequestUrl = fullUrl,
+					Method = requestData.HttpMethod.ToString().ToUpperInvariant(),
+					ConsumerKey = _oAuthCredentials.ConsumerKey,
+					ConsumerSecret = _oAuthCredentials.ConsumerSecret,
 				};
-			return authHeaderGenerator.GenerateOAuthSignatureHeader(oAuthHeaderData);
+
+			if (!string.IsNullOrEmpty(requestData.UserToken))
+			{
+				oauthRequest.Token = requestData.UserToken;
+				oauthRequest.TokenSecret = requestData.TokenSecret;
+			}
+
+			return oauthRequest.GetAuthorizationHeader(parameters);
 		}
 	}
 }
