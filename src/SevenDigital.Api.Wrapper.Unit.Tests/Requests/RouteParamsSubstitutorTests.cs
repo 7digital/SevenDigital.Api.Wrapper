@@ -33,7 +33,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 
 			Assert.That(result, Is.Not.Null);
 			Assert.That(result.AbsoluteUrl, Is.Not.Empty);
-			Assert.That(result.FullUri, Is.Not.Empty);
 			Assert.That(result.Parameters, Is.Not.Null);
 		}
 
@@ -52,7 +51,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
 			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
-			Assert.That(result.FullUri, Is.StringContaining("something/routevalue"));
+			Assert.That(result.AbsoluteUrl, Is.StringContaining("something/routevalue"));
 		}
 
 		[Test]
@@ -73,7 +72,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
 			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
-			Assert.That(result.FullUri, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
+			Assert.That(result.AbsoluteUrl, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
 		}
 
 		[Test]
@@ -94,7 +93,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
 			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
-			Assert.That(result.FullUri, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
+			Assert.That(result.AbsoluteUrl, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
 		}
 
 		[Test]
@@ -112,7 +111,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
 			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
-			Assert.That(result.FullUri, Is.StringContaining("something/routevalue"));
+			Assert.That(result.AbsoluteUrl, Is.StringContaining("something/routevalue"));
 		}
 
 		[Test]
