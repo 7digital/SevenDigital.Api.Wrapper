@@ -91,6 +91,19 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			Assert.That(request.Body, Is.StringContaining("foo=bar"));
 		}
 
+		[TestCase(HttpMethod.Post)]
+		[TestCase(HttpMethod.Put)]
+		public void Should_include_parameters_in_body_when_signed(HttpMethod httpMethod)
+		{
+			var requestData = MakeRequestData(httpMethod, true);
+			requestData.Parameters.Add("foo", "bar");
+
+			var request = _requestBuilder.BuildRequest(requestData);
+
+			Assert.That(request.Url, Is.Not.StringContaining("foo=bar"));
+			Assert.That(request.Body, Is.StringContaining("foo=bar"));
+		}
+
 		[TestCase(HttpMethod.Get)]
 		[TestCase(HttpMethod.Post)]
 		[TestCase(HttpMethod.Delete)]
