@@ -11,6 +11,7 @@
     <copyright>Copyright 7digital Media Ltd. 2013</copyright>
     <tags>7digital sevendigital music api</tags>
     <dependencies>
+		<dependency id="OAuth" version="1.0.3" />
     </dependencies>
   </metadata>
   <files>
