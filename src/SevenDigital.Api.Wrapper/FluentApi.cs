@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using SevenDigital.Api.Wrapper.AttributeManagement;
-using SevenDigital.Api.Wrapper.EndpointResolution;
-using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;
+using SevenDigital.Api.Wrapper.Environment;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
-using SevenDigital.Api.Wrapper.Serialization;
+using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Responses;
+using SevenDigital.Api.Wrapper.Responses.Parsing;
 
 namespace SevenDigital.Api.Wrapper
 {

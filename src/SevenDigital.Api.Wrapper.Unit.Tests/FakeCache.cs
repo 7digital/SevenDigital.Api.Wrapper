@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using SevenDigital.Api.Wrapper.Http;
+using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Responses;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests
 {

@@ -5,9 +5,10 @@ using System.Net;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
-using SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
+using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Responses;
 using SevenDigital.Api.Wrapper.Unit.Tests.Http;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests

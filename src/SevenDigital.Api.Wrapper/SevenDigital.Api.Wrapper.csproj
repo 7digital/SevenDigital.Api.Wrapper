@@ -46,14 +46,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api.cs" />
-    <Compile Include="AttributeManagement\AttributeRequestDataBuilder.cs" />
-    <Compile Include="EndpointResolution\AppDomainAssemblyResolver.cs" />
-    <Compile Include="EndpointResolution\EssentialDependencyCheck.cs" />
-    <Compile Include="EndpointResolution\RequestHandlers\IRequestBuilder.cs" />
-    <Compile Include="EndpointResolution\RequestHandlers\RequestBuilder.cs" />
-    <Compile Include="EndpointResolution\RequestHandlers\RouteParamsSubstitutor.cs" />
+    <Compile Include="Environment\AttributeRequestDataBuilder.cs" />
+    <Compile Include="Environment\EssentialDependencyCheck.cs" />
+    <Compile Include="Requests\IRequestBuilder.cs" />
+    <Compile Include="Requests\RequestBuilder.cs" />
+    <Compile Include="Requests\RouteParamsSubstitutor.cs" />
     <Compile Include="Http\HttpMethod.cs" />
-    <Compile Include="EndpointResolution\RequestHandlers\ApiRequest.cs" />
+    <Compile Include="Requests\ApiRequest.cs" />
     <Compile Include="Exceptions\ApiErrorException.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Exceptions\ApiResponseException.cs" />
@@ -91,28 +90,28 @@
     <Compile Include="Extensions\HasUserDeliverItemParameterExtensions.cs" />
     <Compile Include="Extensions\LockerSortColumn.cs" />
     <Compile Include="Extensions\SortOrder.cs" />
-    <Compile Include="Http\IResponseCache.cs" />
-    <Compile Include="Http\NullResponseCache.cs" />
-    <Compile Include="Http\Request.cs" />
+    <Compile Include="Responses\IResponseCache.cs" />
+    <Compile Include="Responses\NullResponseCache.cs" />
+    <Compile Include="Requests\Request.cs" />
     <Compile Include="IApiEndpoint.cs" />
     <Compile Include="IApiUri.cs" />
     <Compile Include="IOAuthCredentials.cs" />
-    <Compile Include="Http\RequestData.cs" />
+    <Compile Include="Requests\RequestData.cs" />
     <Compile Include="FluentApi.cs" />
     <Compile Include="IFluentApi.cs" />
-    <Compile Include="EndpointResolution\DictionaryExtensions.cs" />
+    <Compile Include="Requests\DictionaryExtensions.cs" />
     <Compile Include="Http\HttpClientMediator.cs" />
     <Compile Include="Http\IHttpClient.cs" />
-    <Compile Include="Http\Response.cs" />
-    <Compile Include="Serialization\ApiResponseDetector.cs" />
-    <Compile Include="Serialization\ExceptionFactory.cs" />
-    <Compile Include="Serialization\Exceptions\NonXmlContentException.cs" />
-    <Compile Include="Serialization\Exceptions\UnexpectedXmlContentException.cs" />
-    <Compile Include="Serialization\IApiResponseDetector.cs" />
-    <Compile Include="Serialization\ResponseParser.cs" />
-    <Compile Include="Serialization\IResponseParser.cs" />
+    <Compile Include="Responses\Response.cs" />
+    <Compile Include="Responses\Parsing\ApiResponseDetector.cs" />
+    <Compile Include="Responses\Parsing\ExceptionFactory.cs" />
+    <Compile Include="Responses\Parsing\Exceptions\NonXmlContentException.cs" />
+    <Compile Include="Responses\Parsing\Exceptions\UnexpectedXmlContentException.cs" />
+    <Compile Include="Responses\Parsing\IApiResponseDetector.cs" />
+    <Compile Include="Responses\Parsing\ResponseParser.cs" />
+    <Compile Include="Responses\Parsing\IResponseParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\StringDeserializer.cs" />
+    <Compile Include="Responses\Parsing\StringDeserializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">

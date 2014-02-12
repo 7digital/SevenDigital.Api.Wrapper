@@ -1,5 +1,4 @@
-﻿
-namespace SevenDigital.Api.Wrapper
+﻿namespace SevenDigital.Api.Wrapper
 {
 	public interface IApiEndpoint
 	{
