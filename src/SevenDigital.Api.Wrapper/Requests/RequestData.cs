@@ -30,6 +30,8 @@ namespace SevenDigital.Api.Wrapper.Requests
 			get { return UserToken != null; }
 		}
 
+		public RequestPayload Payload {get; set; }
+
 		public RequestData()
 		{
 			Endpoint = string.Empty;

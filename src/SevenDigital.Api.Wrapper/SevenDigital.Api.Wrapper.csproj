@@ -50,6 +50,7 @@
     <Compile Include="Environment\EssentialDependencyCheck.cs" />
     <Compile Include="Requests\IRequestBuilder.cs" />
     <Compile Include="Requests\RequestBuilder.cs" />
+    <Compile Include="Requests\RequestPayload.cs" />
     <Compile Include="Requests\RouteParamsSubstitutor.cs" />
     <Compile Include="Http\HttpMethod.cs" />
     <Compile Include="Requests\ApiRequest.cs" />

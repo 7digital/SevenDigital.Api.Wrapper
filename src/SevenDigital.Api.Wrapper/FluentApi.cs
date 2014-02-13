@@ -31,8 +31,7 @@ namespace SevenDigital.Api.Wrapper
 		}
 
 		public FluentApi(IRequestBuilder requestBuilder) : this(new HttpClientMediator(), requestBuilder)
-		{
-		}
+		{}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
 			: this(new HttpClientMediator(), new RequestBuilder(apiUri, oAuthCredentials))
@@ -94,6 +93,12 @@ namespace SevenDigital.Api.Wrapper
 			WithParameter("shopId", shopId.ToString());
 			return this;
 		}
+
+		public IFluentApi<T> WithPayload(string contentType, string payload)
+		{
+			_requestData.Payload = new RequestPayload(contentType, payload);
+			return this;
+		} 
 
 		public virtual T Please()
 		{

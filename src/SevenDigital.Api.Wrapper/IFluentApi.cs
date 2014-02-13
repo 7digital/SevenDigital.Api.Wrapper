@@ -10,6 +10,7 @@ namespace SevenDigital.Api.Wrapper
 		IFluentApi<T> ForUser(string token, string secret);
 		IFluentApi<T> UsingClient(IHttpClient httpClient);
 		IFluentApi<T> UsingCache(IResponseCache responseCache);
+		IFluentApi<T> WithMethod(string methodName);
 
 		T Please();
 	}

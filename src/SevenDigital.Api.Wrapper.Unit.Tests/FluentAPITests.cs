@@ -36,7 +36,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			return httpClient;
 		}
 
-		[Test] public void Should_call_requestbuilder_with_correct_endpoint_on_resolve()
+		[Test] 
+		public void Should_call_requestbuilder_with_correct_endpoint_on_resolve()
 		{
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();
@@ -224,6 +225,22 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			Assert.That(cache.SetCount, Is.EqualTo(0));
 			Assert.That(cache.CachedResponses.Count, Is.EqualTo(0));
+		}
+
+		[Test]
+		public void Should_allow_you_to_set_a_request_payload()
+		{
+			var requestBuilder = StubRequestBuilder();
+			var httpClient = StubHttpClient();
+
+			const string payloadData = "{\"hello\":\"world\"}";
+			const string payloadContentType = "application/json";
+
+			new FluentApi<Status>(httpClient, requestBuilder).WithPayload(payloadContentType, payloadData).Please();
+
+			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == payloadContentType && x.Payload.Data == payloadData));
+
+			A.CallTo(callWithExpectedPayload).MustHaveHappened();
 		}
 	}
 }
