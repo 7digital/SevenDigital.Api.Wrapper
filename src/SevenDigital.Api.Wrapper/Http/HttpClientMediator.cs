@@ -38,7 +38,7 @@ namespace SevenDigital.Api.Wrapper.Http
 				var postBytes = Encoding.UTF8.GetBytes(request.Body);
 				httpWebRequest.ContentLength = postBytes.Length;
 
-				using (Stream dataStream = httpWebRequest.GetRequestStream())
+				using (var dataStream = httpWebRequest.GetRequestStream())
 				{
 					dataStream.Write(postBytes, 0, postBytes.Length);
 				}
