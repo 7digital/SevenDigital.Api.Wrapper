@@ -30,14 +30,10 @@ namespace SevenDigital.Api.Wrapper.Requests
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
 
-			string requestBody;
+			var requestBody = string.Empty;
 			if (HttpMethodHelpers.HasBody(requestData.HttpMethod))
 			{
 				requestBody = apiRequest.Parameters.ToQueryString();
-			}
-			else
-			{
-				requestBody = string.Empty;
 			}
 
 			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody);
