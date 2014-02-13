@@ -52,12 +52,7 @@ namespace SevenDigital.Api.Schema.TrackEndpoint
 		[XmlElement("type")]
 		public TrackType Type { get; set; }
 
-		[XmlElement(ElementName = "streamingReleaseDate",
-
-		            //workaround for https://bugzilla.xamarin.com/show_bug.cgi?id=7613 (TODO: remove when Mono 2.12 is out)
-		            IsNullable = true)]
-
+		[XmlElement(ElementName = "streamingReleaseDate", IsNullable = true)]
 		public DateTime? StreamingReleaseDate { get; set; }
-
 	}
 }
