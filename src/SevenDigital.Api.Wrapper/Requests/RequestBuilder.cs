@@ -25,15 +25,19 @@ namespace SevenDigital.Api.Wrapper.Requests
 			 var oauthHeader = GetAuthorizationHeader(requestData, fullUrl, apiRequest);
 			headers.Add("Authorization", oauthHeader);
 
-			if (HttpMethodHelpers.HasParams(requestData.HttpMethod) && (apiRequest.Parameters.Count > 0))
+			if (HttpMethodHelpers.HasParamsInQueryString(requestData.HttpMethod) && (apiRequest.Parameters.Count > 0))
 			{
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
 
 			var requestBody = string.Empty;
-			if (HttpMethodHelpers.HasBody(requestData.HttpMethod))
+			if (HttpMethodHelpers.ShouldHaveRequestBody(requestData.HttpMethod) && (apiRequest.Parameters.Count > 0))
 			{
 				requestBody = apiRequest.Parameters.ToQueryString();
+			}
+			else if (HttpMethodHelpers.ShouldHaveRequestBody(requestData.HttpMethod) && requestData.Payload != null)
+			{
+				requestBody = requestData.Payload.Data;
 			}
 
 			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody);

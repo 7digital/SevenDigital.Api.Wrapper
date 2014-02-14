@@ -23,10 +23,10 @@ namespace SevenDigital.Api.Wrapper.Requests
 			var pathWithRouteParamsSubstituted = SubstituteRouteParameters(requestData.Endpoint, withoutRouteParameters);
 
 			return new ApiRequest
-				{
-					AbsoluteUrl = string.Format("{0}/{1}", apiBaseUrl, pathWithRouteParamsSubstituted),
-					Parameters = withoutRouteParameters
-				};
+			{
+				AbsoluteUrl = string.Format("{0}/{1}", apiBaseUrl, pathWithRouteParamsSubstituted),
+				Parameters = withoutRouteParameters
+			};
 		}
 
 		private static string SubstituteRouteParameters(string endpointUri, IDictionary<string, string> parameters)

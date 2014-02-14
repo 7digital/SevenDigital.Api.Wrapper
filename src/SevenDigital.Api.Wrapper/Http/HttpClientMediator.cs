@@ -31,7 +31,7 @@ namespace SevenDigital.Api.Wrapper.Http
 				httpWebRequest.Headers.Add(header.Key, header.Value);
 			}
 
-			if (HttpMethodHelpers.HasBody(request.Method))
+			if (HttpMethodHelpers.ShouldHaveRequestBody(request.Method))
 			{
 				httpWebRequest.ContentType = "application/x-www-form-urlencoded";
 
