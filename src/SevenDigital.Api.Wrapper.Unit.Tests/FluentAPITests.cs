@@ -247,14 +247,23 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public void Should_allow_you_to_set_a_request_payload_using_an_entity()
 		{
+			const string expectedXmlOutput = "<?xml version=\"1.0\" encoding=\"utf-8\"?><artist id=\"143451\"><name>MGMT</name><appearsAs>MGMT</appearsAs><image>http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg</image><url>http://www.7digital.com/artist/mgmt/?partner=1401</url></artist>";
+
+			var artist = new Artist
+			{
+				AppearsAs = "MGMT",
+				Name = "MGMT",
+				Id = 143451,
+				Image = "http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg",
+				Url = "http://www.7digital.com/artist/mgmt/?partner=1401"
+			};
+
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();
 
-			var payload = new Artist();
+			new FluentApi<Status>(httpClient, requestBuilder).WithPayload(artist).Please();
 
-			new FluentApi<Status>(httpClient, requestBuilder).WithPayload(payload).Please();
-
-			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == "application/xml" && x.Payload.Data == "<xml>"));
+			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == "application/xml" && x.Payload.Data == expectedXmlOutput));
 
 			A.CallTo(callWithExpectedPayload).MustHaveHappened();
 		}

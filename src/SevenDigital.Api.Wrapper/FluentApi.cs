@@ -5,6 +5,7 @@ using SevenDigital.Api.Wrapper.Environment;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Requests.Serializing;
 using SevenDigital.Api.Wrapper.Responses;
 using SevenDigital.Api.Wrapper.Responses.Parsing;
 
@@ -100,11 +101,11 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public IFluentApi<T> WithPayload<TPayload>(TPayload payload)
+		public IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class
 		{
 			const string defaultContentType = "application/xml";
 			
-			_requestData.Payload = new RequestPayload(defaultContentType, "<xml>");
+			_requestData.Payload = new RequestPayload(defaultContentType, payload.ToXml());
 			return this;
 		} 
 
