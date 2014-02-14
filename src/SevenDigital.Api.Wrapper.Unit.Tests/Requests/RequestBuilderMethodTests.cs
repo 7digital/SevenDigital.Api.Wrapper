@@ -75,7 +75,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(request.Url, Is.StringContaining("?foo=bar"));
-			Assert.That(request.Body, Is.Not.StringContaining("foo=bar"));
+			Assert.That(request.Body, Is.Null);
 		}
 
 		[TestCase(HttpMethod.Post)]
@@ -88,7 +88,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(request.Url, Is.Not.StringContaining("foo=bar"));
-			Assert.That(request.Body, Is.StringContaining("foo=bar"));
+			Assert.That(request.Body.Data, Is.StringContaining("foo=bar"));
 		}
 
 		[TestCase(HttpMethod.Post)]
@@ -101,7 +101,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(request.Url, Is.Not.StringContaining("foo=bar"));
-			Assert.That(request.Body, Is.StringContaining("foo=bar"));
+			Assert.That(request.Body.Data, Is.StringContaining("foo=bar"));
 		}
 
 		[TestCase(HttpMethod.Get)]
@@ -142,7 +142,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
-			Assert.That(request.Body, Is.Not.StringContaining("oauth"));
+			Assert.That(request.Body, Is.Null);
 		}
 
 		[TestCase(HttpMethod.Get)]
@@ -207,7 +207,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
-			Assert.That(request.Body, Is.Not.StringContaining("oauth"));
+			Assert.That(request.Body, Is.Null);
 		}
 
 		[TestCase(HttpMethod.Get)]

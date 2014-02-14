@@ -104,7 +104,7 @@ namespace SevenDigital.Api.Wrapper
 		{
 			Response response;
 
-			bool foundInCache = _responseCache.TryGet(_requestData, out response);
+			var foundInCache = _responseCache.TryGet(_requestData, out response);
 			if (! foundInCache)
 			{
 				try

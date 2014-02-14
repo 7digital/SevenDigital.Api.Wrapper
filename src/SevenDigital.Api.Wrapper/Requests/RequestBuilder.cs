@@ -30,14 +30,14 @@ namespace SevenDigital.Api.Wrapper.Requests
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
 
-			var requestBody = string.Empty;
+			RequestPayload requestBody = null;
 			if (HttpMethodHelpers.ShouldHaveRequestBody(requestData.HttpMethod) && (apiRequest.Parameters.Count > 0))
 			{
-				requestBody = apiRequest.Parameters.ToQueryString();
+				requestBody = new RequestPayload("application/x-www-form-urlencoded", apiRequest.Parameters.ToQueryString());
 			}
 			else if (HttpMethodHelpers.ShouldHaveRequestBody(requestData.HttpMethod) && requestData.Payload != null)
 			{
-				requestBody = requestData.Payload.Data;
+				requestBody = requestData.Payload;
 			}
 
 			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody);

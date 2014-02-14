@@ -22,7 +22,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 		private IRequestBuilder StubRequestBuilder()
 		{
-			var request = new Request(HttpMethod.Get, "http://example.com/status", new Dictionary<string, string>(), string.Empty);
+			var request = new Request(HttpMethod.Get, "http://example.com/status", new Dictionary<string, string>(), null);
 			var requestBuilder = A.Fake<IRequestBuilder>();
 			A.CallTo(() => requestBuilder.BuildRequest(A<RequestData>.Ignored)).Returns(request);
 

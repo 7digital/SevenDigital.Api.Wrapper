@@ -95,7 +95,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			};
 
 			var buildRequest = _requestBuilder.BuildRequest(requestData);
-			Assert.That(buildRequest.Body, Is.EqualTo(parameters.ToQueryString()));
+			Assert.That(buildRequest.Body.Data, Is.EqualTo(parameters.ToQueryString()));
+			Assert.That(buildRequest.Body.ContentType, Is.EqualTo("application/x-www-form-urlencoded"));
 		}
 
 		[Test]
@@ -113,7 +114,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			};
 
 			var buildRequest = _requestBuilder.BuildRequest(requestData);
-			Assert.That(buildRequest.Body, Is.EqualTo(parameters.ToQueryString()));
+			Assert.That(buildRequest.Body.Data, Is.EqualTo(parameters.ToQueryString()));
+			Assert.That(buildRequest.Body.ContentType, Is.EqualTo("application/x-www-form-urlencoded"));
 		}
 
 		[Test]
@@ -126,7 +128,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			};
 
 			var buildRequest = _requestBuilder.BuildRequest(requestData);
-			Assert.That(buildRequest.Body, Is.EqualTo("I am a payload"));
+			Assert.That(buildRequest.Body.Data, Is.EqualTo("I am a payload"));
+			Assert.That(buildRequest.Body.ContentType, Is.EqualTo("text/plain"));
 		}
 	}
 }
