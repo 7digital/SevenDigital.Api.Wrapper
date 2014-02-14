@@ -30,17 +30,28 @@ namespace SevenDigital.Api.Wrapper.Requests
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
 
-			RequestPayload requestBody = null;
-			if (HttpMethodHelpers.ShouldHaveRequestBody(requestData.HttpMethod) && (apiRequest.Parameters.Count > 0))
-			{
-				requestBody = new RequestPayload("application/x-www-form-urlencoded", apiRequest.Parameters.ToQueryString());
-			}
-			else if (HttpMethodHelpers.ShouldHaveRequestBody(requestData.HttpMethod) && requestData.Payload != null)
-			{
-				requestBody = requestData.Payload;
-			}
+			var requestBody = CheckForRequestPayload(requestData, apiRequest.Parameters);
 
 			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody);
+		}
+
+		private static RequestPayload CheckForRequestPayload(RequestData requestData, IDictionary<string,string> requestParameters)
+		{
+			var shouldHaveRequestBody = HttpMethodHelpers.ShouldHaveRequestBody(requestData.HttpMethod);
+			var hasSuppliedParameters = (requestParameters.Count > 0);
+			var hasSuppliedARequestPayload = requestData.Payload != null;
+
+			if (shouldHaveRequestBody && hasSuppliedParameters)
+			{
+				return new RequestPayload("application/x-www-form-urlencoded", requestParameters.ToQueryString());
+			}
+
+			if (shouldHaveRequestBody && hasSuppliedARequestPayload)
+			{
+				return requestData.Payload;
+			}
+
+			return null;
 		}
 
 		private string GetAuthorizationHeader(RequestData requestData, string fullUrl, ApiRequest apiRequest)
