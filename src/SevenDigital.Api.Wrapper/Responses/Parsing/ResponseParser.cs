@@ -89,7 +89,7 @@ namespace SevenDigital.Api.Wrapper.Responses.Parsing
 			try
 			{
 				var deserializer = new StringDeserializer<T>();
-				return deserializer.Deserialize(response.Body);
+				return deserializer.DeserializeApiResponse(response.Body);
 			}
 			catch (UnexpectedXmlContentException e)
 			{

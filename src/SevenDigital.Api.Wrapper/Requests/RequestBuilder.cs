@@ -22,10 +22,10 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 			var headers = new Dictionary<string, string>(requestData.Headers);
 
-			 var oauthHeader = GetAuthorizationHeader(requestData, fullUrl, apiRequest);
+			var oauthHeader = GetAuthorizationHeader(requestData, fullUrl, apiRequest);
 			headers.Add("Authorization", oauthHeader);
 
-			if (HttpMethodHelpers.HasParamsInQueryString(requestData.HttpMethod) && (apiRequest.Parameters.Count > 0))
+			if (requestData.HttpMethod.HasParamsInQueryString() && (apiRequest.Parameters.Count > 0))
 			{
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
@@ -37,8 +37,8 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 		private static RequestPayload CheckForRequestPayload(RequestData requestData, IDictionary<string,string> requestParameters)
 		{
-			var shouldHaveRequestBody = HttpMethodHelpers.ShouldHaveRequestBody(requestData.HttpMethod);
-			var hasSuppliedParameters = (requestParameters.Count > 0);
+			var shouldHaveRequestBody = requestData.HttpMethod.ShouldHaveRequestBody();
+			var hasSuppliedParameters = requestParameters.Count > 0;
 			var hasSuppliedARequestPayload = requestData.Payload != null;
 
 			if (shouldHaveRequestBody && hasSuppliedParameters)

@@ -98,6 +98,14 @@ namespace SevenDigital.Api.Wrapper
 		{
 			_requestData.Payload = new RequestPayload(contentType, payload);
 			return this;
+		}
+
+		public IFluentApi<T> WithPayload<TPayload>(TPayload payload)
+		{
+			const string defaultContentType = "application/xml";
+			
+			_requestData.Payload = new RequestPayload(defaultContentType, "<xml>");
+			return this;
 		} 
 
 		public virtual T Please()

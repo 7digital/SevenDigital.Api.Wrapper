@@ -5,6 +5,7 @@ using System.Net;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
+using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
@@ -239,6 +240,21 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			new FluentApi<Status>(httpClient, requestBuilder).WithPayload(payloadContentType, payloadData).Please();
 
 			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == payloadContentType && x.Payload.Data == payloadData));
+
+			A.CallTo(callWithExpectedPayload).MustHaveHappened();
+		}
+
+		[Test]
+		public void Should_allow_you_to_set_a_request_payload_using_an_entity()
+		{
+			var requestBuilder = StubRequestBuilder();
+			var httpClient = StubHttpClient();
+
+			var payload = new Artist();
+
+			new FluentApi<Status>(httpClient, requestBuilder).WithPayload(payload).Please();
+
+			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == "application/xml" && x.Payload.Data == "<xml>"));
 
 			A.CallTo(callWithExpectedPayload).MustHaveHappened();
 		}
