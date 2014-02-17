@@ -55,8 +55,6 @@
     <Compile Include="EndpointTests\BasketEndpoint\GetPayPalUriTests.cs" />
     <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseEditorialTests.cs" />
     <Compile Include="EndpointTests\StaticSetupCredentialPassingTests.cs" />
-    <Compile Include="EndpointTests\LockerEndpoint\LockerTests.cs" />
-    <Compile Include="EndpointTests\MerchandisingEndpoint\MerchandisingListEndpointTests.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthAccessTokenTest.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthRequestTokenTest.cs" />
     <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseTracksTests.cs" />
@@ -78,12 +76,10 @@
     <Compile Include="EndpointTests\TagsEndpoint\ReleaseTagsTests.cs" />
     <Compile Include="EndpointTests\StatusTests.cs" />
     <Compile Include="EndpointTests\TagsEndpoint\TagsTests.cs" />
-    <Compile Include="EndpointTests\TerritoriesEndpoint\TerritoriesEndpointTests.cs" />
     <Compile Include="EndpointTests\TrackEndpoint\TrackChartTests.cs" />
     <Compile Include="EndpointTests\TrackEndpoint\TrackDetailsTests.cs" />
     <Compile Include="EndpointTests\TrackEndpoint\TrackPreviewTests.cs" />
     <Compile Include="EndpointTests\TrackEndpoint\TrackSearchTests.cs" />
-    <Compile Include="EndpointTests\TranslationsEndpoint\TranslationsEndpointTests.cs" />
     <Compile Include="Exceptions\ErrorConditionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Http\HttpClientMediatorTests.cs" />
@@ -99,10 +95,7 @@
       <Name>SevenDigital.Api.Wrapper</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EndpointTests\MediaEndpoint\" />
-    <Folder Include="EndpointTests\PurchasingEndpoint\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
