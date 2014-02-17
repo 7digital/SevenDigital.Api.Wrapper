@@ -5,6 +5,7 @@ using System.Net;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
+using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
@@ -22,7 +23,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 		private IRequestBuilder StubRequestBuilder()
 		{
-			var request = new Request(HttpMethod.Get, "http://example.com/status", new Dictionary<string, string>(), string.Empty);
+			var request = new Request(HttpMethod.Get, "http://example.com/status", new Dictionary<string, string>(), null);
 			var requestBuilder = A.Fake<IRequestBuilder>();
 			A.CallTo(() => requestBuilder.BuildRequest(A<RequestData>.Ignored)).Returns(request);
 
@@ -36,7 +37,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			return httpClient;
 		}
 
-		[Test] public void Should_call_requestbuilder_with_correct_endpoint_on_resolve()
+		[Test] 
+		public void Should_call_requestbuilder_with_correct_endpoint_on_resolve()
 		{
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();
@@ -224,6 +226,46 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			Assert.That(cache.SetCount, Is.EqualTo(0));
 			Assert.That(cache.CachedResponses.Count, Is.EqualTo(0));
+		}
+
+		[Test]
+		public void Should_allow_you_to_set_a_request_payload()
+		{
+			var requestBuilder = StubRequestBuilder();
+			var httpClient = StubHttpClient();
+
+			const string payloadData = "{\"hello\":\"world\"}";
+			const string payloadContentType = "application/json";
+
+			new FluentApi<Status>(httpClient, requestBuilder).WithPayload(payloadContentType, payloadData).Please();
+
+			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == payloadContentType && x.Payload.Data == payloadData));
+
+			A.CallTo(callWithExpectedPayload).MustHaveHappened();
+		}
+
+		[Test]
+		public void Should_allow_you_to_set_a_request_payload_using_an_entity()
+		{
+			const string expectedXmlOutput = "<?xml version=\"1.0\" encoding=\"utf-8\"?><artist id=\"143451\"><name>MGMT</name><appearsAs>MGMT</appearsAs><image>http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg</image><url>http://www.7digital.com/artist/mgmt/?partner=1401</url></artist>";
+
+			var artist = new Artist
+			{
+				AppearsAs = "MGMT",
+				Name = "MGMT",
+				Id = 143451,
+				Image = "http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg",
+				Url = "http://www.7digital.com/artist/mgmt/?partner=1401"
+			};
+
+			var requestBuilder = StubRequestBuilder();
+			var httpClient = StubHttpClient();
+
+			new FluentApi<Status>(httpClient, requestBuilder).WithPayload(artist).Please();
+
+			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == "application/xml" && x.Payload.Data == expectedXmlOutput));
+
+			A.CallTo(callWithExpectedPayload).MustHaveHappened();
 		}
 	}
 }

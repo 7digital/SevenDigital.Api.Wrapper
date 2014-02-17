@@ -10,9 +10,9 @@ namespace SevenDigital.Api.Wrapper.Responses.Parsing
 {
 	public class StringDeserializer<T> where T : class
 	{
-		public T Deserialize(string response)
+		public T DeserializeApiResponse(string apiResponse)
 		{
-			using (var reader = new StringReader(response))
+			using (var reader = new StringReader(apiResponse))
 			{
 				XDocument doc;
 				try {

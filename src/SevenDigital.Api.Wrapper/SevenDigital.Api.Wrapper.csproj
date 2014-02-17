@@ -50,6 +50,7 @@
     <Compile Include="Environment\EssentialDependencyCheck.cs" />
     <Compile Include="Requests\IRequestBuilder.cs" />
     <Compile Include="Requests\RequestBuilder.cs" />
+    <Compile Include="Requests\RequestPayload.cs" />
     <Compile Include="Requests\RouteParamsSubstitutor.cs" />
     <Compile Include="Http\HttpMethod.cs" />
     <Compile Include="Requests\ApiRequest.cs" />
@@ -90,6 +91,8 @@
     <Compile Include="Extensions\HasUserDeliverItemParameterExtensions.cs" />
     <Compile Include="Extensions\LockerSortColumn.cs" />
     <Compile Include="Extensions\SortOrder.cs" />
+    <Compile Include="Requests\Serializing\StringSerializerExtensions.cs" />
+    <Compile Include="Requests\Serializing\Utf8StringWriter.cs" />
     <Compile Include="Responses\IResponseCache.cs" />
     <Compile Include="Responses\NullResponseCache.cs" />
     <Compile Include="Requests\Request.cs" />

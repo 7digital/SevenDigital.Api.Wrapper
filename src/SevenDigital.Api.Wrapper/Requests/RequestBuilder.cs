@@ -22,25 +22,36 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 			var headers = new Dictionary<string, string>(requestData.Headers);
 
-			 var oauthHeader = GetAuthorizationHeader(requestData, fullUrl, apiRequest);
+			var oauthHeader = GetAuthorizationHeader(requestData, fullUrl, apiRequest);
 			headers.Add("Authorization", oauthHeader);
 
-			if (HttpMethodHelpers.HasParams(requestData.HttpMethod) && (apiRequest.Parameters.Count > 0))
+			if (requestData.HttpMethod.HasParamsInQueryString() && (apiRequest.Parameters.Count > 0))
 			{
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
 
-			string requestBody;
-			if (HttpMethodHelpers.HasBody(requestData.HttpMethod))
-			{
-				requestBody = apiRequest.Parameters.ToQueryString();
-			}
-			else
-			{
-				requestBody = string.Empty;
-			}
+			var requestBody = CheckForRequestPayload(requestData, apiRequest.Parameters);
 
 			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody);
+		}
+
+		private static RequestPayload CheckForRequestPayload(RequestData requestData, IDictionary<string,string> requestParameters)
+		{
+			var shouldHaveRequestBody = requestData.HttpMethod.ShouldHaveRequestBody();
+			var hasSuppliedParameters = requestParameters.Count > 0;
+			var hasSuppliedARequestPayload = requestData.Payload != null;
+
+			if (shouldHaveRequestBody && hasSuppliedParameters)
+			{
+				return new RequestPayload("application/x-www-form-urlencoded", requestParameters.ToQueryString());
+			}
+
+			if (shouldHaveRequestBody && hasSuppliedARequestPayload)
+			{
+				return requestData.Payload;
+			}
+
+			return new RequestPayload("application/x-www-form-urlencoded", "");
 		}
 
 		private string GetAuthorizationHeader(RequestData requestData, string fullUrl, ApiRequest apiRequest)

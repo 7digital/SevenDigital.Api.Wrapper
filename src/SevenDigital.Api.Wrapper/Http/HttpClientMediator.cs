@@ -31,14 +31,16 @@ namespace SevenDigital.Api.Wrapper.Http
 				httpWebRequest.Headers.Add(header.Key, header.Value);
 			}
 
-			if (HttpMethodHelpers.HasBody(request.Method))
+			if (request.Method.ShouldHaveRequestBody())
 			{
-				httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+				var contentType = request.Body.ContentType;
+				var data = request.Body.Data;
 
-				var postBytes = Encoding.UTF8.GetBytes(request.Body);
+				httpWebRequest.ContentType = contentType;
+				var postBytes = Encoding.UTF8.GetBytes(data);
 				httpWebRequest.ContentLength = postBytes.Length;
 
-				using (Stream dataStream = httpWebRequest.GetRequestStream())
+				using (var dataStream = httpWebRequest.GetRequestStream())
 				{
 					dataStream.Write(postBytes, 0, postBytes.Length);
 				}

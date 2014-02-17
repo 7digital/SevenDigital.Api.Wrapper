@@ -2,6 +2,7 @@
 using System.Net;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.OAuth;
+using SevenDigital.Api.Wrapper.Exceptions;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 {
@@ -30,7 +31,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 			{
 				var api = (FluentApi<OAuthRequestToken>) Api<OAuthRequestToken>.Create;
 
-				api.WithMethod("POST");
+				api.WithMethod("POST").WithParameter("one", "two");
 
 				var requestToken = api.Please();
 
@@ -41,6 +42,16 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 			{
 				Assert.Fail(new StreamReader(ex.Response.GetResponseStream()).ReadToEnd());
 			}
+		}
+
+		[Test]
+		public void POSTing_with_no_data_should_be_allowed()
+		{
+			var api = (FluentApi<OAuthRequestToken>)Api<OAuthRequestToken>.Create;
+
+			api.WithMethod("POST");
+
+			Assert.DoesNotThrow(() => api.Please());
 		}
 
 		[Test]

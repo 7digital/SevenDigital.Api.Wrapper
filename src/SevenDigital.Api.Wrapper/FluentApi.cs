@@ -5,6 +5,7 @@ using SevenDigital.Api.Wrapper.Environment;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Requests.Serializing;
 using SevenDigital.Api.Wrapper.Responses;
 using SevenDigital.Api.Wrapper.Responses.Parsing;
 
@@ -31,8 +32,7 @@ namespace SevenDigital.Api.Wrapper
 		}
 
 		public FluentApi(IRequestBuilder requestBuilder) : this(new HttpClientMediator(), requestBuilder)
-		{
-		}
+		{}
 
 		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
 			: this(new HttpClientMediator(), new RequestBuilder(apiUri, oAuthCredentials))
@@ -95,11 +95,25 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
+		public IFluentApi<T> WithPayload(string contentType, string payload)
+		{
+			_requestData.Payload = new RequestPayload(contentType, payload);
+			return this;
+		}
+
+		public IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class
+		{
+			const string defaultContentType = "application/xml";
+			
+			_requestData.Payload = new RequestPayload(defaultContentType, payload.ToXml());
+			return this;
+		} 
+
 		public virtual T Please()
 		{
 			Response response;
 
-			bool foundInCache = _responseCache.TryGet(_requestData, out response);
+			var foundInCache = _responseCache.TryGet(_requestData, out response);
 			if (! foundInCache)
 			{
 				try
