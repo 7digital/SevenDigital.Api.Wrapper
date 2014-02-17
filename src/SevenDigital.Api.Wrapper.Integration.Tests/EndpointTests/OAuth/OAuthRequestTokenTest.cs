@@ -45,14 +45,13 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 		}
 
 		[Test]
-		public void POSTing_with_no_data_should_throw_correct_exception_containing_valid_lengthRequired_value()
+		public void POSTing_with_no_data_should_be_allowed()
 		{
 			var api = (FluentApi<OAuthRequestToken>)Api<OAuthRequestToken>.Create;
 
 			api.WithMethod("POST");
 
-			var nonXmlResponseException = Assert.Throws<NonXmlResponseException>(() => api.Please());
-			Assert.That(nonXmlResponseException.StatusCode, Is.EqualTo(HttpStatusCode.LengthRequired));
+			Assert.DoesNotThrow(() => api.Please());
 		}
 
 		[Test]

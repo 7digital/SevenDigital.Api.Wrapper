@@ -75,7 +75,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(request.Url, Is.StringContaining("?foo=bar"));
-			Assert.That(request.Body, Is.Null);
+			Assert.That(request.Body.Data, Is.Empty);
 		}
 
 		[TestCase(HttpMethod.Post)]
@@ -142,7 +142,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
-			Assert.That(request.Body, Is.Null);
+			Assert.That(request.Body.Data, Is.Empty);
 		}
 
 		[TestCase(HttpMethod.Get)]
@@ -207,7 +207,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
-			Assert.That(request.Body, Is.Null);
+			Assert.That(request.Body.Data, Is.Empty);
 		}
 
 		[TestCase(HttpMethod.Get)]

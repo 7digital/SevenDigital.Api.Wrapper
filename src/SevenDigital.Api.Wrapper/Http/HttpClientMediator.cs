@@ -31,11 +31,13 @@ namespace SevenDigital.Api.Wrapper.Http
 				httpWebRequest.Headers.Add(header.Key, header.Value);
 			}
 
-			if (HttpMethodHelpers.ShouldHaveRequestBody(request.Method) && request.Body != null)
+			if (request.Method.ShouldHaveRequestBody())
 			{
-				httpWebRequest.ContentType = request.Body.ContentType;
+				var contentType = request.Body.ContentType;
+				var data = request.Body.Data;
 
-				var postBytes = Encoding.UTF8.GetBytes(request.Body.Data);
+				httpWebRequest.ContentType = contentType;
+				var postBytes = Encoding.UTF8.GetBytes(data);
 				httpWebRequest.ContentLength = postBytes.Length;
 
 				using (var dataStream = httpWebRequest.GetRequestStream())

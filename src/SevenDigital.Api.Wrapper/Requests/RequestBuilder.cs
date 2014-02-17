@@ -51,7 +51,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 				return requestData.Payload;
 			}
 
-			return null;
+			return new RequestPayload("application/x-www-form-urlencoded", "");
 		}
 
 		private string GetAuthorizationHeader(RequestData requestData, string fullUrl, ApiRequest apiRequest)
