@@ -267,5 +267,19 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			A.CallTo(callWithExpectedPayload).MustHaveHappened();
 		}
+
+		[Test]
+		public void Should_allow_you_to_see_the_raw_response_without_parsing()
+		{
+			var requestBuilder = StubRequestBuilder();
+			var httpClient = StubHttpClient();
+
+			var response = new FluentApi<Status>(httpClient, requestBuilder).Response();
+
+			Assert.That(response, Is.Not.Null);
+
+			Assert.That(response.Body, Is.Not.Null);
+			Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+		}
 	}
 }
