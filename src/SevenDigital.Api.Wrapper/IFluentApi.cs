@@ -13,6 +13,7 @@ namespace SevenDigital.Api.Wrapper
 		IFluentApi<T> WithMethod(string methodName);
 		IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class;
 
+		Response Response();
 		T Please();
 	}
 }
