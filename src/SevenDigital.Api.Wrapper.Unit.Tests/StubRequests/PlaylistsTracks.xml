@@ -2,28 +2,28 @@
 <tracks>
 	<track>
 		<trackId>123</trackId>
-		<trackTitle>yo mamma lamma</trackTitle>
+		<trackTitle>Weekend Wars</trackTitle>
 		<trackVersion>deluxe</trackVersion>
 		<artistId>123</artistId>
-		<artistAppearsAs>yo mamma</artistAppearsAs>
+		<artistAppearsAs>MGMT</artistAppearsAs>
 		<releaseId>123</releaseId>
-		<releaseTitle>best of yo mamma</releaseTitle>
+		<releaseTitle>Oracula Spectacular</releaseTitle>
 		<releaseArtistId>123</releaseArtistId>
-		<releaseArtistAppearsAs>yo mamma</releaseArtistAppearsAs>
+		<releaseArtistAppearsAs>MGMT</releaseArtistAppearsAs>
 		<releaseVersion>extended</releaseVersion>
 		<source>local</source>
 		<audioUrl>test.mp3</audioUrl>
 	</track>
 	<track>
 		<trackId>124</trackId>
-		<trackTitle>yo mammas hamma dilemma</trackTitle>
+		<trackTitle>Kids</trackTitle>
 		<trackVersion>deluxe</trackVersion>
 		<artistId>123</artistId>
-		<artistAppearsAs>yo mamma</artistAppearsAs>
+		<artistAppearsAs>MGMT</artistAppearsAs>
 		<releaseId>123</releaseId>
-		<releaseTitle>best of yo mamma</releaseTitle>
+		<releaseTitle>Oracula Spectacular</releaseTitle>
 		<releaseArtistId>123</releaseArtistId>
-		<releaseArtistAppearsAs>yo mamma</releaseArtistAppearsAs>
+		<releaseArtistAppearsAs>MGMT</releaseArtistAppearsAs>
 		<releaseVersion>extended</releaseVersion>
 		<source>local</source>
 		<audioUrl>test.mp3</audioUrl>

@@ -43,17 +43,17 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 				{
 					new Product
 					{
-						ArtistAppearsAs = "yo mamma",
+						ArtistAppearsAs = "MGMT",
 						ArtistId = "123",
 						AudioUrl = "test.mp3",
-						ReleaseArtistAppearsAs = "yo mamma",
+						ReleaseArtistAppearsAs = "MGMT",
 						ReleaseArtistId = "123",
 						ReleaseId = "123",
-						ReleaseTitle = "best of yo mamma",
+						ReleaseTitle = "Oracula Spectacular",
 						ReleaseVersion = "extended",
 						Source = "local",
 						TrackId = "123",
-						TrackTitle = "yo mamma lamma",
+						TrackTitle = "Weekend Wars",
 						TrackVersion = "deluxe"
 					}
 				}
@@ -75,32 +75,32 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 			{
 				new Product
 				{
-					ArtistAppearsAs = "yo mamma",
+					ArtistAppearsAs = "MGMT",
 					ArtistId = "123",
 					AudioUrl = "test.mp3",
-					ReleaseArtistAppearsAs = "yo mamma",
+					ReleaseArtistAppearsAs = "MGMT",
 					ReleaseArtistId = "123",
 					ReleaseId = "123",
-					ReleaseTitle = "best of yo mamma",
+					ReleaseTitle = "Oracula Spectacular",
 					ReleaseVersion = "extended",
 					Source = "local",
 					TrackId = "123",
-					TrackTitle = "yo mamma lamma",
+					TrackTitle = "Weekend Wars",
 					TrackVersion = "deluxe"
 				},
 				new Product
 				{
-					ArtistAppearsAs = "yo mamma",
+					ArtistAppearsAs = "MGMT",
 					ArtistId = "123",
 					AudioUrl = "test.mp3",
-					ReleaseArtistAppearsAs = "yo mamma",
+					ReleaseArtistAppearsAs = "MGMT",
 					ReleaseArtistId = "123",
 					ReleaseId = "123",
-					ReleaseTitle = "best of yo mamma",
+					ReleaseTitle = "Oracula Spectacular",
 					ReleaseVersion = "extended",
 					Source = "local",
 					TrackId = "124",
-					TrackTitle = "yo mammas hamma dilemma",
+					TrackTitle = "Kids",
 					TrackVersion = "deluxe"
 				}
 			};
