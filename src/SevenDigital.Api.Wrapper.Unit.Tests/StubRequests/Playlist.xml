@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<playlist>
+	<name>Test Playlist</name>
+	<visibility>Private</visibility>
+	<tracks>
+		<trackId>123</trackId>
+		<trackTitle>yo mamma lamma</trackTitle>
+		<trackVersion>deluxe</trackVersion>
+		<artistId>123</artistId>
+		<artistAppearsAs>yo mamma</artistAppearsAs>
+		<releaseId>123</releaseId>
+		<releaseTitle>best of yo mamma</releaseTitle>
+		<releaseArtistId>123</releaseArtistId>
+		<releaseArtistAppearsAs>yo mamma</releaseArtistAppearsAs>
+		<releaseVersion>extended</releaseVersion>
+		<source>local</source>
+		<audioUrl>test.mp3</audioUrl>
+	</tracks>
+</playlist>

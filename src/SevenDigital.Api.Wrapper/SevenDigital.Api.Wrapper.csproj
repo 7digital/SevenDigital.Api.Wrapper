@@ -48,6 +48,7 @@
     <Compile Include="Api.cs" />
     <Compile Include="Environment\AttributeRequestDataBuilder.cs" />
     <Compile Include="Environment\EssentialDependencyCheck.cs" />
+    <Compile Include="Extensions\HasPlaylistIdParameterExtensions.cs" />
     <Compile Include="Requests\IRequestBuilder.cs" />
     <Compile Include="Requests\RequestBuilder.cs" />
     <Compile Include="Requests\RequestPayload.cs" />

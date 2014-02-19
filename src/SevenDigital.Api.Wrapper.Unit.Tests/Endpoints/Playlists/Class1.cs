@@ -1,0 +1,112 @@
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net;
+using FakeItEasy;
+using NUnit.Framework;
+using SevenDigital.Api.Schema.Playlists;
+using SevenDigital.Api.Schema.Playlists.Response.Endpoints;
+using SevenDigital.Api.Wrapper.Http;
+using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Responses;
+
+namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
+{
+	[TestFixture]
+	public class UserPlaylistsXmlTests
+	{
+		private UserPlaylists _userPlaylists;
+
+		[SetUp]
+		public void SetUp()
+		{
+			var requestBuilder = A.Fake<IRequestBuilder>();
+			var httpClient = A.Fake<IHttpClient>();
+			var responseXml = File.ReadAllText("StubResponses/Playlists.xml");
+			var validPlaylistsResponse = new Response(HttpStatusCode.OK, responseXml);
+			A.CallTo(() => httpClient.Send(null)).WithAnyArguments().Returns(validPlaylistsResponse);
+			var fluentApi = new FluentApi<UserPlaylists>(httpClient, requestBuilder);
+
+			_userPlaylists = fluentApi.Please();
+		}
+
+		[Test]
+		public void then_there_are_the_correct_amount_of_playlists()
+		{
+			Assert.That(_userPlaylists.TotalItems, Is.EqualTo(4));
+			Assert.That(_userPlaylists.Playlists.Count, Is.EqualTo(4));
+			Assert.That(_userPlaylists.Page, Is.EqualTo(1));
+			Assert.That(_userPlaylists.PageSize, Is.EqualTo(10));
+		}
+
+		[Test]
+		public void then_the_links_have_been_deserialized_correctly()
+		{
+			var firstOrDefault = _userPlaylists.Playlists.FirstOrDefault();
+			Assert.That(firstOrDefault.Links.Count, Is.EqualTo(3));
+		}
+
+		[Test]
+		public void then_everything_else_has_been_deserialized_correctly()
+		{
+			var firstOrDefault = _userPlaylists.Playlists.FirstOrDefault();
+			Assert.That(firstOrDefault.Id, Is.EqualTo("52b3733cc902160fa8bc9f34"));
+			Assert.That(firstOrDefault.LastUpdated.ToString("dd/MM/yyyy hh:mm:ss"), Is.EqualTo(new DateTime(2014, 1, 22, 14, 52, 21).ToString("dd/MM/yyyy hh:mm:ss"))); 
+			Assert.That(firstOrDefault.Name, Is.EqualTo("Album From Catalogue"));
+			Assert.That(firstOrDefault.TrackCount, Is.EqualTo(4));
+			Assert.That(firstOrDefault.Visibility, Is.EqualTo(PlaylistVisibilityType.Private));
+		}
+	}
+
+	[TestFixture]
+	public class PlaylistXmlTests
+	{
+		private Playlist _playlist;
+		
+		[SetUp]
+		public void SetUp()
+		{
+			var requestBuilder = A.Fake<IRequestBuilder>();
+			var httpClient = A.Fake<IHttpClient>();
+			var responseXml = File.ReadAllText("StubResponses/Playlist.xml");
+			var validPlaylistsResponse = new Response(HttpStatusCode.OK, responseXml);
+			A.CallTo(() => httpClient.Send(null)).WithAnyArguments().Returns(validPlaylistsResponse);
+			var fluentApi = new FluentApi<Playlist>(httpClient, requestBuilder);
+
+			_playlist = fluentApi.Please();
+		}
+
+		[Test]
+		public void then_the_playlist_has_been_deserialized_correctly()
+		{
+			Assert.That(_playlist.Id, Is.EqualTo("52b3733cc902160fa8bc9f34"));
+			Assert.That(_playlist.Name, Is.EqualTo("Album From Catalogue"));
+			Assert.That(_playlist.LastUpdated.ToString("dd/MM/yyyy hh:mm:ss"), Is.EqualTo(new DateTime(2014, 1, 22, 14, 52, 21).ToString("dd/MM/yyyy hh:mm:ss")));
+			Assert.That(_playlist.Visibility, Is.EqualTo(PlaylistVisibilityType.Private));
+		}
+
+		[Test]
+		public void _then_the_playlist_tracks_have_deserialized_correctly()
+		{
+			Assert.That(_playlist.Tracks.Count, Is.EqualTo(4));
+
+			var firstTrack = _playlist.Tracks.FirstOrDefault();
+
+			Assert.That(firstTrack.PlaylistItemId, Is.EqualTo("52cd88c2c902161660aeab80"));
+			Assert.That(firstTrack.TrackId, Is.EqualTo("5495893"));
+			Assert.That(firstTrack.TrackTitle, Is.EqualTo("No You Girls (Trentmoller Remix)"));
+			Assert.That(firstTrack.TrackVersion, Is.EqualTo("Trentmoller Remix"));
+			Assert.That(firstTrack.ArtistId, Is.Null);
+			Assert.That(firstTrack.ArtistAppearsAs, Is.EqualTo("Franz Ferdinand"));
+			Assert.That(firstTrack.ReleaseId, Is.EqualTo("496338"));
+			Assert.That(firstTrack.ReleaseTitle, Is.EqualTo("No You Girls Remixes Part 2"));
+			Assert.That(firstTrack.ReleaseArtistId, Is.Null);
+			Assert.That(firstTrack.ReleaseArtistAppearsAs, Is.EqualTo("Franz Ferdinand"));
+			Assert.That(firstTrack.ReleaseVersion, Is.EqualTo("Digital Download"));
+			Assert.That(firstTrack.Source, Is.EqualTo("7digital"));
+			Assert.That(firstTrack.AudioUrl, Is.EqualTo("http://stream.svc.7digital.net/stream/catalogue?trackId=5495893"));
+			Assert.That(firstTrack.User, Is.EqualTo("id:4874383"));
+			Assert.That(firstTrack.DateAdded, Is.Null);
+		}
+	}
+}

@@ -54,6 +54,8 @@
   <ItemGroup>
     <Compile Include="ApiUri.cs" />
     <Compile Include="AppSettingsCredentials.cs" />
+    <Compile Include="Endpoints\Playlists\Class1.cs" />
+    <Compile Include="Endpoints\Playlists\PlaylistPayloadDeserializationTests.cs" />
     <Compile Include="Environment\AttributeRequestDataBuilderTests.cs" />
     <Compile Include="Endpoints\Basket\BasketEndpointTests.cs" />
     <Compile Include="Parsing\Payment\CardTypesTests.cs" />
@@ -101,7 +103,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="StubRequests\Playlist.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="StubRequests\PlaylistsTracks.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="StubResponses\ArtistReleases.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="StubResponses\Playlist.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="StubResponses\Playlists.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

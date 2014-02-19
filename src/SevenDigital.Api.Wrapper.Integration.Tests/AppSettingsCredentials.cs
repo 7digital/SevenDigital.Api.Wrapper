@@ -15,7 +15,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests
 
 		private static string ValueFromEnvOrConfig(string envName, string configName)
 		{
-			return System.Environment.GetEnvironmentVariable(envName) ?? ConfigurationManager.AppSettings[configName];
+			//return System.Environment.GetEnvironmentVariable(envName) ?? ConfigurationManager.AppSettings[configName];
+			return ConfigurationManager.AppSettings[configName];
 		}
 	}
 }

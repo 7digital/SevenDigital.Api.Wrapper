@@ -1,0 +1,74 @@
+﻿<?xml version="1.0"?>
+<response xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" status="ok" version="1.2">
+	<playlist id="52b3733cc902160fa8bc9f34">
+		<lastUpdated>2014-01-22T14:52:21.988Z</lastUpdated>
+		<name>Album From Catalogue</name>
+		<visibility>Private</visibility>
+		<tracks>
+			<track id="52cd88c2c902161660aeab80">
+				<trackId>5495893</trackId>
+				<trackTitle>No You Girls (Trentmoller Remix)</trackTitle>
+				<trackVersion>Trentmoller Remix</trackVersion>
+				<artistId xsi:nil="true" />
+				<artistAppearsAs>Franz Ferdinand</artistAppearsAs>
+				<releaseId>496338</releaseId>
+				<releaseTitle>No You Girls Remixes Part 2</releaseTitle>
+				<releaseArtistId xsi:nil="true" />
+				<releaseArtistAppearsAs>Franz Ferdinand</releaseArtistAppearsAs>
+				<releaseVersion>Digital Download</releaseVersion>
+				<source>7digital</source>
+				<audioUrl>http://stream.svc.7digital.net/stream/catalogue?trackId=5495893</audioUrl>
+				<user>id:4874383</user>
+				<dateAdded xsi:nil="true" />
+			</track>
+			<track id="52cd88c2c902161660aeab81">
+				<trackId>17564601</trackId>
+				<trackTitle>Physical Fraction</trackTitle>
+				<trackVersion />
+				<artistId xsi:nil="true" />
+				<artistAppearsAs>Trentem_ller</artistAppearsAs>
+				<releaseId>1599906</releaseId>
+				<releaseTitle>Bugged Out! present Suck My Deck</releaseTitle>
+				<releaseArtistId xsi:nil="true" />
+				<releaseArtistAppearsAs>Trentem_ller</releaseArtistAppearsAs>
+				<releaseVersion />
+				<source>7digital</source>
+				<audioUrl>http://stream.svc.7digital.net/stream/catalogue?trackId=17564601</audioUrl>
+				<user>id:4874383</user>
+				<dateAdded xsi:nil="true" />
+			</track>
+			<track id="52cd88c2c902161660aeab82">
+				<trackId>15471686</trackId>
+				<trackTitle>Rykketid</trackTitle>
+				<trackVersion />
+				<artistId xsi:nil="true" />
+				<artistAppearsAs>Trentem_ller</artistAppearsAs>
+				<releaseId>1403143</releaseId>
+				<releaseTitle>Renaissance presents Utilities</releaseTitle>
+				<releaseArtistId xsi:nil="true" />
+				<releaseArtistAppearsAs>Trentem_ller</releaseArtistAppearsAs>
+				<releaseVersion />
+				<source>7digital</source>
+				<audioUrl>http://stream.svc.7digital.net/stream/catalogue?trackId=15471686</audioUrl>
+				<user>id:4874383</user>
+				<dateAdded xsi:nil="true" />
+			</track>
+			<track id="52dfdb25c902160a548d343f">
+				<trackId>31553373</trackId>
+				<trackTitle>Ramblin’ (Wo)man</trackTitle>
+				<trackVersion />
+				<artistId xsi:nil="true" />
+				<artistAppearsAs>Cat Power</artistAppearsAs>
+				<releaseId>2960975</releaseId>
+				<releaseTitle>Jukebox [Deluxe Edition]</releaseTitle>
+				<releaseArtistId xsi:nil="true" />
+				<releaseArtistAppearsAs>Cat Power</releaseArtistAppearsAs>
+				<releaseVersion />
+				<source>7digital</source>
+				<audioUrl>http://stream.svc.7digital.net/stream/catalogue?trackId=31553373</audioUrl>
+				<user>id:4874383</user>
+				<dateAdded xsi:nil="true" />
+			</track>
+		</tracks>
+	</playlist>
+</response>
