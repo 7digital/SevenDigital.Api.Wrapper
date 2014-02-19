@@ -3,7 +3,6 @@
 param(
 	[string]$push = "false",
 	[string]$v = "",
-	[string]$prerelease = "false",
 	[string]$source = ""
 )
 
@@ -74,10 +73,6 @@ if ($fullVersion -eq "")
 {
   write-output "Reading package version from nuget..."
   $fullVersion = NextFullVersion 
-  if ($prerelease -eq "true")
-  {
-	$fullVersion = $fullVersion + "-prerelease"
-  }
   write-output "Next package version from nuget: $fullVersion"
 }
 else
