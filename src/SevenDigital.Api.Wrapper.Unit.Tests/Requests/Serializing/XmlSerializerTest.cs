@@ -1,5 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using SevenDigital.Api.Schema.ArtistEndpoint;
+using SevenDigital.Api.Schema.Playlists;
 using SevenDigital.Api.Wrapper.Requests.Serializing;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing

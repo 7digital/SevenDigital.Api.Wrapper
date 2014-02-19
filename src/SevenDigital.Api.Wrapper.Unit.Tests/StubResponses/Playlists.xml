@@ -1,0 +1,52 @@
+﻿<?xml version="1.0"?>
+<response xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" status="ok" version="1.2">
+	<playlists>
+		<page>1</page>
+		<pageSize>10</pageSize>
+		<totalItems>4</totalItems>
+		<playlist id="52b3733cc902160fa8bc9f34">
+			<lastUpdated>2014-01-22T14:52:21.988Z</lastUpdated>
+			<name>Album From Catalogue</name>
+			<links>
+				<link rel="self" href="http://api.7digital.com/1.2/playlists/52b3733cc902160fa8bc9f34" />
+				<link rel="details" href="http://api.7digital.com/1.2/playlists/52b3733cc902160fa8bc9f34/details" />
+				<link rel="tracks" href="http://api.7digital.com/1.2/playlists/52b3733cc902160fa8bc9f34/tracks" />
+			</links>
+			<trackCount>4</trackCount>
+			<visibility>Private</visibility>
+		</playlist>
+		<playlist id="52e0e676c902162038066e50">
+			<lastUpdated>2014-01-23T09:52:54.04Z</lastUpdated>
+			<name>ip op</name>
+			<links>
+				<link rel="self" href="http://api.7digital.com/1.2/playlists/52e0e676c902162038066e50" />
+				<link rel="details" href="http://api.7digital.com/1.2/playlists/52e0e676c902162038066e50/details" />
+				<link rel="tracks" href="http://api.7digital.com/1.2/playlists/52e0e676c902162038066e50/tracks" />
+			</links>
+			<trackCount>14</trackCount>
+			<visibility>Private</visibility>
+		</playlist>
+		<playlist id="52dff2dec902160a548d34bd">
+			<lastUpdated>2014-01-23T16:04:12.876Z</lastUpdated>
+			<name>wot</name>
+			<links>
+				<link rel="self" href="http://api.7digital.com/1.2/playlists/52dff2dec902160a548d34bd" />
+				<link rel="details" href="http://api.7digital.com/1.2/playlists/52dff2dec902160a548d34bd/details" />
+				<link rel="tracks" href="http://api.7digital.com/1.2/playlists/52dff2dec902160a548d34bd/tracks" />
+			</links>
+			<trackCount>3</trackCount>
+			<visibility>Private</visibility>
+		</playlist>
+		<playlist id="52e13e2037d6bc129443f474">
+			<lastUpdated>2014-02-10T15:04:55.361Z</lastUpdated>
+			<name>Chillout mix</name>
+			<links>
+				<link rel="self" href="http://api.7digital.com/1.2/playlists/52e13e2037d6bc129443f474" />
+				<link rel="details" href="http://api.7digital.com/1.2/playlists/52e13e2037d6bc129443f474/details" />
+				<link rel="tracks" href="http://api.7digital.com/1.2/playlists/52e13e2037d6bc129443f474/tracks" />
+			</links>
+			<trackCount>2</trackCount>
+			<visibility>Private</visibility>
+		</playlist>
+	</playlists>
+</response>
