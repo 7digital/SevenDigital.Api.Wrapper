@@ -6,7 +6,7 @@ using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 
 namespace SevenDigital.Api.Schema.Merchandising
 {
-	[ApiEndpoint("merchandising/list/details")]
+	[ApiEndpoint("merchandising/list")]
 	[XmlRoot("list")]
 	[Serializable]
 	public class MerchandisingList : HasKeyParameter
