@@ -1,4 +1,4 @@
 ﻿namespace SevenDigital.Api.Schema.Playlists
 {
-	public interface HasPlaylistTrackIdParameter { }
+	public interface HasPlaylistItemIdParameter { }
 }

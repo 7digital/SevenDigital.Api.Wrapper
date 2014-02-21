@@ -54,7 +54,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 						Source = "local",
 						TrackId = "123",
 						TrackTitle = "Weekend Wars",
-						TrackVersion = "deluxe"
+						TrackVersion = "deluxe",
+						ImageUrl = "http://my.image.com/image.jpg"
 					}
 				}
 			};
@@ -86,7 +87,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 					Source = "local",
 					TrackId = "123",
 					TrackTitle = "Weekend Wars",
-					TrackVersion = "deluxe"
+					TrackVersion = "deluxe",
+					ImageUrl = "http://my.image.com/imageA.jpg"
 				},
 				new Product
 				{
@@ -101,7 +103,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 					Source = "local",
 					TrackId = "124",
 					TrackTitle = "Kids",
-					TrackVersion = "deluxe"
+					TrackVersion = "deluxe",
+					ImageUrl = "http://my.image.com/imageB.jpg"
 				}
 			};
 

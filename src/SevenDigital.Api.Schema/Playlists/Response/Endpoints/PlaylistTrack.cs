@@ -4,7 +4,7 @@ using SevenDigital.Api.Schema.OAuth;
 namespace SevenDigital.Api.Schema.Playlists.Response.Endpoints
 {
 	[OAuthSigned]
-	[ApiEndpoint("playlists/{playlistId}/tracks/{playlistTrackId}")]
-	public class PlaylistTrack : HasPlaylistIdParameter, HasPlaylistTrackIdParameter
+	[ApiEndpoint("playlists/{playlistId}/tracks/{playlistItemId}")]
+	public class PlaylistItem : HasPlaylistIdParameter, HasPlaylistItemIdParameter
 	{}
 }

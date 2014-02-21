@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="ApiUri.cs" />
     <Compile Include="AppSettingsCredentials.cs" />
+    <Compile Include="Endpoints\Playlists\PlaylistItemIdParameterExtensionTests.cs" />
     <Compile Include="Endpoints\Playlists\PlaylistParameterExtensionTests.cs" />
     <Compile Include="Endpoints\Playlists\PlaylistXmlTests.cs" />
     <Compile Include="Endpoints\Playlists\PlaylistPayloadDeserializationTests.cs" />

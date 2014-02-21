@@ -15,5 +15,6 @@
 		<releaseVersion>extended</releaseVersion>
 		<source>local</source>
 		<audioUrl>test.mp3</audioUrl>
+		<imageUrl>http://my.image.com/image.jpg</imageUrl>
 	</tracks>
 </playlist>
