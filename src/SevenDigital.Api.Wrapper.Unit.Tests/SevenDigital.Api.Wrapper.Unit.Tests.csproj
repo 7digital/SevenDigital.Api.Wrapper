@@ -38,6 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\FakeItEasy.1.15.0\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -88,6 +91,7 @@
     <Compile Include="Http\FakeHttpClient.cs" />
     <Compile Include="Requests\RequestBuilderTests.cs" />
     <Compile Include="Requests\DictionaryExtensionsTests.cs" />
+    <Compile Include="Requests\Serializing\HalLinkCollectionConverterTests.cs" />
     <Compile Include="Requests\Serializing\JsonTransferContentTypeTest.cs" />
     <Compile Include="Requests\Serializing\Utf8StringWriterTests.cs" />
     <Compile Include="Requests\Serializing\XmlTransferContentTypeTest.cs" />

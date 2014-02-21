@@ -333,7 +333,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 				.TransferUsing(new JsonTransferContentType())
 				.Please();
 
-			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == "application/xml" && x.Payload.Data == expectedOutput));
+			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == "application/json" && x.Payload.Data == expectedOutput));
 
 			A.CallTo(callWithExpectedPayload).MustHaveHappened();
 		}
