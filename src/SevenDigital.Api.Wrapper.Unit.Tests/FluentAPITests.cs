@@ -284,19 +284,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void SHould_allow_you_to_set_a_transfer_contenttype()
-		{
-			var requestBuilder = StubRequestBuilder();
-			var httpClient = StubHttpClient();
-
-			new FluentApi<Status>(httpClient, requestBuilder).TransferUsing(new JsonTransferContentType()).Please();
-
-			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.TransferUsing.ContentType == "application/json"));
-
-			A.CallTo(callWithExpectedPayload).MustHaveHappened();
-		}
-
-		[Test]
 		public void Transfer_contenttype_defaults_to_xml()
 		{
 			var requestBuilder = StubRequestBuilder();
@@ -311,11 +298,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		[Ignore("Pending ability to serialize json payload, currently defaults to xml")]
 		public void Should_allow_you_to_set_a_request_payload_using_an_entity_with_specific_transfer_contenttype()
 		{
-			const string expectedOutput = "<?xml version=\"1.0\" encoding=\"utf-8\"?><artist id=\"143451\"><name>MGMT</name><appearsAs>MGMT</appearsAs><image>http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg</image><url>http://www.7digital.com/artist/mgmt/?partner=1401</url></artist>";
-
+			const string expectedOutput = "{\"id\":143451,\"name\":\"MGMT\",\"sortName\":null,\"appearsAs\":\"MGMT\",\"image\":\"http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg\",\"url\":\"http://www.7digital.com/artist/mgmt/?partner=1401\"}";
+			
 			var artist = new Artist
 			{
 				AppearsAs = "MGMT",
@@ -329,8 +315,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var httpClient = StubHttpClient();
 
 			new FluentApi<Status>(httpClient, requestBuilder)
-				.WithPayload(artist)
-				.TransferUsing(new JsonTransferContentType())
+				.WithPayload(artist, new JsonTransferContentType())
 				.Please();
 
 			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == "application/json" && x.Payload.Data == expectedOutput));

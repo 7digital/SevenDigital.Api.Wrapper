@@ -39,8 +39,8 @@ namespace SevenDigital.Api.Wrapper
 			{}
 
 		public FluentApi()
-			: this(new HttpClientMediator(), new RequestBuilder(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance)) 
-			{}
+			: this(new HttpClientMediator(),new RequestBuilder(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance))
+		{}
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
 		{
@@ -103,15 +103,12 @@ namespace SevenDigital.Api.Wrapper
 
 		public IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class
 		{
-			var defaultContentType = new XmlTransferContentType();
+			return WithPayload(payload, new XmlTransferContentType());
+		}
 
-			_requestData.Payload = new RequestPayload(defaultContentType.ContentType, defaultContentType.Serialize(payload));
-			return this;
-		} 
-
-		public IFluentApi<T> TransferUsing(ITransferContentType transferContentType)
+		public IFluentApi<T> WithPayload<TPayload>(TPayload payload, ITransferContentType transferUsing) where TPayload : class
 		{
-			_requestData.TransferUsing = transferContentType;
+			_requestData.Payload = new RequestPayload(transferUsing.ContentType, transferUsing.Serialize(payload));
 			return this;
 		} 
 
