@@ -88,6 +88,7 @@
     <Compile Include="Http\FakeHttpClient.cs" />
     <Compile Include="Requests\RequestBuilderTests.cs" />
     <Compile Include="Requests\DictionaryExtensionsTests.cs" />
+    <Compile Include="Requests\Serializing\JsonTransferContentTypeTest.cs" />
     <Compile Include="Requests\Serializing\Utf8StringWriterTests.cs" />
     <Compile Include="Requests\Serializing\XmlTransferContentTypeTest.cs" />
     <Compile Include="Responses\Parsing\ApiResponseDetectorTests.cs" />
