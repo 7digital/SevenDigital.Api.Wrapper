@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net;
 using System.Text;
 using SevenDigital.Api.Wrapper.Requests;
@@ -24,9 +25,11 @@ namespace SevenDigital.Api.Wrapper.Http
 			httpWebRequest.Method = request.Method.ToString().ToUpperInvariant();
 			httpWebRequest.UserAgent = "7digital .Net Api Wrapper";
 			httpWebRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip");
-			httpWebRequest.Accept = "application/xml";
+			httpWebRequest.Accept = request.Headers.ContainsKey("Accept") 
+				? request.Headers["Accept"] 
+				: "application/xml"; 
 
-			foreach (var header in request.Headers)
+			foreach (var header in request.Headers.Where(header => header.Key != "Accept"))
 			{
 				httpWebRequest.Headers.Add(header.Key, header.Value);
 			}

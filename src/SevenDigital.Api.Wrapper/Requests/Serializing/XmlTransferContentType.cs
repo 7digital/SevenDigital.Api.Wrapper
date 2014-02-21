@@ -3,20 +3,22 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Wrapper.Requests.Serializing
 {
-	public static class StringSerializerExtensions
+	public class XmlTransferContentType : ITransferContentType
 	{
-		public static string ToXml<T>(this T entity) where T : class
+		public string ContentType { get { return "application/xml"; } }
+
+		public string Serialize<TPayload>(TPayload payload) where TPayload : class
 		{
 			var blankNamespace = new XmlSerializerNamespaces();
-			blankNamespace.Add("", ""); 
+			blankNamespace.Add("", "");
 
-			var xmlSerializer = new XmlSerializer(typeof (T), "");
+			var xmlSerializer = new XmlSerializer(typeof(TPayload), "");
 
 			using (var stringWriter = new Utf8StringWriter())
 			{
 				using (var xml = XmlWriter.Create(stringWriter))
 				{
-					xmlSerializer.Serialize(xml, entity, blankNamespace);
+					xmlSerializer.Serialize(xml, payload, blankNamespace);
 				}
 				return stringWriter.ToString();
 			}

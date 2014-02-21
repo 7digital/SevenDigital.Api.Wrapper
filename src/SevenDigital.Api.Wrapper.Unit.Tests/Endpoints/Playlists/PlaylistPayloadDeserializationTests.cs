@@ -62,7 +62,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 
 			_fluentApi.WithPayload(playlist);
 
-			var xml = playlist.ToXml();
+			var xml = new XmlTransferContentType().Serialize(playlist);
 
 			Assert.That(xml, Is.EqualTo(expectedXmlOutput));
 		}
@@ -110,7 +110,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 
 			var playlistTracksRequest = new PlaylistTracksRequest { Tracks = products };
 
-			var xml = playlistTracksRequest.ToXml();
+			var xml = new XmlTransferContentType().Serialize(playlistTracksRequest);
 
 			Assert.That(xml, Is.EqualTo(expectedXmlOutput));
 		}

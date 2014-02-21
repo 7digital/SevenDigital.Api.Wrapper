@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SevenDigital.Api.Wrapper.Http;
+using SevenDigital.Api.Wrapper.Requests.Serializing;
 
 namespace SevenDigital.Api.Wrapper.Requests
 {
@@ -32,6 +33,8 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 		public RequestPayload Payload {get; set; }
 
+		public ITransferContentType TransferUsing { get; set; }
+
 		public RequestData()
 		{
 			Endpoint = string.Empty;
@@ -39,6 +42,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 			Parameters = new Dictionary<string,string>();
 			Headers = new Dictionary<string,string>();
 			UseHttps = false;
+			TransferUsing = new XmlTransferContentType();
 		}
 	}
 }

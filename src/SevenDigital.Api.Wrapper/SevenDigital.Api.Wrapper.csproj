@@ -93,8 +93,10 @@
     <Compile Include="Extensions\HasUserDeliverItemParameterExtensions.cs" />
     <Compile Include="Extensions\LockerSortColumn.cs" />
     <Compile Include="Extensions\SortOrder.cs" />
-    <Compile Include="Requests\Serializing\StringSerializerExtensions.cs" />
+    <Compile Include="Requests\Serializing\ITransferContentType.cs" />
+    <Compile Include="Requests\Serializing\JsonTransferContentType.cs" />
     <Compile Include="Requests\Serializing\Utf8StringWriter.cs" />
+    <Compile Include="Requests\Serializing\XmlTransferContentType.cs" />
     <Compile Include="Responses\IResponseCache.cs" />
     <Compile Include="Responses\NullResponseCache.cs" />
     <Compile Include="Requests\Request.cs" />

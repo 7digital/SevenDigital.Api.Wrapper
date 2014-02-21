@@ -1,4 +1,6 @@
 ﻿using SevenDigital.Api.Wrapper.Http;
+using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Requests.Serializing;
 using SevenDigital.Api.Wrapper.Responses;
 
 namespace SevenDigital.Api.Wrapper
@@ -12,6 +14,7 @@ namespace SevenDigital.Api.Wrapper
 		IFluentApi<T> UsingCache(IResponseCache responseCache);
 		IFluentApi<T> WithMethod(string methodName);
 		IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class;
+		IFluentApi<T> TransferUsing(ITransferContentType transferContentType);
 
 		Response Response();
 		T Please();

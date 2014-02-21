@@ -103,9 +103,15 @@ namespace SevenDigital.Api.Wrapper
 
 		public IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class
 		{
-			const string defaultContentType = "application/xml";
-			
-			_requestData.Payload = new RequestPayload(defaultContentType, payload.ToXml());
+			var defaultContentType = new XmlTransferContentType();
+
+			_requestData.Payload = new RequestPayload(defaultContentType.ContentType, defaultContentType.Serialize(payload));
+			return this;
+		} 
+
+		public IFluentApi<T> TransferUsing(ITransferContentType transferContentType)
+		{
+			_requestData.TransferUsing = transferContentType;
 			return this;
 		} 
 
