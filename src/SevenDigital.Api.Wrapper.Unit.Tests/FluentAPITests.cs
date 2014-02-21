@@ -284,7 +284,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void Transfer_contenttype_defaults_to_xml()
+		public void Accept_header_defaults_to_xml()
 		{
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();
@@ -292,7 +292,22 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			new FluentApi<Status>(httpClient, requestBuilder)
 				.Please();
 
-			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.TransferUsing.ContentType == "application/xml"));
+			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Accept == "application/xml"));
+
+			A.CallTo(callWithExpectedPayload).MustHaveHappened();
+		}
+
+		[Test]
+		public void Can_specify_Accept_header()
+		{
+			var requestBuilder = StubRequestBuilder();
+			var httpClient = StubHttpClient();
+
+			new FluentApi<Status>(httpClient, requestBuilder)
+				.WithAcceptHeader("application/json")
+				.Please();
+
+			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Accept == "application/json"));
 
 			A.CallTo(callWithExpectedPayload).MustHaveHappened();
 		}

@@ -110,7 +110,13 @@ namespace SevenDigital.Api.Wrapper
 		{
 			_requestData.Payload = new RequestPayload(transferUsing.ContentType, transferUsing.Serialize(payload));
 			return this;
-		} 
+		}
+
+		public IFluentApi<T> WithAcceptHeader(string mimeTypeExpression)
+		{
+			_requestData.Accept = mimeTypeExpression;
+			return this;
+		}  
 
 		public Response Response()
 		{
