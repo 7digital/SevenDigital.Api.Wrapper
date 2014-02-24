@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using SevenDigital.Api.Wrapper.Environment;
 using SevenDigital.Api.Wrapper.Exceptions;
@@ -19,6 +20,11 @@ namespace SevenDigital.Api.Wrapper
 		private readonly RequestData _requestData;
 		private readonly IResponseParser<T> _parser;
 		private IResponseCache _responseCache = new NullResponseCache();
+		private readonly List<IPayloadSerializer> _payloadSerializers= new List<IPayloadSerializer>
+		{
+			new XmlPayloadSerializer(),
+			new JsonPayloadSerializer()
+		};
 
 		public FluentApi(IHttpClient httpClient, IRequestBuilder requestBuilder) 
 		{
@@ -28,7 +34,7 @@ namespace SevenDigital.Api.Wrapper
 			var attributeValidation = new AttributeRequestDataBuilder<T>();
 			_requestData = attributeValidation.BuildRequestData();
 
-			_parser = new ResponseParser<T>();
+			_parser = new ResponseParser<T>(new ApiResponseDetector());
 		}
 
 		public FluentApi(IRequestBuilder requestBuilder) : this(new HttpClientMediator(), requestBuilder)
@@ -39,8 +45,8 @@ namespace SevenDigital.Api.Wrapper
 			{}
 
 		public FluentApi()
-			: this(new HttpClientMediator(), new RequestBuilder(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance)) 
-			{}
+			: this(new HttpClientMediator(), new RequestBuilder(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance))
+		{}
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
 		{
@@ -103,11 +109,16 @@ namespace SevenDigital.Api.Wrapper
 
 		public IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class
 		{
-			const string defaultContentType = "application/xml";
-			
-			_requestData.Payload = new RequestPayload(defaultContentType, payload.ToXml());
+			return WithPayload(payload, PayloadFormat.Xml);
+		}
+
+		public IFluentApi<T> WithPayload<TPayload>(TPayload payload, PayloadFormat payloadFormat) where TPayload : class
+		{
+			var correctSerializer = _payloadSerializers.FirstOrDefault(payloadSerializer => payloadSerializer.Handles == payloadFormat);
+
+			_requestData.Payload = new RequestPayload(correctSerializer.ContentType, correctSerializer.Serialize(payload));
 			return this;
-		} 
+		}
 
 		public Response Response()
 		{

@@ -24,6 +24,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 			var oauthHeader = GetAuthorizationHeader(requestData, fullUrl, apiRequest);
 			headers.Add("Authorization", oauthHeader);
+			headers.Add("Accept", requestData.Accept);
 
 			if (requestData.HttpMethod.HasParamsInQueryString() && (apiRequest.Parameters.Count > 0))
 			{

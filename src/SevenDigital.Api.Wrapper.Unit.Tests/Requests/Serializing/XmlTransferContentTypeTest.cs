@@ -1,14 +1,26 @@
-﻿using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SevenDigital.Api.Schema.ArtistEndpoint;
-using SevenDigital.Api.Schema.Playlists;
 using SevenDigital.Api.Wrapper.Requests.Serializing;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 {
 	[TestFixture]
-	public class XmlSerializerTest
+	public class XmlTransferContentTypeTest
 	{
+		private XmlPayloadSerializer _payloadSerializer;
+
+		[SetUp]
+		public void SetUp()
+		{
+			_payloadSerializer = new XmlPayloadSerializer();
+		}
+
+		[Test]
+		public void SHould_have_correct_contenttype()
+		{
+			Assert.That(_payloadSerializer.ContentType, Is.EqualTo("application/xml"));
+		}
+
 		[Test]
 		public void SHould_serialize_artist_as_expected()
 		{
@@ -23,7 +35,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 				Url = "http://www.7digital.com/artist/mgmt/?partner=1401"
 			};
 
-			var xml = artist.ToXml();
+			var xml = _payloadSerializer.Serialize(artist);
 
 			Assert.That(xml, Is.EqualTo(expectedXmlOutput));
 		}

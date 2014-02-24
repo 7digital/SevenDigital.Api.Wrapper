@@ -31,7 +31,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Parsing.User.Payment
 		[Test]
 		public void can_deserialise_response_user_cards()
 		{
-			var xmlParser = new ResponseParser<Cards>();
+			var xmlParser = new ResponseParser<Cards>(new ApiResponseDetector());
 
 			var deserializedCards = xmlParser.Parse(response);
 

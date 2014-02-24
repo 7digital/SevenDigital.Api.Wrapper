@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Xml.Linq;
 using SevenDigital.Api.Schema;
-using SevenDigital.Api.Wrapper.Environment;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Responses.Parsing.Exceptions;
 
@@ -10,12 +9,7 @@ namespace SevenDigital.Api.Wrapper.Responses.Parsing
 	public class ResponseParser<T> : IResponseParser<T> where T : class
 	{
 		private readonly IApiResponseDetector _apiResponseDetector;
-
-		public ResponseParser()
-			: this(EssentialDependencyCheck<IApiResponseDetector>.Instance)
-		{
-		}
-
+		
 		public ResponseParser(IApiResponseDetector apiResponseDetector)
 		{
 			_apiResponseDetector = apiResponseDetector;

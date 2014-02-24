@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="OAuth">
       <HintPath>..\..\packages\OAuth.1.0.3\lib\net40\OAuth.dll</HintPath>
     </Reference>
@@ -93,8 +96,12 @@
     <Compile Include="Extensions\HasUserDeliverItemParameterExtensions.cs" />
     <Compile Include="Extensions\LockerSortColumn.cs" />
     <Compile Include="Extensions\SortOrder.cs" />
-    <Compile Include="Requests\Serializing\StringSerializerExtensions.cs" />
+    <Compile Include="Requests\Serializing\HalLinkCollectionConverter.cs" />
+    <Compile Include="Requests\Serializing\IPayloadSerializer.cs" />
+    <Compile Include="Requests\Serializing\JsonPayloadSerializer.cs" />
+    <Compile Include="Requests\Serializing\PayloadFormat.cs" />
     <Compile Include="Requests\Serializing\Utf8StringWriter.cs" />
+    <Compile Include="Requests\Serializing\XmlPayloadSerializer.cs" />
     <Compile Include="Responses\IResponseCache.cs" />
     <Compile Include="Responses\NullResponseCache.cs" />
     <Compile Include="Requests\Request.cs" />
