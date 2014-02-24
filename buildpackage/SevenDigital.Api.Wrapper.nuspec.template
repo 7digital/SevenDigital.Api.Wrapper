@@ -13,6 +13,7 @@
     <tags>7digital sevendigital music api</tags>
     <dependencies>
 		<dependency id="OAuth" version="1.0.3" />
+		<dependency id="Newtonsoft.Json" version="6.0.1" />
     </dependencies>
   </metadata>
   <files>
