@@ -95,12 +95,6 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public virtual IFluentApi<T> ForShop(int shopId)
-		{
-			WithParameter("shopId", shopId.ToString());
-			return this;
-		}
-
 		public IFluentApi<T> WithPayload(string contentType, string payload)
 		{
 			_requestData.Payload = new RequestPayload(contentType, payload);
