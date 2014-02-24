@@ -112,12 +112,6 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public IFluentApi<T> WithAcceptHeader(string mimeTypeExpression)
-		{
-			_requestData.Accept = mimeTypeExpression;
-			return this;
-		}  
-
 		public Response Response()
 		{
 			try

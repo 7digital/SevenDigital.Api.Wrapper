@@ -20,7 +20,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 	{
 		private const string VALID_STATUS_XML = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"ok\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\"><serviceStatus><serverTime>2011-05-31T15:31:22Z</serverTime></serviceStatus></response>";
 
-		private readonly Response stubResponse = new Response(HttpStatusCode.OK, VALID_STATUS_XML);
+		private readonly Response _stubResponse = new Response(HttpStatusCode.OK, VALID_STATUS_XML);
 
 		private IRequestBuilder StubRequestBuilder()
 		{
@@ -34,7 +34,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		private IHttpClient StubHttpClient()
 		{
 			var httpClient = A.Fake<IHttpClient>();
-			A.CallTo(() => httpClient.Send(A<Request>.Ignored)).Returns(stubResponse);
+			A.CallTo(() => httpClient.Send(A<Request>.Ignored)).Returns(_stubResponse);
 			return httpClient;
 		}
 
@@ -105,7 +105,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		public void Should_use_custom_http_client()
 		{
 			var requestHandler = StubRequestBuilder();
-			var fakeHttpClient = new FakeHttpClient(stubResponse);
+			var fakeHttpClient = new FakeHttpClient(_stubResponse);
 
 			var api = new FluentApi<Status>(requestHandler).UsingClient(fakeHttpClient);
 			Assert.That(fakeHttpClient.SendCount, Is.EqualTo(0));
@@ -179,7 +179,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			Assert.That(cache.SetCount, Is.EqualTo(1));
 			Assert.That(cache.CachedResponses.Count, Is.EqualTo(1));
-			Assert.That(cache.CachedResponses[0], Is.EqualTo(stubResponse));
+			Assert.That(cache.CachedResponses[0], Is.EqualTo(_stubResponse));
 		}
 
 		[Test]
@@ -204,7 +204,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var api = new FluentApi<Status>(httpClient, requestHandler);
 
 			var cache = new FakeCache();
-			cache.StubResponse = stubResponse;
+			cache.StubResponse = _stubResponse;
 
 			api.UsingCache(cache).Please();
 			A.CallTo(() => httpClient.Send(A<Request>.Ignored)).MustNotHaveHappened();
@@ -293,21 +293,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 				.Please();
 
 			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Accept == "application/xml"));
-
-			A.CallTo(callWithExpectedPayload).MustHaveHappened();
-		}
-
-		[Test]
-		public void Can_specify_Accept_header()
-		{
-			var requestBuilder = StubRequestBuilder();
-			var httpClient = StubHttpClient();
-
-			new FluentApi<Status>(httpClient, requestBuilder)
-				.WithAcceptHeader("application/json")
-				.Please();
-
-			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Accept == "application/json"));
 
 			A.CallTo(callWithExpectedPayload).MustHaveHappened();
 		}
