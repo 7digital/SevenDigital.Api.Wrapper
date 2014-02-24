@@ -28,7 +28,7 @@ namespace SevenDigital.Api.Wrapper
 			var attributeValidation = new AttributeRequestDataBuilder<T>();
 			_requestData = attributeValidation.BuildRequestData();
 
-			_parser = new ResponseParser<T>();
+			_parser = new ResponseParser<T>(new ApiResponseDetector());
 		}
 
 		public FluentApi(IRequestBuilder requestBuilder) : this(new HttpClientMediator(), requestBuilder)

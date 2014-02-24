@@ -16,7 +16,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Parsing.User.Payment
 
 			var response = new Response(HttpStatusCode.OK, ResponseXml);
 
-			var xmlParser = new ResponseParser<DeleteCard>();
+			var xmlParser = new ResponseParser<DeleteCard>(new ApiResponseDetector());
 			var result = xmlParser.Parse(response);
 
 			Assert.That(result, Is.Not.Null);
