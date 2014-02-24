@@ -7,18 +7,18 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 	[TestFixture]
 	public class XmlTransferContentTypeTest
 	{
-		private XmlTransferContentType _transferContentType;
+		private XmlPayloadSerializer _payloadSerializer;
 
 		[SetUp]
 		public void SetUp()
 		{
-			_transferContentType = new XmlTransferContentType();
+			_payloadSerializer = new XmlPayloadSerializer();
 		}
 
 		[Test]
 		public void SHould_have_correct_contenttype()
 		{
-			Assert.That(_transferContentType.ContentType, Is.EqualTo("application/xml"));
+			Assert.That(_payloadSerializer.ContentType, Is.EqualTo("application/xml"));
 		}
 
 		[Test]
@@ -35,7 +35,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 				Url = "http://www.7digital.com/artist/mgmt/?partner=1401"
 			};
 
-			var xml = _transferContentType.Serialize(artist);
+			var xml = _payloadSerializer.Serialize(artist);
 
 			Assert.That(xml, Is.EqualTo(expectedXmlOutput));
 		}

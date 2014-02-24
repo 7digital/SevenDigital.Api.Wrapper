@@ -1,6 +1,6 @@
 ﻿namespace SevenDigital.Api.Wrapper.Requests.Serializing
 {
-	public interface ITransferContentType
+	public interface IPayloadSerializer
 	{
 		string ContentType { get; }
 		string Serialize<TPayload>(TPayload payload) where TPayload : class;

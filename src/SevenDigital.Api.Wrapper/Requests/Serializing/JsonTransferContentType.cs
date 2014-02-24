@@ -6,11 +6,11 @@ using Newtonsoft.Json.Serialization;
 
 namespace SevenDigital.Api.Wrapper.Requests.Serializing
 {
-	public class JsonTransferContentType : ITransferContentType
+	public class JsonPayloadSerializer : IPayloadSerializer
 	{
 		private static JsonSerializer _serializer;
 
-		public JsonTransferContentType()
+		public JsonPayloadSerializer()
 		{
 			var settings = new JsonSerializerSettings
 			{

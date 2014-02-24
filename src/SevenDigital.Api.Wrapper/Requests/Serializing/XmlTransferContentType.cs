@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace SevenDigital.Api.Wrapper.Requests.Serializing
 {
-	public class XmlTransferContentType : ITransferContentType
+	public class XmlPayloadSerializer : IPayloadSerializer
 	{
 		public string ContentType { get { return "application/xml"; } }
 

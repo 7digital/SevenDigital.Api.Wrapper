@@ -7,18 +7,18 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 	[TestFixture]
 	public class JsonTransferContentTypeTest
 	{
-		private JsonTransferContentType _transferContentType;
+		private JsonPayloadSerializer _payloadSerializer;
 
 		[SetUp]
 		public void SetUp()
 		{
-			_transferContentType = new JsonTransferContentType();
+			_payloadSerializer = new JsonPayloadSerializer();
 		}
 
 		[Test]
 		public void Should_have_correct_contenttype()
 		{
-			Assert.That(_transferContentType.ContentType, Is.EqualTo("application/json"));
+			Assert.That(_payloadSerializer.ContentType, Is.EqualTo("application/json"));
 		}
 
 		[Test]
@@ -35,7 +35,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 				Url = "http://www.7digital.com/artist/mgmt/?partner=1401"
 			};
 
-			var json = _transferContentType.Serialize(artist);
+			var json = _payloadSerializer.Serialize(artist);
 
 			Assert.That(json, Is.EqualTo(expected));
 		}

@@ -103,10 +103,10 @@ namespace SevenDigital.Api.Wrapper
 
 		public IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class
 		{
-			return WithPayload(payload, new XmlTransferContentType());
+			return WithPayload(payload, new XmlPayloadSerializer());
 		}
 
-		public IFluentApi<T> WithPayload<TPayload>(TPayload payload, ITransferContentType transferUsing) where TPayload : class
+		public IFluentApi<T> WithPayload<TPayload>(TPayload payload, IPayloadSerializer transferUsing) where TPayload : class
 		{
 			_requestData.Payload = new RequestPayload(transferUsing.ContentType, transferUsing.Serialize(payload));
 			return this;
