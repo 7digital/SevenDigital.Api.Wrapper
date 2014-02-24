@@ -103,12 +103,22 @@ namespace SevenDigital.Api.Wrapper
 
 		public IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class
 		{
-			return WithPayload(payload, new XmlPayloadSerializer());
+			return WithPayload(payload, PayloadFormat.Xml);
 		}
 
-		public IFluentApi<T> WithPayload<TPayload>(TPayload payload, IPayloadSerializer transferUsing) where TPayload : class
+		public IFluentApi<T> WithPayload<TPayload>(TPayload payload, PayloadFormat payloadFormat) where TPayload : class
 		{
-			_requestData.Payload = new RequestPayload(transferUsing.ContentType, transferUsing.Serialize(payload));
+			IPayloadSerializer payloadSerializer;
+			if (payloadFormat == PayloadFormat.Xml)
+			{
+				payloadSerializer = new XmlPayloadSerializer();
+			}
+			else
+			{
+				payloadSerializer = new JsonPayloadSerializer();
+			}
+
+			_requestData.Payload = new RequestPayload(payloadSerializer.ContentType, payloadSerializer.Serialize(payload));
 			return this;
 		}
 

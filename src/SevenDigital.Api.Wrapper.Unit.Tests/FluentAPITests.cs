@@ -315,7 +315,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var httpClient = StubHttpClient();
 
 			new FluentApi<Status>(httpClient, requestBuilder)
-				.WithPayload(artist, new JsonPayloadSerializer())
+				.WithPayload(artist, PayloadFormat.Json)
 				.Please();
 
 			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == "application/json" && x.Payload.Data == expectedOutput));
