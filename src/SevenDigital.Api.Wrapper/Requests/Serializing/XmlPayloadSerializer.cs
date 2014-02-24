@@ -5,7 +5,15 @@ namespace SevenDigital.Api.Wrapper.Requests.Serializing
 {
 	public class XmlPayloadSerializer : IPayloadSerializer
 	{
-		public string ContentType { get { return "application/xml"; } }
+		public PayloadFormat Handles
+		{
+			get { return PayloadFormat.Xml; }
+		}
+
+		public string ContentType
+		{
+			get { return "application/xml"; }
+		}
 
 		public string Serialize<TPayload>(TPayload payload) where TPayload : class
 		{

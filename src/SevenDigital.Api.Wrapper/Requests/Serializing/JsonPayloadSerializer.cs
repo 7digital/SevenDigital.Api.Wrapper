@@ -21,7 +21,15 @@ namespace SevenDigital.Api.Wrapper.Requests.Serializing
 			_serializer = JsonSerializer.Create(settings);
 		}
 
-		public string ContentType { get { return "application/json"; } }
+		public PayloadFormat Handles
+		{
+			get { return PayloadFormat.Json; }
+		}
+
+		public string ContentType
+		{
+			get { return "application/json"; }
+		}
 
 		public string Serialize<TPayload>(TPayload payload) where TPayload : class
 		{

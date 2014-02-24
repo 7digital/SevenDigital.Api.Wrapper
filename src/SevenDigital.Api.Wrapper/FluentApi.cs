@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using SevenDigital.Api.Wrapper.Environment;
 using SevenDigital.Api.Wrapper.Exceptions;
@@ -19,6 +20,11 @@ namespace SevenDigital.Api.Wrapper
 		private readonly RequestData _requestData;
 		private readonly IResponseParser<T> _parser;
 		private IResponseCache _responseCache = new NullResponseCache();
+		private readonly List<IPayloadSerializer> _payloadSerializers= new List<IPayloadSerializer>
+		{
+			new XmlPayloadSerializer(),
+			new JsonPayloadSerializer()
+		};
 
 		public FluentApi(IHttpClient httpClient, IRequestBuilder requestBuilder) 
 		{
@@ -39,7 +45,7 @@ namespace SevenDigital.Api.Wrapper
 			{}
 
 		public FluentApi()
-			: this(new HttpClientMediator(),new RequestBuilder(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance))
+			: this(new HttpClientMediator(), new RequestBuilder(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance))
 		{}
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
@@ -108,17 +114,9 @@ namespace SevenDigital.Api.Wrapper
 
 		public IFluentApi<T> WithPayload<TPayload>(TPayload payload, PayloadFormat payloadFormat) where TPayload : class
 		{
-			IPayloadSerializer payloadSerializer;
-			if (payloadFormat == PayloadFormat.Xml)
-			{
-				payloadSerializer = new XmlPayloadSerializer();
-			}
-			else
-			{
-				payloadSerializer = new JsonPayloadSerializer();
-			}
+			var correctSerializer = _payloadSerializers.FirstOrDefault(payloadSerializer => payloadSerializer.Handles == payloadFormat);
 
-			_requestData.Payload = new RequestPayload(payloadSerializer.ContentType, payloadSerializer.Serialize(payload));
+			_requestData.Payload = new RequestPayload(correctSerializer.ContentType, correctSerializer.Serialize(payload));
 			return this;
 		}
 
