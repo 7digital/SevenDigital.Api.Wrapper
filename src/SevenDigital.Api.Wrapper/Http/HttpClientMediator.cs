@@ -15,7 +15,9 @@ namespace SevenDigital.Api.Wrapper.Http
 		public Response Send(Request request)
 		{
 			var webRequest = MakeHttpWebRequest(request);
-			return TryGetResponse(webRequest.GetResponse);
+			var tryGetResponse = TryGetResponse(webRequest.GetResponse);
+			tryGetResponse.OriginalRequest = request;
+			return tryGetResponse;
 		}
 
 		private static HttpWebRequest MakeHttpWebRequest(Request request)
@@ -99,9 +101,7 @@ namespace SevenDigital.Api.Wrapper.Http
 			var statusCode = ReadStatusCode(webResponse);
 			var headers = MapResponseHeaders(webResponse.Headers);
 
-			var response = new Response(statusCode, headers, output);
-
-			return response;
+			return new Response(statusCode, headers, output);
 		}
 
 		public Dictionary<string, string> MapResponseHeaders(WebHeaderCollection headerCollection)

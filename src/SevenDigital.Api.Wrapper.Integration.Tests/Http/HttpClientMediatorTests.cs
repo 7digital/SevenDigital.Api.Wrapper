@@ -106,6 +106,31 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 
+		[Test]
+		public void Should_populate_OriginalRequest_property_with_the_request_passed_to_Send_method()
+		{
+			var url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", API_URL, _consumerKey);
+			var parameters = new Dictionary<string, string>
+			{
+				{"foo", "bar"}
+			};
+
+			var queryString = parameters.ToQueryString();
+			var requestPayload = new RequestPayload("", queryString);
+			var expectedHeaders = new Dictionary<string, string>
+			{
+				{"headerKey", "headerValue"}
+			};
+			var originalRequest = new Request(HttpMethod.Post, url, expectedHeaders, requestPayload);
+
+			var response = new HttpClientMediator().Send(originalRequest);
+
+			Assert.That(response.OriginalRequest.Url, Is.EqualTo(url));
+			Assert.That(response.OriginalRequest.Headers, Is.EqualTo(expectedHeaders));
+			Assert.That(response.OriginalRequest.Body, Is.EqualTo(requestPayload));
+			Assert.That(response.OriginalRequest.Method, Is.EqualTo(HttpMethod.Post));
+		}
+
 		private static void AssertResponse(Response response, HttpStatusCode expectedCode)
 		{
 			Assert.That(response, Is.Not.Null, "No response");
