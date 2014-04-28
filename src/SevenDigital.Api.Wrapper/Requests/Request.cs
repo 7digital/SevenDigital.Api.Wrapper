@@ -7,6 +7,13 @@ namespace SevenDigital.Api.Wrapper.Requests
 	[Serializable]
 	public class Request
 	{
+		public Request(HttpMethod method, string url, IDictionary<string, string> headers)
+		{
+			Method = method;
+			Url = url;
+			Headers = headers;
+		}
+
 		public Request(HttpMethod method, string url, IDictionary<string, string> headers, RequestPayload body)
 		{
 			Method = method;

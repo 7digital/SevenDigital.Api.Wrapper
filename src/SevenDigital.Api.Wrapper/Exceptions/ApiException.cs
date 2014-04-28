@@ -7,14 +7,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 {
 	public abstract class ApiException : Exception
 	{
-		public string Uri { get; internal set; }
 		public Request OriginalRequest { get; private set; }
-
-		protected ApiException (string msg, string uri, Exception innerException)
-			: base (msg, innerException)
-		{
-			Uri = uri;
-		}
 
 		protected ApiException(string msg, Request originalRequest)
 			: base(msg)
@@ -41,7 +34,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		protected ApiException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
-			Uri = info.GetString("Uri");
 			OriginalRequest = (Request)info.GetValue("OriginalRequest", typeof(Request));
 		}
 
@@ -53,7 +45,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 				throw new ArgumentNullException("info");
 			}
 
-			info.AddValue("Uri", Uri);
 			info.AddValue("OriginalRequest", OriginalRequest);
 
 			base.GetObjectData(info, context);

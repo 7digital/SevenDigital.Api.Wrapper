@@ -1,5 +1,8 @@
+using System;
+
 namespace SevenDigital.Api.Wrapper.Requests
 {
+	[Serializable]
 	public class RequestPayload
 	{
 		private readonly string _contentType;

@@ -138,22 +138,14 @@ namespace SevenDigital.Api.Wrapper
 				response = Response();
 			}
 
-			try
-			{
-				var result = _parser.Parse(response);
+			var result = _parser.Parse(response);
 
 				// set to cache only after all validation and parsing has succeeded
-				if (!foundInCache)
-				{
-					_responseCache.Set(_requestData, response);
-				}
-				return result;
-			}
-			catch (ApiResponseException apiXmlException)
+			if (!foundInCache)
 			{
-				apiXmlException.Uri = EndpointUrl;
-				throw;
+				_responseCache.Set(_requestData, response);
 			}
+			return result;
 		}
 
 		public virtual string EndpointUrl
