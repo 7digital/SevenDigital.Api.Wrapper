@@ -11,7 +11,15 @@ namespace SevenDigital.Api.Wrapper.Responses
 		public HttpStatusCode StatusCode { get; private set; }
 		public IDictionary<string, string> Headers { get; private set; }
 		public string Body { get; private set; }
-		public Request OriginalRequest { get; set; }
+		public Request OriginalRequest { get; private set; }
+
+		public Response(HttpStatusCode statusCode, IDictionary<string, string> headers, string body, Request originalRequest)
+		{
+			OriginalRequest = originalRequest;
+			StatusCode = statusCode;
+			Headers = headers;
+			Body = body;
+		}
 
 		public Response(HttpStatusCode statusCode, IDictionary<string, string> headers, string body)
 		{

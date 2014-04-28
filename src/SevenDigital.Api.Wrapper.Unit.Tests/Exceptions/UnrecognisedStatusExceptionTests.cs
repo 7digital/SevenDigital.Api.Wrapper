@@ -2,6 +2,7 @@
 using System.Net;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Exceptions;
+using SevenDigital.Api.Wrapper.Requests;
 using SevenDigital.Api.Wrapper.Responses;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Exceptions
