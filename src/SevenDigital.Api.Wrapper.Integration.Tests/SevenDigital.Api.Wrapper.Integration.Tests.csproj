@@ -81,6 +81,7 @@
     <Compile Include="EndpointTests\TrackEndpoint\TrackPreviewTests.cs" />
     <Compile Include="EndpointTests\TrackEndpoint\TrackSearchTests.cs" />
     <Compile Include="Exceptions\ErrorConditionTests.cs" />
+    <Compile Include="Exceptions\OriginalRequestLoggingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Http\HttpClientMediatorTests.cs" />
     <Compile Include="TestDataFromEnvironmentOrAppSettings.cs" />

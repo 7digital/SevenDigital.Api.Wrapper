@@ -116,14 +116,15 @@ namespace SevenDigital.Api.Wrapper
 
 		public Response Response()
 		{
+			var request = _requestBuilder.BuildRequest(_requestData);
+
 			try
 			{
-				var request = _requestBuilder.BuildRequest(_requestData);
 				return _httpClient.Send(request);
 			}
 			catch (WebException webException)
 			{
-				throw new ApiWebException(webException.Message, EndpointUrl, webException);
+				throw new ApiWebException(webException.Message, webException, request);
 			}
 		}
 

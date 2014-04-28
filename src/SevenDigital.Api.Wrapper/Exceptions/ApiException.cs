@@ -1,17 +1,31 @@
 using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
+using SevenDigital.Api.Wrapper.Requests;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
 	public abstract class ApiException : Exception
 	{
 		public string Uri { get; internal set; }
+		public Request OriginalRequest { get; private set; }
 
 		protected ApiException (string msg, string uri, Exception innerException)
 			: base (msg, innerException)
 		{
 			Uri = uri;
+		}
+
+		protected ApiException(string msg, Request originalRequest)
+			: base(msg)
+		{
+			OriginalRequest = originalRequest;
+		}
+
+		protected ApiException(string msg, Exception innerException, Request originalRequest)
+			: base(msg, innerException)
+		{
+			OriginalRequest = originalRequest;
 		}
 
 		protected ApiException(string msg) : base(msg)
@@ -28,6 +42,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 			: base(info, context)
 		{
 			Uri = info.GetString("Uri");
+			OriginalRequest = (Request)info.GetValue("OriginalRequest", typeof(Request));
 		}
 
 		[SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
@@ -39,6 +54,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 			}
 
 			info.AddValue("Uri", Uri);
+			info.AddValue("OriginalRequest", OriginalRequest);
 
 			base.GetObjectData(info, context);
 		}

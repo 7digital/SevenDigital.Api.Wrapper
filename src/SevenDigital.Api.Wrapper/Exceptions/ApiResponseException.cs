@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
-using SevenDigital.Api.Wrapper.Requests;
 using SevenDigital.Api.Wrapper.Responses;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
@@ -13,24 +12,21 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		public HttpStatusCode StatusCode { get; private set; }
 		public string ResponseBody { get; private set; }
 		public IDictionary<string, string> Headers { get; private set; }
-		public Request OriginalRequest { get; private set; }
 
 		protected ApiResponseException(string message, Response response)
-			: base(message)
+			: base(message, response.OriginalRequest)
 		{
 			ResponseBody = response.Body;
 			Headers = response.Headers;
 			StatusCode = response.StatusCode;
-			OriginalRequest = response.OriginalRequest;
 		}
 
 		protected ApiResponseException(string message, Exception innerException, Response response)
-			: base(message, innerException)
+			: base(message, innerException, response.OriginalRequest)
 		{
 			ResponseBody = response.Body;
 			Headers = response.Headers;
 			StatusCode = response.StatusCode;
-			OriginalRequest = response.OriginalRequest;
 		}
 
 		[SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
@@ -40,7 +36,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 			StatusCode = (HttpStatusCode) info.GetValue("StatusCode", typeof (HttpStatusCode));
 			ResponseBody = info.GetString("ResponseBody");
 			Headers = (IDictionary<string, string>) info.GetValue("Headers", typeof (IDictionary<string, string>));
-			OriginalRequest = (Request)info.GetValue("Request", typeof(Request));
 		}
 
 		[SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
@@ -54,7 +49,6 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 			info.AddValue("StatusCode", StatusCode);
 			info.AddValue("ResponseBody", ResponseBody);
 			info.AddValue("Headers", Headers);
-			info.AddValue("Request", OriginalRequest);
 
 			base.GetObjectData(info, context);
 		}

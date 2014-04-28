@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Runtime.Serialization;
+using SevenDigital.Api.Wrapper.Requests;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
@@ -9,6 +10,11 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 	{
 		public ApiWebException(string msg, string uri, WebException innerException) :
 			base(msg, uri, innerException)
+		{
+		}
+
+		public ApiWebException(string msg, WebException innerException, Request originalRequest) :
+			base(msg, innerException, originalRequest)
 		{
 		}
 
