@@ -15,9 +15,9 @@ namespace SevenDigital.Api.Wrapper.Http
 		public Response Send(Request request)
 		{
 			var webRequest = MakeHttpWebRequest(request);
-			var tryGetResponse = TryGetResponse(webRequest.GetResponse);
-			tryGetResponse.OriginalRequest = request;
-			return tryGetResponse;
+			var response = TryGetResponse(webRequest.GetResponse);
+			response.OriginalRequest = request;
+			return response;
 		}
 
 		private static HttpWebRequest MakeHttpWebRequest(Request request)
