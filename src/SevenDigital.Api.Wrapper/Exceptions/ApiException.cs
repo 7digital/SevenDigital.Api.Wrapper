@@ -9,6 +9,12 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 	{
 		public Request OriginalRequest { get; private set; }
 
+		[Obsolete("This is due to be removed, please use OriginalRequest.Url")]
+		public string Uri 
+		{ 
+			get { return OriginalRequest.Url; }
+		}
+
 		protected ApiException(string msg, Request originalRequest)
 			: base(msg)
 		{
