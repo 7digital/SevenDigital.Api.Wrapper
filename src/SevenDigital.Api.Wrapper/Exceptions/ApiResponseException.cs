@@ -14,7 +14,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		public IDictionary<string, string> Headers { get; private set; }
 
 		protected ApiResponseException(string message, Response response)
-			: base(message)
+			: base(message, response.OriginalRequest)
 		{
 			ResponseBody = response.Body;
 			Headers = response.Headers;
@@ -22,7 +22,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		}
 
 		protected ApiResponseException(string message, Exception innerException, Response response)
-			: base(message, innerException)
+			: base(message, innerException, response.OriginalRequest)
 		{
 			ResponseBody = response.Body;
 			Headers = response.Headers;

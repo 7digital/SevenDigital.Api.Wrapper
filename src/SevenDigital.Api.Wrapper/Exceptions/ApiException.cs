@@ -1,17 +1,30 @@
 using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
+using SevenDigital.Api.Wrapper.Requests;
 
 namespace SevenDigital.Api.Wrapper.Exceptions
 {
 	public abstract class ApiException : Exception
 	{
-		public string Uri { get; internal set; }
+		public Request OriginalRequest { get; private set; }
 
-		protected ApiException (string msg, string uri, Exception innerException)
-			: base (msg, innerException)
+		[Obsolete("This is due to be removed, please use OriginalRequest.Url")]
+		public string Uri 
+		{ 
+			get { return OriginalRequest.Url; }
+		}
+
+		protected ApiException(string msg, Request originalRequest)
+			: base(msg)
 		{
-			Uri = uri;
+			OriginalRequest = originalRequest;
+		}
+
+		protected ApiException(string msg, Exception innerException, Request originalRequest)
+			: base(msg, innerException)
+		{
+			OriginalRequest = originalRequest;
 		}
 
 		protected ApiException(string msg) : base(msg)
@@ -27,7 +40,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 		protected ApiException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
-			Uri = info.GetString("Uri");
+			OriginalRequest = (Request)info.GetValue("OriginalRequest", typeof(Request));
 		}
 
 		[SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
@@ -38,7 +51,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 				throw new ArgumentNullException("info");
 			}
 
-			info.AddValue("Uri", Uri);
+			info.AddValue("OriginalRequest", OriginalRequest);
 
 			base.GetObjectData(info, context);
 		}

@@ -138,7 +138,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var ex = Assert.Throws<ApiWebException>(() => api.Please());
 
 			Assert.That(ex.InnerException, Is.Not.Null);
-			Assert.That(ex.Uri, Is.EqualTo(url));
+			Assert.That(ex.OriginalRequest.Url, Is.EqualTo(url));
 			Assert.That(ex.InnerException.GetType(), Is.EqualTo(typeof(WebException)));
 		}
 
