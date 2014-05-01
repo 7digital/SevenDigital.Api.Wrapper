@@ -2,6 +2,7 @@
 using System.Xml.Serialization;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Schema.Attributes;
+using SevenDigital.Api.Schema.Media;
 using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 using SevenDigital.Api.Schema.Pricing;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
@@ -54,5 +55,8 @@ namespace SevenDigital.Api.Schema.TrackEndpoint
 
 		[XmlElement(ElementName = "streamingReleaseDate", IsNullable = true)]
 		public DateTime? StreamingReleaseDate { get; set; }
+
+        [XmlElement("formats")]
+        public FormatList Formats { get; set; }
 	}
 }
