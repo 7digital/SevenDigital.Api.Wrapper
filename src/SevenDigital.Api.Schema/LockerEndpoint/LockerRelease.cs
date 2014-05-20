@@ -15,5 +15,8 @@ namespace SevenDigital.Api.Schema.LockerEndpoint
 		[XmlArray("lockerTracks")]
 		[XmlArrayItem("lockerTrack")]
 		public List<LockerTrack> LockerTracks { get; set; }
+
+		[XmlElement("available")]
+		public bool Available { get; set; }
 	}
 }

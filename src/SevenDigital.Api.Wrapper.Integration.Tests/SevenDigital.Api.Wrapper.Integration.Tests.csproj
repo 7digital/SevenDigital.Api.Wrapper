@@ -53,6 +53,7 @@
     <Compile Include="EndpointTests\BasketEndpoint\BasketCreateTests.cs" />
     <Compile Include="EndpointTests\BasketEndpoint\CompletePayPalExpressCheckoutTests.cs" />
     <Compile Include="EndpointTests\BasketEndpoint\GetPayPalUriTests.cs" />
+    <Compile Include="EndpointTests\LockerEndpoint\LockerTests.cs" />
     <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseEditorialTests.cs" />
     <Compile Include="EndpointTests\StaticSetupCredentialPassingTests.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthAccessTokenTest.cs" />
