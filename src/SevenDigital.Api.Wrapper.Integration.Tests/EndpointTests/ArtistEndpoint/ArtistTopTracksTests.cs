@@ -1,6 +1,4 @@
 ﻿using NUnit.Framework;
-using SevenDigital.Api.Schema;
-using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint
@@ -12,41 +10,39 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			ArtistTopTracks artist = new FluentApi<ArtistTopTracks>()
+			var artistTopTracks = new FluentApi<ArtistTopTracks>()
 				.WithParameter("artistId", "1")
 				.WithParameter("country", "GB")
 				.Please();
 
-			Assert.That(artist, Is.Not.Null);
-			Assert.That(artist.Tracks.Count, Is.GreaterThan(0));
+			Assert.That(artistTopTracks, Is.Not.Null);
+			Assert.That(artistTopTracks.Tracks.Count, Is.GreaterThan(0));
 		}
 
 		[Test]
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
-			var artist = Api<ArtistTopTracks>
+			var artistTopTracks = Api<ArtistTopTracks>
 				.Create
 				.WithArtistId(1)
 				.WithParameter("country", "GB")
 				.Please();
-			
-			Assert.That(artist, Is.Not.Null);
-			Assert.That(artist.Tracks.Count, Is.GreaterThan(0));
+
+			Assert.That(artistTopTracks, Is.Not.Null);
+			Assert.That(artistTopTracks.Tracks.Count, Is.GreaterThan(0));
 		}
 
 		[Test]
-		public void Can_handle_pagingerror_with_paging()
+		public void Can_handle_out_of_range_request()
 		{
-			var ex = Assert.Throws<InputParameterException>(() =>
-				new FluentApi<ArtistTopTracks>()
-					.WithParameter("artistId", "1")
-					.WithParameter("page", "100")
-					.WithParameter("pageSize", "10")
-					.Please());
+			var artistTopTracks = new FluentApi<ArtistTopTracks>()
+				.WithParameter("artistId", "1")
+				.WithParameter("page", "100")
+				.WithParameter("pageSize", "10")
+				.Please();
 
-			Assert.That(ex.ResponseBody, Is.Not.Null);
-			Assert.That(ex.ErrorCode, Is.EqualTo(ErrorCode.ParameterOutOfAllowableRange));
-			Assert.That(ex.Message, Is.EqualTo("Requested page out of range"));
+			Assert.That(artistTopTracks, Is.Not.Null);
+			Assert.That(artistTopTracks.Tracks.Count, Is.EqualTo(0));
 		}
 	}
 }
