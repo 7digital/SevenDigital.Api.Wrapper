@@ -100,7 +100,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			};
 
 			var queryString = parameters.ToQueryString();
-			var requestPayload = new RequestPayload("", queryString);
+			var requestPayload = new RequestPayload("application/xml", queryString);
 			var request = new Request(HttpMethod.Post, url, new Dictionary<string, string>(), requestPayload);
 
 			var response = await new HttpClientMediator().Send(request);
@@ -117,7 +117,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			};
 
 			var queryString = parameters.ToQueryString();
-			var requestPayload = new RequestPayload("", queryString);
+			var requestPayload = new RequestPayload("application/xml", queryString);
 			var expectedHeaders = new Dictionary<string, string>
 			{
 				{"headerKey", "headerValue"}

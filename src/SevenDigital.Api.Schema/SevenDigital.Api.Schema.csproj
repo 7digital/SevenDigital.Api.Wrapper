@@ -39,7 +39,6 @@
     <Reference Include="System.Core">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using FakeItEasy;
 using NUnit.Framework;
+using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
@@ -8,8 +9,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 	public abstract class RequestBuilderBaseMethodTests
 	{
 		protected HttpMethod TestedHttpMethod;
-		protected bool HasQueryString = false;
-		protected bool HasBody = false;
 
 		private IRequestBuilder _requestBuilder;
 		private IApiUri _apiUri;
@@ -62,9 +61,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		[TestCase]
 		public void Should_include_parameters_in_querystring()
 		{
-			if (! HasQueryString)
+			if (!TestedHttpMethod.HasParamsInQueryString())
 			{
-				Assert.Ignore("This http method does not use query string");
+				Assert.Ignore("This http method does not use params in query string");
 			}
 
 			var requestData = MakeRequestData(TestedHttpMethod, false);
@@ -79,9 +78,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		[TestCase]
 		public void Should_include_parameters_in_body()
 		{
-			if (!HasBody)
+			if (!TestedHttpMethod.ShouldHaveRequestBody())
 			{
-				Assert.Ignore("This http method does not use Body");
+				Assert.Ignore("This http method does not use the request body");
 			}
 
 			var requestData = MakeRequestData(TestedHttpMethod, false);
@@ -96,9 +95,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		[TestCase]
 		public void Should_include_parameters_in_body_when_signed(HttpMethod httpMethod)
 		{
-			if (!HasBody)
+			if (!TestedHttpMethod.ShouldHaveRequestBody())
 			{
-				Assert.Ignore("This http method does not use Body");
+				Assert.Ignore("This http method does not use the request body");
 			}
 
 			var requestData = MakeRequestData(httpMethod, true);
@@ -264,7 +263,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		public RequestBuilderGetTests()
 		{
 			TestedHttpMethod = HttpMethod.Get;
-			HasQueryString = true;
 		}
 	}
 
@@ -274,7 +272,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		public RequestBuilderPostTests()
 		{
 			TestedHttpMethod = HttpMethod.Post;
-			HasBody = true;
 		}
 	}
 
@@ -284,7 +281,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		public RequestBuilderPutTests()
 		{
 			TestedHttpMethod = HttpMethod.Put;
-			HasBody = true;
 		}
 	}
 
@@ -294,7 +290,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		public RequestBuilderDeleteTests()
 		{
 			TestedHttpMethod = HttpMethod.Delete;
-			HasQueryString = true;
 		}
 	}
 }

@@ -62,7 +62,7 @@
     <Compile Include="Requests\RequestBuilder.cs" />
     <Compile Include="Requests\RequestPayload.cs" />
     <Compile Include="Requests\RouteParamsSubstitutor.cs" />
-    <Compile Include="Http\HttpMethod.cs" />
+    <Compile Include="Http\HttpMethodHelpers.cs" />
     <Compile Include="Requests\ApiRequest.cs" />
     <Compile Include="Exceptions\ApiErrorException.cs" />
     <Compile Include="Exceptions\ApiException.cs" />

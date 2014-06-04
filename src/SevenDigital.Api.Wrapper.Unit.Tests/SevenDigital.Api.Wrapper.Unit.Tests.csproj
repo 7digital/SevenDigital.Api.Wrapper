@@ -66,6 +66,7 @@
     <Compile Include="Endpoints\Playlists\UserPlaylistsXmlTests.cs" />
     <Compile Include="Environment\AttributeRequestDataBuilderTests.cs" />
     <Compile Include="Endpoints\Basket\BasketEndpointTests.cs" />
+    <Compile Include="Http\HttpMethodHelpersTests.cs" />
     <Compile Include="Parsing\Payment\CardTypesTests.cs" />
     <Compile Include="Parsing\User\Payment\Cards_unit_tests.cs" />
     <Compile Include="Parsing\User\Payment\AddCardsTests.cs" />

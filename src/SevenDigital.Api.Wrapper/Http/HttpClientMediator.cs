@@ -16,7 +16,7 @@ namespace SevenDigital.Api.Wrapper.Http
 			var httpRequest = MakeHttpRequest(request);
 
 			var httpResponse = await httpClient.SendAsync(httpRequest);
-			return await MakeResponse(httpResponse);
+			return await MakeResponse(httpResponse, request);
 		}
 
 		private static HttpClient MakeHttpClient()
@@ -40,7 +40,7 @@ namespace SevenDigital.Api.Wrapper.Http
 
 			foreach (var header in request.Headers)
 			{
-				httpRequest.Headers.Add(header.Key, header.Value);
+				httpRequest.Headers.TryAddWithoutValidation(header.Key, header.Value);
 			}
 
 			if (request.Method.ShouldHaveRequestBody())
@@ -53,14 +53,14 @@ namespace SevenDigital.Api.Wrapper.Http
 			return httpRequest;
 		}
 
-		private static async Task<Response> MakeResponse(HttpResponseMessage httpResponse)
+		private static async Task<Response> MakeResponse(HttpResponseMessage httpResponse, Request request)
 		{
-			var headers = MapHeaders(httpResponse.Headers);
+			var headers = MapResponseHeaders(httpResponse.Headers);
 			string responseBody = await httpResponse.Content.ReadAsStringAsync();
-			return new Response(httpResponse.StatusCode, headers, responseBody);
+			return new Response(httpResponse.StatusCode, headers, responseBody, request);
 		}
 
-		private static IDictionary<string, string> MapHeaders(HttpHeaders headerCollection)
+		private static IDictionary<string, string> MapResponseHeaders(HttpHeaders headerCollection)
 		{
 			var resultHeaders = new Dictionary<string, string>();
 

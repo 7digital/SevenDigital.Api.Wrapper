@@ -13,11 +13,11 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 		private const int EXPECTED_TRACK_ID = 1693930;
 
 		[TestFixtureSetUp]
-		public async void Can_create_basket()
+		public void Can_create_basket()
 		{
-			Basket basketCreate = await Api<CreateBasket>.Create
+			Basket basketCreate = Api<CreateBasket>.Create
 				.WithParameter("country", "GB")
-				.Please();
+				.Please().BusyAwait();
 
 			Assert.That(basketCreate, Is.Not.Null);
 			Assert.That(basketCreate.Id, Is.Not.Empty);

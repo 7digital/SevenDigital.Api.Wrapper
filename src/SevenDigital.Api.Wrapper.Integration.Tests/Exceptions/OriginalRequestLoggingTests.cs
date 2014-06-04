@@ -21,6 +21,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 		}
 
 		[Test]
+		public void Should_be_set_up()
+		{
+			Assert.That(_apiXmlException, Is.Not.Null);
+		}
+
+		[Test]
 		public void Can_access_the_original_request_uri_and_querystring_in_exception()
 		{
 			Assert.That(_apiXmlException.OriginalRequest.Url, Is.EqualTo("http://api.7digital.com/1.2/artist/details?test=true"));
