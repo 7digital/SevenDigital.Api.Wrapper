@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SevenDigital.Api.Wrapper.Http;
+using System.Net.Http;
 
 namespace SevenDigital.Api.Wrapper.Requests
 {

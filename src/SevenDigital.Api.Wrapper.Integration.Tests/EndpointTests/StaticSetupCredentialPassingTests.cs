@@ -8,9 +8,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 	public class StaticSetupCredentialPassingTests
 	{
 		[Test]
-		public void Can_hit_endpoint_if_I_pass_credentials_into_static_method()
+		public async void Can_hit_endpoint_if_I_pass_credentials_into_static_method()
 		{
-			Status status = Api<Status>.CreateWithCreds(new AppSettingsCredentials(), new ApiUri()).Please();
+			Status status = await Api<Status>.CreateWithCreds(new AppSettingsCredentials(), new ApiUri()).Please();
 
 			Assert.That(status, Is.Not.Null);
 			Assert.That(status.ServerTime.Day, Is.EqualTo(DateTime.Now.Day));

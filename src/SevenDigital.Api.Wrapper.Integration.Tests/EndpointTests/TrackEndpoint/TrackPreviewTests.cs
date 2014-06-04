@@ -7,9 +7,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 	public class TrackPreviewTests
 	{
 		[Test, Ignore("Waiting for API fix to reinstate XML declaration")]
-		public void Can_hit_endpoint_with_redirect_false()
+		public async void Can_hit_endpoint_with_redirect_false()
 		{
-			TrackPreview track = Api<TrackPreview>.Create
+			TrackPreview track = await Api<TrackPreview>.Create
 				.WithParameter("trackid", "123")
 				.WithParameter("redirect", "false")
 				.Please();

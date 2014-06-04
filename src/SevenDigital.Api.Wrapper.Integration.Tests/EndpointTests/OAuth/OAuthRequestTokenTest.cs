@@ -10,11 +10,11 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 	public class OAuthRequestTokenTest
 	{
 		[Test]
-		public void Should_not_throw_unauthorised_exception_if_correct_creds_passed() 
+		public async void Should_not_throw_unauthorised_exception_if_correct_creds_passed() 
 		{
 			try 
 			{
-				var oAuthRequestToken = Api<OAuthRequestToken>.Create.Please();
+				var oAuthRequestToken = await Api<OAuthRequestToken>.Create.Please();
 				Assert.That(oAuthRequestToken.Secret, Is.Not.Empty);
 				Assert.That(oAuthRequestToken.Token, Is.Not.Empty);
 			} 
@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 		}
 
 		[Test]
-		public void Should_allow_POSTing_to_request_token_endpoint()
+		public async void Should_allow_POSTing_to_request_token_endpoint()
 		{
 			try
 			{
@@ -33,7 +33,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 
 				api.WithMethod("POST").WithParameter("one", "two");
 
-				var requestToken = api.Please();
+				var requestToken = await api.Please();
 
 				Assert.That(requestToken.Secret, Is.Not.Empty);
 				Assert.That(requestToken.Token, Is.Not.Empty);
@@ -51,15 +51,15 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 
 			api.WithMethod("POST");
 
-			Assert.DoesNotThrow(() => api.Please());
+			Assert.DoesNotThrow(async () => await api.Please());
 		}
 
 		[Test]
-		public void Can_handle_odd_characters_in_get_signing_process()
+		public async void Can_handle_odd_characters_in_get_signing_process()
 		{
 			try
 			{
-				var oAuthRequestToken = Api<OAuthRequestToken>
+				var oAuthRequestToken = await Api<OAuthRequestToken>
 					.Create
 					.WithParameter("foo", "%! blah") //arbitrary parameter, but should test for errors in signature generation
 					.Please();
@@ -74,7 +74,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 		}
 
 		[Test]
-		public void Can_handle_odd_characters_in_post_signing_process()
+		public async void Can_handle_odd_characters_in_post_signing_process()
 		{
 			try
 			{
@@ -83,7 +83,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 				api.WithMethod("POST");
 				api.WithParameter("foo", "%! blah"); //arbitrary parameter, but should test for errors in signature generation
 
-				var oAuthRequestToken = api.Please();
+				var oAuthRequestToken = await api.Please();
 
 				Assert.That(oAuthRequestToken.Secret, Is.Not.Empty);
 				Assert.That(oAuthRequestToken.Token, Is.Not.Empty);

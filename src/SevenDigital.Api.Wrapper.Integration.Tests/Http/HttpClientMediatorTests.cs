@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Xml;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Http;
@@ -21,22 +22,22 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		}
 
 		[Test]
-		public void Can_resolve_uri()
+		public async void Can_resolve_uri()
 		{
 			var url = string.Format("{0}/status?oauth_consumer_key={1}", API_URL, _consumerKey);
 			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), null);
 
-			var response = new HttpClientMediator().Send(request);
+			var response = await new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.OK);
 		}
 
 		[Test]
-		public void Can_resolve_uri_that_returns_gzip()
+		public async void Can_resolve_uri_that_returns_gzip()
 		{
 			var url = string.Format("{0}/release/details?oauth_consumer_key={1}&releaseId=12345", API_URL, _consumerKey);
 			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), null);
 
-			var response = new HttpClientMediator().Send(request);
+			var response = await new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.OK);
 			AssertCanParseBody(response);
 		}
@@ -56,22 +57,22 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		}
 
 		[Test]
-		public void Bad_url_should_return_not_found()
+		public async void Bad_url_should_return_not_found()
 		{
 			var url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", API_URL, _consumerKey);
 			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), null);
 
-			var response = new HttpClientMediator().Send(request);
+			var response = await new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 
 		[Test]
-		public void No_key_should_return_unauthorized()
+		public async void No_key_should_return_unauthorized()
 		{
 			var url = string.Format("{0}/status", API_URL);
 			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), null);
 
-			var response = new HttpClientMediator().Send(request);
+			var response = await new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.Unauthorized);
 		}
 
@@ -79,18 +80,18 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		[Ignore("There was a NullReferenceException that this test catches, however we don't enable this by default because:" +
 		        "1: It would slow down the build a lot." +
 		        "2: It would depend on a hanging-web.app being set up for the test.")]
-		public void Can_cope_with_timeouts()
+		public async void Can_cope_with_timeouts()
 		{
 			const string apiUrl = "http://hanging-web-app.7digital.local";
 			var request = new Request(HttpMethod.Post, apiUrl, new Dictionary<string, string>(), null);
 
-			var response = new HttpClientMediator().Send(request);
+			var response = await new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.OK);
 		}
 
 
 		[Test]
-		public void bad_url_post__should_return_not_found()
+		public async void bad_url_post__should_return_not_found()
 		{
 			var url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", API_URL, _consumerKey);
 			var parameters = new Dictionary<string, string>
@@ -102,12 +103,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			var requestPayload = new RequestPayload("", queryString);
 			var request = new Request(HttpMethod.Post, url, new Dictionary<string, string>(), requestPayload);
 
-			var response = new HttpClientMediator().Send(request);
+			var response = await new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
 		}
 
 		[Test]
-		public void Should_populate_OriginalRequest_property_with_the_request_passed_to_Send_method()
+		public async void Should_populate_OriginalRequest_property_with_the_request_passed_to_Send_method()
 		{
 			var url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", API_URL, _consumerKey);
 			var parameters = new Dictionary<string, string>
@@ -123,7 +124,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			};
 			var originalRequest = new Request(HttpMethod.Post, url, expectedHeaders, requestPayload);
 
-			var response = new HttpClientMediator().Send(originalRequest);
+			var response = await new HttpClientMediator().Send(originalRequest);
 
 			Assert.That(response.OriginalRequest.Url, Is.EqualTo(url));
 			Assert.That(response.OriginalRequest.Headers, Is.EqualTo(expectedHeaders));

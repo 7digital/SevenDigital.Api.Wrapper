@@ -1,16 +1,8 @@
 ﻿using System;
+using System.Net.Http;
 
 namespace SevenDigital.Api.Wrapper.Http
 {
-	public enum HttpMethod
-	{
-		Unknown = 0,
-		Get,
-		Post,
-		Put,
-		Delete
-	}
-
 	public static class HttpMethodHelpers
 	{
 		public static HttpMethod Parse(string methodName)

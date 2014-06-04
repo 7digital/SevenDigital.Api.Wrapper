@@ -7,9 +7,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 	public class ReleaseEditorialTests
 	{
 		[Test, Ignore("Not yet public")]
-		public void Should_hit_endpoint()
+		public async void Should_hit_endpoint()
 		{
-			var editorial = Api<ReleaseEditorial>
+			var editorial = await Api<ReleaseEditorial>
 							.Create
 							.ForReleaseId(815219)
 							.Please();

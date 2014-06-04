@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Playlists;
@@ -26,7 +27,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 			var httpClient = A.Fake<IHttpClient>();
 			var responseXml = File.ReadAllText("StubResponses/Playlists.xml");
 			var validPlaylistsResponse = new Response(HttpStatusCode.OK, responseXml);
-			A.CallTo(() => httpClient.Send(null)).WithAnyArguments().Returns(validPlaylistsResponse);
+			A.CallTo(() => httpClient.Send(null)).WithAnyArguments().Returns(Task.FromResult(validPlaylistsResponse));
 			_fluentApi = new FluentApi<UserPlaylists>(httpClient, _requestBuilder);
 
 		}

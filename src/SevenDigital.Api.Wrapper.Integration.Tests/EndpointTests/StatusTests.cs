@@ -8,9 +8,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 	public class StatusTests
 	{
 		[Test]
-		public void Can_hit_endpoint()
+		public async void Can_hit_endpoint()
 		{
-			Status status = Api<Status>.Create.Please();
+			Status status = await Api<Status>.Create.Please();
 
 			Assert.That(status, Is.Not.Null);
 			Assert.That(status.ServerTime.Day, Is.EqualTo(DateTime.Now.Day));

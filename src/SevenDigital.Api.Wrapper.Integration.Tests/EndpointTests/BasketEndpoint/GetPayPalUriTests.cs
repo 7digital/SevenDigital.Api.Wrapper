@@ -18,9 +18,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 		}
 
 		[Test,Ignore]
-		public void Should_get_paypal_url_for_basket()
+		public async void Should_get_paypal_url_for_basket()
 		{
-			PayPalExpressCheckout response = Api<PayPalExpressCheckout>
+			PayPalExpressCheckout response = await Api<PayPalExpressCheckout>
 				.Create
 				.UseBasketId(new Guid(_basketId))
 				.WithParameter("successUrl", "http://www.google.com")
@@ -32,17 +32,17 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 			Assert.That(response.Url.Contains("token="), " Paypal Redirect Url {0} does not contain 'token='", response.Url);
 		}
 
-		private void CreateBasket()
+		private async void CreateBasket()
 		{
-			Basket basketCreate = Api<CreateBasket>.Create
+			Basket basketCreate = await Api<CreateBasket>.Create
 				.WithParameter("country", "GB")
 				.Please();
 			_basketId = basketCreate.Id;
 		}
 
-		private void AddReleaseToBasket()
+		private async void AddReleaseToBasket()
 		{
-			Api<AddItemToBasket>.Create
+			await Api<AddItemToBasket>.Create
 				.UseBasketId(new Guid(_basketId))
 				.ForReleaseId(EXPECTED_RELEASE_ID)
 				.Please();

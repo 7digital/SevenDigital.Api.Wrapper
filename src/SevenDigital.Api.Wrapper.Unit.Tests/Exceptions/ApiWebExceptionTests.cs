@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Exceptions;
-using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Exceptions

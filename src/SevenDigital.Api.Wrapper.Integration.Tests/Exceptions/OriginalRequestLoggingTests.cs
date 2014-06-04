@@ -1,8 +1,8 @@
 using System;
+using System.Net.Http;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.ArtistEndpoint;
 using SevenDigital.Api.Wrapper.Exceptions;
-using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 {
@@ -16,7 +16,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 		{
 			// -- Deliberate error response
 			Console.WriteLine("Trying artist/details without artistId parameter...");
-			_apiXmlException = Assert.Throws<InputParameterException>(() => Api<Artist>.Create.WithParameter("test", "true").Please());
+			_apiXmlException = Assert.Throws<InputParameterException>(
+				async () => await Api<Artist>.Create.WithParameter("test", "true").Please());
 		}
 
 		[Test]
