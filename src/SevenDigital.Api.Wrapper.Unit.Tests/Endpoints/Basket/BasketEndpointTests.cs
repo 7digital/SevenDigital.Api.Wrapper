@@ -26,6 +26,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Basket
 
 			var basketEndpoint = new FluentApi<Schema.Basket.Basket>();
 			basketEndpoint.UseBasketId(Guid.NewGuid());
+
 			Assert.That(basketEndpoint.Parameters.Keys.Contains("trackId"), Is.False);
 			Assert.That(basketEndpoint.Parameters.Keys.Contains("releaseId"), Is.False);
 		}

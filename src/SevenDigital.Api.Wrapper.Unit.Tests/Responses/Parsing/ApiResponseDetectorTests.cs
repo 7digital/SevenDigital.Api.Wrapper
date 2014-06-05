@@ -49,7 +49,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		{
 			var result = _apiResponseDetector.IsApiOkResponse(OK_RESPONSE);
 
-			Assert.That(result, Is.True);			
+			Assert.That(result, Is.True);
 		}
 
 		[Test]

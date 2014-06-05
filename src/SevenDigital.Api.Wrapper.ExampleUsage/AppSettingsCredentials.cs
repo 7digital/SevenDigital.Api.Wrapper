@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using SevenDigital.Api.Wrapper.Environment;
 
 namespace SevenDigital.Api.Wrapper.ExampleUsage
 {

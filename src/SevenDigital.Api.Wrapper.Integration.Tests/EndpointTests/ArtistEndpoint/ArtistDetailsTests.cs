@@ -9,10 +9,10 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public async void Can_hit_endpoint_with_fluent_interface()
 		{
-			var artist = await Api<Artist>
+			var request = Api<Artist>
 				.Create
-				.WithArtistId(1)
-				.Please();
+				.WithArtistId(1);
+			var artist = await request.Please();
 
 			Assert.That(artist, Is.Not.Null);
 			Assert.That(artist.Name, Is.EqualTo("Keane"));

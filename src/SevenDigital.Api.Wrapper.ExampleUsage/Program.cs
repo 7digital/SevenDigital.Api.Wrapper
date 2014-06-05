@@ -19,13 +19,13 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			Console.WriteLine("Using creds: {0} - {1}", appSettingsCredentials.ConsumerKey, appSettingsCredentials.ConsumerSecret);
 
 			// console apps can't have an async main, so we have to deal with that
-			var task = use7DigitalApi(artistId);
+			var task = Use7DigitalApi(artistId);
 			task.Wait();
 
 			Console.ReadKey();
 		}
 
-		private static async Task use7DigitalApi(int artistId)
+		private static async Task Use7DigitalApi(int artistId)
 		{
 
 			// -- artist/details

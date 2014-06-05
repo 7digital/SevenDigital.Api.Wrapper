@@ -51,11 +51,8 @@
     <Compile Include="ApiUri.cs" />
     <Compile Include="AppSettingsCredentials.cs" />
     <Compile Include="EndpointTests\BasketEndpoint\BasketCreateTests.cs" />
-    <Compile Include="EndpointTests\BasketEndpoint\CompletePayPalExpressCheckoutTests.cs" />
-    <Compile Include="EndpointTests\BasketEndpoint\GetPayPalUriTests.cs" />
     <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseEditorialTests.cs" />
     <Compile Include="EndpointTests\StaticSetupCredentialPassingTests.cs" />
-    <Compile Include="EndpointTests\OAuth\OAuthAccessTokenTest.cs" />
     <Compile Include="EndpointTests\OAuth\OAuthRequestTokenTest.cs" />
     <Compile Include="EndpointTests\ReleaseEndpoint\ReleaseTracksTests.cs" />
     <Compile Include="EndpointTests\TagsEndpoint\ArtistByTagTopTests.cs" />
@@ -84,7 +81,6 @@
     <Compile Include="Exceptions\OriginalRequestLoggingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Http\HttpClientMediatorTests.cs" />
-    <Compile Include="TaskHelpers.cs" />
     <Compile Include="TestDataFromEnvironmentOrAppSettings.cs" />
   </ItemGroup>
   <ItemGroup>

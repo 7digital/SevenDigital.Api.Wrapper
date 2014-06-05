@@ -10,8 +10,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		[Test]
 		public async void Can_hit_endpoint() 
 		{
-			Tags tags = await Api<Tags>.Create
-				.Please();
+			Tags tags = await Api<Tags>.Create.Please();
 
 			Assert.That(tags, Is.Not.Null);
 			Assert.That(tags.TagList.Count, Is.GreaterThan(0));
@@ -20,16 +19,16 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		}
 
 		[Test]
-		public async void Can_hit_endpoint_with_paging() 
+		public async void Can_hit_endpoint_with_paging()
 		{
-			Tags artistBrowse = await Api<Tags>.Create
+			var request = Api<Tags>.Create
 				.WithParameter("page", "2")
-				.WithParameter("pageSize", "20")
-				.Please();
+				.WithParameter("pageSize", "20");
+			var tags = await request.Please();
 
-			Assert.That(artistBrowse, Is.Not.Null);
-			Assert.That(artistBrowse.Page, Is.EqualTo(2));
-			Assert.That(artistBrowse.PageSize, Is.EqualTo(20));
+			Assert.That(tags, Is.Not.Null);
+			Assert.That(tags.Page, Is.EqualTo(2));
+			Assert.That(tags.PageSize, Is.EqualTo(20));
 		}
 	}
 }

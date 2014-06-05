@@ -9,9 +9,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public async void Can_hit_endpoint_with_fluent_interface()
 		{
-			var artistBrowse = await Api<ArtistBrowse>.Create
-									.WithLetter("radio")
-									.Please();
+			var request = Api<ArtistBrowse>.Create
+				.WithLetter("radio");
+			var artistBrowse = await request.Please();
 			
 			Assert.That(artistBrowse, Is.Not.Null);
 			Assert.That(artistBrowse.Page, Is.EqualTo(1));
@@ -22,12 +22,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public async void Can_hit_endpoint_with_fluent_interface_with_paging()
 		{
-			var artistBrowse = await Api<ArtistBrowse>
-									.Create
-									.WithLetter("radio")
-									.WithPageNumber(2)
-									.WithPageSize(20)
-									.Please();
+			var request = Api<ArtistBrowse>
+				.Create
+				.WithLetter("radio")
+				.WithPageNumber(2)
+				.WithPageSize(20);
+			var artistBrowse = await request.Please();
 
 			Assert.That(artistBrowse, Is.Not.Null);
 			Assert.That(artistBrowse.Page, Is.EqualTo(2));

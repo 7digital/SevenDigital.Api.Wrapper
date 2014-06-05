@@ -10,27 +10,27 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public async void Can_hit_endpoint()
 		{
-			TrackSearch release = await Api<TrackSearch>.Create
-				.WithParameter("q", "Happy")
-				.Please();
+			var request = Api<TrackSearch>.Create
+				.WithParameter("q", "Happy");
+			var trackSearch = await request.Please();
 
-			Assert.That(release, Is.Not.Null);
-			Assert.That(release.Results.Count, Is.GreaterThan(0));
-			Assert.That(release.Results.FirstOrDefault().Type, Is.EqualTo(TrackType.track));
+			Assert.That(trackSearch, Is.Not.Null);
+			Assert.That(trackSearch.Results.Count, Is.GreaterThan(0));
+			Assert.That(trackSearch.Results.FirstOrDefault().Type, Is.EqualTo(TrackType.track));
 		}
 
 		[Test]
 		public async void Can_hit_endpoint_with_paging()
 		{
-			TrackSearch artistBrowse = await Api<TrackSearch>.Create
-				.WithParameter("q","Happy")
+			var request = Api<TrackSearch>.Create
+				.WithParameter("q", "Happy")
 				.WithParameter("page", "2")
-				.WithParameter("pageSize", "20")
-				.Please();
+				.WithParameter("pageSize", "20");
+			var trackSearch = await request.Please();
 
-			Assert.That(artistBrowse, Is.Not.Null);
-			Assert.That(artistBrowse.Page, Is.EqualTo(2));
-			Assert.That(artistBrowse.PageSize, Is.EqualTo(20));
+			Assert.That(trackSearch, Is.Not.Null);
+			Assert.That(trackSearch.Page, Is.EqualTo(2));
+			Assert.That(trackSearch.PageSize, Is.EqualTo(20));
 		}
 	}
 }
