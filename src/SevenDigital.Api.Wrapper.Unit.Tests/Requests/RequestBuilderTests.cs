@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Environment;
-using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests

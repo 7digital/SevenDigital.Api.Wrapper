@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
@@ -34,17 +36,17 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		private IHttpClient StubHttpClient()
 		{
 			var httpClient = A.Fake<IHttpClient>();
-			A.CallTo(() => httpClient.Send(A<Request>.Ignored)).Returns(_stubResponse);
+			A.CallTo(() => httpClient.Send(A<Request>.Ignored)).Returns(Task.FromResult(_stubResponse));
 			return httpClient;
 		}
 
 		[Test] 
-		public void Should_call_requestbuilder_with_correct_endpoint_on_resolve()
+		public async void Should_call_requestbuilder_with_correct_endpoint_on_resolve()
 		{
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();
 
-			new FluentApi<Status>(httpClient, requestBuilder).Please();
+			await new FluentApi<Status>(httpClient, requestBuilder).Please();
 
 			Expression<Func<Request>> callWithEndpointStatus =
 				() => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Endpoint == "status"));
@@ -53,12 +55,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void Should_fire_requesthandler_with_correct_methodname_on_resolve()
+		public async void Should_fire_requesthandler_with_correct_methodname_on_resolve()
 		{
 			var requestHandler = StubRequestBuilder();
 			var httpClient = StubHttpClient();
 
-			new FluentApi<Status>(httpClient, requestHandler).WithMethod("POST").Please();
+			await new FluentApi<Status>(httpClient, requestHandler).WithMethod("POST").Please();
 
 			Expression<Func<Request>> callWithMethodPost =
 				() => requestHandler.BuildRequest(A<RequestData>.That.Matches(x => x.HttpMethod == HttpMethod.Post));
@@ -87,13 +89,13 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void Should_fire_requesthandler_with_correct_parameters_on_resolve()
+		public async void Should_fire_requesthandler_with_correct_parameters_on_resolve()
 		{
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();
 
 			var api = new FluentApi<Status>(httpClient, requestBuilder);
-			api.WithParameter("artistId", "123").Please();
+			await api.WithParameter("artistId", "123").Please();
 
 			Expression<Func<Request>> callWithArtistId123 =
 				() => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Parameters["artistId"] == "123"));
@@ -102,7 +104,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void Should_use_custom_http_client()
+		public async void Should_use_custom_http_client()
 		{
 			var requestHandler = StubRequestBuilder();
 			var fakeHttpClient = new FakeHttpClient(_stubResponse);
@@ -110,7 +112,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var api = new FluentApi<Status>(requestHandler).UsingClient(fakeHttpClient);
 			Assert.That(fakeHttpClient.SendCount, Is.EqualTo(0));
 
-			api.Please();
+			await api.Please();
 
 			Assert.That(fakeHttpClient.SendCount, Is.EqualTo(1));
 		}
@@ -125,7 +127,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void Should_wrap_webexception_under_api_exception_to_be_able_to_know_the_URL()
+		public void Should_wrap_webexception_under_api_exception_to_know_the_URL()
 		{
 			const string url = "http://example.com/status";
 
@@ -135,7 +137,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			var api = new FluentApi<Status>(httpClient, requestHandler);
 
-			var ex = Assert.Throws<ApiWebException>(() => api.Please());
+			var ex = Assert.Throws<ApiWebException>(async () => await api.Please());
 
 			Assert.That(ex.InnerException, Is.Not.Null);
 			Assert.That(ex.OriginalRequest.Url, Is.EqualTo(url));
@@ -154,7 +156,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void Should_read_cache()
+		public async void Should_read_cache()
 		{
 			var httpClient = StubHttpClient();
 			var requestHandler = StubRequestBuilder();
@@ -162,20 +164,20 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var api = new FluentApi<Status>(httpClient, requestHandler);
 
 			var cache = new FakeCache();
-			api.UsingCache(cache).Please();
+			await api.UsingCache(cache).Please();
 
 			Assert.That(cache.TryGetCount, Is.EqualTo(1));
 		}
 
 		[Test]
-		public void Should_write_to_cache_on_success()
+		public async void Should_write_to_cache_on_success()
 		{
 			var requestHandler = StubRequestBuilder();
 			var httpClient = StubHttpClient();
 			var api = new FluentApi<Status>(httpClient, requestHandler);
 			
 			var cache = new FakeCache();
-			api.UsingCache(cache).Please();
+			await api.UsingCache(cache).Please();
 
 			Assert.That(cache.SetCount, Is.EqualTo(1));
 			Assert.That(cache.CachedResponses.Count, Is.EqualTo(1));
@@ -183,21 +185,21 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void Should_return_value_from_cache()
+		public async void Should_return_value_from_cache()
 		{
 			var requestHandler = StubRequestBuilder();
 			var httpClient = StubHttpClient();
 			var api = new FluentApi<Status>(httpClient, requestHandler);
 
 			var cache = new FakeCache();
-			var status = api.UsingCache(cache).Please();
+			var status = await api.UsingCache(cache).Please();
 
 			Assert.That(cache.TryGetCount, Is.EqualTo(1));
 			Assert.That(status, Is.Not.Null);
 		}
 
 		[Test]
-		public void Should_not_hit_endpoint_when_value_is_found_in_cache()
+		public async void Should_not_hit_endpoint_when_value_is_found_in_cache()
 		{
 			var requestHandler = StubRequestBuilder();
 			var httpClient = StubHttpClient();
@@ -206,7 +208,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var cache = new FakeCache();
 			cache.StubResponse = _stubResponse;
 
-			api.UsingCache(cache).Please();
+			await api.UsingCache(cache).Please();
 			A.CallTo(() => httpClient.Send(A<Request>.Ignored)).MustNotHaveHappened();
 		}
 
@@ -223,14 +225,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			api.UsingCache(cache);
 
-			Assert.Throws<ApiWebException>(() => api.Please());
+			Assert.Throws<ApiWebException>(async () => await api.Please());
 
 			Assert.That(cache.SetCount, Is.EqualTo(0));
 			Assert.That(cache.CachedResponses.Count, Is.EqualTo(0));
 		}
 
 		[Test]
-		public void Should_allow_you_to_set_a_request_payload()
+		public async void Should_allow_you_to_set_a_request_payload()
 		{
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();
@@ -238,7 +240,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			const string payloadData = "{\"hello\":\"world\"}";
 			const string payloadContentType = "application/json";
 
-			new FluentApi<Status>(httpClient, requestBuilder).WithPayload(payloadContentType, payloadData).Please();
+			await new FluentApi<Status>(httpClient, requestBuilder).WithPayload(payloadContentType, payloadData).Please();
 
 			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == payloadContentType && x.Payload.Data == payloadData));
 
@@ -246,7 +248,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void Should_allow_you_to_set_a_request_payload_using_an_entity()
+		public async void Should_allow_you_to_set_a_request_payload_using_an_entity()
 		{
 			const string expectedXmlOutput = "<?xml version=\"1.0\" encoding=\"utf-8\"?><artist id=\"143451\"><name>MGMT</name><appearsAs>MGMT</appearsAs><image>http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg</image><url>http://www.7digital.com/artist/mgmt/?partner=1401</url></artist>";
 
@@ -262,7 +264,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();
 
-			new FluentApi<Status>(httpClient, requestBuilder).WithPayload(artist).Please();
+			await new FluentApi<Status>(httpClient, requestBuilder).WithPayload(artist).Please();
 
 			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == "application/xml" && x.Payload.Data == expectedXmlOutput));
 
@@ -270,12 +272,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void Should_allow_you_to_see_the_raw_response_without_parsing()
+		public async void Should_allow_you_to_see_the_raw_response_without_parsing()
 		{
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();
 
-			var response = new FluentApi<Status>(httpClient, requestBuilder).Response();
+			var response = await new FluentApi<Status>(httpClient, requestBuilder).Response();
 
 			Assert.That(response, Is.Not.Null);
 
@@ -284,21 +286,23 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void Accept_header_defaults_to_xml()
+		public async void Accept_header_defaults_to_xml()
 		{
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();
 
-			new FluentApi<Status>(httpClient, requestBuilder)
+			await new FluentApi<Status>(httpClient, requestBuilder)
 				.Please();
 
-			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Accept == "application/xml"));
+			Expression<Func<Request>> callWithExpectedPayload = 
+				() => requestBuilder.BuildRequest(A<RequestData>.That.Matches(
+					x => x.Accept == "application/xml"));
 
 			A.CallTo(callWithExpectedPayload).MustHaveHappened();
 		}
 
 		[Test]
-		public void Should_allow_you_to_set_a_request_payload_using_an_entity_transferred_as_json()
+		public async void Should_allow_you_to_set_a_request_payload_using_an_entity_transferred_as_json()
 		{
 			const string expectedOutput = "{\"id\":143451,\"name\":\"MGMT\",\"sortName\":null,\"appearsAs\":\"MGMT\",\"image\":\"http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg\",\"url\":\"http://www.7digital.com/artist/mgmt/?partner=1401\"}";
 			
@@ -314,7 +318,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();
 
-			new FluentApi<Status>(httpClient, requestBuilder)
+			await new FluentApi<Status>(httpClient, requestBuilder)
 				.WithPayload(artist, PayloadFormat.Json)
 				.Please();
 
@@ -324,23 +328,23 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public void Should_allow_you_to_set_a_request_payload_using_an_entity_transferred_as_xml()
+		public async void Should_allow_you_to_set_a_request_payload_using_an_entity_transferred_as_xml()
 		{
 			const string expectedOutput = "<?xml version=\"1.0\" encoding=\"utf-8\"?><artist id=\"143451\"><name>MGMT</name><appearsAs>MGMT</appearsAs><image>http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg</image><url>http://www.7digital.com/artist/mgmt/?partner=1401</url></artist>";
 
 			var artist = new Artist
-			{
-				AppearsAs = "MGMT",
-				Name = "MGMT",
-				Id = 143451,
-				Image = "http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg",
-				Url = "http://www.7digital.com/artist/mgmt/?partner=1401"
-			};
+				{
+					AppearsAs = "MGMT",
+					Name = "MGMT",
+					Id = 143451,
+					Image = "http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg",
+					Url = "http://www.7digital.com/artist/mgmt/?partner=1401"
+				};
 
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();
 
-			new FluentApi<Status>(httpClient, requestBuilder)
+			await new FluentApi<Status>(httpClient, requestBuilder)
 				.WithPayload(artist, PayloadFormat.Xml)
 				.Please();
 

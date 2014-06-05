@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Schema.ArtistEndpoint;
@@ -11,14 +12,25 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 	{
 		static void Main(string[] args) 
 		{
-			string s = args[0];
+			var s = args[0];
+			var artistId = Convert.ToInt32(s);
 
 			var appSettingsCredentials = new AppSettingsCredentials();
 			Console.WriteLine("Using creds: {0} - {1}", appSettingsCredentials.ConsumerKey, appSettingsCredentials.ConsumerSecret);
 
+			// console apps can't have an async main, so we have to deal with that
+			var task = use7DigitalApi(artistId);
+			task.Wait();
+
+			Console.ReadKey();
+		}
+
+		private static async Task use7DigitalApi(int artistId)
+		{
+
 			// -- artist/details
-			var artist = Api<Artist>.Create
-				.WithArtistId(Convert.ToInt32(s))
+			var artist = await Api<Artist>.Create
+				.WithArtistId(artistId)
 				.Please();
 
 			Console.WriteLine("Artist \"{0}\" selected", artist.Name);
@@ -27,17 +39,17 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 
 
 			// -- artist/toptracks
-			var artistTopTracks = Api<ArtistTopTracks>
+			var artistTopTracks = await Api<ArtistTopTracks>
 				.Create
-				.WithArtistId(Convert.ToInt32(s))
+				.WithArtistId(artistId)
 				.Please();
 
 			Console.WriteLine("Top Track: {0}", artistTopTracks.Tracks.FirstOrDefault().Title);
 			Console.WriteLine();
-			
+
 			// -- artist/browse
 			const string searchValue = "Radio";
-			var artistBrowse = Api<ArtistBrowse>
+			var artistBrowse = await Api<ArtistBrowse>
 				.Create
 				.WithLetter(searchValue)
 				.Please();
@@ -46,7 +58,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			Console.WriteLine();
 
 			// -- artist/search
-			var artistSearch = Api<ArtistSearch>.Create
+			var artistSearch = await Api<ArtistSearch>.Create
 				.WithQuery(searchValue)
 				.WithPageNumber(1)
 				.WithPageSize(10)
@@ -56,7 +68,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			Console.WriteLine();
 
 			// -- release/search
-			var releaseSearch = Api<ReleaseSearch>.Create
+			var releaseSearch = await Api<ReleaseSearch>.Create
 				.WithQuery(searchValue)
 				.WithPageNumber(1)
 				.WithPageSize(10)
@@ -69,30 +81,28 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			string currentUri = Api<ReleaseSearch>.Create.WithQuery("Test").EndpointUrl;
 			Console.WriteLine("Release search hits: {0}", currentUri);
 
-			try 
+			try
 			{
 				// -- Deliberate error response
 				Console.WriteLine("Trying artist/details without artistId parameter...");
-				Api<Artist>.Create.Please();
-			} 
+				await Api<Artist>.Create.Please();
+			}
 
 			catch (ApiResponseException ex)
 			{
 				Console.WriteLine("{0} : {1}", ex, ex.Message);
 			}
 
-			try 
+			try
 			{
 				// -- Deliberate unauthorized response
 				Console.WriteLine("Trying user/locker without any credentials...");
-				Api<Locker>.Create.Please();
-			} 
+				await Api<Locker>.Create.Please();
+			}
 			catch (ApiResponseException ex)
 			{
 				Console.WriteLine("{0} : {1}", ex, ex.Message);
 			}
-
-			Console.ReadKey();
 		}
 	}
 }

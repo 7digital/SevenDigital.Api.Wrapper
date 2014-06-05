@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
 using System.Net;
-using System.Text;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using SevenDigital.Api.Wrapper.Requests;
 using SevenDigital.Api.Wrapper.Responses;
 
@@ -12,129 +10,67 @@ namespace SevenDigital.Api.Wrapper.Http
 {
 	public class HttpClientMediator : IHttpClient
 	{
-		public Response Send(Request request)
+		public async Task<Response> Send(Request request)
 		{
-			var webRequest = MakeHttpWebRequest(request);
-			return TryGetResponse(webRequest.GetResponse, request);
+			var httpClient = MakeHttpClient();
+			var httpRequest = MakeHttpRequest(request);
+
+			var httpResponse = await httpClient.SendAsync(httpRequest);
+			return await MakeResponse(httpResponse, request);
 		}
 
-		private static HttpWebRequest MakeHttpWebRequest(Request request)
+		private static HttpClient MakeHttpClient()
 		{
-			var httpWebRequest = RequestForUrl(request.Url);
-
-			httpWebRequest.Method = request.Method.ToString().ToUpperInvariant();
-			httpWebRequest.UserAgent = "7digital .Net Api Wrapper";
-			httpWebRequest.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip");
-			httpWebRequest.Accept = request.Headers.ContainsKey("Accept") 
-				? request.Headers["Accept"] 
-				: "application/xml"; 
-
-			foreach (var header in request.Headers.Where(header => header.Key != "Accept"))
+			var httpClient = new HttpClient(new HttpClientHandler
 			{
-				httpWebRequest.Headers.Add(header.Key, header.Value);
+				AutomaticDecompression = DecompressionMethods.GZip
+			});
+
+			httpClient.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip", 1.0));
+			httpClient.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("UTF8", 0.9));
+
+			httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("7digital-.Net-Api-Wrapper", "4.0"));
+
+			return httpClient;
+		}
+
+		private static HttpRequestMessage MakeHttpRequest(Request request)
+		{
+			var httpRequest = new HttpRequestMessage(request.Method, request.Url);
+
+			foreach (var header in request.Headers)
+			{
+				httpRequest.Headers.TryAddWithoutValidation(header.Key, header.Value);
 			}
 
 			if (request.Method.ShouldHaveRequestBody())
 			{
-				var contentType = request.Body.ContentType;
-				var data = request.Body.Data;
-
-				httpWebRequest.ContentType = contentType;
-				var postBytes = Encoding.UTF8.GetBytes(data);
-				httpWebRequest.ContentLength = postBytes.Length;
-
-				using (var dataStream = httpWebRequest.GetRequestStream())
-				{
-					dataStream.Write(postBytes, 0, postBytes.Length);
-				}
+				HttpContent content = new StringContent(request.Body.Data);
+				content.Headers.ContentType = new MediaTypeHeaderValue(request.Body.ContentType);
+				httpRequest.Content = content;
 			}
 
-			return httpWebRequest;
+			return httpRequest;
 		}
 
-		private static HttpWebRequest RequestForUrl(string url)
+		private static async Task<Response> MakeResponse(HttpResponseMessage httpResponse, Request request)
 		{
-			try
-			{
-				var uri = new Uri(url);
-				var webRequest = WebRequest.Create(uri);
-				return (HttpWebRequest)webRequest;
-			}
-			catch (Exception ex)
-			{
-				throw new InvalidOperationException("Could not create HttpWebRequest for url " + url, ex);
-			}
+			var headers = MapResponseHeaders(httpResponse.Headers);
+			string responseBody = await httpResponse.Content.ReadAsStringAsync();
+			return new Response(httpResponse.StatusCode, headers, responseBody, request);
 		}
 
-		private Response TryGetResponse(Func<WebResponse> getResponse, Request originalRequest)
+		private static IDictionary<string, string> MapResponseHeaders(HttpHeaders headerCollection)
 		{
-			WebResponse webResponse;
-			try
+			var resultHeaders = new Dictionary<string, string>();
+
+			foreach (var header in headerCollection)
 			{
-				webResponse = getResponse();
-			}
-			catch (WebException ex)
-			{
-				if (ex.Response == null)
-				{
-					throw;
-				}
-				webResponse = ex.Response;
+				resultHeaders.Add(header.Key, string.Join(",", header.Value));
 			}
 
-			using (webResponse)
-			{
-				return MakeResponse(webResponse, originalRequest);
-			}
+			return resultHeaders;
 		}
 
-		private Response MakeResponse(WebResponse webResponse, Request originalRequest)
-		{
-			string output;
-			using (var sr = new StreamReader(GetResponseStream(webResponse)))
-			{
-				output = sr.ReadToEnd();
-			}
-
-			var statusCode = ReadStatusCode(webResponse);
-			var headers = MapResponseHeaders(webResponse.Headers);
-
-			return new Response(statusCode, headers, output, originalRequest);
-		}
-
-		public Dictionary<string, string> MapResponseHeaders(WebHeaderCollection headerCollection)
-		{
-			var headers = new Dictionary<string, string>();
-
-			for (var i = 0; i < headerCollection.Count; i++)
-			{
-				headers.Add(headerCollection.GetKey(i), string.Join(",", headerCollection.GetValues(i)));
-			}
-
-			return headers;
-		}
-
-		private Stream GetResponseStream(WebResponse webResponse)
-		{
-			string contentEncodingHeader = webResponse.Headers["Content-Encoding"];
-
-			if (contentEncodingHeader != null && contentEncodingHeader == "gzip")
-			{
-				return new GZipStream(webResponse.GetResponseStream(), CompressionMode.Decompress);
-			}
-
-			return webResponse.GetResponseStream();
-		}
-
-		private static HttpStatusCode ReadStatusCode(WebResponse webResponse)
-		{
-			var httpResponse = webResponse as HttpWebResponse;
-			if (httpResponse == null)
-			{
-				return HttpStatusCode.NoContent;
-			}
-
-			return httpResponse.StatusCode;
-		}
 	}
 }

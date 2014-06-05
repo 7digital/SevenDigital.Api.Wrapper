@@ -52,10 +52,8 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +66,7 @@
     <Compile Include="Endpoints\Playlists\UserPlaylistsXmlTests.cs" />
     <Compile Include="Environment\AttributeRequestDataBuilderTests.cs" />
     <Compile Include="Endpoints\Basket\BasketEndpointTests.cs" />
+    <Compile Include="Http\HttpMethodHelpersTests.cs" />
     <Compile Include="Parsing\Payment\CardTypesTests.cs" />
     <Compile Include="Parsing\User\Payment\Cards_unit_tests.cs" />
     <Compile Include="Parsing\User\Payment\AddCardsTests.cs" />

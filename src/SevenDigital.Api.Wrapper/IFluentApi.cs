@@ -1,4 +1,5 @@
-﻿using SevenDigital.Api.Wrapper.Http;
+﻿using System.Threading.Tasks;
+using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests.Serializing;
 using SevenDigital.Api.Wrapper.Responses;
 
@@ -15,7 +16,7 @@ namespace SevenDigital.Api.Wrapper
 		IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class;
 		IFluentApi<T> WithPayload<TPayload>(TPayload payload, PayloadFormat payloadSerializer) where TPayload : class;
 
-		Response Response();
-		T Please();
+		Task<Response> Response();
+		Task<T> Please();
 	}
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using SevenDigital.Api.Wrapper.Environment;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
@@ -114,13 +115,13 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public Response Response()
+		public async Task<Response> Response()
 		{
 			var request = _requestBuilder.BuildRequest(_requestData);
 
 			try
 			{
-				return _httpClient.Send(request);
+				return await _httpClient.Send(request);
 			}
 			catch (WebException webException)
 			{
@@ -128,14 +129,14 @@ namespace SevenDigital.Api.Wrapper
 			}
 		}
 
-		public virtual T Please()
+		public virtual async Task<T> Please()
 		{
 			Response response;
 
 			var foundInCache = _responseCache.TryGet(_requestData, out response);
 			if (!foundInCache)
 			{
-				response = Response();
+				response = await Response();
 			}
 
 			var result = _parser.Parse(response);

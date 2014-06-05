@@ -10,11 +10,11 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 	public class ArtistChartTests
 	{
 		[Test]
-		public void Can_hit_fluent_endpoint()
+		public async void Can_hit_fluent_endpoint()
 		{
 		    var chartDate = DateTime.Today.AddDays(-7);
 
-		    var artist = Api<ArtistChart>
+			var artist = await Api<ArtistChart>
 							.Create
 							.WithToDate(chartDate)
 							.WithPeriod(ChartPeriod.Week)

@@ -1,13 +1,15 @@
-﻿using FakeItEasy;
+﻿using System.Net.Http;
+using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 {
-	[TestFixture]
-	public class RequestBuilderMethodTests
+	public abstract class RequestBuilderBaseMethodTests
 	{
+		protected HttpMethod TestedHttpMethod;
+
 		private IRequestBuilder _requestBuilder;
 		private IApiUri _apiUri;
 		private IOAuthCredentials _oAuthCredentials;
@@ -26,50 +28,45 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			_requestBuilder = new RequestBuilder(_apiUri, _oAuthCredentials);
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_use_correct_http_method(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_use_correct_http_method()
 		{
-			var requestData = MakeRequestData(httpMethod, false);
+			var requestData = MakeRequestData(TestedHttpMethod, false);
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
-			Assert.That(request.Method, Is.EqualTo(httpMethod));
+			Assert.That(request.Method, Is.EqualTo(TestedHttpMethod));
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_use_non_secure_api_uri_by_default(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_use_non_secure_api_uri_by_default()
 		{
-			var requestData = MakeRequestData(httpMethod, false);
+			var requestData = MakeRequestData(TestedHttpMethod, false);
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(request.Url, Is.StringStarting("http://example.com/testpath"));
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_use_secure_uri_when_requested(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_use_secure_uri_when_requested()
 		{
-			var requestData = MakeRequestData(httpMethod, false);
+			var requestData = MakeRequestData(TestedHttpMethod, false);
 			requestData.UseHttps = true;
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(request.Url, Is.StringStarting("https://example.com/testpath"));
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Delete)]
-		public void Should_include_parameters_in_querystring(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_include_parameters_in_querystring()
 		{
-			var requestData = MakeRequestData(httpMethod, false);
+			if (!TestedHttpMethod.HasParamsInQueryString())
+			{
+				Assert.Ignore("This http method does not use params in query string");
+			}
+
+			var requestData = MakeRequestData(TestedHttpMethod, false);
 			requestData.Parameters.Add("foo", "bar");
 
 			var request = _requestBuilder.BuildRequest(requestData);
@@ -78,11 +75,15 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			Assert.That(request.Body.Data, Is.Empty);
 		}
 
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_include_parameters_in_body(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_include_parameters_in_body()
 		{
-			var requestData = MakeRequestData(httpMethod, false);
+			if (!TestedHttpMethod.ShouldHaveRequestBody())
+			{
+				Assert.Ignore("This http method does not use the request body");
+			}
+
+			var requestData = MakeRequestData(TestedHttpMethod, false);
 			requestData.Parameters.Add("foo", "bar");
 
 			var request = _requestBuilder.BuildRequest(requestData);
@@ -91,10 +92,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			Assert.That(request.Body.Data, Is.StringContaining("foo=bar"));
 		}
 
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Put)]
+		[TestCase]
 		public void Should_include_parameters_in_body_when_signed(HttpMethod httpMethod)
 		{
+			if (!TestedHttpMethod.ShouldHaveRequestBody())
+			{
+				Assert.Ignore("This http method does not use the request body");
+			}
+
 			var requestData = MakeRequestData(httpMethod, true);
 			requestData.Parameters.Add("foo", "bar");
 
@@ -104,13 +109,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			Assert.That(request.Body.Data, Is.StringContaining("foo=bar"));
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_substitute_route_parameters_for_supplied_values(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_substitute_route_parameters_for_supplied_values()
 		{
-			var requestData = MakeRequestData(httpMethod, false);
+			var requestData = MakeRequestData(TestedHttpMethod, false);
 			requestData.Parameters.Add("foo", "bar");
 			requestData.Endpoint = "test/{foo}/baz";
 
@@ -119,117 +121,90 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			Assert.That(request.Url, Is.StringContaining("/test/bar/baz"));
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_not_put_consumer_key_in_url_when_unsigned(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_not_put_consumer_key_in_url_when_unsigned()
 		{
-			var requestData = MakeRequestData(httpMethod, false);
+			var requestData = MakeRequestData(TestedHttpMethod, false);
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(request.Url, Is.Not.StringContaining("oauth"));
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_not_put_consumer_key_in_body_when_unsigned(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_not_put_consumer_key_in_body_when_unsigned()
 		{
-			var requestData = MakeRequestData(httpMethod, false);
+			var requestData = MakeRequestData(TestedHttpMethod, false);
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(request.Body.Data, Is.Empty);
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_have_auth_header_when_unsigned(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_have_auth_header_when_unsigned()
 		{
-			var requestData = MakeRequestData(httpMethod, false);
+			var requestData = MakeRequestData(TestedHttpMethod, false);
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(RequestHasAuthHeader(request), Is.True);
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_put_consumer_key_in_auth_header_when_unsigned(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_put_consumer_key_in_auth_header_when_unsigned()
 		{
-			var requestData = MakeRequestData(httpMethod, false);
+			var requestData = MakeRequestData(TestedHttpMethod, false);
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(RequestHasAuthHeaderContaining(request, "oauth_consumer_key="), Is.True);
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_not_put_signature_in_auth_header_when_unsigned(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_not_put_signature_in_auth_header_when_unsigned()
 		{
-			var requestData = MakeRequestData(httpMethod, false);
+			var requestData = MakeRequestData(TestedHttpMethod, false);
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(RequestHasAuthHeaderContaining(request, "oauth_signature"), Is.False);
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_not_put_oauth_in_url_when_signed(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_not_put_oauth_in_url_when_signed()
 		{
-			var requestData = MakeRequestData(httpMethod, true);
+			var requestData = MakeRequestData(TestedHttpMethod, true);
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(request.Url, Is.Not.StringContaining("oauth"));
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_not_put_oauth_in_body_when_signed(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_not_put_oauth_in_body_when_signed()
 		{
-			var requestData = MakeRequestData(httpMethod, true);
+			var requestData = MakeRequestData(TestedHttpMethod, true);
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(request.Body.Data, Is.Empty);
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_have_auth_header_when_signed(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_have_auth_header_when_signed()
 		{
-			var requestData = MakeRequestData(httpMethod, true);
+			var requestData = MakeRequestData(TestedHttpMethod, true);
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(RequestHasAuthHeader(request), Is.True);
 		}
-		
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_sign_with_header_if_required(HttpMethod httpMethod)
+
+		[TestCase]
+		public void Should_sign_with_header_if_required()
 		{
-			var requestData = MakeRequestData(httpMethod, true);
+			var requestData = MakeRequestData(TestedHttpMethod, true);
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
@@ -237,13 +212,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			Assert.That(RequestHasAuthHeaderContaining(request, "oauth_consumer_key="), Is.True);
 		}
 
-		[TestCase(HttpMethod.Get)]
-		[TestCase(HttpMethod.Post)]
-		[TestCase(HttpMethod.Delete)]
-		[TestCase(HttpMethod.Put)]
-		public void Should_include_oauth_token_if_required(HttpMethod httpMethod)
+		[TestCase]
+		public void Should_include_oauth_token_if_required()
 		{
-			var requestData = MakeRequestData(httpMethod, true);
+			var requestData = MakeRequestData(TestedHttpMethod, true);
 			requestData.UserToken = "foo";
 			requestData.TokenSecret = "bar";
 
@@ -282,6 +254,42 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 
 			var actualHeader = request.Headers["Authorization"];
 			return (!string.IsNullOrEmpty(actualHeader) && actualHeader.Contains(expectedHeader));
+		}
+	}
+
+	[TestFixture]
+	public class RequestBuilderGetTests : RequestBuilderBaseMethodTests
+	{
+		public RequestBuilderGetTests()
+		{
+			TestedHttpMethod = HttpMethod.Get;
+		}
+	}
+
+	[TestFixture]
+	public class RequestBuilderPostTests : RequestBuilderBaseMethodTests
+	{
+		public RequestBuilderPostTests()
+		{
+			TestedHttpMethod = HttpMethod.Post;
+		}
+	}
+
+	[TestFixture]
+	public class RequestBuilderPutTests : RequestBuilderBaseMethodTests
+	{
+		public RequestBuilderPutTests()
+		{
+			TestedHttpMethod = HttpMethod.Put;
+		}
+	}
+
+	[TestFixture]
+	public class RequestBuilderDeleteTests : RequestBuilderBaseMethodTests
+	{
+		public RequestBuilderDeleteTests()
+		{
+			TestedHttpMethod = HttpMethod.Delete;
 		}
 	}
 }

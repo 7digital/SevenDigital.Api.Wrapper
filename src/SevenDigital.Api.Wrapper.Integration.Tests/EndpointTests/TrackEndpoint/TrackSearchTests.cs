@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using SevenDigital.Api.Schema;
-using SevenDigital.Api.Schema.Playlists;
 using SevenDigital.Api.Schema.TrackEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
@@ -10,9 +8,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 	public class TrackSearchTests
 	{
 		[Test]
-		public void Can_hit_endpoint()
+		public async void Can_hit_endpoint()
 		{
-			TrackSearch release = Api<TrackSearch>.Create
+			TrackSearch release = await Api<TrackSearch>.Create
 				.WithParameter("q", "Happy")
 				.Please();
 
@@ -22,9 +20,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		}
 
 		[Test]
-		public void Can_hit_endpoint_with_paging()
+		public async void Can_hit_endpoint_with_paging()
 		{
-			TrackSearch artistBrowse = Api<TrackSearch>.Create
+			TrackSearch artistBrowse = await Api<TrackSearch>.Create
 				.WithParameter("q","Happy")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
