@@ -71,6 +71,5 @@ namespace SevenDigital.Api.Wrapper.Http
 
 			return resultHeaders;
 		}
-
 	}
 }

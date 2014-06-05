@@ -47,7 +47,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Parsing.User.Payment
 
 			Assert.That(firstCard.ExpiryDate, Is.EqualTo("201202"));
 			Assert.That(firstCard.FormatedExpiryDate, Is.EqualTo(new DateTime(2012, 02, 29, 23, 59, 59, 999)));
-
 		}
 	}
 }

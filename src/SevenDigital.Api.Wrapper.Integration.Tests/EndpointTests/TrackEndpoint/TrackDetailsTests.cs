@@ -9,9 +9,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public async void Can_hit_endpoint()
 		{
-			Track track = await Api<Track>.Create
-				.ForTrackId(12345)
-				.Please();
+			var request = Api<Track>.Create
+				.ForTrackId(12345);
+			var track = await request.Please();
 
 			Assert.That(track, Is.Not.Null);
 			Assert.That(track.Title, Is.EqualTo("I Love You"));

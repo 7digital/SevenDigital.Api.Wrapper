@@ -10,10 +10,10 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public async void Can_hit_endpoint()
 		{
-			Release release = await Api<Release>.Create
+			var request = Api<Release>.Create
 				.WithParameter("releaseId", "155408")
-				.WithParameter("country", "GB")
-				.Please();
+				.WithParameter("country", "GB");
+			var release = await request.Please();
 
 			Assert.That(release, Is.Not.Null);
 			Assert.That(release.Title, Is.EqualTo("Dreams"));

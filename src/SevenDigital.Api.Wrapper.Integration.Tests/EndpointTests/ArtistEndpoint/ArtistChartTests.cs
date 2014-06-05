@@ -12,21 +12,24 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public async void Can_hit_fluent_endpoint()
 		{
-		    var chartDate = DateTime.Today.AddDays(-7);
+			var chartDate = DateTime.Today.AddDays(-7);
 
-			var artist = await Api<ArtistChart>
-							.Create
-							.WithToDate(chartDate)
-							.WithPeriod(ChartPeriod.Week)
-							.WithPageSize(20)
-							.Please();
+			var request = Api<ArtistChart>
+				.Create
+				.WithToDate(chartDate)
+				.WithPeriod(ChartPeriod.Week)
+				.WithPageSize(20);
 
-			Assert.That(artist, Is.Not.Null);
-			Assert.That(artist.ChartItems.Count, Is.EqualTo(20));
-			Assert.That(artist.Type, Is.EqualTo(ChartType.artist));
-			Assert.That(artist.FromDate, Is.LessThanOrEqualTo(chartDate));
-			Assert.That(artist.ToDate, Is.GreaterThanOrEqualTo(chartDate));
-			Assert.That(artist.ChartItems.FirstOrDefault().Artist, Is.Not.Null);
+			var artistChart = await request.Please();
+
+			Assert.That(artistChart, Is.Not.Null);
+			Assert.That(artistChart.ChartItems, Is.Not.Null);
+			Assert.That(artistChart.ChartItems.Count, Is.EqualTo(20));
+
+			Assert.That(artistChart.Type, Is.EqualTo(ChartType.artist));
+			Assert.That(artistChart.FromDate, Is.LessThanOrEqualTo(chartDate));
+			Assert.That(artistChart.ToDate, Is.GreaterThanOrEqualTo(chartDate));
+			Assert.That(artistChart.ChartItems.FirstOrDefault().Artist, Is.Not.Null);
 		}
 	}
 }

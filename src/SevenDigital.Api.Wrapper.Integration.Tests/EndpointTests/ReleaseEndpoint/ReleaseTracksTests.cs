@@ -11,10 +11,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public async void Can_hit_endpoint()
 		{
-
-			var releaseTracks = await Api<ReleaseTracks>.Create
-				.ForReleaseId(155408)
-				.Please();
+			var request = Api<ReleaseTracks>.Create
+				.ForReleaseId(155408);
+			var releaseTracks = await request.Please();
 
 			Assert.That(releaseTracks, Is.Not.Null);
 			Assert.That(releaseTracks.Tracks.Count, Is.EqualTo(10));
@@ -25,10 +24,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public async void can_determine_if_a_track_is_free()
 		{
-
-			var releaseTracks = await Api<ReleaseTracks>.Create
-				.ForReleaseId(394123)
-				.Please();
+			var request = Api<ReleaseTracks>.Create
+				.ForReleaseId(394123);
+			var releaseTracks = await request.Please();
 
 			Assert.That(releaseTracks, Is.Not.Null);
 			Assert.That(releaseTracks.Tracks.Count, Is.EqualTo(1));
@@ -38,10 +36,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public async void can_determine_if_a_track_is_available_separately()
 		{
-
-			var releaseTracks = await Api<ReleaseTracks>.Create
-				.ForReleaseId(1193196)
-				.Please();
+			var request = Api<ReleaseTracks>.Create
+				.ForReleaseId(1193196);
+			var releaseTracks = await request.Please();
 
 			Assert.That(releaseTracks, Is.Not.Null);
 			Assert.That(releaseTracks.Tracks.Count, Is.GreaterThanOrEqualTo(1));

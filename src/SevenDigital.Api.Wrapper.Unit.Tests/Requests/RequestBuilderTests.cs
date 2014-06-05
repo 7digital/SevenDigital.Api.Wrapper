@@ -30,11 +30,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var expectedUrl = string.Format("{0}/test?q={1}", API_URL, encodedParameterValue);
 
 			var requestData = new RequestData
-			{
-				Endpoint = "test",
-				HttpMethod = HttpMethod.Get,
-				Parameters = testParameters
-			};
+				{
+					Endpoint = "test",
+					HttpMethod = HttpMethod.Get,
+					Parameters = testParameters
+				};
 
 			var request = _requestBuilder.BuildRequest(requestData);
 

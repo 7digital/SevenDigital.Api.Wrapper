@@ -15,7 +15,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 		{
 			// -- Deliberate error response
 			Console.WriteLine("Trying artist/details without artistId parameter...");
-			var apiXmlException = Assert.Throws<InputParameterException>(async () => await Api<Artist>.Create.Please());
+			var request = Api<Artist>.Create;
+			var apiXmlException = Assert.Throws<InputParameterException>(async () => await request.Please());
 
 			Assert.That(apiXmlException.ErrorCode, Is.EqualTo(ErrorCode.RequiredParameterMissing));
 			Assert.That(apiXmlException.Message, Is.StringStarting("Missing parameter artistId"));
@@ -26,7 +27,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 		{
 			// -- Deliberate unauthorized response
 			Console.WriteLine("Trying user/locker without any credentials...");
-			var apiXmlException = Assert.Throws<OAuthException>(async () => await Api<Locker>.Create.Please());
+			var request = Api<Locker>.Create;
+			var apiXmlException = Assert.Throws<OAuthException>(async () => await request.Please());
 			Assert.That(apiXmlException.ResponseBody, Is.StringStarting("OAuth authentication error: "));
 		}
 	}

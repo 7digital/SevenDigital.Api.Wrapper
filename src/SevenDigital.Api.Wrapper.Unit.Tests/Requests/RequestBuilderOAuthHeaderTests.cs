@@ -69,9 +69,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		public void should_not_do_oauth_if_not_required()
 		{
 			var requestData = new RequestData
-			{
-				RequiresSignature = false
-			};
+				{
+					RequiresSignature = false
+				};
 
 			var actual = GetAuthHeader(requestData);
 

@@ -17,7 +17,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 		public void Setup()
 		{
 			_halLinkCollectionConverter = new HalLinkCollectionConverter();
-
 		}
 
 		[Test]
@@ -41,7 +40,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 			var jsonTextWriter = new JsonTextWriter(new StringWriter(stringBuilder));
 			var jsonSerializer = new JsonSerializer();
 
-			var value = new List<Link> { new Link("self", "http://a/url") };
+			var value = new List<Link>
+				{
+					new Link("self", "http://a/url")
+				};
 
 			_halLinkCollectionConverter.WriteJson(jsonTextWriter, value, jsonSerializer);
 
@@ -57,7 +59,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 			{
 				var jsonSerializer = new JsonSerializer();
 
-				var value = new List<Link> { new Link("self", "http://a/url"), new Link("details", "http://a/nother/url") };
+				var value = new List<Link>
+				{
+					new Link("self", "http://a/url"), 
+					new Link("details", "http://a/nother/url")
+				};
 
 				_halLinkCollectionConverter.WriteJson(jsonTextWriter, value, jsonSerializer);
 
