@@ -1,7 +1,7 @@
 ﻿namespace SevenDigital.Api.Wrapper.Responses.Parsing
 {
-	public interface IResponseParser<out T>
+	public interface IResponseParser
 	{
-		T Parse(Response response);
+		T Parse<T>(Response response) where T : class, new();
 	}
 }
