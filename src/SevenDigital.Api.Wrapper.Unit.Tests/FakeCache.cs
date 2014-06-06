@@ -23,10 +23,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			CachedResponses.Add(value);
 		}
 
-		public bool TryGet(RequestData key, out object value)
+		public bool TryGet<T>(RequestData key, out T value)
 		{
 			TryGetCount++;
-			value = StubCachedObject;
+			value = (T)StubCachedObject;
 			return (StubCachedObject != null);
 		}
 	}

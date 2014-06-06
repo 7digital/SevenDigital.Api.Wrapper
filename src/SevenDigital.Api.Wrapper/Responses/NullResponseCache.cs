@@ -9,10 +9,10 @@ namespace SevenDigital.Api.Wrapper.Responses
 			// don't store it
 		}
 
-		public bool TryGet(RequestData key, out object value)
+		public bool TryGet<T>(RequestData key, out T value)
 		{
 			// nope, I don't have it
-			value = null;
+			value = default(T);
 			return false;
 		}
 	}
