@@ -23,6 +23,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		private const string VALID_STATUS_XML = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"ok\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\"><serviceStatus><serverTime>2011-05-31T15:31:22Z</serverTime></serviceStatus></response>";
 
 		private readonly Response _stubResponse = new Response(HttpStatusCode.OK, VALID_STATUS_XML);
+		private readonly Status _stubStatus = new Status();
 
 		private IRequestBuilder StubRequestBuilder()
 		{
@@ -181,7 +182,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			Assert.That(cache.SetCount, Is.EqualTo(1));
 			Assert.That(cache.CachedResponses.Count, Is.EqualTo(1));
-			Assert.That(cache.CachedResponses[0], Is.EqualTo(_stubResponse));
+			Assert.That(cache.CachedResponses[0], Is.InstanceOf<Status>());
 		}
 
 		[Test]
@@ -206,7 +207,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var api = new FluentApi<Status>(httpClient, requestHandler);
 
 			var cache = new FakeCache();
-			cache.StubResponse = _stubResponse;
+			cache.StubCachedObject = _stubStatus;
 
 			await api.UsingCache(cache).Please();
 			A.CallTo(() => httpClient.Send(A<Request>.Ignored)).MustNotHaveHappened();

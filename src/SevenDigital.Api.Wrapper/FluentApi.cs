@@ -131,21 +131,22 @@ namespace SevenDigital.Api.Wrapper
 
 		public virtual async Task<T> Please()
 		{
-			Response response;
-
-			var foundInCache = _responseCache.TryGet(_requestData, out response);
-			if (!foundInCache)
+			object cachedObject;
+			var foundInCache = _responseCache.TryGet(_requestData, out cachedObject);
+			if (foundInCache)
 			{
-				response = await Response();
+				var cachedResult = cachedObject as T;
+				if (cachedResult != null)
+				{
+					return cachedResult;
+				}
 			}
 
+			Response response = await Response();
 			var result = _parser.Parse(response);
+			// set to cache only after all validation and parsing has succeeded
+			_responseCache.Set(_requestData, result);
 
-				// set to cache only after all validation and parsing has succeeded
-			if (!foundInCache)
-			{
-				_responseCache.Set(_requestData, response);
-			}
 			return result;
 		}
 
