@@ -102,6 +102,7 @@
     <Compile Include="Responses\Parsing\ResponseParserTests.cs" />
     <Compile Include="Responses\Parsing\StringDeserializerTests.cs" />
     <Compile Include="Responses\Parsing\TestObject.cs" />
+    <Compile Include="Responses\ResponseDeserializerTests.cs" />
     <Compile Include="Responses\ResponseTests.cs" />
   </ItemGroup>
   <ItemGroup>
