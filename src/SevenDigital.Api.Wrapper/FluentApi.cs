@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+
 using SevenDigital.Api.Wrapper.Environment;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
@@ -129,6 +130,21 @@ namespace SevenDigital.Api.Wrapper
 			}
 		}
 
+		public async Task<R> ResponseAs<R>()
+		{
+			var request = _requestBuilder.BuildRequest(_requestData);
+
+			try
+			{
+				var response = await _httpClient.Send(request);
+				var responseDeserializer = new ResponseDeserializer();
+				return responseDeserializer.ResponseAs<R>(response);
+			}
+			catch (WebException webException)
+			{
+				throw new ApiWebException(webException.Message, webException, request);
+			}
+		}
 		public virtual async Task<T> Please()
 		{
 			Response response;

@@ -129,6 +129,7 @@
     <Compile Include="Responses\Parsing\IResponseParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\Parsing\StringDeserializer.cs" />
+    <Compile Include="Responses\ResponseDeserializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">
