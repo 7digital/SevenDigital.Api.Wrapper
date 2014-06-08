@@ -16,36 +16,51 @@ namespace SevenDigital.Api.Wrapper.Responses
 			{
 				return ResponseFromJson<T>(response.Body);
 			}
-			return ResponseFromXml<T>(response.Body);
+			return ResponseFromXmlText<T>(response.Body);
 		}
 
-		private T ResponseFromXml<T>(string responseBody)
+		private T ResponseFromXmlText<T>(string responseBody)
 		{
-			using (var reader = new StringReader(responseBody))
+			using (var stringReader = new StringReader(responseBody))
 			{
+				XDocument doc;
 				try
 				{
-					XDocument doc = XDocument.Load(reader);
-					var ser = new XmlSerializer(typeof(T));
-					try
-					{
-						return (T)ser.Deserialize(doc.CreateReader());
-					}
-					catch (InvalidOperationException ex)
-					{
-						throw new UnexpectedXmlContentException(ex);
-					}
+					doc = XDocument.Load(stringReader);
 				}
 				catch (XmlException e)
 				{
 					throw new NonXmlContentException(e);
 				}
+
+				var xmlReader = doc.CreateReader();
+				return ResponseFromXmlDoc<T>(xmlReader);
+			}
+		}
+
+		private static T ResponseFromXmlDoc<T>(XmlReader xmlReader)
+		{
+			var deserializer = new XmlSerializer(typeof(T));
+			try
+			{
+				return (T)deserializer.Deserialize(xmlReader);
+			}
+			catch (InvalidOperationException ex)
+			{
+				throw new UnexpectedXmlContentException(ex);
 			}
 		}
 
 		private T ResponseFromJson<T>(string responseBody)
 		{
-			return JsonConvert.DeserializeObject<T>(responseBody);
+			try
+			{
+				return JsonConvert.DeserializeObject<T>(responseBody);
+			}
+			catch (JsonReaderException jrEx)
+			{
+				throw new JsonParseFailedException(jrEx);
+			}
 		}
 	}
 }

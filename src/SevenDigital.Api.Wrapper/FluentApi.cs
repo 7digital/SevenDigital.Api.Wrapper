@@ -130,7 +130,7 @@ namespace SevenDigital.Api.Wrapper
 			}
 		}
 
-		public async Task<R> ResponseAs<R>()
+		public async Task<TR> ResponseAs<TR>()
 		{
 			var request = _requestBuilder.BuildRequest(_requestData);
 
@@ -138,7 +138,7 @@ namespace SevenDigital.Api.Wrapper
 			{
 				var response = await _httpClient.Send(request);
 				var responseDeserializer = new ResponseDeserializer();
-				return responseDeserializer.ResponseAs<R>(response);
+				return responseDeserializer.ResponseAs<TR>(response);
 			}
 			catch (WebException webException)
 			{

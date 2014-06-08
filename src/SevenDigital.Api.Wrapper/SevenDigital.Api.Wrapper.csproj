@@ -119,6 +119,7 @@
     <Compile Include="Requests\DictionaryExtensions.cs" />
     <Compile Include="Http\HttpClientMediator.cs" />
     <Compile Include="Http\IHttpClient.cs" />
+    <Compile Include="Responses\Parsing\Exceptions\JsonParseFailedException.cs" />
     <Compile Include="Responses\Response.cs" />
     <Compile Include="Responses\Parsing\ApiResponseDetector.cs" />
     <Compile Include="Responses\Parsing\ExceptionFactory.cs" />
