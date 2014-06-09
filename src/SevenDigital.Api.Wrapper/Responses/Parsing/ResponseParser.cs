@@ -6,7 +6,7 @@ using SevenDigital.Api.Wrapper.Responses.Parsing.Exceptions;
 
 namespace SevenDigital.Api.Wrapper.Responses.Parsing
 {
-	public class ResponseParser<T> : IResponseParser<T> where T : class
+	public class ResponseParser: IResponseParser
 	{
 		private readonly IApiResponseDetector _apiResponseDetector;
 		
@@ -15,28 +15,38 @@ namespace SevenDigital.Api.Wrapper.Responses.Parsing
 			_apiResponseDetector = apiResponseDetector;
 		}
 
-		public T Parse(Response response)
+		public T Parse<T>(Response response) where T : class, new()
 		{
 			DetectErrorResponsesAndThrow(response);
-			return ParseResponse(response);
+			return ParseResponse<T>(response);
 		}
 
 		private void DetectErrorResponsesAndThrow(Response response)
 		{
 			if (response == null)
+			{
 				throw new ArgumentNullException("response");
+			}
 
 			if (string.IsNullOrEmpty(response.Body))
+			{
 				throw new NonXmlResponseException(response);
+			}
 
 			if (!_apiResponseDetector.IsXml(response.Body))
+			{
 				DetectAndThrowForNonXmlResponses(response);
+			}
 
 			if (!_apiResponseDetector.IsApiOkResponse(response.Body) && !_apiResponseDetector.IsApiErrorResponse(response.Body))
+			{
 				throw new UnrecognisedStatusException(response);
+			}
 
 			if (_apiResponseDetector.IsApiOkResponse(response.Body) && !_apiResponseDetector.IsApiErrorResponse(response.Body))
+			{
 				return;
+			}
 
 			var error = ParseError(response);
 			throw ExceptionFactory.CreateApiErrorException(error, response);
@@ -45,7 +55,9 @@ namespace SevenDigital.Api.Wrapper.Responses.Parsing
 		private void DetectAndThrowForNonXmlResponses(Response response)
 		{
 			if (_apiResponseDetector.IsOAuthError(response.Body))
+			{
 				throw new OAuthException(response);
+			}
 
 			throw new NonXmlResponseException(response);
 		}
@@ -78,12 +90,12 @@ namespace SevenDigital.Api.Wrapper.Responses.Parsing
 			return int.Parse(attribute.Value);
 		}
 
-		private static T ParseResponse(Response response)
+		private static T ParseResponse<T>(Response response) where T : class, new()
 		{
 			try
 			{
-				var deserializer = new StringDeserializer<T>();
-				return deserializer.DeserializeApiResponse(response.Body);
+				var deserializer = new StringDeserializer();
+				return deserializer.DeserializeApiResponse<T>(response.Body);
 			}
 			catch (UnexpectedXmlContentException e)
 			{

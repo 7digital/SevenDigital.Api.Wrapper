@@ -14,9 +14,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		[Test]
 		public void should_deserialize_well_formed_xml()
 		{
-			var deserializer = new StringDeserializer<TestObject>();
+			var deserializer = new StringDeserializer();
 
-			var testObject = deserializer.DeserializeApiResponse(TestObjectXmlResponse);
+			var testObject = deserializer.DeserializeApiResponse<TestObject>(TestObjectXmlResponse);
 
 			Assert.That(testObject, Is.Not.Null);
 			Assert.That(testObject.Id, Is.EqualTo(1));
@@ -32,9 +32,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		[Test]
 		public void should_deserialize_Empty_xml_to_empty_object()
 		{
-			var deserializer = new StringDeserializer<TestEmptyObject>();
+			var deserializer = new StringDeserializer();
 
-			var testObject = deserializer.DeserializeApiResponse(EmptyXmlResponse);
+			var testObject = deserializer.DeserializeApiResponse<TestEmptyObject>(EmptyXmlResponse);
 
 			Assert.That(testObject, Is.Not.Null);
 		}
@@ -42,17 +42,17 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		[Test]
 		public void should_throw_exception_when_deserialize_into_wrong_type()
 		{
-			var deserializer = new StringDeserializer<Status>();
+			var deserializer = new StringDeserializer();
 
-			Assert.Throws<UnexpectedXmlContentException>(() => deserializer.DeserializeApiResponse(TestObjectXmlResponse));
+			Assert.Throws<UnexpectedXmlContentException>(() => deserializer.DeserializeApiResponse<Status>(TestObjectXmlResponse));
 		}
 
 		[Test]
 		public void should_throw_exception_when_deserialize_into_wrong_type_such_as_one_that_is_not_wrapped_in_a_response_tag()
 		{
-			var deserializer = new StringDeserializer<Status>();
+			var deserializer = new StringDeserializer();
 
-			Assert.Throws<UnexpectedXmlContentException>(() => deserializer.DeserializeApiResponse(TestObjectXmlResponse.Replace("response", "rexponse")));
+			Assert.Throws<UnexpectedXmlContentException>(() => deserializer.DeserializeApiResponse<Status>(TestObjectXmlResponse.Replace("response", "rexponse")));
 		}
 	}
 }

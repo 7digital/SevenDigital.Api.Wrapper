@@ -2,7 +2,7 @@
 
 namespace SevenDigital.Api.Wrapper
 {
-	public static class Api<T> where T : class
+	public static class Api<T> where T : class, new()
 	{
 		public static IFluentApi<T> Create
 		{

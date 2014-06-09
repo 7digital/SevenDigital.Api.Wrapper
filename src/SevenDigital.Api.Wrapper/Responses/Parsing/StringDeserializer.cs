@@ -8,38 +8,47 @@ using SevenDigital.Api.Wrapper.Responses.Parsing.Exceptions;
 
 namespace SevenDigital.Api.Wrapper.Responses.Parsing
 {
-	public class StringDeserializer<T> where T : class
+	public class StringDeserializer 
 	{
-		public T DeserializeApiResponse(string apiResponse)
+		public T DeserializeApiResponse<T>(string apiResponse) where T : class, new()
 		{
 			using (var reader = new StringReader(apiResponse))
 			{
 				XDocument doc;
-				try {
+				try
+				{
 					doc = XDocument.Load(reader);
-				} catch (XmlException e) {
+				}
+				catch (XmlException e)
+				{
 					throw new NonXmlContentException(e);
 				}
 
 				XElement responseNode;
-				try {
+				try
+				{
 					responseNode = doc.Descendants("response").First();
-				} catch (InvalidOperationException e) {
+				}
+				catch (InvalidOperationException e)
+				{
 					throw new UnexpectedXmlContentException(e);
 				}
 
 				var responsePayload = responseNode.FirstNode;
 				if (responsePayload == null)
 				{
-					return (T) Activator.CreateInstance(typeof (T));
+					return new T();
 				}
 
 				using (var payloadReader = responsePayload.CreateReader())
 				{
 					var ser = new XmlSerializer(typeof(T));
-					try {
-						return (T) ser.Deserialize(payloadReader);
-					} catch (InvalidOperationException ex) {
+					try
+					{
+						return (T)ser.Deserialize(payloadReader);
+					}
+					catch (InvalidOperationException ex)
+					{
 						throw new UnexpectedXmlContentException(ex);
 					}
 				}
