@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using SevenDigital.Api.Wrapper.Responses.Parsing.Exceptions;
 
-namespace SevenDigital.Api.Wrapper.Responses
+namespace SevenDigital.Api.Wrapper.Responses.Parsing
 {
 	public class ResponseDeserializer
 	{

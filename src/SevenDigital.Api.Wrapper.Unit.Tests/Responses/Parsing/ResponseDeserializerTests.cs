@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-
 using NUnit.Framework;
-
 using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.Responses;
+using SevenDigital.Api.Wrapper.Responses.Parsing;
 using SevenDigital.Api.Wrapper.Responses.Parsing.Exceptions;
 
-namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses
+namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 {
 	[TestFixture]
 	public class ResponseDeserializerTests
