@@ -14,13 +14,13 @@ using SevenDigital.Api.Wrapper.Responses.Parsing;
 
 namespace SevenDigital.Api.Wrapper
 {
-	public class FluentApi<T> : IFluentApi<T> where T : class
+	public class FluentApi<T> : IFluentApi<T> where T : class, new()
 	{
 		private IHttpClient _httpClient;
 		private readonly IRequestBuilder _requestBuilder;
 
 		private readonly RequestData _requestData;
-		private readonly IResponseParser<T> _parser;
+		private readonly IResponseParser _parser;
 		private IResponseCache _responseCache = new NullResponseCache();
 		private readonly List<IPayloadSerializer> _payloadSerializers= new List<IPayloadSerializer>
 		{
@@ -36,7 +36,7 @@ namespace SevenDigital.Api.Wrapper
 			var attributeValidation = new AttributeRequestDataBuilder<T>();
 			_requestData = attributeValidation.BuildRequestData();
 
-			_parser = new ResponseParser<T>(new ApiResponseDetector());
+			_parser = new ResponseParser(new ApiResponseDetector());
 		}
 
 		public FluentApi(IRequestBuilder requestBuilder) : this(new HttpClientMediator(), requestBuilder)
@@ -147,21 +147,18 @@ namespace SevenDigital.Api.Wrapper
 		}
 		public virtual async Task<T> Please()
 		{
-			Response response;
-
-			var foundInCache = _responseCache.TryGet(_requestData, out response);
-			if (!foundInCache)
+			T cachedResult;
+			var foundInCache = _responseCache.TryGet(_requestData, out cachedResult);
+			if (foundInCache)
 			{
-				response = await Response();
+				return cachedResult;
 			}
 
-			var result = _parser.Parse(response);
+			Response response = await Response();
+			var result = _parser.Parse<T>(response);
+			// set to cache only after all validation and parsing has succeeded
+			_responseCache.Set(_requestData, result);
 
-				// set to cache only after all validation and parsing has succeeded
-			if (!foundInCache)
-			{
-				_responseCache.Set(_requestData, response);
-			}
 			return result;
 		}
 

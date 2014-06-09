@@ -14,9 +14,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		[Test]
 		public void Should_throw_argument_null_exception_when_reponse_is_null()
 		{
-			var apiXmlDeserializer = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var apiXmlDeserializer = new ResponseParser(new ApiResponseDetector());
 
-			Assert.Throws<ArgumentNullException>(() => apiXmlDeserializer.Parse(null));
+			Assert.Throws<ArgumentNullException>(() => apiXmlDeserializer.Parse<TestObject>(null));
 		}
 
 		[Test]
@@ -27,11 +27,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 
 			var stubResponse = new Response(HttpStatusCode.OK, xml);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			Assert.DoesNotThrow(() => xmlParser.Parse(stubResponse));
+			Assert.DoesNotThrow(() => xmlParser.Parse<TestObject>(stubResponse));
 
-			TestObject testObject = xmlParser.Parse(stubResponse);
+			TestObject testObject = xmlParser.Parse<TestObject>(stubResponse);
 
 			Assert.That(testObject.Id, Is.EqualTo(1));
 		}
@@ -42,9 +42,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string errorXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"error\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\" ><error code=\"1001\"><errorMessage>Test error</errorMessage></error></response>";
 			var response = new Response(HttpStatusCode.InternalServerError, errorXml);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<InputParameterException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<InputParameterException>(() => xmlParser.Parse<TestObject>(response));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
@@ -58,9 +58,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string errorXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"error\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\" ><error code=\"1001\"><errorMessage>Test error</errorMessage></error></response>";
 			var response = new Response(HttpStatusCode.OK, errorXml);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<InputParameterException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<InputParameterException>(() => xmlParser.Parse<TestObject>(response));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
@@ -74,9 +74,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string errorXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"error\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\" ><error code=\"2001\"><errorMessage>Test error</errorMessage></error></response>";
 			var response = new Response(HttpStatusCode.OK, errorXml);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<InvalidResourceException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<InvalidResourceException>(() => xmlParser.Parse<TestObject>(response));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
@@ -90,9 +90,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string errorXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"error\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\" ><error code=\"3001\"><errorMessage>Test error</errorMessage></error></response>";
 			var response = new Response(HttpStatusCode.OK, errorXml);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<UserCardException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<UserCardException>(() => xmlParser.Parse<TestObject>(response));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
@@ -106,9 +106,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string errorXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"error\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\" ><error code=\"9001\"><errorMessage>Test error</errorMessage></error></response>";
 			var response = new Response(HttpStatusCode.OK, errorXml);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<RemoteApiException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<RemoteApiException>(() => xmlParser.Parse<TestObject>(response));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
@@ -122,9 +122,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string errorXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"error\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\" ><error code=\"42\"><errorMessage>Test error</errorMessage></error></response>";
 			var response = new Response(HttpStatusCode.OK, errorXml);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse<TestObject>(response));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(errorXml));
@@ -138,9 +138,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string badError = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"error\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\" ><error><errorme></errorme></error></response>";
 			var response = new Response(HttpStatusCode.OK, badError);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse<TestObject>(response));
 
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(response.Body));
@@ -153,9 +153,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			var response = new Response(HttpStatusCode.OK, null);
 
 
-			var xmlSerializer = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlSerializer = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Parse(response));
+			var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Parse<TestObject>(response));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.Null);
 		}
@@ -166,9 +166,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			var response = new Response(HttpStatusCode.OK, string.Empty);
 
 
-			var xmlSerializer = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlSerializer = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Parse(response));
+			var ex = Assert.Throws<NonXmlResponseException>(() => xmlSerializer.Parse<TestObject>(response));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.Empty);
 		}
@@ -179,9 +179,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string validXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"error\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\" ><error><errorMessage>An error</errorMessage></error></response>";
 			var response = new Response(HttpStatusCode.OK, validXml);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse<TestObject>(response));
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 			Assert.That(ex.ResponseBody, Is.EqualTo(response.Body));
 			Assert.That(ex.Message, Is.EqualTo(UnrecognisedErrorException.DEFAULT_ERROR_MESSAGE));
@@ -193,9 +193,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string validXml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"error\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\" ><error code=\"123\"></error></response>";
 			var response = new Response(HttpStatusCode.OK, validXml);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<UnrecognisedErrorException>(() => xmlParser.Parse<TestObject>(response));
 			Assert.That(ex.ResponseBody, Is.EqualTo(response.Body));
 			Assert.That(ex.Message, Is.EqualTo(UnrecognisedErrorException.DEFAULT_ERROR_MESSAGE));
 		}
@@ -207,9 +207,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 
 			var response = new Response(HttpStatusCode.InternalServerError, badXml);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse<TestObject>(response));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo("Response is not xml"));
@@ -224,9 +224,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 
 			var response = new Response(HttpStatusCode.OK, badXml);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse<TestObject>(response));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo("Response is not xml"));
@@ -241,9 +241,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 
 			var response = new Response(HttpStatusCode.OK, badXml);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse<TestObject>(response));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo("Response is not xml"));
@@ -257,8 +257,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string ErrorText = "OAuth authentication error: Not authorised - no user credentials provided";
 			var response = new Response(HttpStatusCode.Unauthorized, ErrorText);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
-			var ex = Assert.Throws<OAuthException>(() => xmlParser.Parse(response));
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
+			var ex = Assert.Throws<OAuthException>(() => xmlParser.Parse<TestObject>(response));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo(ErrorText));
@@ -272,8 +272,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string ErrorText = "OAuth authentication error: Not found";
 			var response = new Response(HttpStatusCode.OK, ErrorText);
 
-			var xmlParser = new ResponseParser<TestObject>(new ApiResponseDetector());
-			var ex = Assert.Throws<OAuthException>(() => xmlParser.Parse(response));
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
+			var ex = Assert.Throws<OAuthException>(() => xmlParser.Parse<TestObject>(response));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo(ErrorText));
@@ -287,9 +287,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string InvalidStatusXmlResponse = "<?xml version=\"1.0\"?><response status=\"fish\" version=\"1.2\"></response>";
 			var response = new Response(HttpStatusCode.OK, InvalidStatusXmlResponse);
 
-			var xmlParser = new ResponseParser<TestEmptyObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<UnrecognisedStatusException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<UnrecognisedStatusException>(() => xmlParser.Parse<TestEmptyObject>(response));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo(UnrecognisedStatusException.DEFAULT_ERROR_MESSAGE));
@@ -303,9 +303,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			const string MissingStatusXmlResponse = "<?xml version=\"1.0\"?><response version=\"1.2\"></response>";
 			var response = new Response(HttpStatusCode.OK, MissingStatusXmlResponse);
 
-			var xmlParser = new ResponseParser<TestEmptyObject>(new ApiResponseDetector());
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
 
-			var ex = Assert.Throws<UnrecognisedStatusException>(() => xmlParser.Parse(response));
+			var ex = Assert.Throws<UnrecognisedStatusException>(() => xmlParser.Parse<TestEmptyObject>(response));
 
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo(UnrecognisedStatusException.DEFAULT_ERROR_MESSAGE));
