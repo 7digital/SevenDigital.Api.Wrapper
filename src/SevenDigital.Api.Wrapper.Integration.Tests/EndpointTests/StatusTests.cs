@@ -9,7 +9,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 	[XmlRoot("response")]
 	public class RawStatusResponse
 	{
-		public Status Status { get; set; }
+		[XmlElement("serviceStatus")]
+		public Status ServiceStatus { get; set; }
 	}
 
 	[TestFixture]
@@ -30,8 +31,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 			var statusResponse = await Api<Status>.Create.ResponseAs<RawStatusResponse>();
 
 			Assert.That(statusResponse, Is.Not.Null);
-			Assert.That(statusResponse.Status, Is.Not.Null);
-			Assert.That(statusResponse.Status.ServerTime.Day, Is.EqualTo(DateTime.Now.Day));
+			Assert.That(statusResponse.ServiceStatus, Is.Not.Null);
+			Assert.That(statusResponse.ServiceStatus.ServerTime.Day, Is.EqualTo(DateTime.Now.Day));
 		}
 	}
 }
