@@ -4,15 +4,15 @@ namespace SevenDigital.Api.Wrapper.Responses
 {
 	class NullResponseCache : IResponseCache
 	{
-		public void Set(RequestData key, Response value)
+		public void Set(RequestData key, object value)
 		{
 			// don't store it
 		}
 
-		public bool TryGet(RequestData key, out Response value)
+		public bool TryGet<T>(RequestData key, out T value)
 		{
 			// nope, I don't have it
-			value = null;
+			value = default(T);
 			return false;
 		}
 	}
