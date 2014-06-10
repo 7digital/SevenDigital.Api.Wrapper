@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SevenDigital.Api.Wrapper.Extensions
+namespace SevenDigital.Api.Wrapper
 {
 	public enum LockerSortColumn
 	{

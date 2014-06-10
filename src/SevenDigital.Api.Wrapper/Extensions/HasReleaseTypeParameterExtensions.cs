@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SevenDigital.Api.Schema.ParameterDefinitions.Get;
+﻿using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
 
-namespace SevenDigital.Api.Wrapper.Extensions
+namespace SevenDigital.Api.Wrapper
 {
 	public static class HasReleaseTypeParameterExtensions
 	{
@@ -16,7 +12,7 @@ namespace SevenDigital.Api.Wrapper.Extensions
 
 		public static IFluentApi<T> ForReleaseType<T>(this IFluentApi<T> api, string releaseType) where T : HasReleaseTypeParameter
 		{
-			api.WithParameter("type", releaseType.ToString());
+			api.WithParameter("type", releaseType);
 			return api;
 		}
 	}

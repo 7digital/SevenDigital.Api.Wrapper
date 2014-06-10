@@ -1,5 +1,4 @@
 ﻿using SevenDigital.Api.Schema.ParameterDefinitions.Get;
-using SevenDigital.Api.Wrapper.Extensions;
 
 namespace SevenDigital.Api.Wrapper
 {

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace SevenDigital.Api.Wrapper.Extensions
+namespace SevenDigital.Api.Wrapper
 {
 	public static class ShopExtensions
 	{
