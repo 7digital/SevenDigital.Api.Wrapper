@@ -1,7 +1,7 @@
 ﻿using System;
 using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 
-namespace SevenDigital.Api.Wrapper.Extensions
+namespace SevenDigital.Api.Wrapper
 {
 	public static class HasTagsExtensions
 	{
