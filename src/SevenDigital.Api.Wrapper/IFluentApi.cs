@@ -17,6 +17,8 @@ namespace SevenDigital.Api.Wrapper
 		IFluentApi<T> WithPayload<TPayload>(TPayload payload, PayloadFormat payloadSerializer) where TPayload : class;
 
 		Task<Response> Response();
+		Task<TR> ResponseAs<TR>();
+
 		Task<T> Please();
 	}
 }

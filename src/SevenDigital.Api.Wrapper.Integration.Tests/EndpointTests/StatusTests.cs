@@ -1,4 +1,5 @@
 ﻿using System;
+
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
 

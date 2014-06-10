@@ -102,6 +102,8 @@
     <Compile Include="Responses\Parsing\ResponseParserTests.cs" />
     <Compile Include="Responses\Parsing\StringDeserializerTests.cs" />
     <Compile Include="Responses\Parsing\TestObject.cs" />
+    <Compile Include="Responses\Parsing\ResponseDeserializerTests.cs" />
+    <Compile Include="Responses\ResponseTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">

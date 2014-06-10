@@ -34,5 +34,17 @@ namespace SevenDigital.Api.Wrapper.Responses
 			Headers = new Dictionary<string, string>();
 			Body = body;
 		}
+
+		public bool ContentTypeIsJson()
+		{
+			const string ContentTypeHeaderKey = "Content-Type";
+			if (!Headers.ContainsKey(ContentTypeHeaderKey))
+ 			{
+ 				return false;
+ 			}
+
+			var contentType = Headers[ContentTypeHeaderKey];
+ 			return contentType.StartsWith("application/json") || contentType.StartsWith("text/json");
+ 		}
 	}
 }

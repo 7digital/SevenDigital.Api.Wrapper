@@ -119,6 +119,7 @@
     <Compile Include="Requests\DictionaryExtensions.cs" />
     <Compile Include="Http\HttpClientMediator.cs" />
     <Compile Include="Http\IHttpClient.cs" />
+    <Compile Include="Responses\Parsing\Exceptions\JsonParseFailedException.cs" />
     <Compile Include="Responses\Response.cs" />
     <Compile Include="Responses\Parsing\ApiResponseDetector.cs" />
     <Compile Include="Responses\Parsing\ExceptionFactory.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Responses\Parsing\IResponseParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\Parsing\StringDeserializer.cs" />
+    <Compile Include="Responses\Parsing\ResponseDeserializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">
