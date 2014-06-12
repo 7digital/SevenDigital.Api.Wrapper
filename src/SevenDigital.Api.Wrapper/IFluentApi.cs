@@ -5,8 +5,10 @@ using SevenDigital.Api.Wrapper.Responses;
 
 namespace SevenDigital.Api.Wrapper
 {
-	public interface IFluentApi<T> : IApiEndpoint
+	public interface IFluentApi<T>
 	{
+		string EndpointUrl { get; }
+
 		IFluentApi<T> WithParameter(string key, string value);
 		IFluentApi<T> ClearParameters();
 		IFluentApi<T> ForUser(string token, string secret);

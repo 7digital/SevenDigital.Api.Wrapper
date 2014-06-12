@@ -110,7 +110,6 @@
     <Compile Include="Responses\IResponseCache.cs" />
     <Compile Include="Responses\NullResponseCache.cs" />
     <Compile Include="Requests\Request.cs" />
-    <Compile Include="IApiEndpoint.cs" />
     <Compile Include="IApiUri.cs" />
     <Compile Include="IOAuthCredentials.cs" />
     <Compile Include="Requests\RequestData.cs" />
