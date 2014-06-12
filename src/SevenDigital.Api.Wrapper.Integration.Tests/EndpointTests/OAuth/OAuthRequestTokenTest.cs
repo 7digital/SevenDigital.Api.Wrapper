@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Net.Http;
+using NUnit.Framework;
 using SevenDigital.Api.Schema.OAuth;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
@@ -19,7 +20,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 		{
 			var api = (FluentApi<OAuthRequestToken>) Api<OAuthRequestToken>.Create;
 
-			api.WithMethod("POST").WithParameter("one", "two");
+			api.WithMethod(HttpMethod.Post).WithParameter("one", "two");
 
 			var requestToken = await api.Please();
 
@@ -32,7 +33,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 		{
 			var api = (FluentApi<OAuthRequestToken>)Api<OAuthRequestToken>.Create;
 
-			api.WithMethod("POST");
+			api.WithMethod(HttpMethod.Post);
 
 			Assert.DoesNotThrow(async () => await api.Please());
 		}
@@ -54,7 +55,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 		{
 			var api = (FluentApi<OAuthRequestToken>) Api<OAuthRequestToken>.Create;
 
-			api.WithMethod("POST");
+			api.WithMethod(HttpMethod.Post);
 			api.WithParameter("foo", "%! blah"); //arbitrary parameter, but should test for errors in signature generation
 
 			var oAuthRequestToken = await api.Please();

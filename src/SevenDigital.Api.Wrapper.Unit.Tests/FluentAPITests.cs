@@ -61,7 +61,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var requestHandler = StubRequestBuilder();
 			var httpClient = StubHttpClient();
 
-			await new FluentApi<Status>(httpClient, requestHandler).WithMethod("POST").Please();
+			await new FluentApi<Status>(httpClient, requestHandler).WithMethod(HttpMethod.Post).Please();
 
 			Expression<Func<Request>> callWithMethodPost =
 				() => requestHandler.BuildRequest(A<RequestData>.That.Matches(x => x.HttpMethod == HttpMethod.Post));
@@ -75,18 +75,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			var requestHandler = A.Fake<IRequestBuilder>();
 			var api = new FluentApi<Status>(requestHandler);
 
-			api.WithMethod("GET");
-			api.WithMethod("POST");
-			api.WithMethod("PUT");
-			api.WithMethod("DELETE");
-		}
-
-		[Test]
-		public void Should_fail_when_http_method_is_unrecognised()
-		{
-			var requestHandler = A.Fake<IRequestBuilder>();
-			var api = new FluentApi<Status>(requestHandler);
-			Assert.Throws<ArgumentException>(() => api.WithMethod("FOO"));
+			api.WithMethod(HttpMethod.Get);
+			api.WithMethod(HttpMethod.Post);
+			api.WithMethod(HttpMethod.Put);
+			api.WithMethod(HttpMethod.Delete);
 		}
 
 		[Test]
