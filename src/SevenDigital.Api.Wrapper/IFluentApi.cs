@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests.Serializing;
 using SevenDigital.Api.Wrapper.Responses;
@@ -14,7 +15,7 @@ namespace SevenDigital.Api.Wrapper
 		IFluentApi<T> ForUser(string token, string secret);
 		IFluentApi<T> UsingClient(IHttpClient httpClient);
 		IFluentApi<T> UsingCache(IResponseCache responseCache);
-		IFluentApi<T> WithMethod(string methodName);
+		IFluentApi<T> WithMethod(HttpMethod httpMethod);
 		IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class;
 		IFluentApi<T> WithPayload<TPayload>(TPayload payload, PayloadFormat payloadSerializer) where TPayload : class;
 

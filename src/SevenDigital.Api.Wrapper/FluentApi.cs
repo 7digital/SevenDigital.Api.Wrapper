@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using SevenDigital.Api.Wrapper.Environment;
@@ -72,9 +73,9 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public virtual IFluentApi<T> WithMethod(string methodName)
+		public virtual IFluentApi<T> WithMethod(HttpMethod httpMethod)
 		{
-			_requestData.HttpMethod =  HttpMethodHelpers.Parse(methodName);
+			_requestData.HttpMethod = httpMethod;
 			return this;
 		}
 
