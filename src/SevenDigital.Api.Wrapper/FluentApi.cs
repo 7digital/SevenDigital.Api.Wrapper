@@ -73,25 +73,25 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public virtual IFluentApi<T> WithMethod(HttpMethod httpMethod)
+		public IFluentApi<T> WithMethod(HttpMethod httpMethod)
 		{
 			_requestData.HttpMethod = httpMethod;
 			return this;
 		}
 
-		public virtual IFluentApi<T> WithParameter(string parameterName, string parameterValue)
+		public IFluentApi<T> WithParameter(string parameterName, string parameterValue)
 		{
 			_requestData.Parameters[parameterName] = parameterValue;
 			return this;
 		}
 
-		public virtual IFluentApi<T> ClearParameters()
+		public IFluentApi<T> ClearParameters()
 		{
 			_requestData.Parameters.Clear();
 			return this;
 		}
 
-		public virtual IFluentApi<T> ForUser(string token, string secret)
+		public IFluentApi<T> ForUser(string token, string secret)
 		{
 			_requestData.UserToken = token;
 			_requestData.TokenSecret = secret;
@@ -146,7 +146,7 @@ namespace SevenDigital.Api.Wrapper
 				throw new ApiWebException(webException.Message, webException, request);
 			}
 		}
-		public virtual async Task<T> Please()
+		public async Task<T> Please()
 		{
 			T cachedResult;
 			var foundInCache = _responseCache.TryGet(_requestData, out cachedResult);
@@ -163,7 +163,7 @@ namespace SevenDigital.Api.Wrapper
 			return result;
 		}
 
-		public virtual string EndpointUrl
+		public string EndpointUrl
 		{
 			get
 			{
