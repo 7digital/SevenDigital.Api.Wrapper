@@ -100,7 +100,6 @@
     <Compile Include="Requests\Serializing\XmlTransferContentTypeTest.cs" />
     <Compile Include="Responses\Parsing\ApiResponseDetectorTests.cs" />
     <Compile Include="Responses\Parsing\ResponseParserTests.cs" />
-    <Compile Include="Responses\Parsing\StringDeserializerTests.cs" />
     <Compile Include="Responses\Parsing\TestObject.cs" />
     <Compile Include="Responses\Parsing\ResponseDeserializerTests.cs" />
     <Compile Include="Responses\ResponseTests.cs" />

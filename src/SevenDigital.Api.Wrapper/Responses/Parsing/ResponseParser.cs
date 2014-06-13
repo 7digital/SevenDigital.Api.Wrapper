@@ -94,8 +94,8 @@ namespace SevenDigital.Api.Wrapper.Responses.Parsing
 		{
 			try
 			{
-				var deserializer = new StringDeserializer();
-				return deserializer.DeserializeApiResponse<T>(response.Body);
+				var deserializer = new ResponseDeserializer();
+				return deserializer.DeserializeResponse<T>(response, true);
 			}
 			catch (UnexpectedXmlContentException e)
 			{
