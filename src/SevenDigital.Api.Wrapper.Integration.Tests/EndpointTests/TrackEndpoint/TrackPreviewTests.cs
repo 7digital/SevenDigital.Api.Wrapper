@@ -15,7 +15,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 			var track = await request.Please();
 
 			Assert.That(track, Is.Not.Null);
-			Assert.That(track.Url, Is.EqualTo("http://previews.7digital.com/clips/34/123.clip.mp3"));
+			Assert.That(track.Url, Is.StringStarting("http://previews.7digital.com/clip"));
 		}
 	}
 }
