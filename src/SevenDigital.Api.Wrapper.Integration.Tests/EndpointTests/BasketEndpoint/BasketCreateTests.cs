@@ -18,7 +18,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 			var basketId = await MakeBasket();
 
 			var request = Api<Basket>.Create
-				.UseBasketId(new Guid(basketId));
+				.UseBasketId(basketId);
 			var basket = await request.Please();
 
 			Assert.That(basket, Is.Not.Null);
@@ -31,7 +31,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 			var basketId = await MakeBasket();
 
 			var request = Api<AddItemToBasket>.Create
-				.UseBasketId(new Guid(basketId))
+				.UseBasketId(basketId)
 				.ForReleaseId(EXPECTED_RELEASE_ID);
 			var basketAdded = await request.Please();
 
@@ -43,7 +43,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 			int toRemove = basketAdded.BasketItems.Items.FirstOrDefault().Id;
 
 			var removeRequest = Api<RemoveItemFromBasket>.Create
-				.UseBasketId(new Guid(basketId))
+				.UseBasketId(basketId)
 				.BasketItemId(toRemove);
 			var basketRemoved = await removeRequest.Please();
 
@@ -58,7 +58,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 			var basketId = await MakeBasket();
 
 			var addRequest = Api<AddItemToBasket>.Create
-				.UseBasketId(new Guid(basketId))
+				.UseBasketId(basketId)
 				.ForReleaseId(EXPECTED_RELEASE_ID)
 				.ForTrackId(EXPECTED_TRACK_ID);
 			var basketAdded = await addRequest.Please();
@@ -70,7 +70,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 			int toRemove = basketAdded.BasketItems.Items.FirstOrDefault().Id;
 
 			var request = Api<RemoveItemFromBasket>.Create
-				.UseBasketId(new Guid(basketId))
+				.UseBasketId(basketId)
 				.BasketItemId(toRemove);
 			var basketRemoved = await request.Please();
 
@@ -85,7 +85,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.BasketEndpoin
 			var basketId = await MakeBasket();
 
 			var request = Api<AddItemToBasket>.Create
-				.UseBasketId(new Guid(basketId))
+				.UseBasketId(basketId)
 				.ForReleaseId(EXPECTED_RELEASE_ID);
 			var basket = await request.Please();
 
