@@ -19,7 +19,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public static IFluentApi<T> WithRetailPrice<T>(this IFluentApi<T> api, decimal retailPrice) where T : HasUserDeliverItemParameter
 		{
-			api.WithDecimalParameter("retailPrice", retailPrice);
+			api.WithParameter("retailPrice", retailPrice);
 			return api;
 		}
 	}

@@ -17,7 +17,7 @@ namespace SevenDigital.Api.Wrapper
 
 			if (card.IssueNumber.HasValue)
 			{
-				api.WithIntParameter("cardIssueNumber", card.IssueNumber.Value);
+				api.WithParameter("cardIssueNumber", card.IssueNumber.Value);
 			}
 
 			if (card.StartDate.HasValue)

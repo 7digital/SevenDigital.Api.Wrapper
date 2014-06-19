@@ -4,7 +4,7 @@
 	{
 		public static IFluentApi<T> ForShop<T>(this IFluentApi<T> api, int shopId)
 		{
-			return api.WithIntParameter("shopId", shopId);
+			return api.WithParameter("shopId", shopId);
 		}
 	}
 }

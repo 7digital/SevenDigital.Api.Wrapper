@@ -6,7 +6,7 @@ namespace SevenDigital.Api.Wrapper
 	{
 		public static IFluentApi<T> ForTrackId<T>(this IFluentApi<T> api, int trackId) where T : HasTrackIdParameter 
 		{
-			api.WithIntParameter("trackId", trackId);
+			api.WithParameter("trackId", trackId);
 			return api;
 		}
 	}

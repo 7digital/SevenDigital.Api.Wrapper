@@ -6,7 +6,7 @@ namespace SevenDigital.Api.Wrapper
 	{
 		public static IFluentApi<T> ForPrice<T>(this IFluentApi<T> api, decimal price) where T : HasPriceParameter
 		{
-			api.WithDecimalParameter("price", price);
+			api.WithParameter("price", price);
 			return api;
 		}
 	}

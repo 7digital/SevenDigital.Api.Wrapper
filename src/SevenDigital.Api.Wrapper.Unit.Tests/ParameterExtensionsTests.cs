@@ -10,7 +10,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		public void Should_add_int_parameter()
 		{
 			var basketEndpoint = new FluentApi<AddItemToBasket>();
-			basketEndpoint.WithIntParameter("answer", 42);
+			basketEndpoint.WithParameter("answer", 42);
 
 			Assert.That(basketEndpoint.Parameters.Keys.Contains("answer"));
 			Assert.That(basketEndpoint.Parameters["answer"], Is.EqualTo("42"));
@@ -20,7 +20,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		public void Should_add_decimal_parameter()
 		{
 			var basketEndpoint = new FluentApi<AddItemToBasket>();
-			basketEndpoint.WithDecimalParameter("answer", 42.12m);
+			basketEndpoint.WithParameter("answer", 42.12m);
 
 			Assert.That(basketEndpoint.Parameters.Keys.Contains("answer"));
 			Assert.That(basketEndpoint.Parameters["answer"], Is.EqualTo("42.12"));
