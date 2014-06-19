@@ -6,7 +6,7 @@ namespace SevenDigital.Api.Wrapper
 	{
 		public static IFluentApi<T> WithCard<T>(this IFluentApi<T> api, int cardId) where T : HasCardIdParameter
 		{
-			api.WithParameter("cardId", cardId.ToString());
+			api.WithIntParameter("cardId", cardId);
 			return api;
 		}
 	}

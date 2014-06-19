@@ -6,7 +6,7 @@ namespace SevenDigital.Api.Wrapper
 	{
 		public static IFluentApi<T> ForAffiliatePartner<T>(this IFluentApi<T> api, int partnerId) where T : HasAffiliatePartnerParameter
 		{
-			api.WithParameter("affiliatePartner", partnerId.ToString());
+			api.WithIntParameter("affiliatePartner", partnerId);
 			return api;
 		}
 	}

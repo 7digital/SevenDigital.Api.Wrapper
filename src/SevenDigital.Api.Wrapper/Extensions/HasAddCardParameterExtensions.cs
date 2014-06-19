@@ -1,4 +1,3 @@
-using System.Globalization;
 using SevenDigital.Api.Schema.ParameterDefinitions.Post;
 
 namespace SevenDigital.Api.Wrapper
@@ -15,12 +14,16 @@ namespace SevenDigital.Api.Wrapper
 			api.WithParameter("cardVerificationCode", card.VerificationCode);
 			api.WithParameter("cardPostCode", card.PostCode);
 			api.WithParameter("cardCountry", card.TwoLetterISORegionName);
-			
-			if(card.IssueNumber.HasValue)
-				api.WithParameter("cardIssueNumber", card.IssueNumber.Value.ToString(CultureInfo.InvariantCulture));
-			
+
+			if (card.IssueNumber.HasValue)
+			{
+				api.WithIntParameter("cardIssueNumber", card.IssueNumber.Value);
+			}
+
 			if (card.StartDate.HasValue)
+			{
 				api.WithParameter("cardStartDate", card.StartDate.Value.ToString("yyyyMM"));
+			}
 
 			return api;
 		}
