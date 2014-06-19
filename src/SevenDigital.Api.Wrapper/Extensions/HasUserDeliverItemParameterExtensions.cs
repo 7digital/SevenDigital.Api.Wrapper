@@ -1,3 +1,4 @@
+using System.Globalization;
 using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 
 namespace SevenDigital.Api.Wrapper
@@ -18,7 +19,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public static IFluentApi<T> WithRetailPrice<T>(this IFluentApi<T> api, decimal retailPrice) where T : HasUserDeliverItemParameter
 		{
-			api.WithParameter("retailPrice", retailPrice.ToString());
+			api.WithParameter("retailPrice", retailPrice);
 			return api;
 		}
 	}
