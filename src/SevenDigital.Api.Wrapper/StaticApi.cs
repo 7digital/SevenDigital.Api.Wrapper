@@ -1,8 +1,8 @@
 ﻿namespace SevenDigital.Api.Wrapper
 {
-	public static class ApiForward
+	public static class StaticApiFactory
 	{
-		public static IApi ApiFactory { get; set; }
+		public static IApi Factory { get; set; }
 	}
 
 	public static class Api<T> where T : class, new()
@@ -11,11 +11,11 @@
 		{
 			get
 			{
-				if (ApiForward.ApiFactory == null)
+				if (StaticApiFactory.Factory == null)
 				{
-					ApiForward.ApiFactory = new ApiFactory();
+					StaticApiFactory.Factory = new ApiFactory();
 				}
-				return ApiForward.ApiFactory.Create<T>();
+				return StaticApiFactory.Factory.Create<T>();
 			}
 		}
 	}

@@ -38,7 +38,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 		[Test]
 		public async void Can_hit_endpoint_if_I_pass_credentials_into_static_api()
 		{
-			ApiForward.ApiFactory = new ApiWithCredentials();
+			StaticApiFactory.Factory = new ApiWithCredentials();
 
 			var request = Api<Status>.Create;
 			var status = await request.Please();
