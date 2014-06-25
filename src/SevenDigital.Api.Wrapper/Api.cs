@@ -1,35 +1,15 @@
-﻿using SevenDigital.Api.Schema.ArtistEndpoint;
-
-namespace SevenDigital.Api.Wrapper
+﻿namespace SevenDigital.Api.Wrapper
 {
-	public static class Api<T> where T : class, new()
+	public interface IApi
 	{
-		public static IFluentApi<T> Create
-		{
-			get { return new FluentApi<T>(); }
-		}
-
-		public static IFluentApi<T> CreateWithCreds(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-		{
-			return new FluentApi<T>(oAuthCredentials, apiUri); 
-		}
+		IFluentApi<T> Create<T>() where T : class, new();
 	}
-
-	public static class Api 
+	
+	public class ApiFactory: IApi
 	{
-		public static IFluentApi<ArtistSearch> ArtistSearch 
+		public IFluentApi<T> Create<T>() where T : class, new()
 		{
-			get { return new FluentApi<ArtistSearch>(); }
-		}
-
-		public static IFluentApi<ArtistBrowse> ArtistBrowse 
-		{
-			get { return new FluentApi<ArtistBrowse>(); }
-		}
-
-		public static IFluentApi<ArtistChart> ArtistChart 
-		{
-			get { return new FluentApi<ArtistChart>(); }
+			return new FluentApi<T>();
 		}
 	}
 }
