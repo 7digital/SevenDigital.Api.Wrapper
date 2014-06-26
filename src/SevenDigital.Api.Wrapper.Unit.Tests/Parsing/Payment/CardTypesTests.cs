@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Net;
 using NUnit.Framework;
-using SevenDigital.Api.Schema.Payment;
+using SevenDigital.Api.Schema.Payments;
 using SevenDigital.Api.Wrapper.Responses;
 using SevenDigital.Api.Wrapper.Responses.Parsing;
 

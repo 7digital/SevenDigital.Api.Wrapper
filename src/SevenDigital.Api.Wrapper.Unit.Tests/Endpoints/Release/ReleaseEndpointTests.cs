@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Net;
 using NUnit.Framework;
-using SevenDigital.Api.Schema.ArtistEndpoint;
-using SevenDigital.Api.Schema.ReleaseEndpoint;
+using SevenDigital.Api.Schema.Artists;
+using SevenDigital.Api.Schema.Releases;
 using SevenDigital.Api.Wrapper.Responses;
 using SevenDigital.Api.Wrapper.Responses.Parsing;
 

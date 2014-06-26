@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
-using SevenDigital.Api.Schema.ReleaseEndpoint;
+using SevenDigital.Api.Schema.Releases;
 
 namespace SevenDigital.Api.Schema.Merchandising
 {

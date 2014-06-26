@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using SevenDigital.Api.Schema.ArtistEndpoint;
+using SevenDigital.Api.Schema.Artists;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint
 {

@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using SevenDigital.Api.Schema.TrackEndpoint;
+using SevenDigital.Api.Schema.Tracks;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 {

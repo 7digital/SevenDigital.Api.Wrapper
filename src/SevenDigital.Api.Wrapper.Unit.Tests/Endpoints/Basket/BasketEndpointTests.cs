@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using SevenDigital.Api.Schema.Basket;
+using SevenDigital.Api.Schema.Baskets;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Basket
 {
