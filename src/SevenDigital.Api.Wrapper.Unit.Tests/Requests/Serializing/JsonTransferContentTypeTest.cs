@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using SevenDigital.Api.Schema.ArtistEndpoint;
+using SevenDigital.Api.Schema.Artists;
 using SevenDigital.Api.Wrapper.Requests.Serializing;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing

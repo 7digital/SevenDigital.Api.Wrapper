@@ -1,5 +1,5 @@
 using System;
-using SevenDigital.Api.Schema.Chart;
+using SevenDigital.Api.Schema.Charts;
 using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 
 namespace SevenDigital.Api.Wrapper

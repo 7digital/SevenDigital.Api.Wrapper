@@ -1,5 +1,5 @@
 ﻿using SevenDigital.Api.Schema.ParameterDefinitions.Get;
-using SevenDigital.Api.Schema.ReleaseEndpoint;
+using SevenDigital.Api.Schema.Releases;
 
 namespace SevenDigital.Api.Wrapper
 {

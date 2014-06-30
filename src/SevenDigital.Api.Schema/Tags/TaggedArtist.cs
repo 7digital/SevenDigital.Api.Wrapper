@@ -1,5 +1,5 @@
 ﻿using System.Xml.Serialization;
-using SevenDigital.Api.Schema.ArtistEndpoint;
+using SevenDigital.Api.Schema.Artists;
 
 namespace SevenDigital.Api.Schema.Tags
 {
