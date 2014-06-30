@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
 using NUnit.Framework;
-using SevenDigital.Api.Schema.ArtistEndpoint;
+using SevenDigital.Api.Schema.Artists;
 using SevenDigital.Api.Wrapper.Exceptions;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions

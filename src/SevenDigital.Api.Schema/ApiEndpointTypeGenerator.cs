@@ -27,7 +27,9 @@ namespace SevenDigital.Api.Schema
 			}
 
 			if (correctType == null)
+			{
 				throw new ArgumentException("Could not find endpoint defined with this name");
+			}
 
 			return correctType;
 		}

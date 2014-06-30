@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
-using SevenDigital.Api.Schema.ArtistEndpoint;
+using SevenDigital.Api.Schema.Artists;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
