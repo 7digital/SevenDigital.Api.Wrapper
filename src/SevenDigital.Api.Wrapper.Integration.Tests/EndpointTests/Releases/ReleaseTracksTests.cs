@@ -12,13 +12,13 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 		public async void Can_hit_endpoint()
 		{
 			var request = Api<ReleaseTracks>.Create
-				.ForReleaseId(155408);
+				.ForReleaseId(3070977);
 			var releaseTracks = await request.Please();
 
 			Assert.That(releaseTracks, Is.Not.Null);
 			Assert.That(releaseTracks.Tracks.Count, Is.EqualTo(10));
-			Assert.That(releaseTracks.Tracks.FirstOrDefault().Title, Is.EqualTo("Burning"));
-			Assert.That(releaseTracks.Tracks.FirstOrDefault().Price.Status, Is.EqualTo(PriceStatus.Available));
+			Assert.That(releaseTracks.Tracks.First().Title, Is.EqualTo("Burning"));
+			Assert.That(releaseTracks.Tracks.First().Price.Status, Is.EqualTo(PriceStatus.Available));
 		}
 
 		[Test]
@@ -30,7 +30,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 
 			Assert.That(releaseTracks, Is.Not.Null);
 			Assert.That(releaseTracks.Tracks.Count, Is.EqualTo(1));
-			Assert.That(releaseTracks.Tracks.FirstOrDefault().Price.Status, Is.EqualTo(PriceStatus.Free));
+			Assert.That(releaseTracks.Tracks.First().Price.Status, Is.EqualTo(PriceStatus.Free));
 		}
 
 		[Test]
@@ -42,7 +42,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 
 			Assert.That(releaseTracks, Is.Not.Null);
 			Assert.That(releaseTracks.Tracks.Count, Is.GreaterThanOrEqualTo(1));
-			Assert.That(releaseTracks.Tracks.FirstOrDefault().Price.Status, Is.EqualTo(PriceStatus.UnAvailable));
+			Assert.That(releaseTracks.Tracks.First().Price.Status, Is.EqualTo(PriceStatus.UnAvailable));
 		}
 	}
 }

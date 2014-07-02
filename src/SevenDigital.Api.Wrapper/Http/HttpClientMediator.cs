@@ -12,11 +12,16 @@ namespace SevenDigital.Api.Wrapper.Http
 	{
 		public async Task<Response> Send(Request request)
 		{
-			var httpClient = MakeHttpClient();
-			var httpRequest = MakeHttpRequest(request);
-
-			var httpResponse = await httpClient.SendAsync(httpRequest);
-			return await MakeResponse(httpResponse, request);
+			using (var httpClient = MakeHttpClient())
+			{
+				using (var httpRequest = MakeHttpRequest(request))
+				{
+					using (var httpResponse = await httpClient.SendAsync(httpRequest))
+					{
+						return await MakeResponse(httpResponse, request);
+					}
+				}
+			}
 		}
 
 		private static HttpClient MakeHttpClient()

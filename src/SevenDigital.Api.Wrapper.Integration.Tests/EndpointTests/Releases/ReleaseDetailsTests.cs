@@ -11,13 +11,13 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 		public async void Can_hit_endpoint()
 		{
 			var request = Api<Release>.Create
-				.WithParameter("releaseId", "155408")
+				.WithParameter("releaseId", "3070977")
 				.WithParameter("country", "GB");
 			var release = await request.Please();
 
 			Assert.That(release, Is.Not.Null);
 			Assert.That(release.Title, Is.EqualTo("Dreams"));
-			Assert.That(release.Artist.Name, Is.EqualTo("The Whitest Boy Alive"));
+			Assert.That(release.Artist.Name, Is.EqualTo("Whitest Boy Alive"));
 			Assert.That(release.TrackCount, Is.EqualTo(10));
 		}
 
