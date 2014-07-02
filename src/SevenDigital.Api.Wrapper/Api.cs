@@ -14,7 +14,10 @@ namespace SevenDigital.Api.Wrapper
 	{
 		public IFluentApi<T> Create<T>() where T : class, new()
 		{
-			return new FluentApi<T>(new HttpClientMediator(), new RequestBuilder(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance), new ResponseParser(new ApiResponseDetector()));
+			var apiUri = EssentialDependencyCheck<IApiUri>.Instance;
+			var oAuthConsumerCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
+
+			return new FluentApi<T>(new HttpClientMediator(), new RequestBuilder(apiUri, oAuthConsumerCredentials), new ResponseParser(new ApiResponseDetector()));
 		}
 	}
 }
