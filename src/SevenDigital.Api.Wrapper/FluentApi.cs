@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-
 using SevenDigital.Api.Wrapper.Environment;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
@@ -29,27 +28,15 @@ namespace SevenDigital.Api.Wrapper
 			new JsonPayloadSerializer()
 		};
 
-		public FluentApi(IHttpClient httpClient, IRequestBuilder requestBuilder) 
+		public FluentApi(IHttpClient httpClient, IRequestBuilder requestBuilder, IResponseParser responseParser)
 		{
 			_httpClient = httpClient;
 			_requestBuilder = requestBuilder;
+			_parser = responseParser;
 
 			var attributeValidation = new AttributeRequestDataBuilder<T>();
 			_requestData = attributeValidation.BuildRequestData();
-
-			_parser = new ResponseParser(new ApiResponseDetector());
 		}
-
-		public FluentApi(IRequestBuilder requestBuilder) : this(new HttpClientMediator(), requestBuilder)
-		{}
-
-		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-			: this(new HttpClientMediator(), new RequestBuilder(apiUri, oAuthCredentials))
-			{}
-
-		public FluentApi()
-			: this(new HttpClientMediator(), new RequestBuilder(EssentialDependencyCheck<IApiUri>.Instance, EssentialDependencyCheck<IOAuthCredentials>.Instance))
-		{}
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
 		{

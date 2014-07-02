@@ -102,7 +102,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 				Console.WriteLine("Trying user/locker without any credentials...");
 				await api.Create<Locker>().Please();
 			}
-			catch (ApiResponseException ex)
+			catch (ArgumentException ex)
 			{
 				Console.WriteLine("{0} : {1}", ex, ex.Message);
 			}

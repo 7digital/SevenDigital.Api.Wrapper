@@ -11,6 +11,7 @@ using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
 using SevenDigital.Api.Wrapper.Requests.Serializing;
 using SevenDigital.Api.Wrapper.Responses;
+using SevenDigital.Api.Wrapper.Responses.Parsing;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 {
@@ -25,10 +26,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 		{
 			_requestBuilder = A.Fake<IRequestBuilder>();
 			var httpClient = A.Fake<IHttpClient>();
+			var responseParser = A.Fake<IResponseParser>();
+
 			var responseXml = File.ReadAllText("StubResponses/Playlists.xml");
 			var validPlaylistsResponse = new Response(HttpStatusCode.OK, responseXml);
 			A.CallTo(() => httpClient.Send(null)).WithAnyArguments().Returns(Task.FromResult(validPlaylistsResponse));
-			_fluentApi = new FluentApi<UserPlaylists>(httpClient, _requestBuilder);
+			_fluentApi = new FluentApi<UserPlaylists>(httpClient, _requestBuilder, responseParser);
 
 		}
 
