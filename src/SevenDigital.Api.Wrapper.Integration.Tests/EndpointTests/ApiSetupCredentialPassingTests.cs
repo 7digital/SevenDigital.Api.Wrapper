@@ -1,6 +1,9 @@
 using System;
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
+using SevenDigital.Api.Wrapper.Http;
+using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Responses.Parsing;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 {
@@ -17,7 +20,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 
 		public IFluentApi<T> Create<T>() where T : class, new()
 		{
-			return new FluentApi<T>(_credentials, _apiUrl);
+			return new FluentApi<T>(new HttpClientMediator(), new RequestBuilder(_apiUrl, _credentials), new ResponseParser(new ApiResponseDetector()));
 		}
 	}
 

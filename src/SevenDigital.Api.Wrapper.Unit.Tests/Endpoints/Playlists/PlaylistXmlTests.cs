@@ -10,6 +10,7 @@ using SevenDigital.Api.Schema.Playlists.Response.Endpoints;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
 using SevenDigital.Api.Wrapper.Responses;
+using SevenDigital.Api.Wrapper.Responses.Parsing;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 {
@@ -23,10 +24,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 		{
 			var requestBuilder = A.Fake<IRequestBuilder>();
 			var httpClient = A.Fake<IHttpClient>();
+			var responseParser = new ResponseParser(new ApiResponseDetector());
+
 			var responseXml = File.ReadAllText("StubResponses/Playlist.xml");
 			var validPlaylistsResponse = new Response(HttpStatusCode.OK, responseXml);
 			A.CallTo(() => httpClient.Send(null)).WithAnyArguments().Returns(Task.FromResult(validPlaylistsResponse));
-			var fluentApi = new FluentApi<Playlist>(httpClient, requestBuilder);
+			var fluentApi = new FluentApi<Playlist>(httpClient, requestBuilder, responseParser);
 
 			_playlist = await fluentApi.Please();
 		}

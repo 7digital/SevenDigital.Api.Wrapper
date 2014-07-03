@@ -16,19 +16,20 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			var artistId = Convert.ToInt32(s);
 
 			var appSettingsCredentials = new AppSettingsCredentials();
+			var apiUri = new ApiUri();
+
+			var api = new ApiFactory(apiUri, appSettingsCredentials);
 			Console.WriteLine("Using creds: {0} - {1}", appSettingsCredentials.ConsumerKey, appSettingsCredentials.ConsumerSecret);
 
 			// console apps can't have an async main method, so we have to call an async method 
-			var task = Use7DigitalApi(artistId);
+			var task = Use7DigitalApi(api, artistId);
 			task.Wait();
 
 			Console.ReadKey();
 		}
 
-		private static async Task Use7DigitalApi(int artistId)
+		private static async Task Use7DigitalApi(IApi api, int artistId)
 		{
-			var api = new ApiFactory();
-
 			// -- artist/details
 			var artist = await api.Create<Artist>()
 				.WithArtistId(artistId)
@@ -37,7 +38,6 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			Console.WriteLine("Artist \"{0}\" selected", artist.Name);
 			Console.WriteLine("Website url is {0}", artist.Url);
 			Console.WriteLine();
-
 
 			// -- artist/toptracks
 			var artistTopTracks = await api.Create<ArtistTopTracks>()
@@ -102,7 +102,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 				Console.WriteLine("Trying user/locker without any credentials...");
 				await api.Create<Locker>().Please();
 			}
-			catch (ApiResponseException ex)
+			catch (ArgumentException ex)
 			{
 				Console.WriteLine("{0} : {1}", ex, ex.Message);
 			}

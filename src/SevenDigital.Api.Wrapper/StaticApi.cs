@@ -1,4 +1,6 @@
-﻿namespace SevenDigital.Api.Wrapper
+﻿using SevenDigital.Api.Wrapper.Environment;
+
+namespace SevenDigital.Api.Wrapper
 {
 	public static class StaticApiFactory
 	{
@@ -13,7 +15,9 @@
 			{
 				if (StaticApiFactory.Factory == null)
 				{
-					StaticApiFactory.Factory = new ApiFactory();
+					var apiUri = EssentialDependencyCheck<IApiUri>.Instance;
+					var oAuthConsumerCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
+					StaticApiFactory.Factory = new ApiFactory(apiUri, oAuthConsumerCredentials);
 				}
 				return StaticApiFactory.Factory.Create<T>();
 			}

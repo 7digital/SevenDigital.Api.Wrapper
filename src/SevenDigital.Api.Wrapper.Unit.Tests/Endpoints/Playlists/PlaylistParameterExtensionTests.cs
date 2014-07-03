@@ -5,6 +5,7 @@ using NUnit.Framework;
 using SevenDigital.Api.Schema.Playlists.Response.Endpoints;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Responses.Parsing;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 {
@@ -19,7 +20,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 		{
 			_requestBuilder = A.Fake<IRequestBuilder>();
 			var httpClient = A.Fake<IHttpClient>();
-			_fluentApi = new FluentApi<Playlist>(httpClient, _requestBuilder);
+			var responseParser = A.Fake<IResponseParser>();
+
+			_fluentApi = new FluentApi<Playlist>(httpClient, _requestBuilder, responseParser);
 		}
 
 		[Test]
