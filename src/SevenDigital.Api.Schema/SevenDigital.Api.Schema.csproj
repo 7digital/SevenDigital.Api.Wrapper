@@ -163,7 +163,7 @@
     <Compile Include="Tracks\TrackSearch.cs" />
     <Compile Include="Tracks\TrackSearchResult.cs" />
     <Compile Include="Tracks\TrackType.cs" />
-    <Compile Include="Translations\Translations.cs" />
+    <Compile Include="Translations\TranslationList.cs" />
     <Compile Include="Users\Payments\Card.cs" />
     <Compile Include="Users\Payments\CardRegistrationDetails.cs" />
     <Compile Include="Users\Payments\CardRegistration.cs" />

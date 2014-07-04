@@ -8,7 +8,7 @@ namespace SevenDigital.Api.Schema.Translations
 	[ApiEndpoint("translations")]
 	[XmlRoot("translations")]
 	[Serializable]
-	public class Translations : HasPaging
+	public class TranslationList : HasPaging
 	{
 		[XmlElement("translation")]
 		public List<Translation> TranslationItems { get; set; }
