@@ -8,6 +8,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
 using SevenDigital.Api.Schema.Artists;
+using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
@@ -377,6 +378,34 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == "application/xml" && x.Payload.Data == expectedOutput));
 
 			A.CallTo(callWithExpectedPayload).MustHaveHappened();
+		}
+
+		[Test]
+		public async void Should_set_base_uri_provider_if_it_is_present_on_incoming_dto()
+		{
+			var requestBuilder = StubRequestBuilder();
+			var httpClient = StubHttpClient();
+			var responseParser = StubResponseParser();
+
+			await new FluentApi<EndpointWithOwnBaseUri>(httpClient, requestBuilder, responseParser)
+				.Please();
+
+			Expression<Func<Request>> callWithExpectedPayload =() =>
+				requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.BaseUriProviderProvider.Uri == "http://www.7dizzle.com"));
+
+			A.CallTo(callWithExpectedPayload).MustHaveHappened();
+		}
+	}
+
+	[ApiEndpoint("bfoo")]
+	public class EndpointWithOwnBaseUri : IBaseUriProvider
+	{
+		public string Uri 
+		{
+			get
+			{
+				return "http://www.7dizzle.com";
+			}
 		}
 	}
 }

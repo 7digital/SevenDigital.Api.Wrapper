@@ -59,6 +59,7 @@
     <Compile Include="Extensions\HasPlaylistItemIdParameterExtensions.cs" />
     <Compile Include="Extensions\ParameterExtensions.cs" />
     <Compile Include="Extensions\ShopExtensions.cs" />
+    <Compile Include="IBaseUriProvider.cs" />
     <Compile Include="Requests\IRequestBuilder.cs" />
     <Compile Include="Requests\RequestBuilder.cs" />
     <Compile Include="Requests\RequestPayload.cs" />

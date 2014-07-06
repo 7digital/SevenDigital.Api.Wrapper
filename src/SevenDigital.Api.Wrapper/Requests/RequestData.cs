@@ -34,6 +34,8 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 		public string Accept { get; set; }
 
+		public IBaseUriProvider BaseUriProviderProvider { get; set; }
+
 		public RequestData()
 		{
 			Endpoint = string.Empty;
