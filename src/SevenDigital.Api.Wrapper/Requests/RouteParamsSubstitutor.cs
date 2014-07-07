@@ -31,9 +31,9 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 		private string GetApiBaseUrl(RequestData requestData)
 		{
-			if (requestData.BaseUriProviderProvider != null)
+			if (requestData.BaseUriProvider != null)
 			{
-				var providedUrl = requestData.BaseUriProviderProvider.BaseUri(requestData);
+				var providedUrl = requestData.BaseUriProvider.BaseUri(requestData);
 				if (! string.IsNullOrEmpty(providedUrl))
 				{
 					return providedUrl;

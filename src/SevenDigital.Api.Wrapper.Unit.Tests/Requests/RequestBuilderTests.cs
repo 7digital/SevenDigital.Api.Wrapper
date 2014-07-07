@@ -145,7 +145,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				Endpoint = "test",
 				HttpMethod = HttpMethod.Get,
 				Headers = new Dictionary<string, string>(),
-				BaseUriProviderProvider = baseUriProvider
+				BaseUriProvider = baseUriProvider
 			};
 
 			var response = _requestBuilder.BuildRequest(requestData);

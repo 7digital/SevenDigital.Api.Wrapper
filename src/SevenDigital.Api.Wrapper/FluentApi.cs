@@ -37,7 +37,7 @@ namespace SevenDigital.Api.Wrapper
 			var attributeValidation = new AttributeRequestDataBuilder<T>();
 			_requestData = attributeValidation.BuildRequestData();
 
-			_requestData.BaseUriProviderProvider = FindBaseUrlProvider();
+			_requestData.BaseUriProvider = FindBaseUrlProvider();
 		}
 
 		private IBaseUriProvider FindBaseUrlProvider()
