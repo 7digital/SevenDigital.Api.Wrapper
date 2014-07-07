@@ -33,10 +33,19 @@ namespace SevenDigital.Api.Wrapper.Requests
 		{
 			if (requestData.BaseUriProviderProvider != null)
 			{
-				return requestData.BaseUriProviderProvider.Uri;
+				var providedUrl = requestData.BaseUriProviderProvider.BaseUri(requestData);
+				if (! string.IsNullOrEmpty(providedUrl))
+				{
+					return providedUrl;
+				}
 			}
 
-			return requestData.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
+			if (requestData.UseHttps)
+			{
+				return _apiUri.SecureUri;
+			}
+
+			return _apiUri.Uri;
 		}
 
 		private static string SubstituteRouteParameters(string endpointUri, IDictionary<string, string> parameters)

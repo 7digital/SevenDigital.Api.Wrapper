@@ -138,7 +138,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		{
 			const string expectedApiUri = "http://api.7dizzle";
 			var baseUriProvider = A.Fake<IBaseUriProvider>();
-			A.CallTo(() => baseUriProvider.Uri).Returns(expectedApiUri);
+			A.CallTo(() => baseUriProvider.BaseUri(A<RequestData>.Ignored)).Returns(expectedApiUri);
 
 			var requestData = new RequestData
 			{
