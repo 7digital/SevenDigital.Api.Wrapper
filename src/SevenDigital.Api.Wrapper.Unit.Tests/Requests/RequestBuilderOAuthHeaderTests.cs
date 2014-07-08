@@ -56,8 +56,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var requestData = new RequestData
 				{
 					RequiresSignature = true,
-					UserToken = "TOKEN",
-					TokenSecret = "SECRET"
+					OAuthToken = "TOKEN",
+					OAuthTokenSecret = "SECRET"
 				};
 
 			var actual = GetAuthHeader(requestData);

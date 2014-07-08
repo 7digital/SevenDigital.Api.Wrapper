@@ -12,7 +12,7 @@ namespace SevenDigital.Api.Wrapper
 
 		IFluentApi<T> WithParameter(string key, string value);
 		IFluentApi<T> ClearParameters();
-		IFluentApi<T> ForUser(string token, string secret);
+		IFluentApi<T> ForUser(string oAuthToken, string oAuthTokenSecret);
 		IFluentApi<T> UsingClient(IHttpClient httpClient);
 		IFluentApi<T> UsingCache(IResponseCache responseCache);
 		IFluentApi<T> WithMethod(HttpMethod httpMethod);

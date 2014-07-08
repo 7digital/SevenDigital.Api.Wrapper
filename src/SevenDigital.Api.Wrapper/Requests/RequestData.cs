@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 
 namespace SevenDigital.Api.Wrapper.Requests
@@ -16,19 +15,11 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 		public bool UseHttps { get; set; }
 
-		public string UserToken { get; set; }
+		public string OAuthToken { get; set; }
 
-		public string TokenSecret { get; set; }
-
-		[Obsolete("Use TokenSecret")]
-		public string UserSecret { get { return TokenSecret; } set { TokenSecret = value; } }
+		public string OAuthTokenSecret { get; set; }
 
 		public bool RequiresSignature { get; set; }
-
-		public bool HasToken
-		{
-			get { return UserToken != null; }
-		}
 
 		public RequestPayload Payload {get; set; }
 

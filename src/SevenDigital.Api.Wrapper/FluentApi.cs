@@ -78,10 +78,10 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public IFluentApi<T> ForUser(string token, string secret)
+		public IFluentApi<T> ForUser(string oAuthToken, string oAuthTokenSecret)
 		{
-			_requestData.UserToken = token;
-			_requestData.TokenSecret = secret;
+			_requestData.OAuthToken = oAuthToken;
+			_requestData.OAuthTokenSecret = oAuthTokenSecret;
 			return this;
 		}
 
