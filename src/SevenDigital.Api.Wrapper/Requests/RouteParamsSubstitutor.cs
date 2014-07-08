@@ -33,7 +33,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 		{
 			if (requestData.BaseUriProvider != null)
 			{
-				var providedUrl = requestData.BaseUriProvider.BaseUri(requestData);
+				var providedUrl = requestData.BaseUriProvider.BaseUri();
 				if (! string.IsNullOrEmpty(providedUrl))
 				{
 					return providedUrl;

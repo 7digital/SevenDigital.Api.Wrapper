@@ -47,7 +47,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 	[ApiEndpoint("foo")]
 	public class EndpointWithOwnBaseUri : IBaseUriProvider
 	{
-		public string BaseUri(RequestData requestData)
+		public string BaseUri()
 		{
 			return "http://www.7dizzle.com";
 		}
