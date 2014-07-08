@@ -76,10 +76,10 @@ namespace SevenDigital.Api.Wrapper.Requests
 					ConsumerSecret = _oAuthCredentials.ConsumerSecret,
 				};
 
-			if (!string.IsNullOrEmpty(requestData.UserToken))
+			if (!string.IsNullOrEmpty(requestData.OAuthToken))
 			{
-				oauthRequest.Token = requestData.UserToken;
-				oauthRequest.TokenSecret = requestData.TokenSecret;
+				oauthRequest.Token = requestData.OAuthToken;
+				oauthRequest.TokenSecret = requestData.OAuthTokenSecret;
 			}
 
 			return oauthRequest.GetAuthorizationHeader(parameters);
