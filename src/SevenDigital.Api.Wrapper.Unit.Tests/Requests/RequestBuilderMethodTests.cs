@@ -216,8 +216,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		public void Should_include_oauth_token_if_required()
 		{
 			var requestData = MakeRequestData(TestedHttpMethod, true);
-			requestData.UserToken = "foo";
-			requestData.TokenSecret = "bar";
+			requestData.OAuthToken = "foo";
+			requestData.OAuthTokenSecret = "bar";
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
