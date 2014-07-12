@@ -73,7 +73,7 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public IFluentApi<T> UsingBaseUriProvider(IBaseUriProvider baseUriProvider)
+		public IFluentApi<T> UsingBaseUri(IBaseUriProvider baseUriProvider)
 		{
 			if (baseUriProvider == null)
 			{
