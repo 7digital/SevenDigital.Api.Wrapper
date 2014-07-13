@@ -16,7 +16,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 		public ApiRequest SubstituteParamsInRequest(RequestData requestData)
 		{
-			var apiBaseUrl = requestData.UseHttps ? _apiUri.SecureUri : _apiUri.Uri;
+			var apiBaseUrl = GetApiBaseUrl(requestData);
 
 			var withoutRouteParameters = new Dictionary<string, string>(requestData.Parameters);
 
@@ -27,6 +27,25 @@ namespace SevenDigital.Api.Wrapper.Requests
 				AbsoluteUrl = string.Format("{0}/{1}", apiBaseUrl, pathWithRouteParamsSubstituted),
 				Parameters = withoutRouteParameters
 			};
+		}
+
+		private string GetApiBaseUrl(RequestData requestData)
+		{
+			if (requestData.BaseUriProvider != null)
+			{
+				var providedUrl = requestData.BaseUriProvider.BaseUri();
+				if (! string.IsNullOrEmpty(providedUrl))
+				{
+					return providedUrl;
+				}
+			}
+
+			if (requestData.UseHttps)
+			{
+				return _apiUri.SecureUri;
+			}
+
+			return _apiUri.Uri;
 		}
 
 		private static string SubstituteRouteParameters(string endpointUri, IDictionary<string, string> parameters)

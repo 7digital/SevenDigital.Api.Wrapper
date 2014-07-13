@@ -8,6 +8,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
 using SevenDigital.Api.Schema.Artists;
+using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
