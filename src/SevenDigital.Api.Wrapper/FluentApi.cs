@@ -36,20 +36,8 @@ namespace SevenDigital.Api.Wrapper
 
 			var attributeValidation = new AttributeRequestDataBuilder<T>();
 			_requestData = attributeValidation.BuildRequestData();
-
-			_requestData.BaseUriProvider = FindBaseUrlProvider();
 		}
 
-		private IBaseUriProvider FindBaseUrlProvider()
-		{
-			if (typeof(IBaseUriProvider).IsAssignableFrom(typeof(T)))
-			{
-				var instance = new T();
-				return instance as IBaseUriProvider;
-			}
-
-			return null;
-		}
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
 		{

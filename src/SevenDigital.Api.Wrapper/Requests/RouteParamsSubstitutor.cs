@@ -7,11 +7,11 @@ namespace SevenDigital.Api.Wrapper.Requests
 {
 	public class RouteParamsSubstitutor
 	{
-		private readonly IApiUri _apiUri;
+		private readonly IBaseUriProvider _defaultBaseUriProvider;
 
 		public RouteParamsSubstitutor(IApiUri apiUri)
 		{
-			_apiUri = apiUri;
+			_defaultBaseUriProvider = new ApiBaseUriProvider(apiUri);
 		}
 
 		public ApiRequest SubstituteParamsInRequest(RequestData requestData)
@@ -31,21 +31,9 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 		private string GetApiBaseUrl(RequestData requestData)
 		{
-			if (requestData.BaseUriProvider != null)
-			{
-				var providedUrl = requestData.BaseUriProvider.BaseUri();
-				if (! string.IsNullOrEmpty(providedUrl))
-				{
-					return providedUrl;
-				}
-			}
+			var baseUriProvider = requestData.BaseUriProvider ?? _defaultBaseUriProvider;
 
-			if (requestData.UseHttps)
-			{
-				return _apiUri.SecureUri;
-			}
-
-			return _apiUri.Uri;
+			return baseUriProvider.BaseUri(requestData);
 		}
 
 		private static string SubstituteRouteParameters(string endpointUri, IDictionary<string, string> parameters)

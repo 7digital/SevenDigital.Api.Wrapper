@@ -4,7 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using FakeItEasy;
 using NUnit.Framework;
-
+using SevenDigital.Api.Schema;
 using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
@@ -28,28 +28,20 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		}
 
 		[Test]
-		public async void Should_set_base_uri_provider_if_it_is_present_on_incoming_dto()
+		public async void Should_set_base_uri_provider_if_it_is_present_on_api()
 		{
 			var requestBuilder = A.Fake<IRequestBuilder>();
 			var httpClient = StubHttpClient();
 			var responseParser = A.Fake<IResponseParser>();
 
-			await new FluentApi<EndpointWithOwnBaseUri>(httpClient, requestBuilder, responseParser)
+			await new FluentApi<Status>(httpClient, requestBuilder, responseParser)
+				.UsingBaseUri("http://test.com")
 				.Please();
 
 			Expression<Func<Request>> callWithExpectedPayload = () =>
-				requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.BaseUriProvider.GetType() == typeof(EndpointWithOwnBaseUri)));
+				requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.BaseUriProvider.GetType() == typeof(StringBaseUriProvider)));
 
 			A.CallTo(callWithExpectedPayload).MustHaveHappened();
-		}
-	}
-
-	[ApiEndpoint("foo")]
-	public class EndpointWithOwnBaseUri : IBaseUriProvider
-	{
-		public string BaseUri()
-		{
-			return "http://www.7dizzle.com";
 		}
 	}
 }

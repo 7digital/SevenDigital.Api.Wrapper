@@ -7,12 +7,8 @@ using SevenDigital.Api.Schema.Attributes;
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 {
 	[ApiEndpoint("")]
-	public class GoogleEndpoint : IBaseUriProvider
+	public class GeneralEndpoint
 	{
-		public string BaseUri()
-		{
-			return "http://www.google.com";
-		}
 	}
 
 	[TestFixture]
@@ -21,8 +17,11 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 		[Test]
 		public async void Should_reach_google()
 		{
-			var googleResponse = await Api<GoogleEndpoint>.Create.Response();
+			var googleResponse = await Api<GeneralEndpoint>.Create
+				.UsingBaseUri("http://www.google.com")
+				.Response();
 
+			Assert.That(googleResponse.OriginalRequest.Url, Is.StringStarting("http://www.google.com"));
 			Assert.That(googleResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
 		}
 	}
