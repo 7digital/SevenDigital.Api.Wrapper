@@ -1,6 +1,4 @@
-using SevenDigital.Api.Wrapper.Requests;
-
-namespace SevenDigital.Api.Wrapper
+namespace SevenDigital.Api.Wrapper.Requests
 {
 	public interface IBaseUriProvider
 	{

@@ -39,7 +39,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 				.Please();
 
 			Expression<Func<Request>> callWithExpectedPayload = () =>
-				requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.BaseUriProvider.GetType() == typeof(StringBaseUriProvider)));
+				requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.BaseUriProvider.GetType() == typeof(BaseUriFromString)));
 
 			A.CallTo(callWithExpectedPayload).MustHaveHappened();
 		}

@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using SevenDigital.Api.Wrapper.Http;
+using SevenDigital.Api.Wrapper.Requests;
 using SevenDigital.Api.Wrapper.Requests.Serializing;
 using SevenDigital.Api.Wrapper.Responses;
 

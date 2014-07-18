@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 		public RouteParamsSubstitutor(IApiUri apiUri)
 		{
-			_defaultBaseUriProvider = new ApiBaseUriProvider(apiUri);
+			_defaultBaseUriProvider = new BaseUriFromApiUri(apiUri);
 		}
 
 		public ApiRequest SubstituteParamsInRequest(RequestData requestData)
