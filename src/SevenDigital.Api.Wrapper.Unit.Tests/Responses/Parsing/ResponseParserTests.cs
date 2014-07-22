@@ -19,10 +19,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			Assert.Throws<ArgumentNullException>(() => apiXmlDeserializer.Parse<TestObject>(null));
 		}
 
+		/// <summary>
+		/// success case with-well formed response
+		/// </summary>
 		[Test]
 		public void Can_deserialize_object()
 		{
-			//success case with well formed response
 			const string xml = "<?xml version=\"1.0\"?><response xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" status=\"ok\"><testObject id=\"1\"> <name>A big test object</name><listOfThings><string>one</string><string>two</string><string>three</string></listOfThings><listOfInnerObjects><InnerObject id=\"1\"><Name>Trevor</Name></InnerObject><InnerObject id=\"2\"><Name>Bill</Name></InnerObject></listOfInnerObjects></testObject></response>";
 
 			var stubResponse = new Response(HttpStatusCode.OK, xml);
@@ -31,7 +33,38 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 
 			Assert.DoesNotThrow(() => xmlParser.Parse<TestObject>(stubResponse));
 
-			TestObject testObject = xmlParser.Parse<TestObject>(stubResponse);
+			var testObject = xmlParser.Parse<TestObject>(stubResponse);
+
+			Assert.That(testObject.Id, Is.EqualTo(1));
+		}
+
+		[Test]
+		public void Can_deserialize_object_without_namespaces()
+		{
+			const string xml = "<?xml version=\"1.0\"?><response status=\"ok\"><testObject id=\"1\"> <name>A big test object</name><listOfThings><string>one</string><string>two</string><string>three</string></listOfThings><listOfInnerObjects><InnerObject id=\"1\"><Name>Trevor</Name></InnerObject><InnerObject id=\"2\"><Name>Bill</Name></InnerObject></listOfInnerObjects></testObject></response>";
+
+			var stubResponse = new Response(HttpStatusCode.OK, xml);
+
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
+
+			Assert.DoesNotThrow(() => xmlParser.Parse<TestObject>(stubResponse));
+
+			var testObject = xmlParser.Parse<TestObject>(stubResponse);
+
+			Assert.That(testObject.Id, Is.EqualTo(1));
+		}
+
+		[Test]
+		public void Can_deserialize_object_without_xml_declaration()
+		{
+			const string xml = "<response status=\"ok\"><testObject id=\"1\"> <name>A big test object</name><listOfThings><string>one</string><string>two</string><string>three</string></listOfThings><listOfInnerObjects><InnerObject id=\"1\"><Name>Trevor</Name></InnerObject><InnerObject id=\"2\"><Name>Bill</Name></InnerObject></listOfInnerObjects></testObject></response>";
+			var stubResponse = new Response(HttpStatusCode.OK, xml);
+
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
+
+			Assert.DoesNotThrow(() => xmlParser.Parse<TestObject>(stubResponse));
+
+			var testObject = xmlParser.Parse<TestObject>(stubResponse);
 
 			Assert.That(testObject.Id, Is.EqualTo(1));
 		}
@@ -131,7 +164,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			Assert.That(ex.Message, Is.EqualTo("Test error"));
 		}
 
-		//badly formed xmls / response
+		//badly formed xml / response
 		[Test]
 		public void Should_not_fail_if_xml_is_a_malformed_api_error()
 		{
@@ -201,7 +234,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		}
 
 		[Test]
-		public void Error_captures_http_status_code_from_html()
+		public void Detects_html_as_not_xml()
 		{
 			const string badXml = "<html><head>Error</head><body>It did not work<br><hr></body></html>";
 
@@ -214,6 +247,19 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			Assert.That(ex, Is.Not.Null);
 			Assert.That(ex.Message, Is.EqualTo("Response is not xml"));
 			Assert.That(ex.ResponseBody, Is.EqualTo(badXml));
+		}
+
+		[Test]
+		public void Error_captures_http_status_code_from_html()
+		{
+			const string badXml = "<html><head>Error</head><body>It did not work<br><hr></body></html>";
+
+			var response = new Response(HttpStatusCode.InternalServerError, badXml);
+
+			var xmlParser = new ResponseParser(new ApiResponseDetector());
+
+			var ex = Assert.Throws<NonXmlResponseException>(() => xmlParser.Parse<TestObject>(response));
+
 			Assert.That(ex.StatusCode, Is.EqualTo(response.StatusCode));
 		}
 

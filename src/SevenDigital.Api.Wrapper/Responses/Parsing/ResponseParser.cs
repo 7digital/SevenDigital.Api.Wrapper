@@ -33,9 +33,17 @@ namespace SevenDigital.Api.Wrapper.Responses.Parsing
 				throw new NonXmlResponseException(response);
 			}
 
-			if (!_apiResponseDetector.IsXml(response.Body))
+			if (!_apiResponseDetector.StartsWithXmlDeclaration(response.Body))
 			{
-				DetectAndThrowForNonXmlResponses(response);
+				if (_apiResponseDetector.IsOAuthError(response.Body))
+				{
+					throw new OAuthException(response);
+				}
+
+				if (! _apiResponseDetector.IsWellFormedXml(response.Body))
+				{
+					throw new NonXmlResponseException(response);
+				}
 			}
 
 			if (!_apiResponseDetector.IsApiOkResponse(response.Body) && !_apiResponseDetector.IsApiErrorResponse(response.Body))
@@ -50,16 +58,6 @@ namespace SevenDigital.Api.Wrapper.Responses.Parsing
 
 			var error = ParseError(response);
 			throw ExceptionFactory.CreateApiErrorException(error, response);
-		}
-
-		private void DetectAndThrowForNonXmlResponses(Response response)
-		{
-			if (_apiResponseDetector.IsOAuthError(response.Body))
-			{
-				throw new OAuthException(response);
-			}
-
-			throw new NonXmlResponseException(response);
 		}
 
 		private Error ParseError(Response response)

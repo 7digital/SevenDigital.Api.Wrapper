@@ -1,4 +1,5 @@
 using System;
+using System.Xml;
 
 namespace SevenDigital.Api.Wrapper.Responses.Parsing
 {
@@ -21,9 +22,23 @@ namespace SevenDigital.Api.Wrapper.Responses.Parsing
 			return responseBody.Substring(start, end - start);
 		}
 
-		public bool IsXml(string responseBody)
+		public bool StartsWithXmlDeclaration(string responseBody)
 		{
 			return responseBody.StartsWith("<?xml");
+		}
+
+		public bool IsWellFormedXml(string responseBody)
+		{
+			var parser = new XmlDocument();
+			try
+			{
+				parser.LoadXml(responseBody);
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 
 		public bool IsApiOkResponse(string responseBody)

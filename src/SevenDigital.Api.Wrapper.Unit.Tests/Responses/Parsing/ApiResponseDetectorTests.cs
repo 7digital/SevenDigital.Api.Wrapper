@@ -12,6 +12,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		private const string OK_RESPONSE_WITH_ERROR_STATUS_IN_CHILD = "<?xml><response status=\"ok\"><child status=\"error\" /></response>";
 		private const string OAUTH_ERROR = "OAuth authentication error: Access to resource denied";
 
+		private const string SIMPLE_XML_WITH_DECL = "<?xml version=\"1.0\"?><tag></tag>";
+		private const string SIMPLE_XML_WITHOUT_DECL = "<tag></tag>";
+
 		private IApiResponseDetector _apiResponseDetector;
 
 		[SetUp]
@@ -21,9 +24,49 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		}
 
 		[Test]
-		public void Should_detect_xml()
+		public void Should_detect_declaration_in_xml_with_declaration()
 		{
-			var result = _apiResponseDetector.IsXml("<?xml><tag></tag>");
+			var result = _apiResponseDetector.StartsWithXmlDeclaration(SIMPLE_XML_WITH_DECL);
+
+			Assert.That(result, Is.True);
+		}
+
+		[Test]
+		public void Should_not_detect_declaration_in_xml_without_declaration()
+		{
+			var result = _apiResponseDetector.StartsWithXmlDeclaration(SIMPLE_XML_WITHOUT_DECL);
+
+			Assert.That(result, Is.False);
+		}
+
+		[Test]
+		public void Should_not_detect_xml_declaration_in_text()
+		{
+			var result = _apiResponseDetector.StartsWithXmlDeclaration("fish");
+
+			Assert.That(result, Is.False);
+		}
+
+		[Test]
+		public void Should_not_detect_xml_declaration_in_html()
+		{
+			var result = _apiResponseDetector.StartsWithXmlDeclaration(DUMMY_HTML);
+
+			Assert.That(result, Is.False);
+		}
+
+		[Test]
+		public void Should_detect_xml_with_declaration()
+		{
+			var result = _apiResponseDetector.IsWellFormedXml(SIMPLE_XML_WITH_DECL);
+
+			Assert.That(result, Is.True);
+		}
+
+		[Test]
+		public void Should_detect_xml_without_declaration()
+		{
+			var result = _apiResponseDetector.IsWellFormedXml(SIMPLE_XML_WITHOUT_DECL);
 
 			Assert.That(result, Is.True);
 		}
@@ -31,15 +74,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		[Test]
 		public void Should_not_detect_text_as_xml()
 		{
-			var result = _apiResponseDetector.IsXml("fish");
-
-			Assert.That(result, Is.False);
-		}
-
-		[Test]
-		public void Should_not_detect_html_as_xml()
-		{
-			var result = _apiResponseDetector.IsXml(DUMMY_HTML);
+			var result = _apiResponseDetector.IsWellFormedXml("fish");
 
 			Assert.That(result, Is.False);
 		}
