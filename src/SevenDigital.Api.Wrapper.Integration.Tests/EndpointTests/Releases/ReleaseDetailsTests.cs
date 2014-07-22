@@ -11,14 +11,14 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 		public async void Can_hit_endpoint()
 		{
 			var request = Api<Release>.Create
-				.WithParameter("releaseId", "3070977")
+				.ForReleaseId(1685647)
 				.WithParameter("country", "GB");
 			var release = await request.Please();
 
 			Assert.That(release, Is.Not.Null);
-			Assert.That(release.Title, Is.EqualTo("Dreams"));
-			Assert.That(release.Artist.Name, Is.EqualTo("Whitest Boy Alive"));
-			Assert.That(release.TrackCount, Is.EqualTo(10));
+			Assert.That(release.Title, Is.EqualTo("Strangeland"));
+			Assert.That(release.Artist.Name, Is.EqualTo("Keane"));
+			Assert.That(release.TrackCount, Is.EqualTo(12));
 		}
 
 	}

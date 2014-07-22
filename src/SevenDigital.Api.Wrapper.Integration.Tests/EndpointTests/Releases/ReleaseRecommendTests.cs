@@ -10,7 +10,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 		public async void Can_hit_endpoint()
 		{
 			var request = Api<ReleaseRecommend>.Create
-				.WithParameter("releaseId", "155408")
+				.ForReleaseId(155408)
 				.WithParameter("country", "GB");
 			var release = await request.Please();
 

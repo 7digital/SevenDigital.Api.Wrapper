@@ -12,12 +12,12 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 		public async void Can_hit_endpoint()
 		{
 			var request = Api<ReleaseTracks>.Create
-				.ForReleaseId(3070977);
+				.ForReleaseId(278990);
 			var releaseTracks = await request.Please();
 
 			Assert.That(releaseTracks, Is.Not.Null);
-			Assert.That(releaseTracks.Tracks.Count, Is.EqualTo(10));
-			Assert.That(releaseTracks.Tracks.First().Title, Is.EqualTo("Burning"));
+			Assert.That(releaseTracks.Tracks.Count, Is.EqualTo(16));
+			Assert.That(releaseTracks.Tracks.First().Title, Is.EqualTo("Never Gonna Give You Up"));
 			Assert.That(releaseTracks.Tracks.First().Price.Status, Is.EqualTo(PriceStatus.Available));
 		}
 

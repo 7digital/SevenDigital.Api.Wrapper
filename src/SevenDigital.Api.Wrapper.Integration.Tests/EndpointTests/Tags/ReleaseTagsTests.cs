@@ -7,13 +7,16 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Tags
 	[TestFixture]
 	public class ReleaseTagsTests
 	{
+		private const int LilyAllenAirBalloon = 3228088;
+
 		[Test]
 		public async void Can_hit_endpoint()
 		{
 			const string ExpectedTagId = "pop";
 
 			var request = Api<ReleaseTags>.Create
-				.WithParameter("releaseid", "3070977");
+				.ForReleaseId(LilyAllenAirBalloon);
+
 			var releaseTags = await request.Please();
 
 			Assert.That(releaseTags, Is.Not.Null);
@@ -30,9 +33,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Tags
 		public async void Can_hit_endpoint_with_paging()
 		{
 			var request = Api<ReleaseTags>.Create
-				.WithParameter("releaseid", "3070977")
-				.WithParameter("page", "2")
-				.WithParameter("pageSize", "1");
+				.ForReleaseId(LilyAllenAirBalloon)
+				.WithPageNumber(2)
+				.WithPageSize(1);
 			var releaseTags = await request.Please();
 
 			Assert.That(releaseTags, Is.Not.Null);
