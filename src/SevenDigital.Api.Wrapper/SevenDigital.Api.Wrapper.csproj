@@ -55,10 +55,14 @@
     <Compile Include="Api.cs" />
     <Compile Include="Environment\AttributeRequestDataBuilder.cs" />
     <Compile Include="Environment\EssentialDependencyCheck.cs" />
+    <Compile Include="Extensions\ApiExtensions.cs" />
     <Compile Include="Extensions\HasPlaylistIdParameterExtensions.cs" />
     <Compile Include="Extensions\HasPlaylistItemIdParameterExtensions.cs" />
     <Compile Include="Extensions\ParameterExtensions.cs" />
     <Compile Include="Extensions\ShopExtensions.cs" />
+    <Compile Include="Requests\BaseUriFromApiUri.cs" />
+    <Compile Include="Requests\BaseUriFromString.cs" />
+    <Compile Include="Requests\IBaseUriProvider.cs" />
     <Compile Include="Requests\IRequestBuilder.cs" />
     <Compile Include="Requests\RequestBuilder.cs" />
     <Compile Include="Requests\RequestPayload.cs" />

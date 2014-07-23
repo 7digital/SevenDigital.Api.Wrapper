@@ -16,7 +16,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		[SetUp]
 		public void Setup()
 		{
-			_requestBuilder = new RequestBuilder(EssentialDependencyCheck<IApiUri>.Instance, 
+			_requestBuilder = new RequestBuilder(
+				EssentialDependencyCheck<IApiUri>.Instance,
 				EssentialDependencyCheck<IOAuthCredentials>.Instance);
 		}
 
@@ -78,7 +79,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 
 			var response = _requestBuilder.BuildRequest(requestData);
 
-			Assert.That(response.Url, Is.StringContaining(expectedApiUri));
+			Assert.That(response.Url, Is.StringStarting(expectedApiUri));
 		}
 
 		[Test]
@@ -130,6 +131,26 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var buildRequest = _requestBuilder.BuildRequest(requestData);
 			Assert.That(buildRequest.Body.Data, Is.EqualTo("I am a payload"));
 			Assert.That(buildRequest.Body.ContentType, Is.EqualTo("text/plain"));
+		}
+
+		[Test]
+		public void Should_use_base_uri_when_it_is_present()
+		{
+			const string expectedApiUri = "http://api.7dizzle";
+			var baseUriProvider = A.Fake<IBaseUriProvider>();
+			A.CallTo(() => baseUriProvider.BaseUri(A<RequestData>.Ignored)).Returns(expectedApiUri);
+
+			var requestData = new RequestData
+			{
+				Endpoint = "test",
+				HttpMethod = HttpMethod.Get,
+				Headers = new Dictionary<string, string>(),
+				BaseUriProvider = baseUriProvider
+			};
+
+			var response = _requestBuilder.BuildRequest(requestData);
+
+			Assert.That(response.Url, Is.StringStarting(expectedApiUri));
 		}
 	}
 }

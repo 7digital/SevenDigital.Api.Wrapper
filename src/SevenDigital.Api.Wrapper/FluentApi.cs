@@ -38,6 +38,7 @@ namespace SevenDigital.Api.Wrapper
 			_requestData = attributeValidation.BuildRequestData();
 		}
 
+
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
 		{
 			if (httpClient == null)
@@ -57,6 +58,17 @@ namespace SevenDigital.Api.Wrapper
 			}
 
 			_responseCache = responseCache;
+			return this;
+		}
+
+		public IFluentApi<T> UsingBaseUri(IBaseUriProvider baseUriProvider)
+		{
+			if (baseUriProvider == null)
+			{
+				throw new ArgumentNullException("baseUriProvider");
+			}
+
+			_requestData.BaseUriProvider = baseUriProvider;
 			return this;
 		}
 
