@@ -35,7 +35,7 @@ namespace SevenDigital.Api.Wrapper.Responses.Parsing
 				parser.LoadXml(responseBody);
 				return true;
 			}
-			catch
+			catch (XmlException)
 			{
 				return false;
 			}
