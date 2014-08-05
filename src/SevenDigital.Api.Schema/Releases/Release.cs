@@ -68,7 +68,7 @@ namespace SevenDigital.Api.Schema.Releases
 		public int? TrackCount { get; set; }
 
 		[XmlElement("streamingReleaseDate")]
-		public DateTime StreamingReleaseDate { get; set; }
+		public DateTime? StreamingReleaseDate { get; set; }
 
 		[XmlElement("duration")]
 		public int Duration { get; set; }
