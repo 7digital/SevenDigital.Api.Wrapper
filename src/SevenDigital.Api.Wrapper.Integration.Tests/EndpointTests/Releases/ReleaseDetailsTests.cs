@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using SevenDigital.Api.Schema.Releases;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
@@ -19,7 +20,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 			Assert.That(release.Title, Is.EqualTo("Strangeland"));
 			Assert.That(release.Artist.Name, Is.EqualTo("Keane"));
 			Assert.That(release.TrackCount, Is.EqualTo(12));
+			Assert.That(release.StreamingReleaseDate, Is.EqualTo(DateTime.Parse("2012-05-07")));
+			Assert.That(release.Duration, Is.EqualTo(2716));
 		}
-
 	}
 }
