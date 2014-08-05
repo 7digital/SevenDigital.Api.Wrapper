@@ -64,13 +64,13 @@ namespace SevenDigital.Api.Schema.Releases
 		[XmlElement("licensor")]
 		public Licensor Licensor { get; set; }
 
-		[XmlElement("trackCount")]
-		public int? TrackCount { get; set; }
-
 		[XmlElement("streamingReleaseDate")]
 		public DateTime? StreamingReleaseDate { get; set; }
 
 		[XmlElement("duration")]
 		public int Duration { get; set; }
+
+		[XmlElement("trackCount")]
+		public int? TrackCount { get; set; }
 	}
 }
