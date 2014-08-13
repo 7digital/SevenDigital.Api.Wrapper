@@ -63,8 +63,8 @@ namespace SevenDigital.Api.Schema.Tracks
 		[XmlElement("discNumber")]
 		public int DiscNumber { get; set; }
 
-        [XmlElement("formats")]
-        public FormatList Formats { get; set; }
+		[XmlElement("formats")]
+		public FormatList Formats { get; set; }
 
 		/// <summary>
 		/// Track Number. Should be used instead of "TrackNumber"
