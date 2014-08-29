@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="ApiUri.cs" />
     <Compile Include="AppSettingsCredentials.cs" />
+    <Compile Include="EndpointTests\Artists\ArtistSimilarTests.cs" />
     <Compile Include="EndpointTests\BaseUriTest.cs" />
     <Compile Include="EndpointTests\Baskets\BasketCreateTests.cs" />
     <Compile Include="EndpointTests\Releases\ReleaseEditorialTests.cs" />
