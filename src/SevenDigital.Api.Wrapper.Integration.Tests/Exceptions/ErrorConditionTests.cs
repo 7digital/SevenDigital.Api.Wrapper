@@ -19,7 +19,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Exceptions
 			var apiXmlException = Assert.Throws<InputParameterException>(async () => await request.Please());
 
 			Assert.That(apiXmlException.ErrorCode, Is.EqualTo(ErrorCode.RequiredParameterMissing));
-			Assert.That(apiXmlException.Message, Is.StringStarting("Missing parameter artistId"));
+			Assert.That(apiXmlException.Message, Is.StringStarting("Missing or invalid querystring value for artistId"));
 		}
 
 		[Test]
