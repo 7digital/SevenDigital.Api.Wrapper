@@ -63,6 +63,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 			Assert.That(firstTrack.ReleaseVersion, Is.EqualTo("Digital Download"));
 			Assert.That(firstTrack.Source, Is.EqualTo("7digital"));
 			Assert.That(firstTrack.AudioUrl, Is.EqualTo("http://stream.svc.7digital.net/stream/catalogue?trackId=5495893"));
+			Assert.That(firstTrack.ImageUrl, Is.EqualTo("http://artwork-cdn.7static.com/static/img/sleeveart/00/027/190/0002719061_$size$.jpg"));
 			Assert.That(firstTrack.User, Is.EqualTo("id:4874383"));
 			Assert.That(firstTrack.DateAdded, Is.Null);
 		}
