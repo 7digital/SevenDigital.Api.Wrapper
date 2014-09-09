@@ -13,7 +13,7 @@
 		<releaseVersion>extended</releaseVersion>
 		<source>local</source>
 		<audioUrl>test.mp3</audioUrl>
-		<imageUrl>http://my.image.com/imageA.jpg</imageUrl>
+		<image>http://my.image.com/imageA.jpg</image>
 	</track>
 	<track>
 		<trackId>124</trackId>
@@ -28,6 +28,6 @@
 		<releaseVersion>extended</releaseVersion>
 		<source>local</source>
 		<audioUrl>test.mp3</audioUrl>
-		<imageUrl>http://my.image.com/imageB.jpg</imageUrl>
+		<image>http://my.image.com/imageB.jpg</image>
 	</track>
 </tracks>
