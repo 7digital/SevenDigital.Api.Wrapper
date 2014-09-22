@@ -22,6 +22,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 			Assert.That(release.TrackCount, Is.EqualTo(12));
 			Assert.That(release.StreamingReleaseDate, Is.EqualTo(DateTime.Parse("2012-05-07")));
 			Assert.That(release.Duration, Is.EqualTo(2716));
+			Assert.That(release.Price.Currency.Symbol, Is.EqualTo("£"));
 		}
 	}
 }
