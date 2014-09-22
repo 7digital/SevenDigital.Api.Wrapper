@@ -41,7 +41,7 @@ namespace SevenDigital.Api.Schema.Playlists
 		[XmlElement("audioUrl", IsNullable = true)]
 		public string AudioUrl { get; set; }
 
-		[XmlElement("imageUrl", IsNullable = true)]
+		[XmlElement("image", IsNullable = true)]
 		public string ImageUrl { get; set; }
 	}
 }

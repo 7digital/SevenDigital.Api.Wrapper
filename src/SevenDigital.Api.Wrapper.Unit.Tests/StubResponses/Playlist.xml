@@ -20,6 +20,7 @@
 				<audioUrl>http://stream.svc.7digital.net/stream/catalogue?trackId=5495893</audioUrl>
 				<user>id:4874383</user>
 				<dateAdded xsi:nil="true" />
+				<image>http://artwork-cdn.7static.com/static/img/sleeveart/00/027/190/0002719061_$size$.jpg</image>
 			</track>
 			<track id="52cd88c2c902161660aeab81">
 				<trackId>17564601</trackId>
@@ -36,6 +37,7 @@
 				<audioUrl>http://stream.svc.7digital.net/stream/catalogue?trackId=17564601</audioUrl>
 				<user>id:4874383</user>
 				<dateAdded xsi:nil="true" />
+				<image>http://artwork-cdn.7static.com/static/img/sleeveart/00/029/602/0002960278_$size$.jpg</image>
 			</track>
 			<track id="52cd88c2c902161660aeab82">
 				<trackId>15471686</trackId>
@@ -52,6 +54,7 @@
 				<audioUrl>http://stream.svc.7digital.net/stream/catalogue?trackId=15471686</audioUrl>
 				<user>id:4874383</user>
 				<dateAdded xsi:nil="true" />
+				<image>http://artwork-cdn.7static.com/static/img/sleeveart/00/021/144/0002114402_$size$.jpg</image>
 			</track>
 			<track id="52dfdb25c902160a548d343f">
 				<trackId>31553373</trackId>
@@ -68,6 +71,7 @@
 				<audioUrl>http://stream.svc.7digital.net/stream/catalogue?trackId=31553373</audioUrl>
 				<user>id:4874383</user>
 				<dateAdded xsi:nil="true" />
+				<image>http://artwork-cdn.7static.com/static/img/sleeveart/00/029/602/0002960278_$size$.jpg</image>
 			</track>
 		</tracks>
 	</playlist>
