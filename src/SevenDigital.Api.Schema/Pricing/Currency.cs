@@ -9,5 +9,8 @@ namespace SevenDigital.Api.Schema.Pricing
 	{
 		[XmlAttribute("code")]
 		public string Code { get; set; }
+
+        [XmlText]
+	    public string Symbol { get; set; }
 	}
 }
