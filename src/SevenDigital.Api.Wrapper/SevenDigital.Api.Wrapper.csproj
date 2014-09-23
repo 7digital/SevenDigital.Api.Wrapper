@@ -39,7 +39,7 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OAuth">
       <HintPath>..\..\packages\OAuth.1.0.3\lib\net40\OAuth.dll</HintPath>
@@ -60,6 +60,7 @@
     <Compile Include="Extensions\HasPlaylistItemIdParameterExtensions.cs" />
     <Compile Include="Extensions\ParameterExtensions.cs" />
     <Compile Include="Extensions\ShopExtensions.cs" />
+    <Compile Include="Requests\AcceptFormat.cs" />
     <Compile Include="Requests\BaseUriFromApiUri.cs" />
     <Compile Include="Requests\BaseUriFromString.cs" />
     <Compile Include="Requests\IBaseUriProvider.cs" />

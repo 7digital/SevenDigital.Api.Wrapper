@@ -17,7 +17,10 @@ namespace SevenDigital.Api.Wrapper
 		IFluentApi<T> UsingClient(IHttpClient httpClient);
 		IFluentApi<T> UsingCache(IResponseCache responseCache);
 		IFluentApi<T> UsingBaseUri(IBaseUriProvider baseUriProvider);
+	
 		IFluentApi<T> WithMethod(HttpMethod httpMethod);
+		IFluentApi<T> WithAccept(AcceptFormat acceptFormat);
+
 		IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class;
 		IFluentApi<T> WithPayload<TPayload>(TPayload payload, PayloadFormat payloadSerializer) where TPayload : class;
 

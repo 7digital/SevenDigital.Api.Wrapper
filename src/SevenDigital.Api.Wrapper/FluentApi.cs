@@ -78,6 +78,17 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
+		public IFluentApi<T> WithAccept(AcceptFormat acceptFormat)
+		{
+			if (acceptFormat == null)
+			{
+				throw new ArgumentNullException("acceptFormat");
+			}
+
+			_requestData.Accept = acceptFormat.ToString();
+			return this;
+		}
+
 		public IFluentApi<T> WithParameter(string parameterName, string parameterValue)
 		{
 			_requestData.Parameters[parameterName] = parameterValue;
