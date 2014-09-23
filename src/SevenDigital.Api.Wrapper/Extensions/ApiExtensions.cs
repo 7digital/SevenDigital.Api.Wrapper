@@ -1,5 +1,4 @@
-﻿using System.Net.Http;
-using SevenDigital.Api.Wrapper.Requests;
+﻿using SevenDigital.Api.Wrapper.Requests;
 
 namespace SevenDigital.Api.Wrapper
 {
@@ -9,16 +8,6 @@ namespace SevenDigital.Api.Wrapper
 		{
 			api.UsingBaseUri(new BaseUriFromString(baseUri));
 			return api;
-		}
-
-		public static IFluentApi<T> WithPost<T>(this IFluentApi<T> fluentApi)
-		{
-			return fluentApi.WithMethod(HttpMethod.Post);
-		}
-
-		public static IFluentApi<T> AcceptJson<T>(this IFluentApi<T> fluentApi)
-		{
-			return fluentApi.WithAccept("application/json");
 		}
 	}
 }

@@ -60,6 +60,7 @@
     <Compile Include="Extensions\HasPlaylistItemIdParameterExtensions.cs" />
     <Compile Include="Extensions\ParameterExtensions.cs" />
     <Compile Include="Extensions\ShopExtensions.cs" />
+    <Compile Include="Requests\AcceptFormat.cs" />
     <Compile Include="Requests\BaseUriFromApiUri.cs" />
     <Compile Include="Requests\BaseUriFromString.cs" />
     <Compile Include="Requests\IBaseUriProvider.cs" />
