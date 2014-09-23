@@ -12,7 +12,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 		public async void Can_hit_endpoint()
 		{
 			var request = Api<ReleaseTracks>.Create
-				.ForReleaseId(278990);
+				.ForReleaseId(1996067);
 			var releaseTracks = await request.Please();
 
 			Assert.That(releaseTracks, Is.Not.Null);
