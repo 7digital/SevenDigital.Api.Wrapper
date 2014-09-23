@@ -3,7 +3,7 @@
 	public class AcceptFormat
 	{
 		private static readonly AcceptFormat xmlOnly = new AcceptFormat("application/xml");
-		private static readonly AcceptFormat jsonPrefered = new AcceptFormat("application/json, application/xml;q=0.5"); 
+		private static readonly AcceptFormat jsonPreferred = new AcceptFormat("application/json, application/xml;q=0.5"); 
 
 		private readonly string _acceptHeader;
 
@@ -13,7 +13,7 @@
 		}
 
 		public static AcceptFormat XmlOnly { get { return xmlOnly; } }
-		public static AcceptFormat JsonPrefered { get { return jsonPrefered; } }
+		public static AcceptFormat JsonPreferred { get { return jsonPreferred; } }
 
 		public override string ToString()
 		{
