@@ -60,21 +60,20 @@ namespace SevenDigital.Api.Wrapper.Http
 
 		private static async Task<Response> MakeResponse(HttpResponseMessage httpResponse, Request request)
 		{
-			var headers = MapResponseHeaders(httpResponse.Headers);
+			var headers = new Dictionary<string, string>();
+			AddResponseHeaders(httpResponse.Headers, headers);
+			AddResponseHeaders(httpResponse.Content.Headers, headers);
+
 			string responseBody = await httpResponse.Content.ReadAsStringAsync();
 			return new Response(httpResponse.StatusCode, headers, responseBody, request);
 		}
 
-		private static IDictionary<string, string> MapResponseHeaders(HttpHeaders headerCollection)
+		private static void AddResponseHeaders(HttpHeaders sourceHeaderCollection, IDictionary<string, string> responseHeaders)
 		{
-			var resultHeaders = new Dictionary<string, string>();
-
-			foreach (var header in headerCollection)
+			foreach (var header in sourceHeaderCollection)
 			{
-				resultHeaders.Add(header.Key, string.Join(",", header.Value));
+				responseHeaders.Add(header.Key, string.Join(",", header.Value));
 			}
-
-			return resultHeaders;
 		}
 	}
 }

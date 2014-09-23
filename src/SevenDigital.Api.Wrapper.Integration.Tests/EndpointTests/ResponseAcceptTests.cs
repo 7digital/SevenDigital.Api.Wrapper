@@ -40,5 +40,21 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 			dynamic json = JObject.Parse(response.Body);
 			Assert.That(json, Is.Not.Null);
 		}
+
+		[Test]
+		public async void Response_With_JsonPreferred_ShouldHave_jsonContentType()
+		{
+			var request = Api<Release>.Create
+				.ForReleaseId(1685647)
+				.WithParameter("country", "GB")
+				.WithAccept(AcceptFormat.JsonPreferred);
+
+			var response = await request.Response();
+
+			Assert.That(response.Headers.ContainsKey("Content-Type"), Is.True);
+			Assert.That(response.Headers["Content-Type"], Is.StringStarting("application/json"));
+
+			Assert.That(response.ContentTypeIsJson(), Is.True);
+		}
 	}
 }
