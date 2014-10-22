@@ -1,31 +1,35 @@
-Branches and Releases
+Getting a version of the 7digital Api Wrapper
 =====================
 
-Whilst we make every effort to keep Master as stable as possible. We cannot 
-guarantee, it to be in a permanently usable state as this is where active
-development is happening. 
+The latest released version of the 7digital Api Wrapper will be [here on Nuget](https://www.nuget.org/packages/SevenDigital.Api.Wrapper/). 
 
-We aim to release semver versioned tags regularly. If you want to use a stable 
-version please use the latest versioned tag (v1.x.x)
+We use [semantic versioning](http://semver.org/) for the version numbers of the package on nuget. We aim to release new versions promptly when needed due to wrapper issues or changes to the 7digital Api.  Whilst we make every effort to keep Master as stable as possible, we cannot 
+guarantee that it is always in a usable state as active
+development may be happening. 
 
-Work is currently happening towards a v2.x.x release on the master branch with
-breaking API changes.
+
+Requirements
+=====================
+
+The 7digital Api Wrapper requires .Net version 4.5.0 or later. If you are using .Net version 4.0, you can use a version of the wrapper numbered 3.x. 
+
+When upgrading the wrapper from version 3.x to 4.x, see [the 4.0 release notes](https://github.com/7digital/SevenDigital.Api.Wrapper/blob/master/ReleaseNotes40.md) for the breaking changes and new additions. The main change is that the wrapper now returns tasks to used with `await`.
+
 
 Usage
 -----
 
-Consuming applications need to provide a concrete implementation of IApiUri and 
-IOAuthCredentials in order to authenticate with the 7digital API. Otherwise wrapper 
-will throw MissingDependencyException.
+Consuming applications need to provide a concrete implementation of `IApiUri` and `IOAuthCredentials` 
+in order to authenticate with the 7digital Api. Otherwise wrapper will throw `MissingDependencyException`.
 
-Current invocataion:
+Current invocation:
 
 artist/details endpoint
 
-    Artist artist = Api<Artist>
-                        .Create
-                        .WithArtistId(1)
-                        .Please()
+    Artist artist = await Api<Artist>
+        .Create
+        .WithArtistId(1)
+        .Please()
 
 Handling Errors
 ---------------
