@@ -29,6 +29,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
             Assert.That(release.Download.Packages[0].PriceResponse.CurrencyCode, Is.EqualTo("GBP"));
             Assert.That(release.Download.Packages[0].PriceResponse.SevendigitalPrice, Is.EqualTo(8.99));
             Assert.That(release.Download.Packages[0].PriceResponse.RecommendedRetailPrice, Is.EqualTo(8.99));
+            Assert.That(release.Download.Packages[0].Formats[0].Id, Is.EqualTo((17)));
 		}
 	}
 }

@@ -133,6 +133,10 @@
     <Compile Include="Pricing\Currency.cs" />
     <Compile Include="Pricing\Price.cs" />
     <Compile Include="RecommendedItem.cs" />
+    <Compile Include="Releases\Package.cs" />
+    <Compile Include="Releases\PackageFormat.cs" />
+    <Compile Include="Releases\PackageList.cs" />
+    <Compile Include="Releases\PackagePriceResponse.cs" />
     <Compile Include="Releases\Release.cs" />
     <Compile Include="Releases\ReleaseByDate.cs" />
     <Compile Include="Releases\ReleaseChart.cs" />
