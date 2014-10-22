@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Artists;
 using SevenDigital.Api.Schema.Attributes;
@@ -72,5 +73,45 @@ namespace SevenDigital.Api.Schema.Releases
 
 		[XmlElement("trackCount")]
 		public int? TrackCount { get; set; }
+
+        [XmlElement("download")]
+	    public PackageList Download { get; set; }
 	}
+
+    [XmlRoot("packages")]
+    [Serializable]
+    public class PackageList
+    {
+        [XmlArray("packages")]
+        [XmlArrayItem("package")]
+        public List<Package> Packages { get; set; }
+    }
+
+    [XmlRoot("package")]
+    [Serializable]
+    public class Package
+    {
+        [XmlAttribute("id")]
+        public int Id { get; set; }
+
+        [XmlElement("description")]
+        public string Description { get; set; }
+
+        [XmlElement("price")]
+        public PackagePriceResponse PriceResponse { get; set; }
+
+    }
+
+    [Serializable]
+    public class PackagePriceResponse
+    {
+        [XmlElement("currencyCode")]
+        public string CurrencyCode { get; set; }
+
+        [XmlElement("sevendigitalPrice", IsNullable = true)]
+        public decimal? SevendigitalPrice { get; set; }
+
+        [XmlElement("recommendedRetailPrice", IsNullable = true)]
+        public decimal? RecommendedRetailPrice { get; set; }
+    }
 }
