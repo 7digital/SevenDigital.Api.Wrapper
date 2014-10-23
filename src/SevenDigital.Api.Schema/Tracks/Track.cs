@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Artists;
 using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Schema.Media;
+using SevenDigital.Api.Schema.Package;
 using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 using SevenDigital.Api.Schema.Pricing;
 using SevenDigital.Api.Schema.Releases;
@@ -71,5 +72,8 @@ namespace SevenDigital.Api.Schema.Tracks
 		/// </summary>
 		[XmlElement("number")]
 		public int Number { get; set; }
+
+        [XmlElement("download")]
+        public PackageList Download { get; set; }
 	}
 }
