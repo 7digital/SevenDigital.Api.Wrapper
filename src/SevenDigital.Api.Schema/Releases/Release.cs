@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using SevenDigital.Api.Schema.Artists;
 using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Schema.Media;
+using SevenDigital.Api.Schema.Package;
 using SevenDigital.Api.Schema.ParameterDefinitions.Get;
 using SevenDigital.Api.Schema.Pricing;
 

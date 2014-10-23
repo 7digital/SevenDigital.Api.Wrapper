@@ -19,6 +19,14 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 			Assert.That(releaseTracks.Tracks.Count, Is.EqualTo(16));
 			Assert.That(releaseTracks.Tracks.First().Title, Is.EqualTo("Never Gonna Give You Up"));
 			Assert.That(releaseTracks.Tracks.First().Price.Status, Is.EqualTo(PriceStatus.Available));
+
+            Assert.That(releaseTracks.Tracks.First().Download.Packages[0].Id, Is.EqualTo(2));
+            Assert.That(releaseTracks.Tracks.First().Download.Packages[0].Description, Is.EqualTo("standard"));
+            Assert.That(releaseTracks.Tracks.First().Download.Packages[0].PriceResponse.CurrencyCode, Is.EqualTo("GBP"));
+            Assert.That(releaseTracks.Tracks.First().Download.Packages[0].PriceResponse.SevendigitalPrice, Is.EqualTo(0.99));
+            Assert.That(releaseTracks.Tracks.First().Download.Packages[0].PriceResponse.RecommendedRetailPrice, Is.EqualTo(0.99));
+            Assert.That(releaseTracks.Tracks.First().Download.Packages[0].Formats[0].Id, Is.EqualTo((17)));
+            Assert.That(releaseTracks.Tracks.First().Download.Packages[0].Formats[0].Description, Is.EqualTo("MP3 320"));
 		}
 
 		[Test]

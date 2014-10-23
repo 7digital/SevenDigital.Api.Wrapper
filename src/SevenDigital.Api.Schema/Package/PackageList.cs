@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using SevenDigital.Api.Schema.Releases;
 
-namespace SevenDigital.Api.Schema
+namespace SevenDigital.Api.Schema.Package
 {
     [XmlRoot("packages")]
     [Serializable]

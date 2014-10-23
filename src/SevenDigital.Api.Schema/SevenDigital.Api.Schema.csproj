@@ -58,10 +58,10 @@
     <Compile Include="Charts\TrackChartItem.cs" />
     <Compile Include="ErrorCode.cs" />
     <Compile Include="ITypeGenerator.cs" />
-    <Compile Include="Package.cs" />
-    <Compile Include="PackageFormat.cs" />
-    <Compile Include="PackageList.cs" />
-    <Compile Include="PackagePriceResponse.cs" />
+    <Compile Include="Package\Package.cs" />
+    <Compile Include="Package\PackageFormat.cs" />
+    <Compile Include="Package\PackageList.cs" />
+    <Compile Include="Package\PackagePriceResponse.cs" />
     <Compile Include="ParameterDefinitions\Get\HasAffiliatePartnerParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasArtistIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasBasketItemParameter.cs" />

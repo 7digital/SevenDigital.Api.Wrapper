@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Xml.Serialization;
 
-namespace SevenDigital.Api.Schema
+namespace SevenDigital.Api.Schema.Package
 {
     [Serializable]
     public class PackagePriceResponse
