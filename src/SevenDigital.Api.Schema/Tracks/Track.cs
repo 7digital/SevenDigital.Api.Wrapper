@@ -71,5 +71,8 @@ namespace SevenDigital.Api.Schema.Tracks
 		/// </summary>
 		[XmlElement("number")]
 		public int Number { get; set; }
+
+        [XmlElement("download")]
+        public PackageList Download { get; set; }
 	}
 }

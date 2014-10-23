@@ -24,12 +24,14 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 			Assert.That(release.Duration, Is.EqualTo(2716));
 			Assert.That(release.Price.Currency.Symbol, Is.EqualTo("£"));
             Assert.That(release.Formats.Formats[0].FileFormat, Is.EqualTo("MP3"));
+
             Assert.That(release.Download.Packages[0].Id, Is.EqualTo(2));
             Assert.That(release.Download.Packages[0].Description, Is.EqualTo("standard"));
             Assert.That(release.Download.Packages[0].PriceResponse.CurrencyCode, Is.EqualTo("GBP"));
             Assert.That(release.Download.Packages[0].PriceResponse.SevendigitalPrice, Is.EqualTo(8.99));
             Assert.That(release.Download.Packages[0].PriceResponse.RecommendedRetailPrice, Is.EqualTo(8.99));
             Assert.That(release.Download.Packages[0].Formats[0].Id, Is.EqualTo((17)));
+            Assert.That(release.Download.Packages[0].Formats[0].Description, Is.EqualTo("MP3 320"));
 		}
 	}
 }

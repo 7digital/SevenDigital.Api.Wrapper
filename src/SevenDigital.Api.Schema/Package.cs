@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace SevenDigital.Api.Schema.Releases
+namespace SevenDigital.Api.Schema
 {
     [XmlRoot("package")]
     [Serializable]

@@ -58,6 +58,10 @@
     <Compile Include="Charts\TrackChartItem.cs" />
     <Compile Include="ErrorCode.cs" />
     <Compile Include="ITypeGenerator.cs" />
+    <Compile Include="Package.cs" />
+    <Compile Include="PackageFormat.cs" />
+    <Compile Include="PackageList.cs" />
+    <Compile Include="PackagePriceResponse.cs" />
     <Compile Include="ParameterDefinitions\Get\HasAffiliatePartnerParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasArtistIdParameter.cs" />
     <Compile Include="ParameterDefinitions\Get\HasBasketItemParameter.cs" />
@@ -133,10 +137,6 @@
     <Compile Include="Pricing\Currency.cs" />
     <Compile Include="Pricing\Price.cs" />
     <Compile Include="RecommendedItem.cs" />
-    <Compile Include="Releases\Package.cs" />
-    <Compile Include="Releases\PackageFormat.cs" />
-    <Compile Include="Releases\PackageList.cs" />
-    <Compile Include="Releases\PackagePriceResponse.cs" />
     <Compile Include="Releases\Release.cs" />
     <Compile Include="Releases\ReleaseByDate.cs" />
     <Compile Include="Releases\ReleaseChart.cs" />
