@@ -24,8 +24,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Releases
 		public async void Can_hit_endpoint_with_paging()
 		{
 			var request = Api<ReleaseByDate>.Create
-				.WithParameter("fromDate", "20090610")
-				.WithParameter("toDate", "20110101")
+				.WithParameter("fromDate", "20140901")
+				.WithParameter("toDate", "20140930")
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20");
 			var artistBrowse = await request.Please();
