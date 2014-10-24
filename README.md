@@ -1,31 +1,56 @@
-Branches and Releases
+![7digital](http://i.imgur.com/StUnvCy.png?1)
+
+About 7digital
+========
+
+[7digital.com](7digital.com) is an online music store operating in over 16 countries and offering tens of millions of high quality DRM free MP3s (320kbps) from all major labels and wide range of independent labels and distributors. More details at [about.7digital.com](http://about.7digital.com/).
+
+The 7digital API will give you access to the full catalogue including high quality album art, 30s preview clips for all tracks, commissions on sales, integrated purchasing and full length streaming. More details about the 7digital API at [developer.7digital.com](http://developer.7digital.com/)
+
+What is this code?
+========
+the 7digital API Wrapper is a library to make it easy to access the 7digital API from C# code. 
+
+You will need 
+========
+
+You will need a 7digital API key. If you don't have one, [sign up here](https://api-signup.7digital.com/).
+
+
+The latest versions of the 7digital API Wrapper require .Net version 4.5.0 or later. If you are using .Net version 4.0, you can use a version of the wrapper numbered 3.x. 
+
+When upgrading the wrapper from version 3.x to 4.x, see [the 4.0 release notes](https://github.com/7digital/SevenDigital.Api.Wrapper/blob/master/ReleaseNotes40.md) for the breaking changes and new additions. The main change is that the wrapper now returns awaitable tasks.
+
+Getting the 7digital Api Wrapper
 =====================
 
-Whilst we make every effort to keep Master as stable as possible. We cannot 
-guarantee, it to be in a permanently usable state as this is where active
-development is happening. 
+The latest released version of the 7digital API Wrapper is on nuget.org as [SevenDigital.Api.Wrapper](http://www.nuget.org/packages/SevenDigital.Api.Wrapper/). 
 
-We aim to release semver versioned tags regularly. If you want to use a stable 
-version please use the latest versioned tag (v1.x.x)
+Install with the nuget package manager console: `Install-Package SevenDigital.Api.Wrapper`
 
-Work is currently happening towards a v2.x.x release on the master branch with
-breaking API changes.
+
+We use [semantic versioning](http://semver.org/) for the version numbers of the package on nuget. We aim to release new versions promptly to nuget when needed, e.g. due to additions to the 7digital API or issues with the wrapper. 
+
 
 Usage
 -----
 
-Consuming applications need to provide a concrete implementation of IApiUri and 
-IOAuthCredentials in order to authenticate with the 7digital API. Otherwise wrapper 
-will throw MissingDependencyException.
+Consuming applications need to provide a concrete implementation of `IApiUri` and `IOAuthCredentials` 
+in order to authenticate with the 7digital Api. Otherwise wrapper will throw `MissingDependencyException`.
 
-Current invocataion:
+Current invocation:
 
 artist/details endpoint
 
-    Artist artist = Api<Artist>
-                        .Create
-                        .WithArtistId(1)
-                        .Please()
+    Artist artist = await Api<Artist>
+        .Create
+        .WithArtistId(1)
+        .Please();
+
+Release charts endpoint:   
+ 
+    var request = Api<ReleaseChart>.Create;
+    var chart = await request.Please();
 
 Handling Errors
 ---------------
