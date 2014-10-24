@@ -32,11 +32,14 @@ Install with the nuget package manager console: `Install-Package SevenDigital.Ap
 We use [semantic versioning](http://semver.org/) for the version numbers of the package on nuget. We aim to release new versions promptly to nuget when needed, e.g. due to additions to the 7digital API or issues with the wrapper. 
 
 
-WHere to read more:
+Where to read more:
 -----
 
 See [the wiki](https://github.com/7digital/SevenDigital.Api.Wrapper/wiki) for further documentation on usage, contributing and so on.
 
+Resources for other languages:
+----
+Node.js: [Node.js API Client](https://github.com/raoulmillais/node-7digital-api)
 
 Licence
 ----
