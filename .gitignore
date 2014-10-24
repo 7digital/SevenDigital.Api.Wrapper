@@ -20,4 +20,4 @@ build/spec/report.html
 packages/*/**
 /.nuget/nuget.exe
 packages/*/**
-*/packages/*/**
+/examples/*/packages/*/**
