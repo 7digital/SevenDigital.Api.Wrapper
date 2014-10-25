@@ -113,6 +113,7 @@
     <Compile Include="Requests\Serializing\PayloadFormat.cs" />
     <Compile Include="Requests\Serializing\Utf8StringWriter.cs" />
     <Compile Include="Requests\Serializing\XmlPayloadSerializer.cs" />
+    <Compile Include="Requests\UriPath.cs" />
     <Compile Include="Responses\IResponseCache.cs" />
     <Compile Include="Responses\NullResponseCache.cs" />
     <Compile Include="Requests\Request.cs" />

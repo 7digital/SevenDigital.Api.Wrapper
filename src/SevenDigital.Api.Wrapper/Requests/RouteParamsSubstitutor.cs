@@ -24,7 +24,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 			return new ApiRequest
 			{
-				AbsoluteUrl = string.Format("{0}/{1}", apiBaseUrl, pathWithRouteParamsSubstituted),
+				AbsoluteUrl = UriPath.Combine(apiBaseUrl, pathWithRouteParamsSubstituted),
 				Parameters = withoutRouteParameters
 			};
 		}
