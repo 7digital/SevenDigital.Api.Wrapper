@@ -19,3 +19,5 @@ build/spec/report.html
 *.ncrunchsolution
 packages/*/**
 /.nuget/nuget.exe
+packages/*/**
+/examples/*/packages/*/**

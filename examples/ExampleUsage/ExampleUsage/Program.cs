@@ -10,10 +10,18 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 {
 	class Program 
 	{
-		static void Main(string[] args) 
+		static void Main(string[] args)
 		{
-			var s = args[0];
-			var artistId = Convert.ToInt32(s);
+			string firstArg;
+			if (args.Length < 1)
+			{
+				firstArg = "1";
+			}
+			else
+			{
+				firstArg = args[0];
+			}
+			var artistId = Convert.ToInt32(firstArg);
 
 			var appSettingsCredentials = new AppSettingsCredentials();
 			var apiUri = new ApiUri();

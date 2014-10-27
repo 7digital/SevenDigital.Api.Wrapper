@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Wrapper.Un
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Wrapper.Integration.Tests", "src\SevenDigital.Api.Wrapper.Integration.Tests\SevenDigital.Api.Wrapper.Integration.Tests.csproj", "{7E73372C-F9A3-4078-8D01-E2BB79B15A84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Wrapper.ExampleUsage", "src\SevenDigital.Api.Wrapper.ExampleUsage\SevenDigital.Api.Wrapper.ExampleUsage.csproj", "{4FC435ED-7811-4E50-BC9C-76638A4101D5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Schema", "src\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj", "{513C4B04-994E-4149-BFD6-A6910E0F95B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Schema.Unit.Tests", "src\SevenDigital.Api.Schema.Unit.Tests\SevenDigital.Api.Schema.Unit.Tests.csproj", "{E421350F-D18D-4D30-B9EE-53CC360097FA}"
@@ -60,16 +58,6 @@ Global
 		{7E73372C-F9A3-4078-8D01-E2BB79B15A84}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{7E73372C-F9A3-4078-8D01-E2BB79B15A84}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7E73372C-F9A3-4078-8D01-E2BB79B15A84}.Release|x86.ActiveCfg = Release|Any CPU
-		{4FC435ED-7811-4E50-BC9C-76638A4101D5}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{4FC435ED-7811-4E50-BC9C-76638A4101D5}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{4FC435ED-7811-4E50-BC9C-76638A4101D5}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{4FC435ED-7811-4E50-BC9C-76638A4101D5}.Debug|x86.ActiveCfg = Debug|x86
-		{4FC435ED-7811-4E50-BC9C-76638A4101D5}.Debug|x86.Build.0 = Debug|x86
-		{4FC435ED-7811-4E50-BC9C-76638A4101D5}.Release|Any CPU.ActiveCfg = Release|x86
-		{4FC435ED-7811-4E50-BC9C-76638A4101D5}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{4FC435ED-7811-4E50-BC9C-76638A4101D5}.Release|Mixed Platforms.Build.0 = Release|x86
-		{4FC435ED-7811-4E50-BC9C-76638A4101D5}.Release|x86.ActiveCfg = Release|x86
-		{4FC435ED-7811-4E50-BC9C-76638A4101D5}.Release|x86.Build.0 = Release|x86
 		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
