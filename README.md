@@ -9,7 +9,7 @@ The 7digital API will give you access to the full catalogue including high quali
 
 What is this code?
 ========
-the 7digital API Wrapper is a library to make it easy to access the 7digital API from C# code. 
+The 7digital API Wrapper is a library to make it easy to access the 7digital API from C# code. 
 
 You will need 
 ========
