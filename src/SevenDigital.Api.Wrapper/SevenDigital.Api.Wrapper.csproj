@@ -44,6 +44,10 @@
     <Reference Include="OAuth">
       <HintPath>..\..\packages\OAuth.1.0.3\lib\net40\OAuth.dll</HintPath>
     </Reference>
+    <Reference Include="SevenDigital.Api.Schema, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\SevenDigital.Api.Schema.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -137,12 +141,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\Parsing\ResponseDeserializer.cs" />
     <Compile Include="StaticApi.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">
-      <Project>{513C4B04-994E-4149-BFD6-A6910E0F95B8}</Project>
-      <Name>SevenDigital.Api.Schema</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -49,6 +49,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="SevenDigital.Api.Schema, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\SevenDigital.Api.Schema.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -108,10 +112,6 @@
     <Compile Include="Responses\ResponseTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj">
-      <Project>{513C4B04-994E-4149-BFD6-A6910E0F95B8}</Project>
-      <Name>SevenDigital.Api.Schema</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SevenDigital.Api.Wrapper\SevenDigital.Api.Wrapper.csproj">
       <Project>{42B4EE01-CDC9-482D-BBB1-B6147A6EA00D}</Project>
       <Name>SevenDigital.Api.Wrapper</Name>

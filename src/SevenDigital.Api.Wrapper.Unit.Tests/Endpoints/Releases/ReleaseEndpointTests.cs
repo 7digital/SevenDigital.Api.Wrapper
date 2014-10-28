@@ -13,7 +13,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Releases
 	public class ReleaseEndpointTests
 	{
 		[Test]
-		public void should_deserialize_emtpy_release_type_to_unknown()
+		public void should_deserialize_empty_release_type_to_unknown()
 		{
 			var responseXml = File.ReadAllText("StubResponses/ArtistReleases.xml");
 			var response = new Response(HttpStatusCode.OK, responseXml);
