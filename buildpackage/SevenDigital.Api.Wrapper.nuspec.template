@@ -14,6 +14,7 @@
     <dependencies>
 		<dependency id="OAuth" version="1.0.3" />
 		<dependency id="Newtonsoft.Json" version="6.0.3" />
+		<dependency id="SevenDigital.Api.Schema" version="0.2" />
     </dependencies>
   </metadata>
   <files>
