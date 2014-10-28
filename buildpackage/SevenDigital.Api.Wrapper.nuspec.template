@@ -20,7 +20,5 @@
   <files>
 	<file src="..\src\SevenDigital.Api.Wrapper\bin\Debug\SevenDigital.Api.Wrapper.dll" target="lib\net45" /> 
 	<file src="..\src\SevenDigital.Api.Wrapper\bin\Debug\SevenDigital.Api.Wrapper.pdb" target="lib\net45" /> 
-	<file src="..\src\SevenDigital.Api.Wrapper\bin\Debug\SevenDigital.Api.Schema.dll" target="lib\net45" /> 
-	<file src="..\src\SevenDigital.Api.Wrapper\bin\Debug\SevenDigital.Api.Schema.pdb" target="lib\net45" /> 
   </files>
 </package>
