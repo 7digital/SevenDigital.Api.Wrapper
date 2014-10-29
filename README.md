@@ -37,9 +37,10 @@ Where to read more:
 
 See [the wiki](https://github.com/7digital/SevenDigital.Api.Wrapper/wiki) for further documentation on usage, contributing and so on.
 
-Resources for other languages:
+Other resources:
 ----
-Node.js: [Node.js API Client](https://github.com/raoulmillais/node-7digital-api)
+* Schema used by this wrapper: [SevenDigital.Api.Schema](https://github.com/7digital/SevenDigital.Api.Schema).  
+* Node.js: [Node.js API Client](https://github.com/raoulmillais/node-7digital-api).
 
 Licence
 ----
