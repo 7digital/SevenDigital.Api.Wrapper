@@ -7,10 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Wrapper.Un
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Wrapper.Integration.Tests", "src\SevenDigital.Api.Wrapper.Integration.Tests\SevenDigital.Api.Wrapper.Integration.Tests.csproj", "{7E73372C-F9A3-4078-8D01-E2BB79B15A84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Schema", "src\SevenDigital.Api.Schema\SevenDigital.Api.Schema.csproj", "{513C4B04-994E-4149-BFD6-A6910E0F95B8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDigital.Api.Schema.Unit.Tests", "src\SevenDigital.Api.Schema.Unit.Tests\SevenDigital.Api.Schema.Unit.Tests.csproj", "{E421350F-D18D-4D30-B9EE-53CC360097FA}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E3DA8B6E-A7E3-4CB0-9648-EB96D40C29D9}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -58,26 +54,6 @@ Global
 		{7E73372C-F9A3-4078-8D01-E2BB79B15A84}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{7E73372C-F9A3-4078-8D01-E2BB79B15A84}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7E73372C-F9A3-4078-8D01-E2BB79B15A84}.Release|x86.ActiveCfg = Release|Any CPU
-		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{513C4B04-994E-4149-BFD6-A6910E0F95B8}.Release|x86.ActiveCfg = Release|Any CPU
-		{E421350F-D18D-4D30-B9EE-53CC360097FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E421350F-D18D-4D30-B9EE-53CC360097FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E421350F-D18D-4D30-B9EE-53CC360097FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E421350F-D18D-4D30-B9EE-53CC360097FA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E421350F-D18D-4D30-B9EE-53CC360097FA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E421350F-D18D-4D30-B9EE-53CC360097FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E421350F-D18D-4D30-B9EE-53CC360097FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E421350F-D18D-4D30-B9EE-53CC360097FA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E421350F-D18D-4D30-B9EE-53CC360097FA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E421350F-D18D-4D30-B9EE-53CC360097FA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Xml.Serialization;
-
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
 

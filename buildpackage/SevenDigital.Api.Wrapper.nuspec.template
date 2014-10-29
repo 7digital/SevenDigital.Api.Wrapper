@@ -14,12 +14,11 @@
     <dependencies>
 		<dependency id="OAuth" version="1.0.3" />
 		<dependency id="Newtonsoft.Json" version="6.0.3" />
+		<dependency id="SevenDigital.Api.Schema" version="0.2" />
     </dependencies>
   </metadata>
   <files>
 	<file src="..\src\SevenDigital.Api.Wrapper\bin\Debug\SevenDigital.Api.Wrapper.dll" target="lib\net45" /> 
 	<file src="..\src\SevenDigital.Api.Wrapper\bin\Debug\SevenDigital.Api.Wrapper.pdb" target="lib\net45" /> 
-	<file src="..\src\SevenDigital.Api.Wrapper\bin\Debug\SevenDigital.Api.Schema.dll" target="lib\net45" /> 
-	<file src="..\src\SevenDigital.Api.Wrapper\bin\Debug\SevenDigital.Api.Schema.pdb" target="lib\net45" /> 
   </files>
 </package>
