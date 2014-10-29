@@ -95,12 +95,6 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
-		public IFluentApi<T> ClearParameters()
-		{
-			_requestData.Parameters.Clear();
-			return this;
-		}
-
 		public IFluentApi<T> ForUser(string oAuthToken, string oAuthTokenSecret)
 		{
 			_requestData.OAuthToken = oAuthToken;

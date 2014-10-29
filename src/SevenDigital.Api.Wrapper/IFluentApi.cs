@@ -12,7 +12,6 @@ namespace SevenDigital.Api.Wrapper
 		string EndpointUrl { get; }
 
 		IFluentApi<T> WithParameter(string key, string value);
-		IFluentApi<T> ClearParameters();
 		IFluentApi<T> ForUser(string oAuthToken, string oAuthTokenSecret);
 		IFluentApi<T> UsingClient(IHttpClient httpClient);
 		IFluentApi<T> UsingCache(IResponseCache responseCache);
