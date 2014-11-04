@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 
 namespace SevenDigital.Api.Wrapper
 {
@@ -14,6 +15,12 @@ namespace SevenDigital.Api.Wrapper
 		{
 			api.WithParameter(name, value.ToString(CultureInfo.InvariantCulture));
 			return api;
+		}
+
+		public static IFluentApi<T> WithParameter<T, U>(this IFluentApi<T> api, string name, IEnumerable<U> items)
+		{
+			var itemsAsString = string.Join(",", items);
+			return api.WithParameter(name, itemsAsString);
 		}
 	}
 }
