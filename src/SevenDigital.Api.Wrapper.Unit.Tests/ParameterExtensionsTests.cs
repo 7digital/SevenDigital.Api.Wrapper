@@ -42,5 +42,24 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			Assert.That(basketEndpoint.Parameters["answer"], Is.EqualTo("42.12"));
 		}
 
+		[Test]
+		public void Should_add_list_parameter_with_one_item()
+		{
+			var basketEndpoint = new FluentApi<AddItemToBasket>(_httpClient, _requestBuilder, _responseParser);
+			basketEndpoint.WithParameter("someInts", new[] { 42 });
+
+			Assert.That(basketEndpoint.Parameters.Keys.Contains("someInts"));
+			Assert.That(basketEndpoint.Parameters["someInts"], Is.EqualTo("42"));
+		}
+
+		[Test]
+		public void Should_add_list_parameter_with_multiple_items()
+		{
+			var basketEndpoint = new FluentApi<AddItemToBasket>(_httpClient, _requestBuilder, _responseParser);
+			basketEndpoint.WithParameter("someInts", new[] { 1, 2, 3 });
+
+			Assert.That(basketEndpoint.Parameters.Keys.Contains("someInts"));
+			Assert.That(basketEndpoint.Parameters["someInts"], Is.EqualTo("1,2,3"));
+		}
 	}
 }
