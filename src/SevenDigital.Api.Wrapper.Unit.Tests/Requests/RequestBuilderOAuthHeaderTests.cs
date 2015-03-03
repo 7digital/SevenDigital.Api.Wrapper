@@ -122,6 +122,24 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			Assert.That(actual, Is.StringContaining("oauth_token="));
 		}
 
+		[Test]
+		public void Should_not_include_json_post_body()
+		{
+			var requestData = new RequestData
+			{
+				HttpMethod = HttpMethod.Post,
+				Endpoint = "http://api.com/endpoint",
+				Payload = new RequestPayload("application/json", "{ a: 1, c: 2 }"),
+				RequiresSignature = true,
+				OAuthToken = "TOKEN",
+				OAuthTokenSecret = "SECRET"
+			};
+
+			var actual = GetAuthHeader(requestData);
+
+			Assert.That(actual, Is.StringContaining("oauth_token="));
+		}
+
 		private string GetAuthHeader(RequestData requestData)
 		{
 			var request = _requestBuilder.BuildRequest(requestData);

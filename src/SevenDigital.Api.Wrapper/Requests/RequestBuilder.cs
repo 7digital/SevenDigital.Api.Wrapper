@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using OAuth;
 using SevenDigital.Api.Wrapper.Http;
@@ -7,6 +8,8 @@ namespace SevenDigital.Api.Wrapper.Requests
 {
 	public class RequestBuilder : IRequestBuilder
 	{
+		private const string FormUrlEncoded = "application/x-www-form-urlencoded";
+
 		private readonly IOAuthCredentials _oAuthCredentials;
 		private readonly RouteParamsSubstitutor _routeParamsSubstitutor;
 
@@ -46,7 +49,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 			if (shouldHaveRequestBody && hasSuppliedParameters)
 			{
-				return new RequestPayload("application/x-www-form-urlencoded", requestParameters.ToQueryString());
+				return new RequestPayload(FormUrlEncoded, requestParameters.ToQueryString());
 			}
 
 			if (shouldHaveRequestBody && hasSuppliedARequestPayload)
@@ -54,7 +57,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 				return requestData.Payload;
 			}
 
-			return new RequestPayload("application/x-www-form-urlencoded", "");
+			return new RequestPayload(FormUrlEncoded, "");
 		}
 
 		private string GetAuthorizationHeader(RequestData requestData, string fullUrl, ApiRequest apiRequest, RequestPayload requestBody)
@@ -86,16 +89,24 @@ namespace SevenDigital.Api.Wrapper.Requests
 				oauthRequest.TokenSecret = requestData.OAuthTokenSecret;
 			}
 
-			if (!string.IsNullOrEmpty(requestBody.Data) && (parameters.Count == 0))
+			if (ShouldReadParamsFromBody(parameters, requestBody))
 			{
 				var bodyParams = HttpUtility.ParseQueryString(requestBody.Data);
-				foreach (var key in bodyParams.AllKeys)
+				var keys = bodyParams.AllKeys.Where(x => !string.IsNullOrEmpty(x));
+				foreach (var key in keys)
 				{
 					parameters.Add(key, bodyParams[key]);
 				}
 			}
 
 			return oauthRequest.GetAuthorizationHeader(parameters);
+		}
+
+		private static bool ShouldReadParamsFromBody(IDictionary<string, string> parameters, RequestPayload requestBody)
+		{
+			return (requestBody.ContentType == FormUrlEncoded) && 
+				!string.IsNullOrEmpty(requestBody.Data) && 
+				(parameters.Count == 0);
 		}
 	}
 }
