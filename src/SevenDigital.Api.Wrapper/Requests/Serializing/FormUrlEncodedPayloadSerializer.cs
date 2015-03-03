@@ -18,7 +18,7 @@ namespace SevenDigital.Api.Wrapper.Requests.Serializing
 
 		public string Serialize<TPayload>(TPayload payload) where TPayload : class
 		{
-			return SerialiseWithRefection(payload);
+			return SerialiseWithReflection(payload);
 		}
 
 		/// <summary>
@@ -28,37 +28,33 @@ namespace SevenDigital.Api.Wrapper.Requests.Serializing
 		/// </summary>
 		/// <param name="request"></param>
 		/// <returns></returns>
-		private string SerialiseWithRefection(object request)
+		private string SerialiseWithReflection(object request)
 		{
-			// Get all properties on the object
-			var properties = request.GetType().GetProperties()
+			var allProperties = request.GetType().GetProperties()
 				.Where(x => x.CanRead)
 				.Where(x => x.GetValue(request, null) != null)
 				.ToDictionary(x => x.Name, x => x.GetValue(request, null));
 
-			// Get names for all IEnumerable properties (excl. string)
-			var propertyNames = properties
+			var propertyNames = allProperties
 				.Where(x => !(x.Value is string) && x.Value is IEnumerable)
 				.Select(x => x.Key)
 				.ToList();
 
-			// Concat all IEnumerable properties into a comma separated string
 			foreach (var key in propertyNames)
 			{
-				var valueType = properties[key].GetType();
+				var valueType = allProperties[key].GetType();
 				var valueElemType = valueType.IsGenericType
 					? valueType.GetGenericArguments()[0]
 					: valueType.GetElementType();
 
 				if (valueElemType.IsPrimitive || valueElemType == typeof(string))
 				{
-					var enumerable = properties[key] as IEnumerable;
-					properties[key] = string.Join(",", enumerable.Cast<object>());
+					var enumerable = allProperties[key] as IEnumerable;
+					allProperties[key] = string.Join(",", enumerable.Cast<object>());
 				}
 			}
 
-			// Concat all key/value pairs into a string separated by ampersand
-			var pairs = properties.Select(x =>
+			var pairs = allProperties.Select(x =>
 				string.Concat(
 					Uri.EscapeDataString(x.Key), "=", 
 					Uri.EscapeDataString(x.Value.ToString())));
