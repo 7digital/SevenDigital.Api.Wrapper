@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Artists;
 using SevenDigital.Api.Wrapper.Requests.Serializing;
@@ -68,6 +69,23 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 			var actual = _payloadSerializer.Serialize(data);
 
 			Assert.That(actual, Is.EqualTo(expectedEncodedOutput));
+		}
+
+		[Test]
+		public void Should_produce_parsable_output()
+		{
+			var data = new DataWithIntValues
+			{
+				Name = "test data",
+				Values = new List<int> { 1, 2, 12345 }
+			};
+
+			var actual = _payloadSerializer.Serialize(data);
+			var decoded = HttpUtility.ParseQueryString(actual);
+
+			Assert.That(decoded.Count, Is.EqualTo(2));
+			Assert.That(decoded["Name"], Is.EqualTo("test data"));
+			Assert.That(decoded["Values"], Is.EqualTo("1,2,12345"));
 		}
 
 		[Test]
