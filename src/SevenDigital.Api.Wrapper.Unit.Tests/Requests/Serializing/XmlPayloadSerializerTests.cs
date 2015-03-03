@@ -5,15 +5,9 @@ using SevenDigital.Api.Wrapper.Requests.Serializing;
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 {
 	[TestFixture]
-	public class XmlTransferContentTypeTest
+	public class XmlPayloadSerializerTests
 	{
-		private XmlPayloadSerializer _payloadSerializer;
-
-		[SetUp]
-		public void SetUp()
-		{
-			_payloadSerializer = new XmlPayloadSerializer();
-		}
+		private readonly XmlPayloadSerializer _payloadSerializer = new XmlPayloadSerializer();
 
 		[Test]
 		public void Should_have_correct_contenttype()

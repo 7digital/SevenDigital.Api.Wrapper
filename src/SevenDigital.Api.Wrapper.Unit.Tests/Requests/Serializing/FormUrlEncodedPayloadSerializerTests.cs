@@ -14,13 +14,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 	[TestFixture]
 	public class FormUrlEncodedPayloadSerializerTests
 	{
-		private FormUrlEncodedPayloadSerializer _payloadSerializer;
-
-		[SetUp]
-		public void SetUp()
-		{
-			_payloadSerializer = new FormUrlEncodedPayloadSerializer();
-		}
+		private readonly FormUrlEncodedPayloadSerializer _payloadSerializer = new FormUrlEncodedPayloadSerializer();
 
 		[Test]
 		public void Should_have_correct_contenttype()

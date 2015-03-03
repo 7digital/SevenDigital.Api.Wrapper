@@ -102,9 +102,9 @@
     <Compile Include="Requests\DictionaryExtensionsTests.cs" />
     <Compile Include="Requests\Serializing\FormUrlEncodedPayloadSerializerTests.cs" />
     <Compile Include="Requests\Serializing\HalLinkCollectionConverterTests.cs" />
-    <Compile Include="Requests\Serializing\JsonTransferContentTypeTest.cs" />
+    <Compile Include="Requests\Serializing\JsonPayloadSerializerTests.cs" />
     <Compile Include="Requests\Serializing\Utf8StringWriterTests.cs" />
-    <Compile Include="Requests\Serializing\XmlTransferContentTypeTest.cs" />
+    <Compile Include="Requests\Serializing\XmlPayloadSerializerTests.cs" />
     <Compile Include="Requests\UriPathTests.cs" />
     <Compile Include="Responses\Parsing\ApiResponseDetectorTests.cs" />
     <Compile Include="Responses\Parsing\ResponseParserTests.cs" />
