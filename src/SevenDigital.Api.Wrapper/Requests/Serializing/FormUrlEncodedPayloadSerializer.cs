@@ -49,6 +49,7 @@ namespace SevenDigital.Api.Wrapper.Requests.Serializing
 				var valueElemType = valueType.IsGenericType
 					? valueType.GetGenericArguments()[0]
 					: valueType.GetElementType();
+
 				if (valueElemType.IsPrimitive || valueElemType == typeof(string))
 				{
 					var enumerable = properties[key] as IEnumerable;
@@ -57,10 +58,12 @@ namespace SevenDigital.Api.Wrapper.Requests.Serializing
 			}
 
 			// Concat all key/value pairs into a string separated by ampersand
-			return string.Join("&", properties
-				.Select(x => string.Concat(
-					Uri.EscapeDataString(x.Key), "=",
-					Uri.EscapeDataString(x.Value.ToString()))));
+			var pairs = properties.Select(x =>
+				string.Concat(
+					Uri.EscapeDataString(x.Key), "=", 
+					Uri.EscapeDataString(x.Value.ToString())));
+
+			return string.Join("&", pairs);
 		}
 	}
 }

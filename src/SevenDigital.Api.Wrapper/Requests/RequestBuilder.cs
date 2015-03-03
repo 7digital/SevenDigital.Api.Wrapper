@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web;
 using OAuth;
 using SevenDigital.Api.Wrapper.Http;
 
@@ -22,7 +23,9 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 			var headers = new Dictionary<string, string>(requestData.Headers);
 
-			var oauthHeader = GetAuthorizationHeader(requestData, fullUrl, apiRequest);
+			var requestBody = CheckForRequestPayload(requestData, apiRequest.Parameters);
+
+			var oauthHeader = GetAuthorizationHeader(requestData, fullUrl, apiRequest, requestBody);
 			headers.Add("Authorization", oauthHeader);
 			headers.Add("Accept", requestData.Accept);
 
@@ -31,7 +34,6 @@ namespace SevenDigital.Api.Wrapper.Requests
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
 
-			var requestBody = CheckForRequestPayload(requestData, apiRequest.Parameters);
 
 			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody);
 		}
@@ -55,23 +57,25 @@ namespace SevenDigital.Api.Wrapper.Requests
 			return new RequestPayload("application/x-www-form-urlencoded", "");
 		}
 
-		private string GetAuthorizationHeader(RequestData requestData, string fullUrl, ApiRequest apiRequest)
+		private string GetAuthorizationHeader(RequestData requestData, string fullUrl, ApiRequest apiRequest, RequestPayload requestBody)
 		{
 			if (requestData.RequiresSignature)
 			{
-				return BuildOAuthHeader(requestData, fullUrl, apiRequest.Parameters);
+				return BuildOAuthHeader(requestData, fullUrl, apiRequest.Parameters, requestBody);
 			}
 
 			return "oauth_consumer_key=" + _oAuthCredentials.ConsumerKey;
 		}
 
-		private string BuildOAuthHeader(RequestData requestData, string fullUrl, IDictionary<string, string> parameters)
+		private string BuildOAuthHeader(RequestData requestData, string fullUrl, IDictionary<string, string> parameters, RequestPayload requestBody)
 		{
+			var httpMethod = requestData.HttpMethod.ToString().ToUpperInvariant();
+
 			var oauthRequest = new OAuthRequest
 				{
 					Type = OAuthRequestType.ProtectedResource,
 					RequestUrl = fullUrl,
-					Method = requestData.HttpMethod.ToString().ToUpperInvariant(),
+					Method = httpMethod,
 					ConsumerKey = _oAuthCredentials.ConsumerKey,
 					ConsumerSecret = _oAuthCredentials.ConsumerSecret,
 				};
@@ -80,6 +84,15 @@ namespace SevenDigital.Api.Wrapper.Requests
 			{
 				oauthRequest.Token = requestData.OAuthToken;
 				oauthRequest.TokenSecret = requestData.OAuthTokenSecret;
+			}
+
+			if (!string.IsNullOrEmpty(requestBody.Data) && (parameters.Count == 0))
+			{
+				var bodyParams = HttpUtility.ParseQueryString(requestBody.Data);
+				foreach (var key in bodyParams.AllKeys)
+				{
+					parameters.Add(key, bodyParams[key]);
+				}
 			}
 
 			return oauthRequest.GetAuthorizationHeader(parameters);
