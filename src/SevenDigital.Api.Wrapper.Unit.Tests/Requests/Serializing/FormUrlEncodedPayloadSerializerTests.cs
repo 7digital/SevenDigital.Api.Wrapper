@@ -11,6 +11,19 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 		public List<int> Values { get; set; }
 	}
 
+	public class WidgetOwner
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public Widget Widget { get; set; }
+	}
+
+	public class Widget
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+	}
+
 	[TestFixture]
 	public class FormUrlEncodedPayloadSerializerTests
 	{
@@ -41,7 +54,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 			Assert.That(actual, Is.EqualTo(expectedEncodedOutput));
 		}
 
-
 		[Test]
 		public void Should_serialize_data_with_ints_as_expected()
 		{
@@ -54,6 +66,23 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 			};
 
 			var actual = _payloadSerializer.Serialize(data);
+
+			Assert.That(actual, Is.EqualTo(expectedEncodedOutput));
+		}
+
+		[Test]
+		public void Should_not_serialize_nulls()
+		{
+			const string expectedEncodedOutput = "Id=12&Name=fred";
+
+			var dataWithNull = new WidgetOwner
+				{
+					Id = 12,
+					Name = "fred",
+					Widget = null
+				};
+
+			var actual = _payloadSerializer.Serialize(dataWithNull);
 
 			Assert.That(actual, Is.EqualTo(expectedEncodedOutput));
 		}
