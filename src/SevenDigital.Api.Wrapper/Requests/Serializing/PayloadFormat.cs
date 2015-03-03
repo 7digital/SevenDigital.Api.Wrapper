@@ -3,6 +3,7 @@
 	public enum PayloadFormat
 	{
 		Xml,
-		Json
+		Json,
+		FormUrlEncoded
 	}
 }

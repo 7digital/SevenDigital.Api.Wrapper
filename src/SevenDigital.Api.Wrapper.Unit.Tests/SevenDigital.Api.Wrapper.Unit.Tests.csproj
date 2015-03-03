@@ -100,6 +100,7 @@
     <Compile Include="Http\FakeHttpClient.cs" />
     <Compile Include="Requests\RequestBuilderTests.cs" />
     <Compile Include="Requests\DictionaryExtensionsTests.cs" />
+    <Compile Include="Requests\Serializing\FormUrlEncodedPayloadSerializerTests.cs" />
     <Compile Include="Requests\Serializing\HalLinkCollectionConverterTests.cs" />
     <Compile Include="Requests\Serializing\JsonTransferContentTypeTest.cs" />
     <Compile Include="Requests\Serializing\Utf8StringWriterTests.cs" />
