@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Requests;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
@@ -77,6 +79,65 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 
 			Assert.That(actual, Is.Not.StringContaining("oauth_token"));
 			Assert.That(actual, Is.StringContaining("oauth_consumer_key="));
+		}
+
+		[Test]
+		public void Should_include_request_params()
+		{
+			var requestData = new RequestData
+			{
+				HttpMethod = HttpMethod.Get,
+				Endpoint = "http://api.com/endpoint",
+				Parameters = new Dictionary<string, string>
+					{
+						{ "a", "b" },
+						{ "c", "d" }
+					},
+				RequiresSignature = true,
+				OAuthToken = "TOKEN",
+				OAuthTokenSecret = "SECRET",
+				Payload = null
+			};
+
+			var actual = GetAuthHeader(requestData);
+
+			Assert.That(actual, Is.StringContaining("oauth_token="));
+		}
+
+		[Test]
+		public void Should_include_form_url_encoded_post_body()
+		{
+			var requestData = new RequestData
+			{
+				HttpMethod = HttpMethod.Post,
+				Endpoint = "http://api.com/endpoint",
+				Payload = new RequestPayload("application/x-www-form-urlencoded", "a=b&c=d"),
+				RequiresSignature = true,
+				OAuthToken = "TOKEN",
+				OAuthTokenSecret = "SECRET"
+			};
+
+			var actual = GetAuthHeader(requestData);
+
+			Assert.That(actual, Is.StringContaining("oauth_token="));
+		}
+
+		[Test]
+		public void Should_not_include_json_post_body()
+		{
+			var requestData = new RequestData
+			{
+				HttpMethod = HttpMethod.Post,
+				Endpoint = "http://api.com/endpoint",
+				Payload = new RequestPayload("application/json", "{ a: 1, c: 2 }"),
+				RequiresSignature = true,
+				OAuthToken = "TOKEN",
+				OAuthTokenSecret = "SECRET"
+			};
+
+			var actual = GetAuthHeader(requestData);
+
+			Assert.That(actual, Is.StringContaining("oauth_token="));
 		}
 
 		private string GetAuthHeader(RequestData requestData)

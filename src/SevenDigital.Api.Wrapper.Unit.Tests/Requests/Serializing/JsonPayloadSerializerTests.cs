@@ -5,15 +5,9 @@ using SevenDigital.Api.Wrapper.Requests.Serializing;
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 {
 	[TestFixture]
-	public class JsonTransferContentTypeTest
+	public class JsonPayloadSerializerTests
 	{
-		private JsonPayloadSerializer _payloadSerializer;
-
-		[SetUp]
-		public void SetUp()
-		{
-			_payloadSerializer = new JsonPayloadSerializer();
-		}
+		private readonly JsonPayloadSerializer _payloadSerializer = new JsonPayloadSerializer();
 
 		[Test]
 		public void Should_have_correct_contenttype()

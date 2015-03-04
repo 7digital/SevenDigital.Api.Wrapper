@@ -111,6 +111,7 @@
     <Compile Include="Extensions\HasUserDeliverItemParameterExtensions.cs" />
     <Compile Include="Extensions\LockerSortColumn.cs" />
     <Compile Include="Extensions\SortOrder.cs" />
+    <Compile Include="Requests\Serializing\FormUrlEncodedPayloadSerializer.cs" />
     <Compile Include="Requests\Serializing\HalLinkCollectionConverter.cs" />
     <Compile Include="Requests\Serializing\IPayloadSerializer.cs" />
     <Compile Include="Requests\Serializing\JsonPayloadSerializer.cs" />

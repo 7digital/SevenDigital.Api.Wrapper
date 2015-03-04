@@ -23,10 +23,11 @@ namespace SevenDigital.Api.Wrapper
 		private readonly IResponseParser _parser;
 		private IResponseCache _responseCache = new NullResponseCache();
 		private readonly List<IPayloadSerializer> _payloadSerializers= new List<IPayloadSerializer>
-		{
-			new XmlPayloadSerializer(),
-			new JsonPayloadSerializer()
-		};
+			{
+				new XmlPayloadSerializer(),
+				new JsonPayloadSerializer(),
+				new FormUrlEncodedPayloadSerializer()
+			};
 
 		public FluentApi(IHttpClient httpClient, IRequestBuilder requestBuilder, IResponseParser responseParser)
 		{
