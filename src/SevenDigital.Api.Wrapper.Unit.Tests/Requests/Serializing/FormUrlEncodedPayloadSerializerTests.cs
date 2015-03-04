@@ -17,12 +17,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public Widget Widget { get; set; }
+
+		public int? OptionalInt { get; set; }
 	}
 
 	public class Widget
 	{
-		public int Id { get; set; }
-		public string Name { get; set; }
 	}
 
 	[TestFixture]
@@ -97,8 +97,28 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 				{
 					Id = 12,
 					Name = "fred",
-					Widget = null
+					Widget = null,
+					OptionalInt = null
 				};
+
+			var actual = _payloadSerializer.Serialize(dataWithNull);
+
+			Assert.That(actual, Is.EqualTo(expectedEncodedOutput));
+		}
+
+
+		[Test]
+		public void Should_serialize_nullable_with_value()
+		{
+			const string expectedEncodedOutput = "Id=12&Name=fred&OptionalInt=34";
+
+			var dataWithNull = new WidgetOwner
+			{
+				Id = 12,
+				Name = "fred",
+				Widget = null,
+				OptionalInt = 34
+			};
 
 			var actual = _payloadSerializer.Serialize(dataWithNull);
 
