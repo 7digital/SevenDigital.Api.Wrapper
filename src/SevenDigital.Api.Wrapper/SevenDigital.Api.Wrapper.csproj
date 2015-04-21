@@ -51,6 +51,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
@@ -119,6 +120,8 @@
     <Compile Include="Requests\Serializing\Utf8StringWriter.cs" />
     <Compile Include="Requests\Serializing\XmlPayloadSerializer.cs" />
     <Compile Include="Requests\UriPath.cs" />
+    <Compile Include="Responses\ResponseCachingReader.cs" />
+    <Compile Include="Responses\InMemoryResponseCache.cs" />
     <Compile Include="Responses\IResponseCache.cs" />
     <Compile Include="Responses\NullResponseCache.cs" />
     <Compile Include="Requests\Request.cs" />

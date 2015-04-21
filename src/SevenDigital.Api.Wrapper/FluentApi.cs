@@ -125,7 +125,11 @@ namespace SevenDigital.Api.Wrapper
 		public async Task<Response> Response()
 		{
 			var request = _requestBuilder.BuildRequest(_requestData);
+			return await Response(request);
+		}
 
+		private async Task<Response> Response(Request request)
+		{
 			try
 			{
 				return await _httpClient.Send(request);
@@ -154,13 +158,14 @@ namespace SevenDigital.Api.Wrapper
 		public async Task<T> Please()
 		{
 			T cachedResult;
-			var foundInCache = _responseCache.TryGet(_requestData, out cachedResult);
+			var request = _requestBuilder.BuildRequest(_requestData);
+			var foundInCache = _responseCache.TryGet(request, out cachedResult);
 			if (foundInCache)
 			{
 				return cachedResult;
 			}
 
-			Response response = await Response();
+			Response response = await Response(request);
 			var result = _parser.Parse<T>(response);
 			// set to cache only after all validation and parsing has succeeded
 			_responseCache.Set(response, result);
