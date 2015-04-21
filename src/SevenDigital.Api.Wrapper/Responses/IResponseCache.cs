@@ -4,7 +4,7 @@ namespace SevenDigital.Api.Wrapper.Responses
 {
 	public interface IResponseCache
 	{
-		void Set(RequestData key, object value);
-		bool TryGet<T>(RequestData key, out T value);
+		void Set(Response response, object value);
+		bool TryGet<T>(RequestData request, out T value);
 	}
 }

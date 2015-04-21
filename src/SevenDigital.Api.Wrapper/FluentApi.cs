@@ -163,7 +163,7 @@ namespace SevenDigital.Api.Wrapper
 			Response response = await Response();
 			var result = _parser.Parse<T>(response);
 			// set to cache only after all validation and parsing has succeeded
-			_responseCache.Set(_requestData, result);
+			_responseCache.Set(response, result);
 
 			return result;
 		}

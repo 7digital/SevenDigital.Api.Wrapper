@@ -17,13 +17,13 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			CachedResponses = new List<object>();
 		}
 
-		public void Set(RequestData key, object value)
+		public void Set(Response response, object value)
 		{
 			SetCount++;
 			CachedResponses.Add(value);
 		}
 
-		public bool TryGet<T>(RequestData key, out T value)
+		public bool TryGet<T>(RequestData request, out T value)
 		{
 			TryGetCount++;
 			value = (T)StubCachedObject;
