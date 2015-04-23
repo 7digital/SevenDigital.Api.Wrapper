@@ -13,12 +13,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 	{
 		private readonly CacheHeaderReader _cacheHeaderReader = new CacheHeaderReader();
 
-		[TestCase("max-age: 60", 60)]
-		[TestCase("max-age: 65 ", 65)]
-		[TestCase("max-age:120", 120)]
-		[TestCase("max-age:0", 0)]
-		[TestCase("max-age: 0", 0)]
-		[TestCase("max-age: 45 private", 45)]
+		[TestCase("max-age=60", 60)]
+		[TestCase("max-age= 65 ", 65)]
+		[TestCase("max-age=120", 120)]
+		[TestCase("max-age=0", 0)]
+		[TestCase("max-age=0", 0)]
+		[TestCase("max-age=45 private", 45)]
 		public void CanReadMaxAgefromHeaders(string headerText, int expectedValue)
 		{
 			var request = MakeRequest(HttpMethod.Get);
@@ -43,7 +43,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		{
 			var request = MakeRequest(HttpMethod.Post);
 
-			var responseHeaders = CacheControlHeader("max-age: 60 private");
+			var responseHeaders = CacheControlHeader("max-age=60 private");
 			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
 
 			AssertNotCached(response);
@@ -87,7 +87,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		{
 			var request = MakeRequest(HttpMethod.Get);
 
-			var responseHeaders = CacheControlHeader("max-age:foo");
+			var responseHeaders = CacheControlHeader("max-age=foo");
 			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
 
 			AssertNotCached(response);

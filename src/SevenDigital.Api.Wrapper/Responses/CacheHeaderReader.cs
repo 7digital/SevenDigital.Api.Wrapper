@@ -6,7 +6,7 @@ namespace SevenDigital.Api.Wrapper.Responses
 	public class CacheHeaderReader
 	{
 		private const string CacheControlKey = "cache-control";
-		private const string MaxAgePrefix = "max-age:";
+		private const string MaxAgePrefix = "max-age=";
 
 		public DateTimeOffset? GetExpiration(Response response)
 		{
@@ -65,16 +65,16 @@ namespace SevenDigital.Api.Wrapper.Responses
 		private static string ExtractMaxAgeStringValue(string cacheControlValue)
 		{
 			var ageIndex = cacheControlValue.IndexOf(MaxAgePrefix, StringComparison.OrdinalIgnoreCase);
-			var ageString = cacheControlValue.Substring(ageIndex + MaxAgePrefix.Length);
-			ageString = ageString.TrimStart();
+			var maxAgeValueText = cacheControlValue.Substring(ageIndex + MaxAgePrefix.Length);
+			maxAgeValueText = maxAgeValueText.TrimStart();
 
-			var spaceIndex = ageString.IndexOf(" ", StringComparison.OrdinalIgnoreCase);
-			if (spaceIndex > 0)
+			var trailingSpaceIndex = maxAgeValueText.IndexOf(" ", StringComparison.OrdinalIgnoreCase);
+			if (trailingSpaceIndex > 0)
 			{
-				ageString = ageString.Substring(0, spaceIndex);
+				maxAgeValueText = maxAgeValueText.Substring(0, trailingSpaceIndex);
 			}
 
-			return ageString;
+			return maxAgeValueText;
 		}
 	}
 }
