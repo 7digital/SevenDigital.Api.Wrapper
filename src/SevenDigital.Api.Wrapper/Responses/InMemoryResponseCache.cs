@@ -1,11 +1,11 @@
-﻿using System;
-using System.Runtime.Caching;
+﻿using System.Runtime.Caching;
 using SevenDigital.Api.Wrapper.Requests;
 
 namespace SevenDigital.Api.Wrapper.Responses
 {
 	public class InMemoryResponseCache : IResponseCache
 	{
+		private readonly CacheHeaderReader _cacheHeaderReader = new CacheHeaderReader();
 		private readonly ObjectCache _objectCache;
 
 		public InMemoryResponseCache(ObjectCache objectCache)
@@ -15,12 +15,11 @@ namespace SevenDigital.Api.Wrapper.Responses
 
 		public void Set(Response response, object value)
 		{
-			var cacheDuration = ResponseCachingReader.DurationSeconds(response);
-			if (cacheDuration > 0)
+			var cacheExpiration = _cacheHeaderReader.GetExpiration(response);
+			if (cacheExpiration.HasValue)
 			{
-				var expiration = DateTimeOffset.Now.AddSeconds(cacheDuration);
 				var cacheKey = MakeCacheKey(response.OriginalRequest);
-				_objectCache.Set(cacheKey, value, expiration);
+				_objectCache.Set(cacheKey, value, cacheExpiration.Value);
 			}
 		}
 

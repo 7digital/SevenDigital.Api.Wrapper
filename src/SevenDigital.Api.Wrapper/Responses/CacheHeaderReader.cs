@@ -3,56 +3,63 @@ using System.Net.Http;
 
 namespace SevenDigital.Api.Wrapper.Responses
 {
-	public static class ResponseCachingReader
+	public class CacheHeaderReader
 	{
 		private const string CacheControlKey = "cache-control";
 		private const string MaxAgePrefix = "max-age:";
 
-		public static bool IsCachable(Response response)
+		public DateTimeOffset? GetExpiration(Response response)
+		{
+			if (!IsCachableResponse(response))
+			{
+				return null;
+			}
+
+			var headerValue = response.Headers[CacheControlKey];
+			if (!IsCachableHeaderValue(headerValue))
+			{
+				return null;
+			}
+
+			var cacheDuration = CacheControlHeaderValue(headerValue);
+			if (cacheDuration == 0)
+			{
+				return null;
+			}
+
+			return DateTimeOffset.UtcNow.AddSeconds(cacheDuration);
+		}
+
+		private bool IsCachableResponse(Response response)
 		{
 			return (response.OriginalRequest.Method == HttpMethod.Get) &&
 				(response.Headers.ContainsKey(CacheControlKey));
 		}
 
-		public static int DurationSeconds(Response response)
-		{
-			if (!IsCachable(response))
-			{
-				return 0;
-			}
-
-			var headerValue = response.Headers[CacheControlKey];
-			return CacheControlHeaderValue(headerValue);
-		}
-
-		private static int CacheControlHeaderValue(string headerValue)
+		private bool IsCachableHeaderValue(string headerValue)
 		{
 			if (string.IsNullOrWhiteSpace(headerValue) ||
 				headerValue.Contains("no-cache") ||
 				headerValue.Contains("no-store"))
 			{
-				return 0;
+				return false;
 			}
 
 			if (!headerValue.Contains(MaxAgePrefix))
 			{
-				return 0;
+				return false;
 			}
 
+			return true;
+		}
+
+		private int CacheControlHeaderValue(string headerValue)
+		{
 			var ageString = ExtractMaxAgeStringValue(headerValue);
-			if (string.IsNullOrWhiteSpace(ageString))
-			{
-				return 0;
-			}
 
 			int ageValue;
 			var parsed = int.TryParse(ageString, out ageValue);
-			if (parsed)
-			{
-				return ageValue;
-			}
-
-			return 0;
+			return parsed ? ageValue : 0;
 		}
 
 		private static string ExtractMaxAgeStringValue(string cacheControlValue)

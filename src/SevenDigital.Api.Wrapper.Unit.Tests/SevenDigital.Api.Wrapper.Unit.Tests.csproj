@@ -108,7 +108,7 @@
     <Compile Include="Requests\Serializing\XmlPayloadSerializerTests.cs" />
     <Compile Include="Requests\UriPathTests.cs" />
     <Compile Include="Responses\Parsing\ApiResponseDetectorTests.cs" />
-    <Compile Include="Responses\Parsing\ResponseCachingReaderTests.cs" />
+    <Compile Include="Responses\Parsing\CacheHeaderReaderTests.cs" />
     <Compile Include="Responses\Parsing\ResponseParserTests.cs" />
     <Compile Include="Responses\Parsing\TestObject.cs" />
     <Compile Include="Responses\Parsing\ResponseDeserializerTests.cs" />
