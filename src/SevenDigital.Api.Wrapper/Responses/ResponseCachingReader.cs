@@ -6,20 +6,12 @@ namespace SevenDigital.Api.Wrapper.Responses
 	public static class ResponseCachingReader
 	{
 		private const string CacheControlKey = "cache-control";
+		private const string MaxAgePrefix = "max-age:";
 
 		public static bool IsCachable(Response response)
 		{
-			if (response.OriginalRequest.Method != HttpMethod.Get)
-			{
-				return false;
-			}
-
-			if (!response.Headers.ContainsKey(CacheControlKey))
-			{
-				return false;
-			}
-
-			return true;
+			return (response.OriginalRequest.Method == HttpMethod.Get) &&
+				(response.Headers.ContainsKey(CacheControlKey));
 		}
 
 		public static int DurationSeconds(Response response)
@@ -29,8 +21,8 @@ namespace SevenDigital.Api.Wrapper.Responses
 				return 0;
 			}
 
-			var cacheControlValue = response.Headers[CacheControlKey];
-			return CacheControlHeaderValue(cacheControlValue);
+			var headerValue = response.Headers[CacheControlKey];
+			return CacheControlHeaderValue(headerValue);
 		}
 
 		private static int CacheControlHeaderValue(string headerValue)
@@ -42,7 +34,7 @@ namespace SevenDigital.Api.Wrapper.Responses
 				return 0;
 			}
 
-			if (!headerValue.Contains("max-age"))
+			if (!headerValue.Contains(MaxAgePrefix))
 			{
 				return 0;
 			}
@@ -65,7 +57,6 @@ namespace SevenDigital.Api.Wrapper.Responses
 
 		private static string ExtractMaxAgeStringValue(string cacheControlValue)
 		{
-			const string MaxAgePrefix = "max-age:";
 			var ageIndex = cacheControlValue.IndexOf(MaxAgePrefix, StringComparison.OrdinalIgnoreCase);
 			var ageString = cacheControlValue.Substring(ageIndex + MaxAgePrefix.Length);
 			ageString = ageString.TrimStart();
