@@ -16,10 +16,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		[TestCase("max-age=60", 60)]
 		[TestCase("max-age= 65 ", 65)]
 		[TestCase("max-age=120", 120)]
-		[TestCase("max-age=0", 0)]
-		[TestCase("max-age=0", 0)]
 		[TestCase("max-age=45 private", 45)]
-		public void CanReadMaxAgefromHeaders(string headerText, int expectedValue)
+		[TestCase("max-age=50   ", 50)]
+		public void CanReadCacheDurationfromValidHeader(string headerText, int expectedValue)
 		{
 			var request = MakeRequest(HttpMethod.Get);
 
@@ -27,15 +26,43 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
 
 			var expiration = _cacheHeaderReader.GetExpiration(response);
-			Assert.That(expiration.HasValue, Is.EqualTo(expectedValue > 0));
+			Assert.That(expiration.HasValue, Is.True);
 
-			if (expiration.HasValue)
-			{
-				var duration = expiration.Value.DateTime - DateTime.UtcNow;
-				var seconds = duration.TotalSeconds;
-				var maxAge = (int)Math.Round(seconds);
-				Assert.That(maxAge, Is.EqualTo(expectedValue));
-			}
+			var duration = expiration.Value.DateTime - DateTime.UtcNow;
+			var seconds = duration.TotalSeconds;
+			var maxAge = (int)Math.Round(seconds);
+			Assert.That(maxAge, Is.EqualTo(expectedValue));
+		}
+
+		[TestCase("max-age=0")]
+		[TestCase("max-age = 0")]
+		[TestCase("no-store")]
+		[TestCase("no-cache")]
+		[TestCase("max-age=60 no-store")]
+		[TestCase("max-age=60 no-cache")]
+		public void CanReadNoCacheFromValidHeaders(string headerText)
+		{
+			var request = MakeRequest(HttpMethod.Get);
+
+			var responseHeaders = CacheControlHeader(headerText);
+			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
+
+			AssertNotCached(response);
+		}
+
+		[TestCase((string)null)]
+		[TestCase("")]
+		[TestCase("   ")]
+		[TestCase("foo bar")]
+		[TestCase("max-age=foo")]
+		public void CanReadNoCacheFromInvalidHeaders(string headerText)
+		{
+			var request = MakeRequest(HttpMethod.Get);
+
+			var responseHeaders = CacheControlHeader(headerText);
+			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
+
+			AssertNotCached(response);
 		}
 
 		[Test]
@@ -43,7 +70,18 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		{
 			var request = MakeRequest(HttpMethod.Post);
 
-			var responseHeaders = CacheControlHeader("max-age=60 private");
+			var responseHeaders = CacheControlHeader("max-age=60");
+			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
+
+			AssertNotCached(response);
+		}
+
+		[Test]
+		public void NotCacheableWhenRequestIsAPut()
+		{
+			var request = MakeRequest(HttpMethod.Put);
+
+			var responseHeaders = CacheControlHeader("max-age=60");
 			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
 
 			AssertNotCached(response);
@@ -55,61 +93,6 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			var request = MakeRequest(HttpMethod.Get);
 
 			var responseHeaders = new Dictionary<string, string>();
-			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
-
-			AssertNotCached(response);
-		}
-
-		[Test]
-		public void NotCacheableWhenCacheControlHeaderIsEmpty()
-		{
-			var request = MakeRequest(HttpMethod.Get);
-
-			var responseHeaders = CacheControlHeader(string.Empty);
-			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
-
-			AssertNotCached(response);
-		}
-
-		[Test]
-		public void NotCacheableWhenCacheControlHeaderIsUnknownText()
-		{
-			var request = MakeRequest(HttpMethod.Get);
-
-			var responseHeaders = CacheControlHeader("foo bar fish");
-			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
-
-			AssertNotCached(response);
-		}
-
-		[Test]
-		public void NotCacheableWhenCacheControlHeaderMaxAgeIsNotANumber()
-		{
-			var request = MakeRequest(HttpMethod.Get);
-
-			var responseHeaders = CacheControlHeader("max-age=foo");
-			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
-
-			AssertNotCached(response);
-		}
-
-		[Test]
-		public void NotCacheableWhenNoCacheIsSpecified()
-		{
-			var request = MakeRequest(HttpMethod.Get);
-
-			var responseHeaders = CacheControlHeader("no-cache max-age: 30");
-			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
-
-			AssertNotCached(response);
-		}
-
-		[Test]
-		public void NotCacheableWhenNoStoreIsSpecified()
-		{
-			var request = MakeRequest(HttpMethod.Get);
-
-			var responseHeaders = CacheControlHeader("no-store max-age: 30");
 			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
 
 			AssertNotCached(response);
