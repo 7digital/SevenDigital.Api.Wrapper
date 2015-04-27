@@ -8,6 +8,10 @@ namespace SevenDigital.Api.Wrapper.Responses
 		private readonly CacheHeaderReader _cacheHeaderReader = new CacheHeaderReader();
 		private readonly ObjectCache _objectCache;
 
+		public InMemoryResponseCache() : this(MemoryCache.Default)
+		{
+		}
+
 		public InMemoryResponseCache(ObjectCache objectCache)
 		{
 			_objectCache = objectCache;
