@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
+using System.Runtime.Caching;
 using System.Xml.Serialization;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Artists;
@@ -12,13 +14,19 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		[XmlElement("chart")]
 		public ArtistChart Chart { get; set; }
 	}
-	
-	
+
 	[TestFixture]
 	public class InMemoryResponseCacheTests
 	{
-		private static readonly IResponseCache _cache = new InMemoryResponseCache();
-		private static CacheHeaderReader _headerReader = new CacheHeaderReader();
+		private static readonly IResponseCache _cache = MakeThrowawayCache();
+
+		private static IResponseCache MakeThrowawayCache()
+		{
+			var tempCache = new MemoryCache(Guid.NewGuid().ToString());
+			return new InMemoryResponseCache(tempCache);
+		}
+
+		private static readonly CacheHeaderReader _headerReader = new CacheHeaderReader();
 
 		[Test]
 		public async void DataIsCachedWhenCacheIsUsed()
@@ -53,7 +61,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		[Test]
 		public async void ResponseIsCachedWhenCacheIsUsed()
 		{
-			var response1 =  await Api<ArtistChart>
+			var response1 = await Api<ArtistChart>
 				.Create
 				.UsingCache(_cache)
 				.Response();
@@ -125,6 +133,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 
 			var expiry = _headerReader.GetExpiration(response);
 			Assert.That(expiry.HasValue, Is.True);
+			Assert.That(expiry.Value, Is.GreaterThan(DateTimeOffset.UtcNow));
 		}
 	}
 }

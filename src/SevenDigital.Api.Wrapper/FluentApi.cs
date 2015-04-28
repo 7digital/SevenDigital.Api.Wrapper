@@ -141,16 +141,15 @@ namespace SevenDigital.Api.Wrapper
 
 			var result = await GetResponse(request);
 
-			// set to cache only after all validation and parsing has succeeded
 			_responseCache.Set(result, result);
-
 			return result;
 		}
 
 		public async Task<TR> ResponseAs<TR>() where TR: class, new()
 		{
-			TR cachedResult;
 			var request = _requestBuilder.BuildRequest(_requestData);
+
+			TR cachedResult;
 			var foundInCache = _responseCache.TryGet(request, out cachedResult);
 			if (foundInCache)
 			{
@@ -168,18 +167,17 @@ namespace SevenDigital.Api.Wrapper
 			}
 
 			var responseDeserializer = new ResponseDeserializer();
-			var result =  responseDeserializer.DeserializeResponse<TR>(response, false);
+			var result = responseDeserializer.DeserializeResponse<TR>(response, false);
 
-			// set to cache only after all validation and parsing has succeeded
 			_responseCache.Set(response, result);
-
 			return result;
 		}
 
 		public async Task<T> Please()
 		{
-			T cachedResult;
 			var request = _requestBuilder.BuildRequest(_requestData);
+
+			T cachedResult;
 			var foundInCache = _responseCache.TryGet(request, out cachedResult);
 			if (foundInCache)
 			{
@@ -188,9 +186,9 @@ namespace SevenDigital.Api.Wrapper
 
 			Response response = await GetResponse(request);
 			var result = _parser.Parse<T>(response);
+
 			// set to cache only after all validation and parsing has succeeded
 			_responseCache.Set(response, result);
-
 			return result;
 		}
 
