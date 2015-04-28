@@ -18,6 +18,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 	public class InMemoryResponseCacheTests
 	{
 		private static readonly IResponseCache _cache = new InMemoryResponseCache();
+		private static CacheHeaderReader _headerReader = new CacheHeaderReader();
 
 		[Test]
 		public async void DataIsCachedWhenCacheIsUsed()
@@ -121,6 +122,9 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
 			Assert.That(response.Headers.ContainsKey("cache-control"), Is.True);
 			Assert.That(response.Headers["cache-control"], Is.StringContaining("max-age="));
+
+			var expiry = _headerReader.GetExpiration(response);
+			Assert.That(expiry.HasValue, Is.True);
 		}
 	}
 }
