@@ -131,36 +131,51 @@ namespace SevenDigital.Api.Wrapper
 		public async Task<Response> Response()
 		{
 			var request = _requestBuilder.BuildRequest(_requestData);
-			return await Response(request);
-		}
 
-		private async Task<Response> Response(Request request)
-		{
-			try
+			Response cachedResponse;
+			var foundInCache = _responseCache.TryGet(request, out cachedResponse);
+			if (foundInCache)
 			{
-				return await _httpClient.Send(request);
+				return cachedResponse;
 			}
-			catch (WebException webException)
-			{
-				throw new ApiWebException(webException.Message, webException, request);
-			}
+
+			var result = await GetResponse(request);
+
+			// set to cache only after all validation and parsing has succeeded
+			_responseCache.Set(result, result);
+
+			return result;
 		}
 
 		public async Task<TR> ResponseAs<TR>() where TR: class, new()
 		{
+			TR cachedResult;
 			var request = _requestBuilder.BuildRequest(_requestData);
+			var foundInCache = _responseCache.TryGet(request, out cachedResult);
+			if (foundInCache)
+			{
+				return cachedResult;
+			}
 
+			Response response;
 			try
 			{
-				var response = await _httpClient.Send(request);
-				var responseDeserializer = new ResponseDeserializer();
-				return responseDeserializer.DeserializeResponse<TR>(response, false);
+				response = await GetResponse(request);
 			}
 			catch (WebException webException)
 			{
 				throw new ApiWebException(webException.Message, webException, request);
 			}
+
+			var responseDeserializer = new ResponseDeserializer();
+			var result =  responseDeserializer.DeserializeResponse<TR>(response, false);
+
+			// set to cache only after all validation and parsing has succeeded
+			_responseCache.Set(response, result);
+
+			return result;
 		}
+
 		public async Task<T> Please()
 		{
 			T cachedResult;
@@ -171,12 +186,24 @@ namespace SevenDigital.Api.Wrapper
 				return cachedResult;
 			}
 
-			Response response = await Response(request);
+			Response response = await GetResponse(request);
 			var result = _parser.Parse<T>(response);
 			// set to cache only after all validation and parsing has succeeded
 			_responseCache.Set(response, result);
 
 			return result;
+		}
+
+		private async Task<Response> GetResponse(Request request)
+		{
+			try
+			{
+				return await _httpClient.Send(request);
+			}
+			catch (WebException webException)
+			{
+				throw new ApiWebException(webException.Message, webException, request);
+			}
 		}
 
 		public string EndpointUrl
