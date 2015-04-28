@@ -34,6 +34,48 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 			Assert.That(maxAge, Is.EqualTo(expectedValue));
 		}
 
+		[TestCase("max-age=70", 70)]
+		[TestCase("max-age=41 private", 41)]
+		public void CanReadCacheDurationfromValidHeaderInCamelCaps(string headerText, int expectedValue)
+		{
+			var request = MakeRequest(HttpMethod.Get);
+
+			var responseHeaders = new Dictionary<string, string>
+				{
+					{"Cache-Control", headerText }
+				};
+			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
+
+			var expiration = _cacheHeaderReader.GetExpiration(response);
+			Assert.That(expiration.HasValue, Is.True);
+
+			var duration = expiration.Value.DateTime - DateTime.UtcNow;
+			var seconds = duration.TotalSeconds;
+			var maxAge = (int)Math.Round(seconds);
+			Assert.That(maxAge, Is.EqualTo(expectedValue));
+		}
+
+		[TestCase("max-age=70", 70)]
+		[TestCase("max-age=41 private", 41)]
+		public void CanReadCacheDurationfromValidHeaderInAllCaps(string headerText, int expectedValue)
+		{
+			var request = MakeRequest(HttpMethod.Get);
+
+			var responseHeaders = new Dictionary<string, string>
+				{
+					{"CACHE-CONTROL", headerText }
+				};
+			var response = new Response(HttpStatusCode.OK, responseHeaders, string.Empty, request);
+
+			var expiration = _cacheHeaderReader.GetExpiration(response);
+			Assert.That(expiration.HasValue, Is.True);
+
+			var duration = expiration.Value.DateTime - DateTime.UtcNow;
+			var seconds = duration.TotalSeconds;
+			var maxAge = (int)Math.Round(seconds);
+			Assert.That(maxAge, Is.EqualTo(expectedValue));
+		}
+
 		[TestCase("max-age=0")]
 		[TestCase("max-age = 0")]
 		[TestCase("no-store")]
