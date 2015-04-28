@@ -21,24 +21,30 @@ namespace SevenDigital.Api.Wrapper
 
 		private readonly RequestData _requestData;
 		private readonly IResponseParser _parser;
-		private IResponseCache _responseCache = new NullResponseCache();
-		private readonly List<IPayloadSerializer> _payloadSerializers= new List<IPayloadSerializer>
+		private IResponseCache _responseCache;
+
+		private readonly List<IPayloadSerializer> _payloadSerializers = new List<IPayloadSerializer>
 			{
 				new XmlPayloadSerializer(),
 				new JsonPayloadSerializer(),
 				new FormUrlEncodedPayloadSerializer()
 			};
 
-		public FluentApi(IHttpClient httpClient, IRequestBuilder requestBuilder, IResponseParser responseParser)
+		public FluentApi(IHttpClient httpClient, IRequestBuilder requestBuilder, 
+			IResponseParser responseParser, IResponseCache responseCache)
 		{
 			_httpClient = httpClient;
 			_requestBuilder = requestBuilder;
 			_parser = responseParser;
+			_responseCache = responseCache;
 
 			var attributeValidation = new AttributeRequestDataBuilder<T>();
 			_requestData = attributeValidation.BuildRequestData();
 		}
 
+		public FluentApi(IHttpClient httpClient, IRequestBuilder requestBuilder, IResponseParser responseParser)
+			: this(httpClient, requestBuilder, responseParser, new NullResponseCache())
+		{}
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
 		{

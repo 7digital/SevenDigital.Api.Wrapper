@@ -2,7 +2,7 @@
 
 namespace SevenDigital.Api.Wrapper.Responses
 {
-	class NullResponseCache : IResponseCache
+	public class NullResponseCache : IResponseCache
 	{
 		public void Set(Response response, object value)
 		{
