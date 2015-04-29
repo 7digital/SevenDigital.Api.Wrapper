@@ -21,24 +21,30 @@ namespace SevenDigital.Api.Wrapper
 
 		private readonly RequestData _requestData;
 		private readonly IResponseParser _parser;
-		private IResponseCache _responseCache = new NullResponseCache();
-		private readonly List<IPayloadSerializer> _payloadSerializers= new List<IPayloadSerializer>
+		private IResponseCache _responseCache;
+
+		private readonly List<IPayloadSerializer> _payloadSerializers = new List<IPayloadSerializer>
 			{
 				new XmlPayloadSerializer(),
 				new JsonPayloadSerializer(),
 				new FormUrlEncodedPayloadSerializer()
 			};
 
-		public FluentApi(IHttpClient httpClient, IRequestBuilder requestBuilder, IResponseParser responseParser)
+		public FluentApi(IHttpClient httpClient, IRequestBuilder requestBuilder, 
+			IResponseParser responseParser, IResponseCache responseCache)
 		{
 			_httpClient = httpClient;
 			_requestBuilder = requestBuilder;
 			_parser = responseParser;
+			_responseCache = responseCache;
 
 			var attributeValidation = new AttributeRequestDataBuilder<T>();
 			_requestData = attributeValidation.BuildRequestData();
 		}
 
+		public FluentApi(IHttpClient httpClient, IRequestBuilder requestBuilder, IResponseParser responseParser)
+			: this(httpClient, requestBuilder, responseParser, new NullResponseCache())
+		{}
 
 		public IFluentApi<T> UsingClient(IHttpClient httpClient)
 		{
@@ -126,6 +132,68 @@ namespace SevenDigital.Api.Wrapper
 		{
 			var request = _requestBuilder.BuildRequest(_requestData);
 
+			Response cachedResponse;
+			var foundInCache = _responseCache.TryGet(request, out cachedResponse);
+			if (foundInCache)
+			{
+				return cachedResponse;
+			}
+
+			var result = await GetResponse(request);
+
+			_responseCache.Set(result, result);
+			return result;
+		}
+
+		public async Task<TR> ResponseAs<TR>() where TR: class, new()
+		{
+			var request = _requestBuilder.BuildRequest(_requestData);
+
+			TR cachedResult;
+			var foundInCache = _responseCache.TryGet(request, out cachedResult);
+			if (foundInCache)
+			{
+				return cachedResult;
+			}
+
+			Response response;
+			try
+			{
+				response = await GetResponse(request);
+			}
+			catch (WebException webException)
+			{
+				throw new ApiWebException(webException.Message, webException, request);
+			}
+
+			var responseDeserializer = new ResponseDeserializer();
+			var result = responseDeserializer.DeserializeResponse<TR>(response, false);
+
+			_responseCache.Set(response, result);
+			return result;
+		}
+
+		public async Task<T> Please()
+		{
+			var request = _requestBuilder.BuildRequest(_requestData);
+
+			T cachedResult;
+			var foundInCache = _responseCache.TryGet(request, out cachedResult);
+			if (foundInCache)
+			{
+				return cachedResult;
+			}
+
+			Response response = await GetResponse(request);
+			var result = _parser.Parse<T>(response);
+
+			// set to cache only after all validation and parsing has succeeded
+			_responseCache.Set(response, result);
+			return result;
+		}
+
+		private async Task<Response> GetResponse(Request request)
+		{
 			try
 			{
 				return await _httpClient.Send(request);
@@ -134,38 +202,6 @@ namespace SevenDigital.Api.Wrapper
 			{
 				throw new ApiWebException(webException.Message, webException, request);
 			}
-		}
-
-		public async Task<TR> ResponseAs<TR>() where TR: class, new()
-		{
-			var request = _requestBuilder.BuildRequest(_requestData);
-
-			try
-			{
-				var response = await _httpClient.Send(request);
-				var responseDeserializer = new ResponseDeserializer();
-				return responseDeserializer.DeserializeResponse<TR>(response, false);
-			}
-			catch (WebException webException)
-			{
-				throw new ApiWebException(webException.Message, webException, request);
-			}
-		}
-		public async Task<T> Please()
-		{
-			T cachedResult;
-			var foundInCache = _responseCache.TryGet(_requestData, out cachedResult);
-			if (foundInCache)
-			{
-				return cachedResult;
-			}
-
-			Response response = await Response();
-			var result = _parser.Parse<T>(response);
-			// set to cache only after all validation and parsing has succeeded
-			_responseCache.Set(_requestData, result);
-
-			return result;
 		}
 
 		public string EndpointUrl

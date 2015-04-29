@@ -17,7 +17,7 @@ namespace SevenDigital.Api.Wrapper.Responses
 		{
 			OriginalRequest = originalRequest;
 			StatusCode = statusCode;
-			Headers = headers;
+			Headers = new Dictionary<string, string>(headers, StringComparer.OrdinalIgnoreCase);
 			Body = body;
 		}
 

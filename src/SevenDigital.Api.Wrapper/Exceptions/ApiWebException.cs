@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Wrapper.Exceptions
 	public class ApiWebException : ApiException
 	{
 		public ApiWebException(string msg, WebException innerException) :
-			base(msg,  innerException)
+			base(msg, innerException)
 		{
 		}
 
