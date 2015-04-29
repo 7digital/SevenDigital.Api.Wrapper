@@ -93,14 +93,14 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		}
 
 		[TestCase]
-		public void Should_include_parameters_in_body_when_signed(HttpMethod httpMethod)
+		public void Should_include_parameters_in_body_when_signed()
 		{
 			if (!TestedHttpMethod.ShouldHaveRequestBody())
 			{
 				Assert.Ignore("This http method does not use the request body");
 			}
 
-			var requestData = MakeRequestData(httpMethod, true);
+			var requestData = MakeRequestData(TestedHttpMethod, true);
 			requestData.Parameters.Add("foo", "bar");
 
 			var request = _requestBuilder.BuildRequest(requestData);
