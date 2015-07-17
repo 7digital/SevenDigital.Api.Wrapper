@@ -1,26 +1,30 @@
-# Manually put a version of the Api wrapper on nuget
+# How to put a version of the Api wrapper on nuget
 
-How to manually put a version of the 7digital c# Api wrapper on [nuget.org](http://www.nuget.org/).
+How to put a version of the 7digital c# Api wrapper on [nuget.org](http://www.nuget.org/).
 
 ##You will need:
 
-- Your latest code merged to master.
-- the nuget api key for pushing to [the wrapper package on nuget](https://www.nuget.org/packages/SevenDigital.Api.Wrapper/).
-- Powershell, version 3 or later.
+- Your latest code merged to [master on github](https://github.com/7digital/SevenDigital.Api.Wrapper).
+- the nuget api key for pushing to [the wrapper package on nuget](https://www.nuget.org/packages/SevenDigital.Api.Wrapper/). You can retrieve this when logged into nuget with an authorised account.
+- PowerShell, version 3 or later.
+
+For more details consult [the wiki](https://github.com/7digital/SevenDigital.Api.Wrapper/wiki) or colleagues.
 
 ### Versioning
 
-For more details on how and when to change version numbers see [Semantic Versioning](http://semver.org/)
+First, decide on a version number.  We use [Semantic Versioning](http://semver.org/).
 
-When a version number is generated automatically, the last digit is incremented.  e.g. if the current version is `3.0.0` then the default next version number generated is `3.0.1`.  In general if the current released version is `x.y.z`, then the next version without any breaking changes is `x.y.(z+1)`. This is appropriate if there are no major changes.
+In general, if the current released version is `x.y.z`, then the next version with bug fixes is `x.y.(z+1)` and with non-breaking additions is  `x.(y+1).0`.
 
-The main reason for doing manual uploads to nuget is to override this number. You override this with the `-v` switch to the `buildpackage` script.
+E.g. if the current version is `2.1.3`. A version with a bugfix would be `2.1.4` and with a new non-breaking feature would be `2.2.0`.
 
-First, decide on a version number. 
+Note that the version are numbers not strings, i.e. the next minor version after `2.1.9` is `2.1.10`.
+
+For more details see [Semantic Versioning](http://semver.org/).
 
 ## Preparation steps
 
-* In git, make sure that you are on the master branch and have pulled the latest code, that you can build the code and it passes the unit tests. 
+* In your local copy of the code, use git. Make sure that you are on the master branch and have pulled the latest code from [the official master](https://github.com/7digital/SevenDigital.Api.Wrapper), that you can build the code and it passes the unit tests. 
 
 * Start Powershell and go to the `\buildpackage` folder.
 
@@ -37,15 +41,15 @@ If this is all OK and you are ready to push to nuget, do it for real, remove the
 
 
 ### Fixing errors.
-Packages on nuget are regarded as immutable - they cannot be changed or hidden. But they can be hidden from new downloads. If you need to get rid of a package, log on to nuget and hide it. But try to avoid getting there.
+Packages on nuget are regarded as immutable - they cannot be changed or deleted. But they can be hidden from new downloads. If you need to get rid of a package, log on to nuget and hide it. But try to avoid getting to this state.
 
 ## Prereleases
 
-[Nuget supports prerelease versions](http://docs.nuget.org/docs/reference/versioning) by appending a dash and any string on the end of the version number.
+[Nuget supports prerelease versions](http://docs.nuget.org/docs/reference/versioning) by appending a dash and any string on the end of the version number. In practice, pre-releases are more often used for testing major or breaking changes that accompany a major version number change.
 
-Decide on a pre-release version number.  e.g. if the current version is `3.0.0` then the prerelease of the next version is `3.0.1-prerelease`. 
-If this version exists already we use `prerelease2`, `prerelease3` etc. Nuget does not care what the appended string is, only that new versions sort later alphabetically.
+Decide on a prerelease version number.  e.g. if the current version is `3.1.10` then the pre-release of the next major version is `4.0.0-prerelease`. 
+If we issue multiple prereleases then we use `prerelease2`, `prerelease3` etc. Nuget does not care what the appended string is, only that new versions sort later alphabetically.
 
-In general if the current released version is `x.y.z`, then the next version without any breaking changes is `x.y.(z+1)` and the prerelease is `x.y.(z+1)-prerelease`.
+In general if the current released version is `x.y.z`, then the next major version without any breaking changes is `(x+1).0.0` and the prerelease is `(x+1).0.0-prerelease`.
 
-Proceed as above using this version number. e.g. `.\buildPackage.ps1 -v "3.0.1-prerelease"`
+Proceed as above using this version number. e.g. `.\buildPackage.ps1 -v "4.0.0-prerelease"`
