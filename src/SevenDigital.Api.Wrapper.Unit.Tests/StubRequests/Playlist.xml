@@ -2,6 +2,7 @@
 <playlist>
 	<name>Test Playlist</name>
 	<visibility>Private</visibility>
+	<status>NotSpecified</status>
 	<tracks>
 		<trackId>123</trackId>
 		<trackTitle>Weekend Wars</trackTitle>
