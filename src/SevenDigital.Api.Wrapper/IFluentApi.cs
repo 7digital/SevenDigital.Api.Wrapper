@@ -19,6 +19,7 @@ namespace SevenDigital.Api.Wrapper
 	
 		IFluentApi<T> WithMethod(HttpMethod httpMethod);
 		IFluentApi<T> WithAccept(AcceptFormat acceptFormat);
+		IFluentApi<T> WithTraceId(string traceId);
 
 		IFluentApi<T> WithPayload<TPayload>(TPayload payload) where TPayload : class;
 		IFluentApi<T> WithPayload<TPayload>(TPayload payload, PayloadFormat payloadSerializer) where TPayload : class;

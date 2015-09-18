@@ -379,5 +379,21 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			A.CallTo(callWithExpectedPayload).MustHaveHappened();
 		}
+
+		[Test]
+		public async void Should_allow_you_to_specify_custom_traceId()
+		{
+			var requestBuilder = StubRequestBuilder();
+			var httpClient = StubHttpClient();
+			var responseParser = StubResponseParser();
+
+			const string customTraceID = "CUSTOM_TRACE_ID";
+
+			await new FluentApi<Status>(httpClient, requestBuilder, responseParser)
+				.WithTraceId(customTraceID)
+				.Please();
+
+			A.CallTo(() => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.TraceId == customTraceID))).MustHaveHappened();
+		}
 	}
 }
