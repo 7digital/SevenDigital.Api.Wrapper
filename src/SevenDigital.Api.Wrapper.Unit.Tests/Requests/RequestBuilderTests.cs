@@ -56,10 +56,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				}
 			};
 
-			var result1 = _requestBuilder.BuildRequest(endPointState);
-			var result2 = _requestBuilder.BuildRequest(endPointState);
+			var request1 = _requestBuilder.BuildRequest(endPointState);
+			var request2 = _requestBuilder.BuildRequest(endPointState);
 
-			Assert.That(result1.Url, Is.EqualTo(result2.Url));
+			Assert.That(request1.Url, Is.EqualTo(request2.Url));
 		}
 
 		[Test]
@@ -78,9 +78,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				Headers = new Dictionary<string, string>()
 			};
 
-			var response = _requestBuilder.BuildRequest(requestData);
+			var request = _requestBuilder.BuildRequest(requestData);
 
-			Assert.That(response.Url, Is.StringStarting(expectedApiUri));
+			Assert.That(request.Url, Is.StringStarting(expectedApiUri));
 		}
 
 		[Test]
@@ -96,9 +96,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				HttpMethod = HttpMethod.Post
 			};
 
-			var buildRequest = _requestBuilder.BuildRequest(requestData);
-			Assert.That(buildRequest.Body.Data, Is.EqualTo(parameters.ToQueryString()));
-			Assert.That(buildRequest.Body.ContentType, Is.EqualTo("application/x-www-form-urlencoded"));
+			var request = _requestBuilder.BuildRequest(requestData);
+			Assert.That(request.Body.Data, Is.EqualTo(parameters.ToQueryString()));
+			Assert.That(request.Body.ContentType, Is.EqualTo("application/x-www-form-urlencoded"));
 		}
 
 		[Test]
@@ -115,9 +115,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				Payload = new RequestPayload("text/plain", "I am a payload")
 			};
 
-			var buildRequest = _requestBuilder.BuildRequest(requestData);
-			Assert.That(buildRequest.Body.Data, Is.EqualTo(parameters.ToQueryString()));
-			Assert.That(buildRequest.Body.ContentType, Is.EqualTo("application/x-www-form-urlencoded"));
+			var request = _requestBuilder.BuildRequest(requestData);
+			Assert.That(request.Body.Data, Is.EqualTo(parameters.ToQueryString()));
+			Assert.That(request.Body.ContentType, Is.EqualTo("application/x-www-form-urlencoded"));
 		}
 
 		[Test]
@@ -129,9 +129,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				Payload = new RequestPayload("text/plain", "I am a payload")
 			};
 
-			var buildRequest = _requestBuilder.BuildRequest(requestData);
-			Assert.That(buildRequest.Body.Data, Is.EqualTo("I am a payload"));
-			Assert.That(buildRequest.Body.ContentType, Is.EqualTo("text/plain"));
+			var request = _requestBuilder.BuildRequest(requestData);
+			Assert.That(request.Body.Data, Is.EqualTo("I am a payload"));
+			Assert.That(request.Body.ContentType, Is.EqualTo("text/plain"));
 		}
 
 		[Test]
@@ -149,9 +149,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				BaseUriProvider = baseUriProvider
 			};
 
-			var response = _requestBuilder.BuildRequest(requestData);
+			var request = _requestBuilder.BuildRequest(requestData);
 
-			Assert.That(response.Url, Is.StringStarting(expectedApiUri));
+			Assert.That(request.Url, Is.StringStarting(expectedApiUri));
 		}
 
 		[Test]
@@ -168,9 +168,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				Headers = new Dictionary<string, string>(),
 				BaseUriProvider = baseUriProvider
 			};
-			var response = _requestBuilder.BuildRequest(requestData);
+			var request = _requestBuilder.BuildRequest(requestData);
 
-			var traceIdHeader = response.Headers["x-7d-traceid"];
+			var traceIdHeader = request.Headers["x-7d-traceid"];
 			Assert.That(traceIdHeader, Is.Not.Null);
 			Assert.DoesNotThrow(() => Guid.Parse(traceIdHeader));
 		}
