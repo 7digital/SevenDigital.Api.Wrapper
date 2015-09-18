@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace SevenDigital.Api.Wrapper.Requests
@@ -25,6 +26,8 @@ namespace SevenDigital.Api.Wrapper.Requests
 
 		public string Accept { get; set; }
 
+		public string TraceId { get; set; }
+
 		public IBaseUriProvider BaseUriProvider { get; set; }
 
 		public RequestData()
@@ -35,6 +38,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 			Headers = new Dictionary<string,string>();
 			UseHttps = false;
 			Accept = "application/xml";
+			TraceId = Guid.NewGuid().ToString();
 		}
 	}
 }

@@ -174,5 +174,29 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			Assert.That(traceIdHeader, Is.Not.Null);
 			Assert.DoesNotThrow(() => Guid.Parse(traceIdHeader));
 		}
+
+		[Test]
+		public void Should_allow_a_custom_traceId_to_be_specified()
+		{
+			const string expectedApiUri = "http://api.7dizzle";
+			var baseUriProvider = A.Fake<IBaseUriProvider>();
+			A.CallTo(() => baseUriProvider.BaseUri(A<RequestData>.Ignored)).Returns(expectedApiUri);
+
+			const string customTraceId = "Immagonnatrace4you";
+
+			var requestData = new RequestData
+			{
+				Endpoint = "test",
+				HttpMethod = HttpMethod.Get,
+				Headers = new Dictionary<string, string>(),
+				BaseUriProvider = baseUriProvider,
+				TraceId = customTraceId
+			};
+			var request = _requestBuilder.BuildRequest(requestData);
+
+			var traceIdHeader = request.Headers["x-7d-traceid"];
+			Assert.That(traceIdHeader, Is.Not.Null);
+			Assert.That(traceIdHeader, Is.EqualTo(customTraceId));
+		}
 	}
 }

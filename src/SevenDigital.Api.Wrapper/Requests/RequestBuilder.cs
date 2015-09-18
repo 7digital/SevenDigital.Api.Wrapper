@@ -32,7 +32,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 			var oauthHeader = GetAuthorizationHeader(requestData, fullUrl, apiRequest, requestBody);
 			headers.Add("Authorization", oauthHeader);
 			headers.Add("Accept", requestData.Accept);
-			headers.Add("x-7d-traceid", Guid.NewGuid().ToString());
+			headers.Add("x-7d-traceid", requestData.TraceId);
 
 			if (requestData.HttpMethod.HasParamsInQueryString() && (apiRequest.Parameters.Count > 0))
 			{
