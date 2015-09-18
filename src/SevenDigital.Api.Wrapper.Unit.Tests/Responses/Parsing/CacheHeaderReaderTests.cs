@@ -152,7 +152,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		{
 			var requestHeaders = new Dictionary<string, string>();
 			var request = new Request(method, "http://some.url.com/foo/bar", requestHeaders,
-				new RequestPayload(string.Empty, string.Empty));
+				new RequestPayload(string.Empty, string.Empty), null);
 			return request;
 		}
 

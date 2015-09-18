@@ -39,7 +39,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
 
-			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody);
+			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody, requestData.TraceId);
 		}
 
 		private static RequestPayload CheckForRequestPayload(RequestData requestData, IDictionary<string,string> requestParameters)

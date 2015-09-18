@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		public async void Can_resolve_uri()
 		{
 			var url = string.Format("{0}/status?oauth_consumer_key={1}", API_URL, _consumerKey);
-			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), null);
+			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), null, null);
 
 			var response = await new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.OK);
@@ -35,7 +35,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		public async void Can_resolve_uri_that_returns_gzip()
 		{
 			var url = string.Format("{0}/release/details?oauth_consumer_key={1}&releaseId=12345", API_URL, _consumerKey);
-			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), null);
+			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), null, null);
 
 			var response = await new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.OK);
@@ -60,7 +60,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		public async void Bad_url_should_return_not_found()
 		{
 			var url = string.Format("{0}/foo/bar/fish/1234?oauth_consumer_key={1}", API_URL, _consumerKey);
-			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), null);
+			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), null, null);
 
 			var response = await new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
@@ -70,7 +70,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		public async void No_key_should_return_unauthorized()
 		{
 			var url = string.Format("{0}/status", API_URL);
-			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), null);
+			var request = new Request(HttpMethod.Get, url, new Dictionary<string, string>(), null, null);
 
 			var response = await new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.Unauthorized);
@@ -83,7 +83,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 		public async void Can_cope_with_timeouts()
 		{
 			const string apiUrl = "http://hanging-web-app.7digital.local";
-			var request = new Request(HttpMethod.Post, apiUrl, new Dictionary<string, string>(), null);
+			var request = new Request(HttpMethod.Post, apiUrl, new Dictionary<string, string>(), null, null);
 
 			var response = await new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.OK);
@@ -101,7 +101,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 
 			var queryString = parameters.ToQueryString();
 			var requestPayload = new RequestPayload("application/xml", queryString);
-			var request = new Request(HttpMethod.Post, url, new Dictionary<string, string>(), requestPayload);
+			var request = new Request(HttpMethod.Post, url, new Dictionary<string, string>(), requestPayload, null);
 
 			var response = await new HttpClientMediator().Send(request);
 			AssertResponse(response, HttpStatusCode.NotFound);
@@ -122,7 +122,8 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			{
 				{"headerKey", "headerValue"}
 			};
-			var originalRequest = new Request(HttpMethod.Post, url, expectedHeaders, requestPayload);
+			const string expectedTraceId = "CUSTOM_TRACE_ID";
+			var originalRequest = new Request(HttpMethod.Post, url, expectedHeaders, requestPayload, expectedTraceId);
 
 			var response = await new HttpClientMediator().Send(originalRequest);
 
@@ -130,6 +131,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.Http
 			Assert.That(response.OriginalRequest.Headers, Is.EqualTo(expectedHeaders));
 			Assert.That(response.OriginalRequest.Body, Is.EqualTo(requestPayload));
 			Assert.That(response.OriginalRequest.Method, Is.EqualTo(HttpMethod.Post));
+			Assert.That(response.OriginalRequest.TraceId, Is.EqualTo(expectedTraceId));
 		}
 
 		private static void AssertResponse(Response response, HttpStatusCode expectedCode)

@@ -9,12 +9,13 @@ namespace SevenDigital.Api.Wrapper.Requests
 	[Serializable]
 	public class Request : ISerializable
 	{
-		public Request(HttpMethod method, string url, IDictionary<string, string> headers, RequestPayload body)
+		public Request(HttpMethod method, string url, IDictionary<string, string> headers, RequestPayload body, string traceId)
 		{
 			Method = method;
 			Url = url;
 			Headers = headers;
 			Body = body;
+			TraceId = traceId;
 		}
 
 		public Request(SerializationInfo info, StreamingContext context)
@@ -23,6 +24,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 			Url = info.GetString("Url");
 			Body = (RequestPayload)info.GetValue("Body", typeof(RequestPayload));
 			Headers = (IDictionary<string, string>)info.GetValue("Headers", typeof(IDictionary<string, string>));
+			TraceId = info.GetString("TraceId");
 		}
 
 		public HttpMethod Method { get; private set; }
@@ -30,6 +32,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 		public string Url { get; private set; }
 		public IDictionary<string, string> Headers { get; private set; }
 		public RequestPayload Body { get; private set; }
+		public string TraceId { get; private set; }
 
 		/// <summary>
 		/// we need to override serialisation as 'System.Net.Http.HttpMethod' is not a serializable type
@@ -42,6 +45,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 			info.AddValue("Url", Url, typeof(string));
 			info.AddValue("Body", Body);
 			info.AddValue("Headers", Headers);
+			info.AddValue("TraceId", TraceId);
 		}
 	}
 }
