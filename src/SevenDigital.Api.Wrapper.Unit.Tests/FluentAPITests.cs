@@ -395,5 +395,19 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 			A.CallTo(() => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.TraceId == customTraceID))).MustHaveHappened();
 		}
+
+		[Test]
+		public void Empty_traceId_should_throw_exception()
+		{
+			var requestBuilder = StubRequestBuilder();
+			var httpClient = StubHttpClient();
+			var responseParser = StubResponseParser();
+
+			const string customTraceID = "";
+
+			var argumentException = Assert.Throws<ArgumentNullException>(async () => await new FluentApi<Status>(httpClient, requestBuilder, responseParser).WithTraceId(customTraceID).Please());
+
+			Assert.That(argumentException.ParamName, Is.EqualTo("traceId"));
+		}
 	}
 }
