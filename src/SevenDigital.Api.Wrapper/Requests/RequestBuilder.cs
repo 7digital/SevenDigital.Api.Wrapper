@@ -32,14 +32,16 @@ namespace SevenDigital.Api.Wrapper.Requests
 			var oauthHeader = GetAuthorizationHeader(requestData, fullUrl, apiRequest, requestBody);
 			headers.Add("Authorization", oauthHeader);
 			headers.Add("Accept", requestData.Accept);
-			headers.Add("x-7d-traceid", requestData.TraceId);
+
+			var traceId = requestData.TraceId ?? Guid.NewGuid().ToString();
+			headers.Add("x-7d-traceid", traceId);
 
 			if (requestData.HttpMethod.HasParamsInQueryString() && (apiRequest.Parameters.Count > 0))
 			{
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
 
-			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody, requestData.TraceId);
+			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody, traceId);
 		}
 
 		private static RequestPayload CheckForRequestPayload(RequestData requestData, IDictionary<string,string> requestParameters)

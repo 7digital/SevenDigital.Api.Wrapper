@@ -23,8 +23,26 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 			var status = await Api<Status>.Create.Response();
 
 			var traceId = status.OriginalRequest.TraceId;
+			Assert.That(traceId, Is.Not.Null);
+			Assert.DoesNotThrow(() => Guid.Parse(traceId));
+		}
+
+		[Test]
+		public async void Two_separate_requests_get_different_traceIds()
+		{
+			var fluentApi = Api<Status>.Create;
+			var status = await fluentApi.Response();
+			var status2 = await fluentApi.Response();
+
+			var traceId = status.OriginalRequest.TraceId;
+			var traceId2 = status2.OriginalRequest.TraceId;
 			Assert.That(status.OriginalRequest.TraceId, Is.Not.Null);
 			Assert.DoesNotThrow(() => Guid.Parse(traceId));
+
+			Assert.That(status.OriginalRequest.TraceId, Is.Not.Null);
+			Assert.DoesNotThrow(() => Guid.Parse(traceId2));
+
+			Assert.That(traceId, Is.Not.EqualTo(traceId2));
 		}
 
 		[Test]

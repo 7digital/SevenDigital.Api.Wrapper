@@ -38,7 +38,6 @@ namespace SevenDigital.Api.Wrapper.Requests
 			Headers = new Dictionary<string,string>();
 			UseHttps = false;
 			Accept = "application/xml";
-			TraceId = Guid.NewGuid().ToString();
 		}
 	}
 }

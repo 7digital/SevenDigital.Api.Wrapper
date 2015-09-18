@@ -39,12 +39,12 @@ namespace SevenDigital.Api.Wrapper.Responses
 		{
 			const string ContentTypeHeaderKey = "Content-Type";
 			if (!Headers.ContainsKey(ContentTypeHeaderKey))
- 			{
- 				return false;
- 			}
+			{
+				return false;
+			}
 
 			var contentType = Headers[ContentTypeHeaderKey];
- 			return contentType.StartsWith("application/json") || contentType.StartsWith("text/json");
- 		}
+			return contentType.StartsWith("application/json") || contentType.StartsWith("text/json");
+		}
 	}
 }
