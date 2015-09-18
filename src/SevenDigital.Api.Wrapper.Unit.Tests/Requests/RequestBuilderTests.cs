@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using FakeItEasy;
 using NUnit.Framework;
@@ -151,6 +152,27 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var response = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(response.Url, Is.StringStarting(expectedApiUri));
+		}
+
+		[Test]
+		public void Should_add_traceId_header_as_a_valid_guid()
+		{
+			const string expectedApiUri = "http://api.7dizzle";
+			var baseUriProvider = A.Fake<IBaseUriProvider>();
+			A.CallTo(() => baseUriProvider.BaseUri(A<RequestData>.Ignored)).Returns(expectedApiUri);
+
+			var requestData = new RequestData
+			{
+				Endpoint = "test",
+				HttpMethod = HttpMethod.Get,
+				Headers = new Dictionary<string, string>(),
+				BaseUriProvider = baseUriProvider
+			};
+			var response = _requestBuilder.BuildRequest(requestData);
+
+			var traceIdHeader = response.Headers["x-7d-traceid"];
+			Assert.That(traceIdHeader, Is.Not.Null);
+			Assert.DoesNotThrow(() => Guid.Parse(traceIdHeader));
 		}
 	}
 }
