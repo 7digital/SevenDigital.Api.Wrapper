@@ -96,6 +96,17 @@ namespace SevenDigital.Api.Wrapper
 			return this;
 		}
 
+		public IFluentApi<T> WithTraceId(string traceId)
+		{
+			if (string.IsNullOrEmpty(traceId))
+			{
+				throw new ArgumentNullException("traceId");
+			}
+
+			_requestData.TraceId = traceId;
+			return this;
+		}
+
 		public IFluentApi<T> WithParameter(string parameterName, string parameterValue)
 		{
 			_requestData.Parameters[parameterName] = parameterValue;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using OAuth;
@@ -32,13 +33,15 @@ namespace SevenDigital.Api.Wrapper.Requests
 			headers.Add("Authorization", oauthHeader);
 			headers.Add("Accept", requestData.Accept);
 
+			var traceId = requestData.TraceId ?? Guid.NewGuid().ToString();
+			headers.Add("x-7d-traceid", traceId);
+
 			if (requestData.HttpMethod.HasParamsInQueryString() && (apiRequest.Parameters.Count > 0))
 			{
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
 
-
-			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody);
+			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody, traceId);
 		}
 
 		private static RequestPayload CheckForRequestPayload(RequestData requestData, IDictionary<string,string> requestParameters)

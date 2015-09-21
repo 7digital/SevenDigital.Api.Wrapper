@@ -80,7 +80,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Exceptions
 			var requestBody = new RequestPayload("foo", "bar");
 			var headers = new Dictionary<string, string> {{"key1", "value1"}};
 			var originalRequest = new Request(HttpMethod.Get, "http://foo.com/bar?foo=bar",
-				headers, requestBody);
+				headers, requestBody, null);
 
 			var inputException = new ApiWebException("request failed", innerException, originalRequest);
 			return inputException;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using FakeItEasy;
 using NUnit.Framework;
@@ -55,10 +56,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				}
 			};
 
-			var result1 = _requestBuilder.BuildRequest(endPointState);
-			var result2 = _requestBuilder.BuildRequest(endPointState);
+			var request1 = _requestBuilder.BuildRequest(endPointState);
+			var request2 = _requestBuilder.BuildRequest(endPointState);
 
-			Assert.That(result1.Url, Is.EqualTo(result2.Url));
+			Assert.That(request1.Url, Is.EqualTo(request2.Url));
 		}
 
 		[Test]
@@ -77,9 +78,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				Headers = new Dictionary<string, string>()
 			};
 
-			var response = _requestBuilder.BuildRequest(requestData);
+			var request = _requestBuilder.BuildRequest(requestData);
 
-			Assert.That(response.Url, Is.StringStarting(expectedApiUri));
+			Assert.That(request.Url, Is.StringStarting(expectedApiUri));
 		}
 
 		[Test]
@@ -95,9 +96,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				HttpMethod = HttpMethod.Post
 			};
 
-			var buildRequest = _requestBuilder.BuildRequest(requestData);
-			Assert.That(buildRequest.Body.Data, Is.EqualTo(parameters.ToQueryString()));
-			Assert.That(buildRequest.Body.ContentType, Is.EqualTo("application/x-www-form-urlencoded"));
+			var request = _requestBuilder.BuildRequest(requestData);
+			Assert.That(request.Body.Data, Is.EqualTo(parameters.ToQueryString()));
+			Assert.That(request.Body.ContentType, Is.EqualTo("application/x-www-form-urlencoded"));
 		}
 
 		[Test]
@@ -114,9 +115,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				Payload = new RequestPayload("text/plain", "I am a payload")
 			};
 
-			var buildRequest = _requestBuilder.BuildRequest(requestData);
-			Assert.That(buildRequest.Body.Data, Is.EqualTo(parameters.ToQueryString()));
-			Assert.That(buildRequest.Body.ContentType, Is.EqualTo("application/x-www-form-urlencoded"));
+			var request = _requestBuilder.BuildRequest(requestData);
+			Assert.That(request.Body.Data, Is.EqualTo(parameters.ToQueryString()));
+			Assert.That(request.Body.ContentType, Is.EqualTo("application/x-www-form-urlencoded"));
 		}
 
 		[Test]
@@ -128,9 +129,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				Payload = new RequestPayload("text/plain", "I am a payload")
 			};
 
-			var buildRequest = _requestBuilder.BuildRequest(requestData);
-			Assert.That(buildRequest.Body.Data, Is.EqualTo("I am a payload"));
-			Assert.That(buildRequest.Body.ContentType, Is.EqualTo("text/plain"));
+			var request = _requestBuilder.BuildRequest(requestData);
+			Assert.That(request.Body.Data, Is.EqualTo("I am a payload"));
+			Assert.That(request.Body.ContentType, Is.EqualTo("text/plain"));
 		}
 
 		[Test]
@@ -148,9 +149,54 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 				BaseUriProvider = baseUriProvider
 			};
 
-			var response = _requestBuilder.BuildRequest(requestData);
+			var request = _requestBuilder.BuildRequest(requestData);
 
-			Assert.That(response.Url, Is.StringStarting(expectedApiUri));
+			Assert.That(request.Url, Is.StringStarting(expectedApiUri));
+		}
+
+		[Test]
+		public void Should_add_traceId_header_as_a_valid_guid()
+		{
+			const string expectedApiUri = "http://api.7dizzle";
+			var baseUriProvider = A.Fake<IBaseUriProvider>();
+			A.CallTo(() => baseUriProvider.BaseUri(A<RequestData>.Ignored)).Returns(expectedApiUri);
+
+			var requestData = new RequestData
+			{
+				Endpoint = "test",
+				HttpMethod = HttpMethod.Get,
+				Headers = new Dictionary<string, string>(),
+				BaseUriProvider = baseUriProvider
+			};
+			var request = _requestBuilder.BuildRequest(requestData);
+
+			var traceIdHeader = request.Headers["x-7d-traceid"];
+			Assert.That(traceIdHeader, Is.Not.Null);
+			Assert.DoesNotThrow(() => Guid.Parse(traceIdHeader));
+		}
+
+		[Test]
+		public void Should_allow_a_custom_traceId_to_be_specified()
+		{
+			const string expectedApiUri = "http://api.7dizzle";
+			var baseUriProvider = A.Fake<IBaseUriProvider>();
+			A.CallTo(() => baseUriProvider.BaseUri(A<RequestData>.Ignored)).Returns(expectedApiUri);
+
+			const string customTraceId = "Immagonnatrace4you";
+
+			var requestData = new RequestData
+			{
+				Endpoint = "test",
+				HttpMethod = HttpMethod.Get,
+				Headers = new Dictionary<string, string>(),
+				BaseUriProvider = baseUriProvider,
+				TraceId = customTraceId
+			};
+			var request = _requestBuilder.BuildRequest(requestData);
+
+			var traceIdHeader = request.Headers["x-7d-traceid"];
+			Assert.That(traceIdHeader, Is.Not.Null);
+			Assert.That(traceIdHeader, Is.EqualTo(customTraceId));
 		}
 	}
 }

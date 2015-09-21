@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace SevenDigital.Api.Wrapper.Requests
@@ -24,6 +25,8 @@ namespace SevenDigital.Api.Wrapper.Requests
 		public RequestPayload Payload {get; set; }
 
 		public string Accept { get; set; }
+
+		public string TraceId { get; set; }
 
 		public IBaseUriProvider BaseUriProvider { get; set; }
 

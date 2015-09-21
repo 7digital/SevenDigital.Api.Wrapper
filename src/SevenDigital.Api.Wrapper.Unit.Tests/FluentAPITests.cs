@@ -29,7 +29,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 		private IRequestBuilder StubRequestBuilder()
 		{
-			var request = new Request(HttpMethod.Get, "http://example.com/status", new Dictionary<string, string>(), null);
+			var request = new Request(HttpMethod.Get, "http://example.com/status", new Dictionary<string, string>(), null, null);
 			var requestBuilder = A.Fake<IRequestBuilder>();
 			A.CallTo(() => requestBuilder.BuildRequest(A<RequestData>.Ignored)).Returns(request);
 
@@ -378,6 +378,36 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 			Expression<Func<Request>> callWithExpectedPayload = () => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.Payload.ContentType == "application/xml" && x.Payload.Data == expectedOutput));
 
 			A.CallTo(callWithExpectedPayload).MustHaveHappened();
+		}
+
+		[Test]
+		public async void Should_allow_you_to_specify_custom_traceId()
+		{
+			var requestBuilder = StubRequestBuilder();
+			var httpClient = StubHttpClient();
+			var responseParser = StubResponseParser();
+
+			const string customTraceID = "CUSTOM_TRACE_ID";
+
+			await new FluentApi<Status>(httpClient, requestBuilder, responseParser)
+				.WithTraceId(customTraceID)
+				.Please();
+
+			A.CallTo(() => requestBuilder.BuildRequest(A<RequestData>.That.Matches(x => x.TraceId == customTraceID))).MustHaveHappened();
+		}
+
+		[Test]
+		public void Empty_traceId_should_throw_exception()
+		{
+			var requestBuilder = StubRequestBuilder();
+			var httpClient = StubHttpClient();
+			var responseParser = StubResponseParser();
+
+			const string customTraceID = "";
+
+			var argumentException = Assert.Throws<ArgumentNullException>(async () => await new FluentApi<Status>(httpClient, requestBuilder, responseParser).WithTraceId(customTraceID).Please());
+
+			Assert.That(argumentException.ParamName, Is.EqualTo("traceId"));
 		}
 	}
 }
