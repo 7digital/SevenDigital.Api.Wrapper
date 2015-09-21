@@ -329,7 +329,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public async void Should_allow_you_to_set_a_request_payload_using_an_entity_transferred_as_json()
 		{
-			const string expectedOutput = "{\"id\":143451,\"name\":\"MGMT\",\"sortName\":null,\"appearsAs\":\"MGMT\",\"image\":\"http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg\",\"url\":\"http://www.7digital.com/artist/mgmt/?partner=1401\"}";
+			const string expectedOutput = "{\"id\":143451,\"name\":\"MGMT\",\"sortName\":null,\"appearsAs\":\"MGMT\",\"image\":\"http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg\",\"url\":\"http://www.7digital.com/artist/mgmt/?partner=1401\",\"slug\":null}";
 			
 			var artist = new Artist
 			{
