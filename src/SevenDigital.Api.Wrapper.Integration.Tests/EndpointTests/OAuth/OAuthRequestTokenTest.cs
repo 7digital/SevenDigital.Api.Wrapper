@@ -20,7 +20,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 		{
 			var api = (FluentApi<OAuthRequestToken>) Api<OAuthRequestToken>.Create;
 
-			api.WithMethod(HttpMethod.Post).WithParameter("one", "two");
+			api.WithMethod(HttpMethod.Post).WithParameter("userid", "two");
 
 			var requestToken = await api.Please();
 
@@ -43,7 +43,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 		{
 			var oAuthRequestToken = await Api<OAuthRequestToken>
 				.Create
-				.WithParameter("foo", "%! blah") //arbitrary parameter, but should test for errors in signature generation
+				.WithParameter("userid", "%! blah") //arbitrary parameter, but should test for errors in signature generation
 				.Please();
 
 			Assert.That(oAuthRequestToken.Secret, Is.Not.Empty);
@@ -56,7 +56,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 			var api = (FluentApi<OAuthRequestToken>) Api<OAuthRequestToken>.Create;
 
 			api.WithMethod(HttpMethod.Post);
-			api.WithParameter("foo", "%! blah"); //arbitrary parameter, but should test for errors in signature generation
+			api.WithParameter("userid", "%! blah"); //arbitrary parameter, but should test for errors in signature generation
 
 			var oAuthRequestToken = await api.Please();
 

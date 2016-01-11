@@ -47,7 +47,6 @@ namespace SevenDigital.Api.Wrapper.Requests
 		private static RequestPayload CheckForRequestPayload(RequestData requestData, IDictionary<string,string> requestParameters)
 		{
 			var shouldHaveRequestBody = requestData.HttpMethod.ShouldHaveRequestBody();
-			var hasSuppliedParameters = requestParameters.Count > 0;
 			var hasSuppliedARequestPayload = requestData.Payload != null;
 
 			if (shouldHaveRequestBody && hasSuppliedARequestPayload)
@@ -55,7 +54,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 				return requestData.Payload;
 			}
 
-			return new RequestPayload(FormUrlEncoded, "");
+			return new RequestPayload(FormUrlEncoded, requestParameters.ToQueryString());
 		}
 
 		private string GetAuthorizationHeader(RequestData requestData, string fullUrl, ApiRequest apiRequest, RequestPayload requestBody)
