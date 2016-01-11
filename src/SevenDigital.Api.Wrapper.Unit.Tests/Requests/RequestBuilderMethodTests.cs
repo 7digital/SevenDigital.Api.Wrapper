@@ -61,52 +61,23 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		[TestCase]
 		public void Should_include_parameters_in_querystring()
 		{
-			if (!TestedHttpMethod.HasParamsInQueryString())
-			{
-				Assert.Ignore("This http method does not use params in query string");
-			}
-
 			var requestData = MakeRequestData(TestedHttpMethod, false);
 			requestData.Parameters.Add("foo", "bar");
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
 			Assert.That(request.Url, Is.StringContaining("?foo=bar"));
-			Assert.That(request.Body.Data, Is.Empty);
 		}
 
 		[TestCase]
-		public void Should_include_parameters_in_body()
+		public void Should_include_parameters_in_querystring_when_signed()
 		{
-			if (!TestedHttpMethod.ShouldHaveRequestBody())
-			{
-				Assert.Ignore("This http method does not use the request body");
-			}
-
-			var requestData = MakeRequestData(TestedHttpMethod, false);
-			requestData.Parameters.Add("foo", "bar");
-
-			var request = _requestBuilder.BuildRequest(requestData);
-
-			Assert.That(request.Url, Is.Not.StringContaining("foo=bar"));
-			Assert.That(request.Body.Data, Is.StringContaining("foo=bar"));
-		}
-
-		[TestCase]
-		public void Should_include_parameters_in_body_when_signed()
-		{
-			if (!TestedHttpMethod.ShouldHaveRequestBody())
-			{
-				Assert.Ignore("This http method does not use the request body");
-			}
-
 			var requestData = MakeRequestData(TestedHttpMethod, true);
 			requestData.Parameters.Add("foo", "bar");
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
-			Assert.That(request.Url, Is.Not.StringContaining("foo=bar"));
-			Assert.That(request.Body.Data, Is.StringContaining("foo=bar"));
+			Assert.That(request.Url, Is.StringContaining("?foo=bar")); ;
 		}
 
 		[TestCase]

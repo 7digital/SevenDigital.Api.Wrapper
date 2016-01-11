@@ -36,7 +36,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 			var traceId = requestData.TraceId ?? Guid.NewGuid().ToString();
 			headers.Add("x-7d-traceid", traceId);
 
-			if (requestData.HttpMethod.HasParamsInQueryString() && (apiRequest.Parameters.Count > 0))
+			if (apiRequest.Parameters.Count > 0)
 			{
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
@@ -47,20 +47,14 @@ namespace SevenDigital.Api.Wrapper.Requests
 		private static RequestPayload CheckForRequestPayload(RequestData requestData, IDictionary<string,string> requestParameters)
 		{
 			var shouldHaveRequestBody = requestData.HttpMethod.ShouldHaveRequestBody();
-			var hasSuppliedParameters = requestParameters.Count > 0;
 			var hasSuppliedARequestPayload = requestData.Payload != null;
-
-			if (shouldHaveRequestBody && hasSuppliedParameters)
-			{
-				return new RequestPayload(FormUrlEncoded, requestParameters.ToQueryString());
-			}
 
 			if (shouldHaveRequestBody && hasSuppliedARequestPayload)
 			{
 				return requestData.Payload;
 			}
 
-			return new RequestPayload(FormUrlEncoded, "");
+			return new RequestPayload(FormUrlEncoded, requestParameters.ToQueryString());
 		}
 
 		private string GetAuthorizationHeader(RequestData requestData, string fullUrl, ApiRequest apiRequest, RequestPayload requestBody)
@@ -84,6 +78,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 					Method = httpMethod,
 					ConsumerKey = _oAuthCredentials.ConsumerKey,
 					ConsumerSecret = _oAuthCredentials.ConsumerSecret,
+					
 				};
 
 			if (!string.IsNullOrEmpty(requestData.OAuthToken))

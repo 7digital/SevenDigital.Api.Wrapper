@@ -22,14 +22,9 @@ namespace SevenDigital.Api.Wrapper.Http
 			}
 		}
 
-		public static bool HasParamsInQueryString(this HttpMethod method)
-		{
-			return (method == HttpMethod.Get) || (method == HttpMethod.Delete);
-		}
-
 		public static bool ShouldHaveRequestBody(this HttpMethod method)
 		{
-			return (method == HttpMethod.Post) || (method == HttpMethod.Put);
+			return method == HttpMethod.Post || method == HttpMethod.Put;
 		}
 	}
 }

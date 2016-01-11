@@ -84,11 +84,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		}
 
 		[Test]
-		public void Post_data_with_params_defaults_to_key_value_pair_post_body()
+		public void Post_data_with_params_defaults_to_params()
 		{
 			var parameters = new Dictionary<string, string>
 			{
-				{"one", "one"}
+				{"one", "foo"}
 			};
 			var requestData = new RequestData
 			{
@@ -97,16 +97,15 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			};
 
 			var request = _requestBuilder.BuildRequest(requestData);
-			Assert.That(request.Body.Data, Is.EqualTo(parameters.ToQueryString()));
-			Assert.That(request.Body.ContentType, Is.EqualTo("application/x-www-form-urlencoded"));
+			Assert.That(request.Url, Is.StringContaining("?one=foo"));
 		}
 
 		[Test]
-		public void Post_data_with_params_and_requestBody_defaults_to_key_value_pair_post_body()
+		public void Post_data_with_params_and_requestBody_defaults_to_params_and_retains_request_body()
 		{
 			var parameters = new Dictionary<string, string>
 			{
-				{"one", "one"}
+				{"one", "foo"}
 			};
 			var requestData = new RequestData
 			{
@@ -116,8 +115,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			};
 
 			var request = _requestBuilder.BuildRequest(requestData);
-			Assert.That(request.Body.Data, Is.EqualTo(parameters.ToQueryString()));
-			Assert.That(request.Body.ContentType, Is.EqualTo("application/x-www-form-urlencoded"));
+			Assert.That(request.Url, Is.StringContaining("?one=foo"));
+			Assert.That(request.Body.Data, Is.EqualTo(requestData.Payload.Data));
+			Assert.That(request.Body.ContentType, Is.EqualTo("text/plain"));
 		}
 
 		[Test]
