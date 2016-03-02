@@ -57,8 +57,7 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 
 			// -- artist/browse
 			const string searchValue = "Radio";
-			var artistBrowse = await Api<ArtistBrowse>
-				.Create
+			var artistBrowse = await api.Create<ArtistBrowse>()
 				.WithLetter(searchValue)
 				.Please();
 
@@ -88,31 +87,33 @@ namespace SevenDigital.Api.Wrapper.ExampleUsage
 			await DoParalellSearches(api, searchValue);
 
 			// -- Debug uri
-		string currentUri = api.Create<ReleaseSearch>()
+			string currentUri = api.Create<ReleaseSearch>()
 				.WithQuery("Test").EndpointUrl;
 			Console.WriteLine("Release search hits: {0}", currentUri);
+			Console.WriteLine();
 
 			try
 			{
 				// -- Deliberate error response
-				Console.WriteLine("Trying artist/details without artistId parameter...");
+				Console.WriteLine("Trying to request artist/details without artistId parameter...");
 				await api.Create<Artist>().Please();
 			}
-
 			catch (ApiResponseException ex)
 			{
-				Console.WriteLine("{0} : {1}", ex, ex.Message);
+				Console.WriteLine("ERROR: {0}", ex.Message);
+				Console.WriteLine();
 			}
 
 			try
 			{
 				// -- Deliberate unauthorized response
-				Console.WriteLine("Trying user/locker without any credentials...");
+				Console.WriteLine("Trying to access user/locker without an authenticated user access token...");
 				await api.Create<Locker>().Please();
 			}
-			catch (ArgumentException ex)
+			catch (ApiResponseException ex)
 			{
-				Console.WriteLine("{0} : {1}", ex, ex.Message);
+				Console.WriteLine("ERROR: {0}", ex.Message);
+				Console.WriteLine();
 			}
 		}
 
