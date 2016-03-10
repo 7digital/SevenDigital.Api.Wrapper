@@ -22,7 +22,7 @@ namespace SevenDigital.Api.Wrapper
 
 		public IFluentApi<T> Create<T>() where T : class, new()
 		{
-			return new FluentApi<T>(new HttpClientMediator(), new RequestBuilder(_apiUri, _oauthCredentials), new ResponseParser(new ApiResponseDetector()));
+			return new FluentApi<T>(new HttpClientMediator(), new RequestBuilder(new RouteParamsSubstitutor(_apiUri), _oauthCredentials), new ResponseParser(new ApiResponseDetector()));
 		}
 	}
 }

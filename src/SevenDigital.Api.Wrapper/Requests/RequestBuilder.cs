@@ -12,12 +12,12 @@ namespace SevenDigital.Api.Wrapper.Requests
 		private const string FormUrlEncoded = "application/x-www-form-urlencoded";
 
 		private readonly IOAuthCredentials _oAuthCredentials;
-		private readonly RouteParamsSubstitutor _routeParamsSubstitutor;
+		private readonly IRouteParamsSubstitutor _routeParamsSubstitutor;
 
-		public RequestBuilder(IApiUri apiUri, IOAuthCredentials oAuthCredentials)
+		public RequestBuilder(IRouteParamsSubstitutor routeParamsSubstitutor, IOAuthCredentials oAuthCredentials)
 		{
 			_oAuthCredentials = oAuthCredentials;
-			_routeParamsSubstitutor = new RouteParamsSubstitutor(apiUri);
+			_routeParamsSubstitutor = routeParamsSubstitutor;
 		}
 
 		public Request BuildRequest(RequestData requestData)
@@ -67,7 +67,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 			return "oauth_consumer_key=" + _oAuthCredentials.ConsumerKey;
 		}
 
-		private string BuildOAuthHeader(RequestData requestData, string fullUrl, IDictionary<string, string> parameters, RequestPayload requestBody)
+		private string BuildOAuthHeader(RequestData requestData, string fullUrl, IDictionary<string, string> queryStringParameters, RequestPayload requestBody)
 		{
 			var httpMethod = requestData.HttpMethod.ToString().ToUpperInvariant();
 
@@ -87,24 +87,26 @@ namespace SevenDigital.Api.Wrapper.Requests
 				oauthRequest.TokenSecret = requestData.OAuthTokenSecret;
 			}
 
-			if (ShouldReadParamsFromBody(parameters, requestBody))
+			var headerParameters = queryStringParameters.ToDictionary(x => x.Key, x => x.Value);
+
+			if (ShouldReadParamsFromBody(queryStringParameters, requestBody))
 			{
 				var bodyParams = HttpUtility.ParseQueryString(requestBody.Data);
 				var keys = bodyParams.AllKeys.Where(x => !string.IsNullOrEmpty(x));
 				foreach (var key in keys)
 				{
-					parameters.Add(key, bodyParams[key]);
+					headerParameters.Add(key, bodyParams[key]);
 				}
 			}
 
-			return oauthRequest.GetAuthorizationHeader(parameters);
+			return oauthRequest.GetAuthorizationHeader(headerParameters);
 		}
 
-		private static bool ShouldReadParamsFromBody(IDictionary<string, string> parameters, RequestPayload requestBody)
+		private static bool ShouldReadParamsFromBody(IDictionary<string, string> queryStringParameters, RequestPayload requestBody)
 		{
 			return (requestBody.ContentType == FormUrlEncoded) && 
 				!string.IsNullOrEmpty(requestBody.Data) && 
-				(parameters.Count == 0);
+				(queryStringParameters.Count == 0);
 		}
 	}
 }

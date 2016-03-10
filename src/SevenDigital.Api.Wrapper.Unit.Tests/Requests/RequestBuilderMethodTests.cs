@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			A.CallTo(() => _oAuthCredentials.ConsumerKey).Returns("testkey");
 			A.CallTo(() => _oAuthCredentials.ConsumerSecret).Returns("testsecret");
 
-			_requestBuilder = new RequestBuilder(_apiUri, _oAuthCredentials);
+			_requestBuilder = new RequestBuilder(new RouteParamsSubstitutor(_apiUri), _oAuthCredentials);
 		}
 
 		[TestCase]
