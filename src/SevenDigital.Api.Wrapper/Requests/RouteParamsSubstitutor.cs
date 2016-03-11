@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace SevenDigital.Api.Wrapper.Requests
 {
-	public class RouteParamsSubstitutor
+	public class RouteParamsSubstitutor : IRouteParamsSubstitutor
 	{
 		private readonly IBaseUriProvider _defaultBaseUriProvider;
 

@@ -20,7 +20,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 
 		public IFluentApi<T> Create<T>() where T : class, new()
 		{
-			return new FluentApi<T>(new HttpClientMediator(), new RequestBuilder(_apiUrl, _credentials), new ResponseParser(new ApiResponseDetector()));
+			return new FluentApi<T>(new HttpClientMediator(), new RequestBuilder(new RouteParamsSubstitutor(_apiUrl), _credentials), new ResponseParser(new ApiResponseDetector()));
 		}
 	}
 

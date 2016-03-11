@@ -70,6 +70,7 @@
     <Compile Include="Requests\BaseUriFromString.cs" />
     <Compile Include="Requests\IBaseUriProvider.cs" />
     <Compile Include="Requests\IRequestBuilder.cs" />
+    <Compile Include="Requests\IRouteParamsSubstitutor.cs" />
     <Compile Include="Requests\RequestBuilder.cs" />
     <Compile Include="Requests\RequestPayload.cs" />
     <Compile Include="Requests\RouteParamsSubstitutor.cs" />

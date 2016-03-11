@@ -15,7 +15,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		{
 			var appSettingsCredentials = new StubbedConsumerCreds();
 			var apiUri = new ApiUri();
-			_requestBuilder = new RequestBuilder(apiUri, appSettingsCredentials);
+			_requestBuilder = new RequestBuilder(new RouteParamsSubstitutor(apiUri), appSettingsCredentials);
 		}
 
 		[Test]

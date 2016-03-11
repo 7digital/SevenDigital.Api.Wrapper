@@ -18,7 +18,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		public void Setup()
 		{
 			_requestBuilder = new RequestBuilder(
-				EssentialDependencyCheck<IApiUri>.Instance,
+				new RouteParamsSubstitutor(new ApiUri()), 
 				EssentialDependencyCheck<IOAuthCredentials>.Instance);
 		}
 
@@ -69,7 +69,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 
 			var apiUri = A.Fake<IApiUri>();
 			A.CallTo(() => apiUri.Uri).Returns(expectedApiUri);
-			_requestBuilder = new RequestBuilder(apiUri, EssentialDependencyCheck<IOAuthCredentials>.Instance);
+			_requestBuilder = new RequestBuilder(new RouteParamsSubstitutor(apiUri), EssentialDependencyCheck<IOAuthCredentials>.Instance);
 
 			var requestData = new RequestData
 			{
@@ -131,7 +131,36 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 
 			var request = _requestBuilder.BuildRequest(requestData);
 			Assert.That(request.Body.Data, Is.EqualTo("I am a payload"));
-			Assert.That(request.Body.ContentType, Is.EqualTo("text/plain"));
+			Assert.That(request.Body.ContentType, Is.EqualTo("text/plain"));	
+		}
+
+		[Test]
+		public void Post_data_with_requestBody_does_not_add_query_string_params()
+		{
+			var queryStringParameters = new Dictionary<string, string>();
+			var requestData = new RequestData
+			{
+				HttpMethod = HttpMethod.Post,
+				Payload = new RequestPayload("application/x-www-form-urlencoded", "foo=bar"),
+				RequiresSignature = true
+			};
+
+			var credentials = A.Fake<IOAuthCredentials>();
+			A.CallTo(() => credentials.ConsumerKey).Returns("MyKey");
+			A.CallTo(() => credentials.ConsumerSecret).Returns("MySecret");
+
+			var substitutor = A.Fake<IRouteParamsSubstitutor>();
+			A.CallTo(() => substitutor.SubstituteParamsInRequest(requestData))
+				.Returns(new ApiRequest
+				{
+					Parameters = queryStringParameters,
+					AbsoluteUrl = "http://www.7digital.com"
+				});
+
+			_requestBuilder = new RequestBuilder(substitutor, credentials);
+			_requestBuilder.BuildRequest(requestData);
+
+			Assert.That(queryStringParameters.Count, Is.EqualTo(0), "Unexpected query string parameter");
 		}
 
 		[Test]
