@@ -36,7 +36,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 			var traceId = requestData.TraceId ?? Guid.NewGuid().ToString();
 			headers.Add("x-7d-traceid", traceId);
 
-			if (apiRequest.Parameters.Count > 0)
+			if (apiRequest.Parameters.Count > 0 && !requestData.HttpMethod.ShouldHaveRequestBody())
 			{
 				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
 			}
@@ -72,14 +72,13 @@ namespace SevenDigital.Api.Wrapper.Requests
 			var httpMethod = requestData.HttpMethod.ToString().ToUpperInvariant();
 
 			var oauthRequest = new OAuthRequest
-				{
-					Type = OAuthRequestType.ProtectedResource,
-					RequestUrl = fullUrl,
-					Method = httpMethod,
-					ConsumerKey = _oAuthCredentials.ConsumerKey,
-					ConsumerSecret = _oAuthCredentials.ConsumerSecret,
-					
-				};
+			{
+				Type = OAuthRequestType.ProtectedResource,
+				RequestUrl = fullUrl,
+				Method = httpMethod,
+				ConsumerKey = _oAuthCredentials.ConsumerKey,
+				ConsumerSecret = _oAuthCredentials.ConsumerSecret,
+			};
 
 			if (!string.IsNullOrEmpty(requestData.OAuthToken))
 			{
