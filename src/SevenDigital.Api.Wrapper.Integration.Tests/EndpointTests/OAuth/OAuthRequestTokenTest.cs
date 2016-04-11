@@ -39,6 +39,16 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 		}
 
 		[Test]
+		public void POSTing_with_data_should_not_append_to_qs_and_should_therefore_not_throw_error()
+		{
+			var api = (FluentApi<OAuthRequestToken>)Api<OAuthRequestToken>.Create;
+
+			api.WithMethod(HttpMethod.Post);
+			api.WithParameter("test", "value");
+			Assert.DoesNotThrow(async () => await api.Please());
+		}
+
+		[Test]
 		public async void Can_handle_odd_characters_in_get_signing_process()
 		{
 			var oAuthRequestToken = await Api<OAuthRequestToken>

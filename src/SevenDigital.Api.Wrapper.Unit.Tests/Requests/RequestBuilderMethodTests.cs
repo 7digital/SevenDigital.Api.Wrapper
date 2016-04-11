@@ -1,8 +1,8 @@
 ﻿using System.Net.Http;
 using FakeItEasy;
 using NUnit.Framework;
-using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 {
@@ -59,8 +59,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		}
 
 		[TestCase]
-		public void Should_include_parameters_in_querystring()
+		public void Should_include_parameters_in_querystring_when_applicable()
 		{
+			if (TestedHttpMethod.ShouldHaveRequestBody())
+			{
+				Assert.Pass("Test only applicable to method that does not require request body");
+			}
 			var requestData = MakeRequestData(TestedHttpMethod, false);
 			requestData.Parameters.Add("foo", "bar");
 
@@ -70,8 +74,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		}
 
 		[TestCase]
-		public void Should_include_parameters_in_querystring_when_signed()
+		public void Should_include_parameters_in_querystring_when_signed_when_applicable()
 		{
+			if (TestedHttpMethod.ShouldHaveRequestBody())
+			{
+				Assert.Pass("Test only applicable to method that does not require request body");
+			}
 			var requestData = MakeRequestData(TestedHttpMethod, true);
 			requestData.Parameters.Add("foo", "bar");
 
