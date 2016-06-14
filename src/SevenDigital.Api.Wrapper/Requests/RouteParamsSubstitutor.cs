@@ -33,7 +33,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 		{
 			var baseUriProvider = requestData.BaseUriProvider ?? _defaultBaseUriProvider;
 
-			return baseUriProvider.BaseUri(requestData);
+			return baseUriProvider.BaseUri(requestData).ToLower();
 		}
 
 		private static string SubstituteRouteParameters(string endpointUri, IDictionary<string, string> parameters)
@@ -48,7 +48,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 				endpointUri = endpointUri.Replace(match.ToString(), entry.Value);
 			}
 
-			return endpointUri.ToLower();
+			return endpointUri;
 		}
 	}
 }
