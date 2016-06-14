@@ -15,7 +15,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		public void Setup()
 		{
 			_apiUri = A.Fake<IApiUri>();
-			A.CallTo(() => _apiUri.Uri).Returns("http://example.com");
+			A.CallTo(() => _apiUri.Uri).Returns("http://EXAMPLE.com");
 			A.CallTo(() => _apiUri.SecureUri).Returns("https://example.com");
 		}
 
@@ -59,7 +59,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		{
 			var requestData = new RequestData
 			{
-				Endpoint = "something/{firstRoute}/{secondRoute}/thrid/{thirdRoute}",
+				Endpoint = "something/{firstRoute}/{secondRoute}/third/{thirdRoute}",
 				Parameters = new Dictionary<string, string>
 					{
 						{"firstRoute" , "firstValue"},
@@ -72,15 +72,15 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
 			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
-			Assert.That(result.AbsoluteUrl, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
+			Assert.That(result.AbsoluteUrl, Is.StringContaining("something/firstValue/secondValue/third/thirdValue"));
 		}
 
 		[Test]
-		public void Routes_should_be_case_insensitive()
+		public void Domain_should_be_case_insensitive_routes_should_be_case_sensitive()
 		{
 			var requestData = new RequestData
 			{
-				Endpoint = "something/{firstRoUte}/{secOndrouTe}/thrid/{tHirdRoute}",
+				Endpoint = "someThing/{firstRoUte}/{secOndrouTe}/third/{tHirdRoute}",
 				Parameters = new Dictionary<string, string>
 					{
 						{"firstRoute" , "firstValue"},
@@ -93,7 +93,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			var routeParamsSubstitutor = new RouteParamsSubstitutor(_apiUri);
 			var result = routeParamsSubstitutor.SubstituteParamsInRequest(requestData);
 
-			Assert.That(result.AbsoluteUrl, Is.StringContaining("something/firstvalue/secondvalue/thrid/thirdvalue"));
+			Assert.That(result.AbsoluteUrl, Is.EqualTo("http://example.com/someThing/firstValue/secondValue/third/thirdValue"));
 		}
 
 		[Test]
