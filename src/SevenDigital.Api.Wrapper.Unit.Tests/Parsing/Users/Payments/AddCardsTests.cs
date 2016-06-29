@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using NUnit.Framework;
@@ -26,7 +27,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Parsing.Users.Payments
 				"</cards>" +
 				"</response>";
 
-		private readonly Response response = new Response( HttpStatusCode.OK, responseXml);
+		private readonly Response response = ResponseCreator.FromBody( HttpStatusCode.OK,responseXml);
 
 		[Test]
 		public void can_deserialise_response_user_cards()

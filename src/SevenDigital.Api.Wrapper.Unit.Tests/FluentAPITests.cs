@@ -24,7 +24,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 	{
 		private const string VALID_STATUS_XML = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response status=\"ok\" version=\"1.2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://api.7digital.com/1.2/static/7digitalAPI.xsd\"><serviceStatus><serverTime>2011-05-31T15:31:22Z</serverTime></serviceStatus></response>";
 
-		private readonly Response _stubResponse = new Response(HttpStatusCode.OK, VALID_STATUS_XML);
+		private readonly Response _stubResponse = ResponseCreator.FromBody(HttpStatusCode.OK, VALID_STATUS_XML);
 		private readonly Status _stubStatus = new Status();
 
 		private IRequestBuilder StubRequestBuilder()

@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Releases;
 using SevenDigital.Api.Wrapper.Requests;
+using SevenDigital.Api.Wrapper.Responses;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 {
@@ -48,7 +49,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 			Assert.That(response.Headers.ContainsKey("Content-Type"), Is.True);
 			Assert.That(response.Headers["Content-Type"], Is.StringStarting("application/json"));
 
-			Assert.That(response.ContentTypeIsJson(), Is.True);
+			Assert.That(response.ContentType(), Is.EqualTo(ContentType.Json));
 		}
 
 		[Test]
@@ -64,7 +65,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 			Assert.That(response.Headers.ContainsKey("Content-Type"), Is.True);
 			Assert.That(response.Headers["Content-Type"], Is.StringStarting("application/xml"));
 
-			Assert.That(response.ContentTypeIsJson(), Is.False);
+			Assert.That(response.ContentType(), Is.EqualTo(ContentType.Xml));
 		}
 
 		[Test]
@@ -78,7 +79,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 			Assert.That(response.Headers.ContainsKey("Content-Type"), Is.True);
 			Assert.That(response.Headers["Content-Type"], Is.StringStarting("application/xml"));
 
-			Assert.That(response.ContentTypeIsJson(), Is.False);
+			Assert.That(response.ContentType(), Is.EqualTo(ContentType.Xml));
 		}
 
 		private IFluentApi<Release> RequestARelease()

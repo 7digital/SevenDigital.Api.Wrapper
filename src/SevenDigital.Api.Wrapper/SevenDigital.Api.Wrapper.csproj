@@ -122,6 +122,7 @@
     <Compile Include="Requests\Serializing\XmlPayloadSerializer.cs" />
     <Compile Include="Requests\UriPath.cs" />
     <Compile Include="Responses\CacheHeaderReader.cs" />
+    <Compile Include="Responses\ContentType.cs" />
     <Compile Include="Responses\InMemoryResponseCache.cs" />
     <Compile Include="Responses\IResponseCache.cs" />
     <Compile Include="Responses\NullResponseCache.cs" />

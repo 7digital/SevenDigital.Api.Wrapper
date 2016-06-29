@@ -29,7 +29,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 			var responseParser = A.Fake<IResponseParser>();
 
 			var responseXml = File.ReadAllText("StubResponses/Playlists.xml");
-			var validPlaylistsResponse = new Response(HttpStatusCode.OK, responseXml);
+			var validPlaylistsResponse = ResponseCreator.FromBody(HttpStatusCode.OK, responseXml);
 			A.CallTo(() => httpClient.Send(null)).WithAnyArguments().Returns(Task.FromResult(validPlaylistsResponse));
 			_fluentApi = new FluentApi<UserPlaylists>(httpClient, _requestBuilder, responseParser);
 

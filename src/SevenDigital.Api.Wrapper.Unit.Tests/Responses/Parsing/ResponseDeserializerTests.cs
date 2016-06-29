@@ -50,6 +50,21 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses.Parsing
 		}
 
 		[Test]
+		[TestCase("", false)]
+		[TestCase("", true)]
+		[TestCase(null, false)]
+		[TestCase(null, true)]
+		public void Should_accept_responses_without_content_type(string body, bool unwrapResponse)
+		{
+			var response = new Response(HttpStatusCode.OK, new Dictionary<string, string>(), "");
+
+			var deserializer = new ResponseDeserializer();
+
+			Assert.DoesNotThrow(() => deserializer.DeserializeResponse<Status>(response, false));
+			
+		}
+
+		[Test]
 		public void Should_not_parse_xml_identified_as_json()
 		{
 			var response = new Response(HttpStatusCode.OK, JsonContentType(), XmlResponseText);

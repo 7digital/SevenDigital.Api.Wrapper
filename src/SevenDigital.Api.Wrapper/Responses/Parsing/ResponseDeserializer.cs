@@ -13,12 +13,22 @@ namespace SevenDigital.Api.Wrapper.Responses.Parsing
 	{
 		public T DeserializeResponse<T>(Response response, bool unwrapResponse) where T : class, new()
 		{
-			if (response.ContentTypeIsJson())
+			switch (response.ContentType())
 			{
-				return ResponseFromJson<T>(response.Body);
-			}
+				case ContentType.Json:
+					return ResponseFromJson<T>(response.Body);
 
-			return ResponseFromXmlText<T>(response.Body, unwrapResponse);
+				case ContentType.None:
+					return ResponseFromNoContent<T>();
+
+				default:
+					return ResponseFromXmlText<T>(response.Body, unwrapResponse);
+
+			}
+		}
+		private T ResponseFromNoContent<T>() where T : class, new()
+		{
+			return new T();
 		}
 
 		private T ResponseFromXmlText<T>(string responseBody, bool unwrapResponse) where T : class, new()

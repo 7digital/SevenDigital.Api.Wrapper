@@ -27,7 +27,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 			var responseParser = new ResponseParser(new ApiResponseDetector());
 
 			var responseXml = File.ReadAllText("StubResponses/Playlist.xml");
-			var validPlaylistsResponse = new Response(HttpStatusCode.OK, responseXml);
+			var validPlaylistsResponse = ResponseCreator.FromBody(HttpStatusCode.OK, responseXml);
 			A.CallTo(() => httpClient.Send(null)).WithAnyArguments().Returns(Task.FromResult(validPlaylistsResponse));
 			var fluentApi = new FluentApi<Playlist>(httpClient, requestBuilder, responseParser);
 

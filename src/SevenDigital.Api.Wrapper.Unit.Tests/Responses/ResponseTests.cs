@@ -14,7 +14,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses
 			var headers = new Dictionary<string, string>();
 			var response = new Response(HttpStatusCode.OK, headers, string.Empty);
 
-			Assert.That(response.ContentTypeIsJson(), Is.False);
+			Assert.That(response.ContentType(), Is.EqualTo(ContentType.None));
 		}
 
 		[Test]
@@ -26,7 +26,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses
 				};
 			var response = new Response(HttpStatusCode.OK, headers, string.Empty);
 
-			Assert.That(response.ContentTypeIsJson(), Is.False);
+			Assert.That(response.ContentType(), Is.EqualTo(ContentType.Xml));
 		}
 
 		[Test]
@@ -38,7 +38,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses
 				};
 			var response = new Response(HttpStatusCode.OK, headers, string.Empty);
 
-			Assert.That(response.ContentTypeIsJson(), Is.True);
+			Assert.That(response.ContentType(), Is.EqualTo(ContentType.Json));
 		}
 
 
@@ -51,7 +51,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses
 				};
 			var response = new Response(HttpStatusCode.OK, headers, string.Empty);
 
-			Assert.That(response.ContentTypeIsJson(), Is.True);
+			Assert.That(response.ContentType(), Is.EqualTo(ContentType.Json));
 		}
 
 		[Test]
@@ -63,7 +63,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Responses
 				};
 			var response = new Response(HttpStatusCode.OK, headers, string.Empty);
 
-			Assert.That(response.ContentTypeIsJson(), Is.True);
+			Assert.That(response.ContentType(), Is.EqualTo(ContentType.Json));
 		}
 	}
 }

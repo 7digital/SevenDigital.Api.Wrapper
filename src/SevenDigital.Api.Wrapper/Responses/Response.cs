@@ -28,23 +28,24 @@ namespace SevenDigital.Api.Wrapper.Responses
 			Body = body;
 		}
 
-		public Response(HttpStatusCode statusCode, string body)
+		public ContentType ContentType()
 		{
-			StatusCode = statusCode;
-			Headers = new Dictionary<string, string>();
-			Body = body;
+			if (!Headers.ContainsKey("Content-Type"))
+			{
+				return Responses.ContentType.None;
+			}
+			var contentType = Headers["Content-Type"];
+			if (IsJson(contentType))
+			{
+				return Responses.ContentType.Json;
+			}
+			return Responses.ContentType.Xml;
 		}
 
-		public bool ContentTypeIsJson()
+		private static bool IsJson(string contentType)
 		{
-			const string ContentTypeHeaderKey = "Content-Type";
-			if (!Headers.ContainsKey(ContentTypeHeaderKey))
-			{
-				return false;
-			}
-
-			var contentType = Headers[ContentTypeHeaderKey];
 			return contentType.StartsWith("application/json") || contentType.StartsWith("text/json");
 		}
 	}
 }
+
