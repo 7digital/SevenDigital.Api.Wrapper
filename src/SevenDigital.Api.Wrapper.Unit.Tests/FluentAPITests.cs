@@ -8,7 +8,6 @@ using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
 using SevenDigital.Api.Schema.Artists;
-using SevenDigital.Api.Schema.Attributes;
 using SevenDigital.Api.Wrapper.Exceptions;
 using SevenDigital.Api.Wrapper.Http;
 using SevenDigital.Api.Wrapper.Requests;
@@ -272,7 +271,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public async void Should_allow_you_to_set_a_request_payload_using_an_entity()
 		{
-			const string expectedXmlOutput = "<?xml version=\"1.0\" encoding=\"utf-8\"?><artist id=\"143451\"><name>MGMT</name><appearsAs>MGMT</appearsAs><image>http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg</image><url>http://www.7digital.com/artist/mgmt/?partner=1401</url></artist>";
+			const string expectedXmlOutput = "<?xml version=\"1.0\" encoding=\"utf-8\"?><artist id=\"143451\"><name>MGMT</name><appearsAs>MGMT</appearsAs><image>http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg</image><url>http://www.7digital.com/artist/mgmt/?partner=1401</url><slug>mgmt-slug</slug><isPlaceholderImage>false</isPlaceholderImage></artist>";
 
 			var artist = new Artist
 			{
@@ -280,7 +279,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 				Name = "MGMT",
 				Id = 143451,
 				Image = "http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg",
-				Url = "http://www.7digital.com/artist/mgmt/?partner=1401"
+				Url = "http://www.7digital.com/artist/mgmt/?partner=1401",
+				IsPlaceholderImage = false,
+				Slug = "mgmt-slug"
 			};
 
 			var requestBuilder = StubRequestBuilder();
@@ -329,7 +330,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public async void Should_allow_you_to_set_a_request_payload_using_an_entity_transferred_as_json()
 		{
-			const string expectedOutput = "{\"id\":143451,\"name\":\"MGMT\",\"sortName\":null,\"appearsAs\":\"MGMT\",\"image\":\"http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg\",\"url\":\"http://www.7digital.com/artist/mgmt/?partner=1401\"}";
+			const string expectedOutput = "{\"id\":143451,\"name\":\"MGMT\",\"sortName\":null,\"appearsAs\":\"MGMT\",\"image\":\"http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg\",\"url\":\"http://www.7digital.com/artist/mgmt/?partner=1401\",\"slug\":\"mgmt-slug\",\"isPlaceholderImage\":false}";
 			
 			var artist = new Artist
 			{
@@ -337,7 +338,9 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 				Name = "MGMT",
 				Id = 143451,
 				Image = "http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg",
-				Url = "http://www.7digital.com/artist/mgmt/?partner=1401"
+				Url = "http://www.7digital.com/artist/mgmt/?partner=1401",
+				IsPlaceholderImage = false,
+				Slug = "mgmt-slug"
 			};
 
 			var requestBuilder = StubRequestBuilder();
@@ -356,7 +359,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public async void Should_allow_you_to_set_a_request_payload_using_an_entity_transferred_as_xml()
 		{
-			const string expectedOutput = "<?xml version=\"1.0\" encoding=\"utf-8\"?><artist id=\"143451\"><name>MGMT</name><appearsAs>MGMT</appearsAs><image>http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg</image><url>http://www.7digital.com/artist/mgmt/?partner=1401</url></artist>";
+			const string expectedOutput = "<?xml version=\"1.0\" encoding=\"utf-8\"?><artist id=\"143451\"><name>MGMT</name><appearsAs>MGMT</appearsAs><image>http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg</image><url>http://www.7digital.com/artist/mgmt/?partner=1401</url><slug>mgmt-slug</slug><isPlaceholderImage>false</isPlaceholderImage></artist>";
 
 			var artist = new Artist
 				{
@@ -364,8 +367,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 					Name = "MGMT",
 					Id = 143451,
 					Image = "http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg",
-					Url = "http://www.7digital.com/artist/mgmt/?partner=1401"
-				};
+					Url = "http://www.7digital.com/artist/mgmt/?partner=1401",
+					IsPlaceholderImage = false,
+					Slug = "mgmt-slug"
+			};
 
 			var requestBuilder = StubRequestBuilder();
 			var httpClient = StubHttpClient();

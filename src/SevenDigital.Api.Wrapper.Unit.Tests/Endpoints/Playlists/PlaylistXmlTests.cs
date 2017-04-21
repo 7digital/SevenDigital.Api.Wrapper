@@ -54,11 +54,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Endpoints.Playlists
 			Assert.That(firstTrack.TrackId, Is.EqualTo("5495893"));
 			Assert.That(firstTrack.TrackTitle, Is.EqualTo("No You Girls (Trentmoller Remix)"));
 			Assert.That(firstTrack.TrackVersion, Is.EqualTo("Trentmoller Remix"));
-			Assert.That(firstTrack.ArtistId, Is.Null);
+			Assert.That(firstTrack.ArtistId, Is.EqualTo("1"));
 			Assert.That(firstTrack.ArtistAppearsAs, Is.EqualTo("Franz Ferdinand"));
 			Assert.That(firstTrack.ReleaseId, Is.EqualTo("496338"));
 			Assert.That(firstTrack.ReleaseTitle, Is.EqualTo("No You Girls Remixes Part 2"));
-			Assert.That(firstTrack.ReleaseArtistId, Is.Null);
+			Assert.That(firstTrack.ReleaseArtistId, Is.EqualTo("2"));
 			Assert.That(firstTrack.ReleaseArtistAppearsAs, Is.EqualTo("Franz Ferdinand"));
 			Assert.That(firstTrack.ReleaseVersion, Is.EqualTo("Digital Download"));
 			Assert.That(firstTrack.Source, Is.EqualTo("7digital"));
