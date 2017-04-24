@@ -18,7 +18,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 		[Test]
 		public void Should_serialize_artist_as_expected()
 		{
-			const string expectedXmlOutput = "<?xml version=\"1.0\" encoding=\"utf-8\"?><artist id=\"143451\"><name>MGMT</name><appearsAs>MGMT</appearsAs><image>http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg</image><url>http://www.7digital.com/artist/mgmt/?partner=1401</url></artist>";
+			const string expectedXmlOutput = "<?xml version=\"1.0\" encoding=\"utf-8\"?><artist id=\"143451\"><name>MGMT</name><appearsAs>MGMT</appearsAs><image>http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg</image><url>http://www.7digital.com/artist/mgmt/?partner=1401</url><isPlaceholderImage>false</isPlaceholderImage></artist>";
 			
 			var artist = new Artist
 				{
@@ -26,7 +26,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests.Serializing
 					Name = "MGMT",
 					Id = 143451,
 					Image = "http://cdn.7static.com/static/img/artistimages/00/001/434/0000143451_150.jpg",
-					Url = "http://www.7digital.com/artist/mgmt/?partner=1401"
+					Url = "http://www.7digital.com/artist/mgmt/?partner=1401",
+					IsPlaceholderImage = false
 				};
 
 			var xml = _payloadSerializer.Serialize(artist);

@@ -9,11 +9,11 @@
 				<trackId>5495893</trackId>
 				<trackTitle>No You Girls (Trentmoller Remix)</trackTitle>
 				<trackVersion>Trentmoller Remix</trackVersion>
-				<artistId xsi:nil="true" />
+				<artistId>1</artistId>
 				<artistAppearsAs>Franz Ferdinand</artistAppearsAs>
 				<releaseId>496338</releaseId>
 				<releaseTitle>No You Girls Remixes Part 2</releaseTitle>
-				<releaseArtistId xsi:nil="true" />
+				<releaseArtistId>2</releaseArtistId>
 				<releaseArtistAppearsAs>Franz Ferdinand</releaseArtistAppearsAs>
 				<releaseVersion>Digital Download</releaseVersion>
 				<source>7digital</source>
@@ -26,11 +26,11 @@
 				<trackId>17564601</trackId>
 				<trackTitle>Physical Fraction</trackTitle>
 				<trackVersion />
-				<artistId xsi:nil="true" />
+				<artistId>1</artistId>
 				<artistAppearsAs>Trentem_ller</artistAppearsAs>
 				<releaseId>1599906</releaseId>
 				<releaseTitle>Bugged Out!</releaseTitle>
-				<releaseArtistId xsi:nil="true" />
+				<releaseArtistId>2</releaseArtistId>
 				<releaseArtistAppearsAs>Trentem_ller</releaseArtistAppearsAs>
 				<releaseVersion />
 				<source>7digital</source>
@@ -43,11 +43,11 @@
 				<trackId>15471686</trackId>
 				<trackTitle>Rykketid</trackTitle>
 				<trackVersion />
-				<artistId xsi:nil="true" />
+				<artistId>1</artistId>
 				<artistAppearsAs>Trentem_ller</artistAppearsAs>
 				<releaseId>1403143</releaseId>
 				<releaseTitle>Renaissance presents Utilities</releaseTitle>
-				<releaseArtistId xsi:nil="true" />
+				<releaseArtistId>2</releaseArtistId>
 				<releaseArtistAppearsAs>Trentem_ller</releaseArtistAppearsAs>
 				<releaseVersion />
 				<source>7digital</source>
@@ -60,11 +60,11 @@
 				<trackId>31553373</trackId>
 				<trackTitle>Ramblin’ (Wo)man</trackTitle>
 				<trackVersion />
-				<artistId xsi:nil="true" />
+				<artistId>1</artistId>
 				<artistAppearsAs>Cat Power</artistAppearsAs>
 				<releaseId>2960975</releaseId>
 				<releaseTitle>Jukebox [Deluxe Edition]</releaseTitle>
-				<releaseArtistId xsi:nil="true" />
+				<releaseArtistId>2</releaseArtistId>
 				<releaseArtistAppearsAs>Cat Power</releaseArtistAppearsAs>
 				<releaseVersion />
 				<source>7digital</source>

@@ -3,19 +3,23 @@
 	<name>Test Playlist</name>
 	<visibility>Private</visibility>
 	<status>NotSpecified</status>
+	<tags />
+	<annotations />
 	<tracks>
-		<trackId>123</trackId>
-		<trackTitle>Weekend Wars</trackTitle>
-		<trackVersion>deluxe</trackVersion>
-		<artistId>123</artistId>
-		<artistAppearsAs>MGMT</artistAppearsAs>
-		<releaseId>123</releaseId>
-		<releaseTitle>Oracula Spectacular</releaseTitle>
-		<releaseArtistId>123</releaseArtistId>
-		<releaseArtistAppearsAs>MGMT</releaseArtistAppearsAs>
-		<releaseVersion>extended</releaseVersion>
-		<source>local</source>
-		<audioUrl>test.mp3</audioUrl>
-		<image>http://my.image.com/image.jpg</image>
+		<track>
+			<trackId>123</trackId>
+			<trackTitle>Weekend Wars</trackTitle>
+			<trackVersion>deluxe</trackVersion>
+			<artistId>123</artistId>
+			<artistAppearsAs>MGMT</artistAppearsAs>
+			<releaseId>123</releaseId>
+			<releaseTitle>Oracula Spectacular</releaseTitle>
+			<releaseArtistId>123</releaseArtistId>
+			<releaseArtistAppearsAs>MGMT</releaseArtistAppearsAs>
+			<releaseVersion>extended</releaseVersion>
+			<source>local</source>
+			<audioUrl>test.mp3</audioUrl>
+			<image>http://my.image.com/image.jpg</image>
+		</track>
 	</tracks>
 </playlist>
