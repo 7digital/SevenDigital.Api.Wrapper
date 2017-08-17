@@ -45,8 +45,7 @@
       <HintPath>..\..\packages\OAuth.1.0.3\lib\net40\OAuth.dll</HintPath>
     </Reference>
     <Reference Include="SevenDigital.Api.Schema, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SevenDigital.Api.Schema.2.0.0\lib\net40\SevenDigital.Api.Schema.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\SevenDigital.Api.Schema.2.1.3\lib\net40\SevenDigital.Api.Schema.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
