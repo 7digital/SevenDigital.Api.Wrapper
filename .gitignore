@@ -22,3 +22,5 @@ packages/*/**
 /.nuget/nuget.exe
 packages/*/**
 /examples/*/packages/*/**
+**/sqlite3
+**/DesignTimeBuild/*
