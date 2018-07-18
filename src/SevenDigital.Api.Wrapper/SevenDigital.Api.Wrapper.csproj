@@ -66,6 +66,8 @@
     <Compile Include="Extensions\ParameterExtensions.cs" />
     <Compile Include="Extensions\ShopExtensions.cs" />
     <Compile Include="Extensions\UsageType.cs" />
+    <Compile Include="Http\HttpClientHandlerFactory.cs" />
+    <Compile Include="Http\IHttpClientHandlerFactory.cs" />
     <Compile Include="Requests\AcceptFormat.cs" />
     <Compile Include="Requests\BaseUriFromApiUri.cs" />
     <Compile Include="Requests\BaseUriFromString.cs" />

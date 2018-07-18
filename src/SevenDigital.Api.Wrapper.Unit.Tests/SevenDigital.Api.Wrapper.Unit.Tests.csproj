@@ -74,6 +74,8 @@
     <Compile Include="Endpoints\Baskets\BasketEndpointTests.cs" />
     <Compile Include="Extensions\HasUsageTypesParameterExtensionsTests.cs" />
     <Compile Include="FluentApiBaseUriTests.cs" />
+    <Compile Include="Http\HttpClientHandlerFactoryTests.cs" />
+    <Compile Include="Http\HttpClientMediatorTests.cs" />
     <Compile Include="Http\HttpMethodHelpersTests.cs" />
     <Compile Include="ParameterExtensionsTests.cs" />
     <Compile Include="Parsing\Payments\CardTypesTests.cs" />

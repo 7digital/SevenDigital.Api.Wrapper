@@ -10,6 +10,17 @@ namespace SevenDigital.Api.Wrapper.Http
 {
 	public class HttpClientMediator : IHttpClient
 	{
+		private readonly IHttpClientHandlerFactory _factory;
+
+		public HttpClientMediator() : this(new HttpClientHandlerFactory())
+		{
+		}
+
+		public HttpClientMediator(IHttpClientHandlerFactory factory)
+		{
+			_factory = factory;
+		}
+
 		public async Task<Response> Send(Request request)
 		{
 			using (var httpClient = MakeHttpClient())
@@ -24,12 +35,11 @@ namespace SevenDigital.Api.Wrapper.Http
 			}
 		}
 
-		private static HttpClient MakeHttpClient()
+		private HttpClient MakeHttpClient()
 		{
-			var httpClient = new HttpClient(new HttpClientHandler
-			{
-				AutomaticDecompression = DecompressionMethods.GZip
-			});
+			var handler = _factory.CreateHandler();
+			handler.AutomaticDecompression = DecompressionMethods.GZip;
+			var httpClient = new HttpClient(handler);
 
 			httpClient.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip", 1.0));
 			httpClient.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("UTF8", 0.9));
