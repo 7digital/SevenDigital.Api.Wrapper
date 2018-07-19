@@ -11,6 +11,9 @@ namespace SevenDigital.Api.Wrapper.Requests
 	{
 		private const string FormUrlEncoded = "application/x-www-form-urlencoded";
 
+		// API router will allow these params regardless of HTTP verb (https://git.io/fNZZi)
+		private readonly string[] _allowedQueryStringParams = { "userid", "country", "shopid", "onbehalfofpartnerid" };
+
 		private readonly IOAuthCredentials _oAuthCredentials;
 		private readonly IRouteParamsSubstitutor _routeParamsSubstitutor;
 
@@ -18,6 +21,12 @@ namespace SevenDigital.Api.Wrapper.Requests
 		{
 			_oAuthCredentials = oAuthCredentials;
 			_routeParamsSubstitutor = routeParamsSubstitutor;
+		}
+
+		private IDictionary<string, string> GetAllowedQueryStringParams(IDictionary<string, string> parameters)
+		{
+			return parameters.Where(kv => _allowedQueryStringParams.Contains(kv.Key.ToLower()))
+				.ToDictionary(kv => kv.Key, i => i.Value);
 		}
 
 		public Request BuildRequest(RequestData requestData)
@@ -36,9 +45,13 @@ namespace SevenDigital.Api.Wrapper.Requests
 			var traceId = requestData.TraceId ?? Guid.NewGuid().ToString();
 			headers.Add("x-7d-traceid", traceId);
 
-			if (apiRequest.Parameters.Count > 0 && !requestData.HttpMethod.ShouldHaveRequestBody())
+			var queryParams = requestData.HttpMethod.ShouldHaveRequestBody()
+				? GetAllowedQueryStringParams(apiRequest.Parameters)
+				: apiRequest.Parameters;
+
+			if (queryParams.Any())
 			{
-				fullUrl += "?" + apiRequest.Parameters.ToQueryString();
+				fullUrl += "?" + queryParams.ToQueryString();
 			}
 
 			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody, traceId);
