@@ -23,47 +23,27 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		}
 
 		[Test]
-		public void Should_make_url_with_url_encoded_parameters()
+		public void Uses_base_uri_when_it_is_present()
 		{
-			const string unEncodedParameterValue = "Alive & Amplified";
-			const string encodedParameterValue = "Alive%20%26%20Amplified";
-
-			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
-			var expectedUrl = string.Format("{0}/test?q={1}", API_URL, encodedParameterValue);
+			const string expectedApiUri = "http://api.7dizzle";
+			var baseUriProvider = A.Fake<IBaseUriProvider>();
+			A.CallTo(() => baseUriProvider.BaseUri(A<RequestData>.Ignored)).Returns(expectedApiUri);
 
 			var requestData = new RequestData
-				{
-					Endpoint = "test",
-					HttpMethod = HttpMethod.Get,
-					Parameters = testParameters
-				};
+			{
+				Endpoint = "test",
+				HttpMethod = HttpMethod.Get,
+				Headers = new Dictionary<string, string>(),
+				BaseUriProvider = baseUriProvider
+			};
 
 			var request = _requestBuilder.BuildRequest(requestData);
 
-			Assert.That(request.Url, Is.EqualTo(expectedUrl));
+			Assert.That(request.Url, Is.StringStarting(expectedApiUri));
 		}
 
 		[Test]
-		public void Should_not_care_how_many_times_you_create_an_endpoint()
-		{
-			var endPointState = new RequestData
-			{
-				Endpoint = "{slug}",
-				HttpMethod = HttpMethod.Get,
-				Parameters = new Dictionary<string, string>
-				{
-					{"slug", "something"}
-				}
-			};
-
-			var request1 = _requestBuilder.BuildRequest(endPointState);
-			var request2 = _requestBuilder.BuildRequest(endPointState);
-
-			Assert.That(request1.Url, Is.EqualTo(request2.Url));
-		}
-
-		[Test]
-		public void Should_use_api_uri_provided_by_IApiUri_interface()
+		public void Uses_api_uri_provided_by_IApiUri_interface()
 		{
 			const string expectedApiUri = "http://api.7dizzle";
 
@@ -84,60 +64,130 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		}
 
 		[Test]
-		public void Post_data_with_params_defaults_to_form_urlencoded_payload()
+		public void Encodes_url_params()
 		{
-			var parameters = new Dictionary<string, string>
-			{
-				{"one", "foo"}
-			};
+			const string unEncodedParameterValue = "Alive & Amplified";
+			const string encodedParameterValue = "Alive%20%26%20Amplified";
+
+			var testParameters = new Dictionary<string, string> { { "q", unEncodedParameterValue } };
+			var expectedUrl = string.Format("{0}/test?q={1}", API_URL, encodedParameterValue);
+
 			var requestData = new RequestData
-			{
-				Parameters = parameters,
-				HttpMethod = HttpMethod.Post
-			};
+				{
+					Endpoint = "test",
+					HttpMethod = HttpMethod.Get,
+					Parameters = testParameters
+				};
 
 			var request = _requestBuilder.BuildRequest(requestData);
-			Assert.That(request.Url, Is.Not.StringContaining("?one=foo"));
-			Assert.That(request.Body.Data, Is.StringContaining("one=foo"));
-			Assert.That(request.Body.ContentType, Is.StringContaining("application/x-www-form-urlencoded"));
+
+			Assert.That(request.Url, Is.EqualTo(expectedUrl));
 		}
 
 		[Test]
-		public void Post_data_with_params_and_requestBody_defaults_to_params_and_retains_request_body()
+		public void Does_not_care_how_many_times_an_endpoint_is_made()
 		{
-			var parameters = new Dictionary<string, string>
+			var endPointState = new RequestData
 			{
-				{"one", "foo"}
+				Endpoint = "{slug}",
+				HttpMethod = HttpMethod.Get,
+				Parameters = new Dictionary<string, string>
+				{
+					{"slug", "something"}
+				}
 			};
+
+			var request1 = _requestBuilder.BuildRequest(endPointState);
+			var request2 = _requestBuilder.BuildRequest(endPointState);
+
+			Assert.That(request1.Url, Is.EqualTo(request2.Url));
+		}
+
+		[Test]
+		public void Post_with_payload_passes_payload_in_body()
+		{
 			var requestData = new RequestData
 			{
-				Parameters = parameters,
 				HttpMethod = HttpMethod.Post,
 				Payload = new RequestPayload("text/plain", "I am a payload")
 			};
 
 			var request = _requestBuilder.BuildRequest(requestData);
-			Assert.That(request.Url, Is.Not.StringContaining("?one=foo"));
+			Assert.That(request.Url, Is.Not.StringContaining("?"));
+			Assert.That(request.Body.Data, Is.EqualTo("I am a payload"));
+			Assert.That(request.Body.ContentType, Is.EqualTo("text/plain"));
+		}
+
+		[Test]
+		public void Post_with_params_and_no_payload_passes_allowed_params_in_query_and_all_params_in_body()
+		{
+			var requestData = new RequestData
+			{
+				HttpMethod = HttpMethod.Post,
+				Parameters = new Dictionary<string, string>
+				{
+					{"UserID", "123"},
+					{"COUNTRY", "here"},
+					{"shopid", "456"},
+					{"otherparam", "blah"},
+					{"onBehalfOfPartnerId", "789"}
+				}
+			};
+
+			var request = _requestBuilder.BuildRequest(requestData);
+			Assert.That(request.Url, Is.StringEnding("?UserID=123&COUNTRY=here&shopid=456&onBehalfOfPartnerId=789"));
+			Assert.That(request.Body.Data, Is.EqualTo("UserID=123&COUNTRY=here&shopid=456&otherparam=blah&onBehalfOfPartnerId=789"));
+			Assert.That(request.Body.ContentType, Is.StringContaining("application/x-www-form-urlencoded"));
+		}
+
+		[Test]
+		public void Post_with_params_and_payload_passes_allowed_params_in_query_and_payload_in_body()
+		{
+			var requestData = new RequestData
+			{
+				HttpMethod = HttpMethod.Post,
+				Payload = new RequestPayload("text/plain", "I am a payload"),
+				Parameters = new Dictionary<string, string>
+				{
+					{"UserID", "123"},
+					{"COUNTRY", "here"},
+					{"shopid", "456"},
+					{"otherparam", "blah"},
+					{"onBehalfOfPartnerId", "789"}
+				}
+			};
+
+			var request = _requestBuilder.BuildRequest(requestData);
+			Assert.That(request.Url, Is.StringEnding("?UserID=123&COUNTRY=here&shopid=456&onBehalfOfPartnerId=789"));
 			Assert.That(request.Body.Data, Is.EqualTo(requestData.Payload.Data));
 			Assert.That(request.Body.ContentType, Is.EqualTo("text/plain"));
 		}
 
 		[Test]
-		public void Post_data_with_requestBody_passes_post_body_to_main_request()
+		public void Post_with_params_passes_some_url_params_and_other_allowed_params_in_query()
 		{
 			var requestData = new RequestData
 			{
 				HttpMethod = HttpMethod.Post,
-				Payload = new RequestPayload("text/plain", "I am a payload")
+				Endpoint = "/a/{userid}/b/{country}/c/{otherparam}",
+				Parameters = new Dictionary<string, string>
+				{
+					{"UserID", "123"},
+					{"COUNTRY", "here"},
+					{"otherparam", "blah"},
+					{"shopid", "456"},
+					{"onBehalfOfPartnerId", "789"}
+				}
 			};
 
 			var request = _requestBuilder.BuildRequest(requestData);
-			Assert.That(request.Body.Data, Is.EqualTo("I am a payload"));
-			Assert.That(request.Body.ContentType, Is.EqualTo("text/plain"));	
+			Assert.That(request.Url, Is.StringEnding("a/123/b/here/c/blah?shopid=456&onBehalfOfPartnerId=789"));
+			Assert.That(request.Body.Data, Is.EqualTo("shopid=456&onBehalfOfPartnerId=789"));
+			Assert.That(request.Body.ContentType, Is.StringContaining("application/x-www-form-urlencoded"));
 		}
 
 		[Test]
-		public void Post_data_with_requestBody_does_not_add_query_string_params()
+		public void Post_with_payload_does_not_add_to_query_string_params()
 		{
 			var queryStringParameters = new Dictionary<string, string>();
 			var requestData = new RequestData
@@ -166,27 +216,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		}
 
 		[Test]
-		public void Should_use_base_uri_when_it_is_present()
-		{
-			const string expectedApiUri = "http://api.7dizzle";
-			var baseUriProvider = A.Fake<IBaseUriProvider>();
-			A.CallTo(() => baseUriProvider.BaseUri(A<RequestData>.Ignored)).Returns(expectedApiUri);
-
-			var requestData = new RequestData
-			{
-				Endpoint = "test",
-				HttpMethod = HttpMethod.Get,
-				Headers = new Dictionary<string, string>(),
-				BaseUriProvider = baseUriProvider
-			};
-
-			var request = _requestBuilder.BuildRequest(requestData);
-
-			Assert.That(request.Url, Is.StringStarting(expectedApiUri));
-		}
-
-		[Test]
-		public void Should_add_traceId_header_as_a_valid_guid()
+		public void Adds_traceId_header_as_a_valid_guid()
 		{
 			const string expectedApiUri = "http://api.7dizzle";
 			var baseUriProvider = A.Fake<IBaseUriProvider>();
@@ -207,7 +237,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 		}
 
 		[Test]
-		public void Should_allow_a_custom_traceId_to_be_specified()
+		public void Allows_a_custom_traceId_to_be_specified()
 		{
 			const string expectedApiUri = "http://api.7dizzle";
 			var baseUriProvider = A.Fake<IBaseUriProvider>();
