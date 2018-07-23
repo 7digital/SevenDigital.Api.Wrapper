@@ -1,9 +1,8 @@
-﻿using System;
+﻿using OAuth;
+using SevenDigital.Api.Wrapper.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using OAuth;
-using SevenDigital.Api.Wrapper.Http;
 
 namespace SevenDigital.Api.Wrapper.Requests
 {
@@ -42,8 +41,10 @@ namespace SevenDigital.Api.Wrapper.Requests
 			headers.Add("Authorization", oauthHeader);
 			headers.Add("Accept", requestData.Accept);
 
-			var traceId = requestData.TraceId ?? Guid.NewGuid().ToString();
-			headers.Add("x-7d-traceid", traceId);
+			if (requestData.TraceId != null)
+			{
+				headers.Add("x-7d-traceid", requestData.TraceId);
+			}
 
 			var queryParams = requestData.HttpMethod.ShouldHaveRequestBody()
 				? GetAllowedQueryStringParams(apiRequest.Parameters)
@@ -54,7 +55,7 @@ namespace SevenDigital.Api.Wrapper.Requests
 				fullUrl += "?" + queryParams.ToQueryString();
 			}
 
-			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody, traceId);
+			return new Request(requestData.HttpMethod, fullUrl, headers, requestBody, requestData.TraceId);
 		}
 
 		private static RequestPayload CheckForRequestPayload(RequestData requestData, IDictionary<string,string> requestParameters)
@@ -121,4 +122,4 @@ namespace SevenDigital.Api.Wrapper.Requests
 				(queryStringParameters.Count == 0);
 		}
 	}
-}
+}

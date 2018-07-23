@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using FakeItEasy;
+﻿using FakeItEasy;
 using NUnit.Framework;
 using SevenDigital.Api.Wrapper.Environment;
 using SevenDigital.Api.Wrapper.Requests;
+using System.Collections.Generic;
+using System.Net.Http;
 
 namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 {
@@ -12,6 +11,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 	public class RequestBuilderTests
 	{
 		private const string API_URL = "http://api.7digital.com/1.2";
+		private const string TRACE_ID_HEADER_KEY = "x-7d-traceid";
 		private RequestBuilder _requestBuilder;
 
 		[SetUp]
@@ -231,9 +231,8 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			};
 			var request = _requestBuilder.BuildRequest(requestData);
 
-			var traceIdHeader = request.Headers["x-7d-traceid"];
-			Assert.That(traceIdHeader, Is.Not.Null);
-			Assert.DoesNotThrow(() => Guid.Parse(traceIdHeader));
+			var hasTraceIdHeader = request.Headers.Keys.Contains(TRACE_ID_HEADER_KEY);
+			Assert.That(hasTraceIdHeader, Is.False);
 		}
 
 		[Test]
@@ -255,7 +254,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Requests
 			};
 			var request = _requestBuilder.BuildRequest(requestData);
 
-			var traceIdHeader = request.Headers["x-7d-traceid"];
+			var traceIdHeader = request.Headers[TRACE_ID_HEADER_KEY];
 			Assert.That(traceIdHeader, Is.Not.Null);
 			Assert.That(traceIdHeader, Is.EqualTo(customTraceId));
 		}
